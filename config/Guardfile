@@ -7,8 +7,8 @@ notification :tmux, display_message: true
 
 ## Uncomment and set this to only include directories you want to watch
 # rubocop:disable Lint/AmbiguousBlockAssociation
-directories %w[app lib config test] \
-  .select { |d| Dir.exist?(d) ? d : UI.warning('Directory #{d} does not exist') }
+directories %w[app lib config test]
+  .select { |d| Dir.exist?(d) ? d : UI.warning("Directory #{d} does not exist") }
 # rubocop:enable Lint/AmbiguousBlockAssociation
 ## Uncomment and set this to only include directories you want to watch
 # directories %w(app lib config test spec features) \
@@ -49,7 +49,7 @@ guard :minitest do
   watch(%r{^test/test_helper\.rb$}) { 'test' }
 end
 
-#guard :rubocop, all_on_start: false, cli: ['-D'] do
-  #watch(/.+\.rb$/)
-  #watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
-#end
+# guard :rubocop, all_on_start: false, cli: ['-D'] do
+# watch(/.+\.rb$/)
+# watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
+# end

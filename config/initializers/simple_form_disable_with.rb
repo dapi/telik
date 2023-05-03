@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Я думаю из описания понятно что это за модуль )
+#
 module DisableDoubleClickOnSimpleForms
   def submit(field, options = {})
     if field.is_a?(Hash)

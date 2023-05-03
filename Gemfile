@@ -99,4 +99,4 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "sorcery", "~> 0.16.5"
+gem 'sorcery', '~> 0.16.5'

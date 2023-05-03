@@ -10,6 +10,9 @@ AllCops:
     - db/*
     - db/migrate/*
     - bin/*
+Layout/LineLength:
+  Exclude:
+    - 'config/initializers/simple_form_*.rb'
 
 Style/Documentation:
   Exclude:
