@@ -44,23 +44,37 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+gem 'active_link_to'
+gem 'anyway_config'
+gem 'semver2', github: 'haf/semver'
+gem 'slim-rails'
+gem 'telegram-bot'
+
+gem 'draper'
+gem 'simple_form'
+gem 'strip_attributes'
+
+gem 'request_store'
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-rails', require: false
-  gem 'brakeman', require: false
-  gem 'bundler-audit', require: false
 end
 
 group :development do
+  gem 'bcrypt_pbkdf'
+  gem 'ed25519'
+  gem 'foreman'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
@@ -69,6 +83,13 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'guard'
+  gem 'listen'
+  gem 'terminal-notifier-guard'
+
+  gem 'guard-ctags-bundler'
+  gem 'guard-minitest'
+  gem 'guard-rails'
 end
 
 group :test do
