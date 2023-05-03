@@ -11,6 +11,9 @@ AllCops:
     - db/migrate/*
     - bin/*
 
+Style/SymbolArray:
+  Enabled: false
+
 Style/RedundantFetchBlock:
   Exclude: 
     - 'config/puma.rb'
