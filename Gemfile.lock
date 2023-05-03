@@ -4,6 +4,14 @@ GIT
   specs:
     semver2 (3.4.2)
 
+GIT
+  remote: https://github.com/yivo/env-tweaks.git
+  revision: 9086f8ad166e6b877acbc6314a3f94a1d87bbfae
+  branch: dependabot/bundler/activesupport-7.0.4.1
+  specs:
+    env-tweaks (1.0.1)
+      activesupport (>= 3.0, < 8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -373,6 +381,7 @@ DEPENDENCIES
   debug
   draper
   ed25519
+  env-tweaks!
   foreman
   guard
   guard-ctags-bundler

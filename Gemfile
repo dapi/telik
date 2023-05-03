@@ -53,6 +53,7 @@ gem 'telegram-bot'
 gem 'draper'
 gem 'simple_form'
 gem 'strip_attributes'
+gem 'env-tweaks', github: 'yivo/env-tweaks', branch: 'dependabot/bundler/activesupport-7.0.4.1'
 
 gem 'request_store'
 # Use Sass to process CSS
