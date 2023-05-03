@@ -39,3 +39,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 9
 
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
