@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "welcome#index"
-  telegram_webhook Telegram::WebhookController
+  telegram_webhook Telegram::SupportBot::WebhookController, :support
+  telegram_webhook Telegram::OperatorBot::WebhookController, :operator
+
   get 'telegram/auth_callback'
 
   get 'v', to: 'visits#create'
