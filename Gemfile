@@ -49,6 +49,7 @@ gem 'anyway_config'
 gem 'semver2', github: 'haf/semver'
 gem 'slim-rails'
 gem 'telegram-bot'
+gem 'bootstrap', '~> 5.1.3'
 
 gem 'draper'
 gem 'simple_form'
