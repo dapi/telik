@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   telegram_webhook Telegram::WebhookController
   get 'telegram/auth_callback'
 
+  get 'v', to: 'visits#create'
+
   resources :sessions, only: %i[new create] do
     collection do
       delete :destroy

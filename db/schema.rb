@@ -42,12 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_154540) do
   end
 
   create_table "visits", force: :cascade do |t|
+    t.string "key", null: false
     t.bigint "visitor_id", null: false
     t.inet "remote_ip", null: false
     t.jsonb "data", default: {}, null: false
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_visits_on_key", unique: true
     t.index ["visitor_id"], name: "index_visits_on_visitor_id"
   end
 

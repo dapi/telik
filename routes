@@ -1,6 +1,11 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
                                     root GET    /                                                                                                 welcome#index
+                        telegram_webhook POST   /telegram/rXm4k7mcyaZOgv70kwEki_yCw1Y                                                             #<Telegram::Bot::Middleware(Telegram::WebhookController)>
                   telegram_auth_callback GET    /telegram/auth_callback(.:format)                                                                 telegram#auth_callback
+                                       v GET    /v(.:format)                                                                                      visits#create
+                                sessions DELETE /sessions(.:format)                                                                               sessions#destroy
+                                         POST   /sessions(.:format)                                                                               sessions#create
+                             new_session GET    /sessions/new(.:format)                                                                           sessions#new
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
        turbo_refresh_historical_location GET    /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh
