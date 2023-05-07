@@ -1,0 +1,6 @@
+development:
+  host: localhost
+
+test:
+  host: localhost
+  telegram_bot_token: bot:123

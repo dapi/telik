@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_145331) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_133844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string "email", null: false
+    t.string "email"
     t.string "crypted_password"
     t.string "salt"
     t.datetime "created_at", null: false
@@ -26,9 +26,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145331) do
     t.datetime "last_logout_at"
     t.datetime "last_activity_at"
     t.string "last_login_from_ip_address"
+    t.bigint "telegram_id", null: false
+    t.jsonb "telegram_data", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["telegram_id"], name: "index_users_on_telegram_id", unique: true
   end
 
 end

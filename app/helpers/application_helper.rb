@@ -26,7 +26,8 @@ module ApplicationHelper
   end
 
   def app_title
-    t 'application.app_title'
+    'TELIK'
+    # t 'application.app_title'
   end
 
   def back_link(url = nil)

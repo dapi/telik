@@ -7,7 +7,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.flex-column.flex-md-row.sticky
     button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Navigation"]
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
-      .navbar-text.lead Зарабатывай покупая!
+      .navbar-text.lead Общайтесь с посетителями вашего сайта просто
       /ul.navbar-nav.mr-auto
         /= active_link_to products_url, class: 'nav-link', wrap_tag: :li, wrap_class: 'nav-item' do
           /span.mr-2= icon 'md-arrow-back'
@@ -20,7 +20,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.flex-column.flex-md-row.sticky
         /li.nav-item.dropdown.mr-2.d-flex.align-items-center
           /= active_link_to seller_root_url, class: 'my-lg-0 py-lg-0 nav-link', role: :button, 'aria-haspopup' => true, 'aria-expanded' => false do
             /| Продавцам
-      ul.navbar-nav.d-flex
-        li.nav-item
-          = link_to 'Вход для продавцов', seller_path, class: 'btn btn-primary'
+      /ul.navbar-nav.d-flex
+        /li.nav-item
+          /= link_to 'Вход для продавцов', seller_path, class: 'btn btn-primary'
       = render 'nav_user'
