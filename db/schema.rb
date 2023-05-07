@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_133844) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_154540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,4 +34,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_133844) do
     t.index ["telegram_id"], name: "index_users_on_telegram_id", unique: true
   end
 
+  create_table "visitors", force: :cascade do |t|
+    t.string "cookie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cookie_id"], name: "index_visitors_on_cookie_id", unique: true
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.bigint "visitor_id", null: false
+    t.inet "remote_ip", null: false
+    t.jsonb "data", default: {}, null: false
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["visitor_id"], name: "index_visits_on_visitor_id"
+  end
+
+  add_foreign_key "visits", "visitors"
 end
