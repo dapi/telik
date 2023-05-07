@@ -1,0 +1,21 @@
+title= app_title
+meta charset="utf-8"
+meta content="IE=Edge" http-equiv="X-UA-Compatible"
+meta content="width=device-width, initial-scale=1.0" name="viewport"
+
+= content_for :head
+
+// To prevent the page from flickering as it scrolls from the top to the desired position, add the no-preview cache directive in the page's head:
+// Useful for board page
+meta name="turbolinks-cache-control" content="no-preview"
+
+-#= render 'bugsnag'
+= csrf_meta_tags
+= csp_meta_tag
+
+= javascript_importmap_tags
+
+= stylesheet_link_tag "application", "data-turbo-track": "reload" 
+= stylesheet_link_tag 'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css', media: 'all'
+
+-# = render 'load_overlay'

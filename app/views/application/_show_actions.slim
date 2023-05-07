@@ -1,0 +1,5 @@
+div
+  .float-left
+    = link_to t("buttons.edit"), url_for([:edit, :admin, record]), class: 'btn btn-primary'
+  .float-right
+    = link_to t("buttons.destroy"), url_for([:admin, record]), class: 'btn btn-danger', method: :delete, 'data-confirm': t('are_you_sure')

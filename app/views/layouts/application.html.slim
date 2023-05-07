@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    = render 'head'
+  body
+    = render 'navbar'
+    -# [data-turbo-permanent]
+    main.container.px-3.py-3
+      = yield
+
+    = render 'flashes'
