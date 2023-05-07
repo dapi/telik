@@ -7,6 +7,7 @@ class Telegram::SupportBot::WebhookController < Telegram::Bot::UpdatesController
       if visit.nil?
         respond_with :message, text: 'Привет! Визит не найден'
       else
+        Telegram.bots[:operator].send_message chat_id: 943084337, text: "Новый посетитель #{visit.as_json}"
         respond_with :message, text: visit.as_json
       end
     else
