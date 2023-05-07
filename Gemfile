@@ -74,6 +74,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
   gem 'foreman'

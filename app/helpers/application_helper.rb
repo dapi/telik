@@ -2,8 +2,16 @@
 
 module ApplicationHelper
   def telegram_link
-    link_to '#' do
-      image_tag 'telegram_logo.png', class: 'img-responsive', width: 50, height: 50, style: 'position:fixed;bottom:0;margin:1em;background:none;z-index:9999', skip_pipeline: true
+    custom_params = { host: request.host, remote_ip: request.remote_ip }.to_json
+    url = "https://t.me/#{Rails.application.credentials.telegram.bot.username}?" + {start: custom_params}.to_query
+    link_to url do
+      image_tag 'telegram_logo.png',
+        class: 'img-responsive',
+        width: 50,
+        height: 50,
+        style: 'position:fixed;bottom:0;margin:1em;background:none;z-index:9999',
+        skip_pipeline: true,
+        target: '_blank'
     end
   end
 
