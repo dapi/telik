@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_154540) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_171021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "projects", force: :cascade do |t|
+    t.string "domain", null: false
+    t.string "key", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_projects_on_key", unique: true
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -53,5 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_154540) do
     t.index ["visitor_id"], name: "index_visits_on_visitor_id"
   end
 
+  add_foreign_key "projects", "users", column: "owner_id"
   add_foreign_key "visits", "visitors"
 end
