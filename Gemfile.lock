@@ -173,6 +173,7 @@ GEM
       guard (~> 2.11)
       guard-compat (~> 1.0)
     hashie (5.0.0)
+    hiredis (0.6.3)
     httpclient (2.8.3)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
@@ -408,6 +409,7 @@ DEPENDENCIES
   guard-ctags-bundler
   guard-minitest
   guard-rails
+  hiredis
   importmap-rails
   jbuilder
   listen
