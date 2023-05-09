@@ -11,7 +11,12 @@ class Visitor < ApplicationRecord
 
   validates :cookie_id, presence: true
 
-  def topic_title
-    remote_ip
+  delegate :topic_title, to: :first_visit
+
+  # chat =>
+  # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
+  def update_user_from_chat!(chat)
+    assign_attributes chat.slice(*%w[first_name last_name username]).merge(telegram_id: chat.fetch('id'))
+    save! if changed?
   end
 end

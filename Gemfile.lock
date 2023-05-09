@@ -151,6 +151,7 @@ GEM
     ffi (1.15.5)
     foreman (0.87.2)
     formatador (1.1.0)
+    geocoder (1.8.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
     guard (2.18.0)
@@ -408,6 +409,7 @@ DEPENDENCIES
   ed25519
   env-tweaks!
   foreman
+  geocoder (~> 1.8)
   guard
   guard-ctags-bundler
   guard-minitest

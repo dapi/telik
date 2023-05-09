@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :delete_all
   has_many :projects, through: :memberships
 
+  validates :telegram_id, presence: true
+
   def to_s
     public_name
   end

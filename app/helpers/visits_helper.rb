@@ -19,6 +19,6 @@ module VisitsHelper
   # Но в жизни пользователь должен тут подставлять ключ своего проекта
   #
   def default_project_key
-    Project.find_by(domain: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost')).fist.key
+    Project.find_by(host: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost')).key
   end
 end

@@ -68,8 +68,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
     t.string "cached_telegram_topic_name"
     t.bigint "cached_telegram_topic_icon_color"
     t.datetime "telegram_cached_at", precision: nil
-    t.string "name"
-    t.string "surname"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.bigint "telegram_id"
     t.bigint "first_visit_id"
     t.bigint "last_visit_id"
     t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
@@ -82,8 +84,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
     t.string "key", null: false
     t.bigint "visitor_id", null: false
     t.inet "remote_ip", null: false
+    t.jsonb "location", null: false
     t.jsonb "data", default: {}, null: false
-    t.string "url", null: false
+    t.jsonb "chat"
+    t.string "referrer"
+    t.datetime "registered_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_visits_on_key", unique: true
