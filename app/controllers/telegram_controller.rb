@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Контроллер аутентияикации участников проекта
+# TODO: Переименовать в TelegramAuthCallback
+#
 class TelegramController < ApplicationController
   def self.sign_params(data_params)
     data_check_string = data_params.sort.map { |k, v| [k, v].join('=') }.join("\n")

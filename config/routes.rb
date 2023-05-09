@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "welcome#index"
+  root 'welcome#index'
   telegram_webhook Telegram::SupportBot::WebhookController, :support
   telegram_webhook Telegram::OperatorBot::WebhookController, :operator
 

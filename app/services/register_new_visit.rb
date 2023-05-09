@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 
 # Регистрирует новый визит (когда пользователь нажал start)
 # А именно:
 # 1. Создает если необходимо новый топик
 # 2. Уведомлеят оператора о новом нопике
 #
-class RegisterNewVisit < ApplicationCommand
+class RegisterNewVisit < ApplicationService
   def initialize(visit)
     @visit = visit
   end
@@ -19,7 +20,7 @@ class RegisterNewVisit < ApplicationCommand
 
   # Уведомляет оператора о новом посетителе
   def notify_operator!(visit)
-    Telegram.bots[:operator].send_message chat_id: 943084337, text: "Новый посетитель #{visit.as_json}"
+    Telegram.bots[:operator].send_message chat_id: 943_084_337, text: "Новый посетитель #{visit.as_json}"
   end
 
   # Отправляет в новый топик уведомление

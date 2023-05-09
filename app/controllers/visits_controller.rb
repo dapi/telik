@@ -1,17 +1,21 @@
+# frozen_string_literal: true
+
+# Учитывает визит пользователя. Это происходит по клику на виджете
+#
 class VisitsController < ApplicationController
   before_action :cookie_id
 
   def create
     data = params[:data] || {}
-    project = Project.find_by_key!(params[:pk])
+    project = Project.find_by!(key: params[:pk])
     visit =
       Visitor
-      .create_or_find_by!(project_id: project.id, cookie_id: cookie_id)
+      .create_or_find_by!(project:, cookie_id:)
       .visits
       .create!(
-        url: request.referrer.to_s,
+        url: request.referer.to_s,
         remote_ip: request.remote_ip,
-        data: data
+        data:
       )
 
     redirect_to(

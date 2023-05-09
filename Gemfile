@@ -30,8 +30,8 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
 gem 'hiredis'
+gem 'redis', '~> 4.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -47,15 +47,15 @@ gem 'bootsnap', require: false
 
 gem 'active_link_to'
 gem 'anyway_config'
+gem 'bootstrap', '~> 5.1.3'
 gem 'semver2', github: 'haf/semver'
 gem 'slim-rails'
 gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot'
-gem 'bootstrap', '~> 5.1.3'
 
 gem 'draper'
+gem 'env-tweaks', github: 'yivo/env-tweaks', branch: 'dependabot/bundler/activesupport-7.0.4.1'
 gem 'simple_form'
 gem 'strip_attributes'
-gem 'env-tweaks', github: 'yivo/env-tweaks', branch: 'dependabot/bundler/activesupport-7.0.4.1'
 
 gem 'request_store'
 # Use Sass to process CSS
@@ -75,11 +75,11 @@ group :development, :test do
 end
 
 group :development do
-  gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
   gem 'foreman'
+  gem 'pry-byebug'
+  gem 'pry-rails'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
@@ -106,4 +106,4 @@ end
 
 gem 'sorcery', '~> 0.16.5'
 
-gem "nanoid", "~> 2.0"
+gem 'nanoid', '~> 2.0'

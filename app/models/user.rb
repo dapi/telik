@@ -6,7 +6,7 @@ class User < ApplicationRecord
   strip_attributes
   authenticates_with_sorcery!
 
-  has_many :memberships
+  has_many :memberships, dependent: :delete_all
   has_many :projects, through: :memberships
 
   def to_s
