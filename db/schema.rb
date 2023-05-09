@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_08_144559) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.boolean "is_owner", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "user_id"], name: "index_memberships_on_project_id_and_user_id", unique: true
+    t.index ["project_id"], name: "index_memberships_on_project_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "domain", null: false
@@ -20,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_144559) do
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "telegram_group_id"
     t.index ["key"], name: "index_projects_on_key", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
@@ -73,6 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_144559) do
     t.index ["visitor_id"], name: "index_visits_on_visitor_id"
   end
 
+  add_foreign_key "memberships", "projects"
+  add_foreign_key "memberships", "users"
   add_foreign_key "projects", "users", column: "owner_id"
   add_foreign_key "visits", "visitors"
 end
