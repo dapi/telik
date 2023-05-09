@@ -12,6 +12,7 @@ class VisitsController < ApplicationController
         remote_ip: request.remote_ip,
         data: data
       )
+
     redirect_to(
       "https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" + visit.telegram_key,
       allow_other_host: true

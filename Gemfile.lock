@@ -5,6 +5,15 @@ GIT
     semver2 (3.4.2)
 
 GIT
+  remote: https://github.com/telegram-bot-rb/telegram-bot.git
+  revision: f0c5222c8fe6b59e50f2e0be2cc2a971e6063417
+  specs:
+    telegram-bot (0.15.7)
+      actionpack (>= 4.0, < 7.1)
+      activesupport (>= 4.0, < 7.1)
+      httpclient (~> 2.7)
+
+GIT
   remote: https://github.com/yivo/env-tweaks.git
   revision: 9086f8ad166e6b877acbc6314a3f94a1d87bbfae
   branch: dependabot/bundler/activesupport-7.0.4.1
@@ -348,10 +357,6 @@ GEM
       railties (>= 6.0.0)
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
-    telegram-bot (0.15.7)
-      actionpack (>= 4.0, < 7.1)
-      activesupport (>= 4.0, < 7.1)
-      httpclient (~> 2.7)
     temple (0.10.0)
     terminal-notifier-guard (1.7.0)
     thor (1.2.1)
@@ -426,7 +431,7 @@ DEPENDENCIES
   sprockets-rails
   stimulus-rails
   strip_attributes
-  telegram-bot
+  telegram-bot!
   terminal-notifier-guard
   turbo-rails
   tzinfo-data

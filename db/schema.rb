@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_171021) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_144559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,7 +48,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_171021) do
     t.string "cookie_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "telegram_message_thread_id"
+    t.string "cached_telegram_topic_name"
+    t.bigint "cached_telegram_topic_icon_color"
+    t.datetime "telegram_cached_at", precision: nil
+    t.string "name"
+    t.string "surname"
+    t.bigint "first_visit_id"
+    t.bigint "last_visit_id"
     t.index ["cookie_id"], name: "index_visitors_on_cookie_id", unique: true
+    t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
+    t.index ["last_visit_id"], name: "index_visitors_on_last_visit_id"
   end
 
   create_table "visits", force: :cascade do |t|
