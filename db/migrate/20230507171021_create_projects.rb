@@ -8,5 +8,9 @@ class CreateProjects < ActiveRecord::Migration[7.0]
       t.timestamps
     end
     add_index :projects, :key, unique: true
+
+    add_reference :visitors, :project, null: false
+    remove_index :visitors, :cookie_id, unique: true
+    add_index :visitors, %i[project_id cookie_id], unique: true
   end
 end

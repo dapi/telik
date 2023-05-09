@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
-    t.boolean "is_owner", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id", "user_id"], name: "index_memberships_on_project_id_and_user_id", unique: true
@@ -60,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
     t.string "cookie_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id", null: false
     t.bigint "telegram_message_thread_id"
     t.string "cached_telegram_topic_name"
     t.bigint "cached_telegram_topic_icon_color"
@@ -68,9 +68,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
     t.string "surname"
     t.bigint "first_visit_id"
     t.bigint "last_visit_id"
-    t.index ["cookie_id"], name: "index_visitors_on_cookie_id", unique: true
     t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
     t.index ["last_visit_id"], name: "index_visitors_on_last_visit_id"
+    t.index ["project_id", "cookie_id"], name: "index_visitors_on_project_id_and_cookie_id", unique: true
+    t.index ["project_id"], name: "index_visitors_on_project_id"
   end
 
   create_table "visits", force: :cascade do |t|

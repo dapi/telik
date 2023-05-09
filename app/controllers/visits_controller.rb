@@ -3,9 +3,10 @@ class VisitsController < ApplicationController
 
   def create
     data = params[:data] || {}
+    project = Project.find_by_key!(params[:pk])
     visit =
       Visitor
-      .create_or_find_by!(cookie_id: cookie_id)
+      .create_or_find_by!(project_id: project.id, cookie_id: cookie_id)
       .visits
       .create!(
         url: request.referrer.to_s,

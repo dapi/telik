@@ -1,6 +1,6 @@
 module VisitsHelper
   def telegram_link
-    link_to v_url do
+    link_to v_url(pk: default_project_key) do
       image_tag 'telegram_logo.png',
         class: 'img-responsive',
         width: 50,
@@ -9,5 +9,12 @@ module VisitsHelper
         skip_pipeline: true,
         target: '_blank'
     end
+  end
+
+  # Это пример поэтому берем первый попавшийся ключ
+  # Но в жизни пользователь должен тут подставлять ключ своего проекта
+  #
+  def default_project_key
+    Project.find_by(domain: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost')).fist.key
   end
 end

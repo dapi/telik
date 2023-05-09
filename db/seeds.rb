@@ -20,7 +20,7 @@ owner = User.
 project = Project.
   create_with(
     owner: owner,
-    domain: 'kiiiosk.store',
+    domain: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
   ).
   create_or_find_by!(
     telegram_group_id: -1001854699958
