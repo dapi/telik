@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  visitor: one
+yandex:
+  visitor: yandex
+  key: yandex
+  remote_ip: 127.0.0.1
+  url: https://yandex.ru
 
-two:
-  visitor: two
+dzen:
+  visitor: dzen
+  key: dzen
+  remote_ip: 127.0.0.1
+  url: https://dzen.ru

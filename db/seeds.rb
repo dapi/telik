@@ -19,11 +19,12 @@ owner = User.
 
 project = Project.
   create_with(
-    owner: owner,
-    domain: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
+    telegram_group_id: -1001854699958,
+    url: 'http://' + ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
   ).
   create_or_find_by!(
-    telegram_group_id: -1001854699958
+    owner: owner,
+    host: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
   )
 
 Membership.find_or_create_by!(project: project, user: owner)

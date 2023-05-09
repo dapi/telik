@@ -10,4 +10,8 @@ class Visitor < ApplicationRecord
   has_one :first_visit, class_name: 'Visit', dependent: :nullify
 
   validates :cookie_id, presence: true
+
+  def topic_title
+    remote_ip
+  end
 end

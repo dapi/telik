@@ -20,11 +20,9 @@ class Visit < ApplicationRecord
     visitor.update_column :last_visit_id, id
   end
 
+  # Ключ через который ссылаемся на этот визит в ссылке на телеграм
+  #
   def telegram_key
     TELEGRAM_KEY_PREFIX + key
-  end
-
-  def topic_title
-    remote_ip
   end
 end

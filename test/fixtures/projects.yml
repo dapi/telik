@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  domain: MyString
+yandex:
+  host: yandex.ru
+  key: yandex
+  url: https://yandex.ru
   owner: one
 
-two:
-  domain: MyString
+dzen:
+  host: dzen.ru
+  key: dzen
+  url: https://dzen.ru
   owner: two

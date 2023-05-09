@@ -3,7 +3,9 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  fixtures :users
+
+  test 'user is persisted' do
+    assert users(:one).persisted?
+  end
 end

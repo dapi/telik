@@ -370,6 +370,9 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
+    validate_url (1.0.15)
+      activemodel (>= 3.0.0)
+      public_suffix
     version_gem (1.1.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -437,6 +440,7 @@ DEPENDENCIES
   terminal-notifier-guard
   turbo-rails
   tzinfo-data
+  validate_url (~> 1.0)
   web-console
   webdrivers
 

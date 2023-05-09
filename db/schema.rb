@@ -25,14 +25,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "domain", null: false
+    t.string "url", null: false
+    t.string "host", null: false
     t.string "key", null: false
+    t.datetime "host_confirmed_at", precision: nil
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "telegram_group_id"
     t.index ["key"], name: "index_projects_on_key", unique: true
+    t.index ["owner_id", "host"], name: "index_projects_on_owner_id_and_host", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.index ["url", "owner_id"], name: "index_projects_on_url_and_owner_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_065033) do
     t.datetime "last_activity_at"
     t.string "last_login_from_ip_address"
     t.bigint "telegram_id", null: false
-    t.jsonb "telegram_data", null: false
+    t.jsonb "telegram_data", default: {}, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"

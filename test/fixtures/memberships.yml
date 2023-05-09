@@ -3,9 +3,7 @@
 one:
   user: one
   project: one
-  is_owner: false
 
 two:
   user: two
   project: two
-  is_owner: false

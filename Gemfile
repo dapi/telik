@@ -107,3 +107,5 @@ end
 gem 'sorcery', '~> 0.16.5'
 
 gem 'nanoid', '~> 2.0'
+
+gem "validate_url", "~> 1.0"

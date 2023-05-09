@@ -3,7 +3,9 @@
 require 'test_helper'
 
 class VisitorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  fixtures :visitors
+
+  test 'visitor is persisted' do
+    assert visitors(:yandex).persisted?
+  end
 end

@@ -18,7 +18,7 @@ class FindOrCreateTopic < ApplicationService
   def find_or_create_topic!(visit)
     return if visit.visitor.telegram_group_id.present?
 
-    topic = create_topic! visit
+    topic = create_topic! visit.visitor
 
     visit.visitor.update!(
       telegram_message_thread_id: topic.fetch('message_thread_id'),
@@ -28,10 +28,10 @@ class FindOrCreateTopic < ApplicationService
     )
   end
 
-  def create_topic!(_visit)
+  def create_topic!(visitor)
     topic = Telegram.bots[:operator].create_forum_topic(
-      chat_id: @visit.project.telegram_group_id,
-      name: @visit.topic_title
+      chat_id: visitor.project.telegram_group_id,
+      name: visitor.topic_title
       # icon_color: ,
       # icon_custom_emoji_id
     )
