@@ -25,6 +25,8 @@ require 'capistrano/rails/console'
 
 # require 'capistrano/yarn'
 require 'capistrano/rails/migrations'
+require 'capistrano/dotenv/tasks'
+require 'capistrano/dotenv'
 
 require 'capistrano/puma'
 install_plugin Capistrano::Puma

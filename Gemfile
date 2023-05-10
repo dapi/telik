@@ -107,6 +107,8 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-db-tasks', require: false, github: 'brandymint/capistrano-db-tasks',
                              branch: 'feature/extra_args_for_dump'
+  gem 'capistrano-dotenv', require: false
+  gem 'capistrano-dotenv-tasks', require: false
   gem 'capistrano-faster-assets', require: false
   gem 'capistrano-git-with-submodules'
   gem 'capistrano-master-key', require: false, github: 'virgoproz/capistrano-master-key'
@@ -136,3 +138,6 @@ gem 'validate_url', '~> 1.0'
 gem 'geocoder', '~> 1.8'
 
 gem 'bugsnag', '~> 6.25'
+
+gem 'dotenv', '~> 2.8'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
