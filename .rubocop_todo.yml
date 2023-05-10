@@ -1,7 +1,0 @@
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: nested, compact
-
-# Offense count: 4
-# Configuration parameters: AllowedConstants.

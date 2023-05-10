@@ -1,4 +1,6 @@
-inherit_from: .rubocop_todo.yml
+inherit_mode:
+  override:
+    - Exclude
 require:
   - rubocop-rails
   - rubocop-capybara
@@ -11,7 +13,7 @@ AllCops:
     - db/migrate/*
     - bin/*
     - tmp/*
-    - vendor/bundle/* # Used in github actions
+    - vendor/**/* # Used in github actions
 
 Layout/LineLength:
   Exclude:
