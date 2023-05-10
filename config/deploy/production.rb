@@ -5,7 +5,7 @@ set :rails_env, :production
 fetch(:default_env)[:rails_env] = :production
 fetch(:default_env)[:tld_length] = 1
 
-server '37.27.9.73',
+server 'telikbot.ru',
        user: fetch(:user),
        port: '22',
        primary: true,
