@@ -138,3 +138,6 @@ gem 'validate_url', '~> 1.0'
 gem 'geocoder', '~> 1.8'
 
 gem 'bugsnag', '~> 6.25'
+
+gem 'dotenv', '~> 2.8'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
