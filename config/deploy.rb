@@ -15,4 +15,4 @@ set :linked_dirs,
 # set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
 
 desc 'Setup deploy'
-task setup: ['master_key:setup', 'puma:install', 'systemd:sidekiq:setup']
+task setup: ['master_key:setup', 'puma:install', 'systemd:sidekiq:setup', 'telegram:bot:set_webhook']

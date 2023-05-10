@@ -161,10 +161,6 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bundler (2.1.0)
       capistrano (~> 3.1)
-    capistrano-dotenv (0.0.5)
-      capistrano (>= 3.5.0, < 4.0.0)
-    capistrano-dotenv-tasks (0.1.5)
-      capistrano (~> 3.0)
     capistrano-faster-assets (1.1.0)
       capistrano (>= 3.1)
     capistrano-git-with-submodules (2.0.6)
@@ -197,10 +193,6 @@ GEM
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -492,8 +484,6 @@ DEPENDENCIES
   capistrano
   capistrano-bundler
   capistrano-db-tasks!
-  capistrano-dotenv
-  capistrano-dotenv-tasks
   capistrano-faster-assets
   capistrano-git-with-submodules
   capistrano-master-key!
@@ -505,8 +495,6 @@ DEPENDENCIES
   capistrano3-puma!
   capybara
   debug
-  dotenv (~> 2.8)
-  dotenv-rails
   draper
   ed25519
   env-tweaks!
