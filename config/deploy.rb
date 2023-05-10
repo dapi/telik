@@ -5,8 +5,7 @@ set :application, 'telikbot.ru'
 set :user, 'app'
 set :deploy_to, -> { "/home/#{fetch(:user)}/#{fetch(:application)}" }
 
-# по-умолчанию пусто
-# set :linked_files, []
+set :linked_files, %w[.env config/master.key]
 
 # Defaults
 set :linked_dirs,
@@ -16,4 +15,4 @@ set :linked_dirs,
 # set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
 
 desc 'Setup deploy'
-task setup: ['puma:install', 'systemd:sidekiq:setup']
+task setup: ['master_key:setup', 'puma:install', 'systemd:sidekiq:setup']

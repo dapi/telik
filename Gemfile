@@ -111,7 +111,7 @@ group :development do
   gem 'capistrano-dotenv-tasks', require: false
   gem 'capistrano-faster-assets', require: false
   gem 'capistrano-git-with-submodules'
-  # gem 'capistrano-master-key', require: false, github: 'virgoproz/capistrano-master-key'
+  gem 'capistrano-master-key', require: false, github: 'virgoproz/capistrano-master-key'
   # gem 'capistrano-nvm', require: false
   # gem 'capistrano-yarn', require: false
   gem 'capistrano-rails', require: false

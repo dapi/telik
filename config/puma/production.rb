@@ -1,11 +1,12 @@
 #!/usr/bin/env puma
+# frozen_string_literal: true
 
-APP_ROOT = Dir.pwd.gsub(/\/releases\/\d+/, '')
+APP_ROOT = Dir.pwd.gsub(%r{/releases/\d+}, '')
 
-raise 'No shared directory' unless Dir.exist? APP_ROOT + '/shared'
+raise 'No shared directory' unless Dir.exist? "#{APP_ROOT}/shared"
 
-SHARED_DIR = APP_ROOT + '/shared'
-CURRENT_DIR = APP_ROOT + '/current'
+SHARED_DIR = "#{APP_ROOT}/shared".freeze
+CURRENT_DIR = "#{APP_ROOT}/current".freeze
 
 directory CURRENT_DIR
 rackup "#{CURRENT_DIR}/config.ru"
@@ -20,7 +21,10 @@ pidfile "#{SHARED_DIR}/tmp/pids/puma.pid"
 state_path "#{SHARED_DIR}/tmp/pids/puma.state"
 stdout_redirect "#{SHARED_DIR}/log/puma_access.log", "#{SHARED_DIR}/log/puma_error.log", true
 
-activate_control_app ENV.fetch('CONTROL_BIND', 'tcp://127.0.0.1:9294'), { auth_token: ENV.fetch('CONTROL_AUTH_TOKEN', 'CHANGEME') } if ENV.key? 'CONTROL_BIND'
+if ENV.key? 'CONTROL_BIND'
+  activate_control_app ENV.fetch('CONTROL_BIND', 'tcp://127.0.0.1:9294'),
+                       { auth_token: ENV.fetch('CONTROL_AUTH_TOKEN', 'CHANGEME') }
+end
 
 bind "unix://#{SHARED_DIR}/tmp/sockets/puma.sock"
 bind "tcp://0.0.0.0:#{ENV['PORT']}" if ENV['PORT']
@@ -30,7 +34,7 @@ preload_app! false
 prune_bundler
 
 on_restart do
-  puts 'Refreshing Gemfile'
+  Rails.logger.debug 'Refreshing Gemfile'
   ENV['BUNDLE_GEMFILE'] = "#{CURRENT_DIR}/Gemfile"
 end
 

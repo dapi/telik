@@ -38,6 +38,14 @@ GIT
       httpclient (~> 2.7)
 
 GIT
+  remote: https://github.com/virgoproz/capistrano-master-key.git
+  revision: aa99a50e41733288a5d4e1884af16385855847de
+  specs:
+    capistrano-master-key (1.0.2)
+      capistrano (~> 3.11)
+      sshkit (~> 1.17)
+
+GIT
   remote: https://github.com/yivo/env-tweaks.git
   revision: 9086f8ad166e6b877acbc6314a3f94a1d87bbfae
   branch: dependabot/bundler/activesupport-7.0.4.1
@@ -488,6 +496,7 @@ DEPENDENCIES
   capistrano-dotenv-tasks
   capistrano-faster-assets
   capistrano-git-with-submodules
+  capistrano-master-key!
   capistrano-rails
   capistrano-rails-console
   capistrano-rbenv

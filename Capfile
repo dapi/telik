@@ -19,6 +19,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano-db-tasks'
 require 'capistrano/shell'
+require 'capistrano/master_key'
 
 require 'capistrano/rails/console'
 
