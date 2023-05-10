@@ -1,7 +1,7 @@
-semver inc patch
+./bin/semver inc patch
 # semver meta `git rev-parse HEAD`
 git add .semver
-git commit -m `semver`
+git commit -m `./bin/semver`
 git push
 bundle
 bundle exec cap production deploy
