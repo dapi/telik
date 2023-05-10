@@ -27,11 +27,14 @@ require 'capistrano/rails/migrations'
 require 'capistrano/dotenv/tasks'
 require 'capistrano/dotenv'
 
+require 'capistrano/puma'
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Systemd
+
 require 'capistrano/systemd/multiservice'
-install_plugin Capistrano::Systemd::MultiService.new_service('puma', service_type: 'user')
 install_plugin Capistrano::Systemd::MultiService.new_service('sidekiq', service_type: 'user')
 
-# require 'capistrano/datadog'
 require 'capistrano/faster_assets'
 
+Dir.glob('lib/capistrano/*.rb').each { |r| import r }
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
