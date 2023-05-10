@@ -19,7 +19,7 @@ jobs:
       RAILS_ENV: test
       TELIK_DATABASE_HOST: 127.0.0.1
       TELIK_DATABASE_USERNAME: postgres
-      TELIK_DATABASE_PASS: postgres
+      TELIK_DATABASE_PASSWORD: postgres
       REDIS_URL: redis://localhost:6379
     runs-on: ubuntu-latest
     services:
