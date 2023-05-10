@@ -33,6 +33,12 @@ gem 'jbuilder'
 gem 'hiredis'
 gem 'redis', '~> 4.0'
 
+gem 'sidekiq'
+# gem 'sidekiq-cron'
+gem 'sidekiq-failures'
+gem 'sidekiq-reset_statistics'
+# gem 'sidekiq-status'
+# gem 'sidekiq-unique-jobs'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -95,6 +101,25 @@ group :development do
   gem 'guard-ctags-bundler'
   gem 'guard-minitest'
   gem 'guard-rails'
+
+  gem 'capistrano', require: false
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-db-tasks', require: false, github: 'brandymint/capistrano-db-tasks',
+                             branch: 'feature/extra_args_for_dump'
+  gem 'capistrano-dotenv', require: false
+  gem 'capistrano-dotenv-tasks', require: false
+  gem 'capistrano-faster-assets', require: false
+  gem 'capistrano-git-with-submodules'
+  # gem 'capistrano-master-key', require: false, github: 'virgoproz/capistrano-master-key'
+  # gem 'capistrano-nvm', require: false
+  # gem 'capistrano-yarn', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-shell', require: false
+  # gem 'capistrano-sidekiq', require: false
+  gem 'capistrano-systemd-multiservice', github: 'brandymint/capistrano-systemd-multiservice', require: false
 end
 
 group :test do
@@ -111,3 +136,5 @@ gem 'nanoid', '~> 2.0'
 gem 'validate_url', '~> 1.0'
 
 gem 'geocoder', '~> 1.8'
+
+gem "bugsnag", "~> 6.25"
