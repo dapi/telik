@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "948908b7c6a110af075e0e2c49aa489cbf9da31e1ff4778bf1a526ca4975af84",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/visits_controller.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to((\"https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=\" + Visitor.create_or_find_by!(:project => project, :cookie_id => cookie_id).visits.create!(:referrer => request.referer, :remote_ip => request.remote_ip, :location => request.location, :data => data).telegram_key), :allow_other_host => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "VisitsController",
+        "method": "create"
+      },
+      "user_input": "Visitor.create_or_find_by!(:project => project, :cookie_id => cookie_id).visits.create!(:referrer => request.referer, :remote_ip => request.remote_ip, :location => request.location, :data => data).telegram_key",
+      "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2023-05-10 22:54:47 +0300",
+  "brakeman_version": "5.4.1"
+}
