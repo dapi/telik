@@ -8,6 +8,8 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
+  DisplayStyleGuide: true
+  DisplayCopNames: true
   Exclude:
     - db/*
     - db/migrate/*
