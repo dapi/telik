@@ -15,7 +15,7 @@ class Telegram::SupportBot::WebhookController < Telegram::Bot::UpdatesController
       if visit.nil?
         respond_with :message, text: 'Привет! Визит не найден'
       else
-        RegisterNewVisit.new(visit:, chat:).perform
+        RegisterVisitJob.perform_later(visit:, chat:)
         if visit.visitor.name.present?
           respond_with :message, text: visit.as_json
         else

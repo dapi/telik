@@ -5,17 +5,14 @@
 # 1. Создает если необходимо новый топик
 # 2. Уведомлеят оператора о новом нопике
 #
-class RegisterNewVisit < ApplicationService
-  def initialize(visit:, chat:)
-    @visit = visit
-    @chat = chat
-  end
+class RegisterVisitJob < ApplicationJob
+  queue_as :default
 
-  def perform
-    register_visit! @visit, @chat
-    FindOrCreateTopic.new(@visit).perform
-    notify_operators! @visit
-    notify_topic! @visit
+  def perform(visit:, chat:)
+    register_visit! visit, chat
+    FindOrCreateTopic.new(visit).perform
+    notify_operators! visit
+    notify_topic! visit
   end
 
   private
