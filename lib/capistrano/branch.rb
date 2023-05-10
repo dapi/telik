@@ -1,4 +1,10 @@
-set :repo_url, ENV.fetch('DEPLOY_REPO_URL', `git remote -v | grep origin | head -1 | awk '{ print $2 }'`.chomp) if ENV['USE_LOCAL_REPO'].nil?
+# frozen_string_literal: true
+
+if ENV['USE_LOCAL_REPO'].nil?
+  set :repo_url,
+      ENV.fetch('DEPLOY_REPO_URL',
+                `git remote -v | grep origin | head -1 | awk '{ print $2 }'`.chomp)
+end
 
 default_branch = 'master'
 current_branch = `git rev-parse --abbrev-ref HEAD`.chomp

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :systemd_sidekiq_role, :sidekiq
 set :systemd_sidekiq_instances, -> { %i[1] }
 
@@ -11,6 +13,5 @@ namespace :sidekiq do
   end
 end
 
-
-# TODO не нужно делать при первом деплое
+# TODO: не нужно делать при первом деплое
 # after 'deploy:starting', 'sidekiq:quit'

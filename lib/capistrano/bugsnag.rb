@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['BUGSNAG_API_KEY']
   namespace :deploy do
     desc 'Notify http://bugsnag.com'
@@ -12,4 +14,3 @@ if ENV['BUGSNAG_API_KEY']
     after 'deploy:updated', 'notify_bugsnag'
   end
 end
-
