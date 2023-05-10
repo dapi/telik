@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
@@ -60,6 +62,10 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+
+  config.hosts << ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost')
+
+  config.web_console.whiny_requests = false
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

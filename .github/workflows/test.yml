@@ -17,9 +17,9 @@ jobs:
   test:
     env:
       RAILS_ENV: test
-      DATABASE_HOST: 127.0.0.1
-      DATABASE_USER: postgres
-      DATABASE_PASS: postgres
+      TELIK_DATABASE_HOST: 127.0.0.1
+      TELIK_DATABASE_USERNAME: postgres
+      TELIK_DATABASE_PASSWORD: postgres
       REDIS_URL: redis://localhost:6379
     runs-on: ubuntu-latest
     services:
@@ -58,7 +58,6 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2.1
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: ./bin/rails db:setup
     - run: ./bin/rails test

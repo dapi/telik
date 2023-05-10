@@ -19,7 +19,16 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= (defined?(Sidekiq) && Sidekiq.server?) ? Sidekiq.options[:concurrency].to_i : (ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i * ENV.fetch('WEB_CONCURRENCY') { 1 }.to_i) %>
+  pool: <%= (defined?(Sidekiq) && Sidekiq.server?) ? Sidekiq.instance_variable_get('@config').concurrency : (ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i * ENV.fetch('WEB_CONCURRENCY') { 1 }.to_i) %>
+  <% if ENV.key?('TELIK_DATABASE_HOST') %>
+  host: <%= ENV.fetch('TELIK_DATABASE_HOST', 'localhost') %>
+  <% end %>
+  <% if ENV.key?('TELIK_DATABASE_USERNAME') %>
+  username: <%= ENV['TELIK_DATABASE_USERNAME'] %>
+  <% end %>
+  <% if ENV.key?('TELIK_DATABASE_PASSWORD') %>
+  password: <%= ENV["TELIK_DATABASE_PASSWORD"] %>
+  <% end %>
 
 development:
   <<: *default
@@ -82,5 +91,3 @@ test:
 production:
   <<: *default
   database: telik_production
-  username: telik
-  password: <%= ENV["TELIK_DATABASE_PASSWORD"] %>

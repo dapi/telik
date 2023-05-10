@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+yandex:
+  cookie_id: yandex_one
+  project: yandex
+
+dzen:
+  cookie_id: dzen_two
+  project: dzen

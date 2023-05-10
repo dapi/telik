@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
@@ -15,7 +17,7 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '<7'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
@@ -30,8 +32,15 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
+gem 'hiredis'
 gem 'redis', '~> 4.0'
 
+gem 'sidekiq'
+# gem 'sidekiq-cron'
+gem 'sidekiq-failures'
+gem 'sidekiq-reset_statistics'
+# gem 'sidekiq-status'
+# gem 'sidekiq-unique-jobs'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -46,11 +55,13 @@ gem 'bootsnap', require: false
 
 gem 'active_link_to'
 gem 'anyway_config'
+gem 'bootstrap', '~> 5.1.3'
 gem 'semver2', github: 'haf/semver'
 gem 'slim-rails'
-gem 'telegram-bot'
+gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot'
 
 gem 'draper'
+gem 'env-tweaks', github: 'yivo/env-tweaks', branch: 'dependabot/bundler/activesupport-7.0.4.1'
 gem 'simple_form'
 gem 'strip_attributes'
 
@@ -75,6 +86,8 @@ group :development do
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
   gem 'foreman'
+  gem 'pry-byebug'
+  gem 'pry-rails'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
@@ -90,6 +103,25 @@ group :development do
   gem 'guard-ctags-bundler'
   gem 'guard-minitest'
   gem 'guard-rails'
+
+  gem 'capistrano', require: false
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-db-tasks', require: false, github: 'brandymint/capistrano-db-tasks',
+                             branch: 'feature/extra_args_for_dump'
+  gem 'capistrano-dotenv', require: false
+  gem 'capistrano-dotenv-tasks', require: false
+  gem 'capistrano-faster-assets', require: false
+  gem 'capistrano-git-with-submodules'
+  gem 'capistrano-master-key', require: false, github: 'virgoproz/capistrano-master-key'
+  # gem 'capistrano-nvm', require: false
+  # gem 'capistrano-yarn', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-shell', require: false
+  # gem 'capistrano-sidekiq', require: false
+  gem 'capistrano-systemd-multiservice', github: 'brandymint/capistrano-systemd-multiservice', require: false
 end
 
 group :test do
@@ -100,3 +132,14 @@ group :test do
 end
 
 gem 'sorcery', '~> 0.16.5'
+
+gem 'nanoid', '~> 2.0'
+
+gem 'validate_url', '~> 1.0'
+
+gem 'geocoder', '~> 1.8'
+
+gem 'bugsnag', '~> 6.25'
+
+gem 'dotenv', '~> 2.8'
+gem 'dotenv-rails', require: 'dotenv/rails-now'

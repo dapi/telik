@@ -1,8 +1,57 @@
 GIT
+  remote: https://github.com/brandymint/capistrano-db-tasks.git
+  revision: 76d41911d4b502c839fc2d76bd72d737460f393d
+  branch: feature/extra_args_for_dump
+  specs:
+    capistrano-db-tasks (0.6)
+      capistrano (>= 3.0.0)
+
+GIT
+  remote: https://github.com/brandymint/capistrano-systemd-multiservice.git
+  revision: 0f2c0fb2c72802f42e85667483ab6039d55ce018
+  specs:
+    capistrano-systemd-multiservice (0.1.0.beta12)
+      capistrano (>= 3.7.0, < 3.17.0)
+
+GIT
   remote: https://github.com/haf/semver.git
   revision: 1493d9b611eeb43b1a073b1604fcdc5cc59e78a9
   specs:
     semver2 (3.4.2)
+
+GIT
+  remote: https://github.com/seuros/capistrano-puma.git
+  revision: 2cc11846540489edda10d83e026c9bea04e6fab1
+  specs:
+    capistrano3-puma (6.0.0.beta.1)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (>= 5.1, < 7.0)
+
+GIT
+  remote: https://github.com/telegram-bot-rb/telegram-bot.git
+  revision: f0c5222c8fe6b59e50f2e0be2cc2a971e6063417
+  specs:
+    telegram-bot (0.15.7)
+      actionpack (>= 4.0, < 7.1)
+      activesupport (>= 4.0, < 7.1)
+      httpclient (~> 2.7)
+
+GIT
+  remote: https://github.com/virgoproz/capistrano-master-key.git
+  revision: aa99a50e41733288a5d4e1884af16385855847de
+  specs:
+    capistrano-master-key (1.0.2)
+      capistrano (~> 3.11)
+      sshkit (~> 1.17)
+
+GIT
+  remote: https://github.com/yivo/env-tweaks.git
+  revision: 9086f8ad166e6b877acbc6314a3f94a1d87bbfae
+  branch: dependabot/bundler/activesupport-7.0.4.1
+  specs:
+    env-tweaks (1.0.1)
+      activesupport (>= 3.0, < 8.0)
 
 GEM
   remote: https://rubygems.org/
@@ -81,19 +130,56 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    airbrussh (1.4.1)
+      sshkit (>= 1.6.1, != 1.7.0)
     anyway_config (2.4.0)
       ruby-next-core (>= 0.14.0)
     ast (2.4.2)
+    autoprefixer-rails (10.4.13.0)
+      execjs (~> 2)
     bcrypt (3.1.18)
     bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    bootstrap (5.1.3)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 2.9.3, < 3)
+      sassc-rails (>= 2.0.0)
     brakeman (5.4.1)
+    bugsnag (6.25.2)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     bundler-audit (0.9.1)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
+    byebug (11.1.3)
+    capistrano (3.16.0)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (2.1.0)
+      capistrano (~> 3.1)
+    capistrano-dotenv (0.0.5)
+      capistrano (>= 3.5.0, < 4.0.0)
+    capistrano-dotenv-tasks (0.1.5)
+      capistrano (~> 3.0)
+    capistrano-faster-assets (1.1.0)
+      capistrano (>= 3.1)
+    capistrano-git-with-submodules (2.0.6)
+      capistrano (~> 3.7)
+    capistrano-rails (1.6.2)
+      capistrano (~> 3.1)
+      capistrano-bundler (>= 1.1, < 3)
+    capistrano-rails-console (2.3.0)
+      capistrano (>= 3.5.0, < 4.0.0)
+      sshkit-interactive (~> 0.3.0)
+    capistrano-rbenv (2.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capistrano-shell (0.2.0)
+      capistrano (~> 3.1)
     capybara (3.39.0)
       addressable
       matrix
@@ -105,11 +191,16 @@ GEM
       xpath (~> 3.2)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.0)
     crass (1.0.6)
     date (3.3.3)
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -119,6 +210,7 @@ GEM
       ruby2_keywords
     ed25519 (1.3.0)
     erubi (1.12.0)
+    execjs (2.8.1)
     faraday (2.7.4)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -126,6 +218,7 @@ GEM
     ffi (1.15.5)
     foreman (0.87.2)
     formatador (1.1.0)
+    geocoder (1.8.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
     guard (2.18.0)
@@ -148,6 +241,7 @@ GEM
       guard (~> 2.11)
       guard-compat (~> 1.0)
     hashie (5.0.0)
+    hiredis (0.6.3)
     httpclient (2.8.3)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
@@ -181,6 +275,7 @@ GEM
     minitest (5.18.0)
     msgpack (1.7.0)
     multi_xml (0.6.0)
+    nanoid (2.0.0)
     nenv (0.3.0)
     net-imap (0.3.4)
       date
@@ -189,8 +284,11 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
+    net-ssh (7.1.0)
     nio4r (2.5.9)
     nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
@@ -214,11 +312,17 @@ GEM
     parser (3.2.2.1)
       ast (~> 2.4.1)
     pg (1.5.3)
+    popper_js (2.11.7)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (6.2.2)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.7)
@@ -256,6 +360,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.8.1)
+    redis-client (0.14.1)
+      connection_pool
     regexp_parser (2.8.0)
     reline (0.3.3)
       io-console (~> 0.5)
@@ -297,6 +403,14 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    sidekiq (7.1.0)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
+    sidekiq-reset_statistics (1.1.0)
     simple_form (5.2.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -321,14 +435,15 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sshkit (1.21.4)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    sshkit-interactive (0.3.0)
+      sshkit (~> 1.12)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
-    telegram-bot (0.15.7)
-      actionpack (>= 4.0, < 7.1)
-      activesupport (>= 4.0, < 7.1)
-      httpclient (~> 2.7)
     temple (0.10.0)
     terminal-notifier-guard (1.7.0)
     thor (1.2.1)
@@ -341,6 +456,9 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
+    validate_url (1.0.15)
+      activemodel (>= 3.0.0)
+      public_suffix
     version_gem (1.1.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -367,22 +485,46 @@ DEPENDENCIES
   anyway_config
   bcrypt_pbkdf
   bootsnap
+  bootstrap (~> 5.1.3)
   brakeman
+  bugsnag (~> 6.25)
   bundler-audit
+  capistrano
+  capistrano-bundler
+  capistrano-db-tasks!
+  capistrano-dotenv
+  capistrano-dotenv-tasks
+  capistrano-faster-assets
+  capistrano-git-with-submodules
+  capistrano-master-key!
+  capistrano-rails
+  capistrano-rails-console
+  capistrano-rbenv
+  capistrano-shell
+  capistrano-systemd-multiservice!
+  capistrano3-puma!
   capybara
   debug
+  dotenv (~> 2.8)
+  dotenv-rails
   draper
   ed25519
+  env-tweaks!
   foreman
+  geocoder (~> 1.8)
   guard
   guard-ctags-bundler
   guard-minitest
   guard-rails
+  hiredis
   importmap-rails
   jbuilder
   listen
+  nanoid (~> 2.0)
   pg (~> 1.1)
-  puma (~> 5.0)
+  pry-byebug
+  pry-rails
+  puma (< 7)
   rails (~> 7.0.4, >= 7.0.4.3)
   redis (~> 4.0)
   request_store
@@ -392,16 +534,20 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   semver2!
+  sidekiq
+  sidekiq-failures
+  sidekiq-reset_statistics
   simple_form
   slim-rails
   sorcery (~> 0.16.5)
   sprockets-rails
   stimulus-rails
   strip_attributes
-  telegram-bot
+  telegram-bot!
   terminal-notifier-guard
   turbo-rails
   tzinfo-data
+  validate_url (~> 1.0)
   web-console
   webdrivers
 

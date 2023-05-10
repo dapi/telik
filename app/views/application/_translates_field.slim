@@ -1,0 +1,4 @@
+.row
+  - I18n.available_locales.each do |locale|
+    .col-md-2
+      = f.input "#{field}_#{locale}"

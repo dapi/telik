@@ -1,4 +1,3 @@
-inherit_from: .rubocop_todo.yml
 require:
   - rubocop-rails
   - rubocop-capybara
@@ -6,10 +5,15 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
+  DisplayStyleGuide: true
+  DisplayCopNames: true
   Exclude:
     - db/*
     - db/migrate/*
     - bin/*
+    - tmp/*
+    - vendor/**/* # Used in github actions
+
 Layout/LineLength:
   Exclude:
     - 'config/initializers/simple_form_*.rb'
@@ -23,6 +27,19 @@ Style/Documentation:
     - 'app/models/application_record.rb'
     - 'config/application.rb'
 
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/*.rb'
+
+Rails/OutputSafety:
+  Exclude:
+    - 'app/helpers/*.rb'
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/*.rb'
+    - 'config/routes.rb'
+    - 'Gemfile'
+
 Style/SymbolArray:
   Enabled: false
 
@@ -34,23 +51,33 @@ Style/GlobalStdStream:
   Enabled: false
 
 Style/ClassAndModuleChildren:
-  Exclude:
-    - 'test/**/*.rb'
+  Enabled: false
+
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:
   Max: 9
 
-# Offense count: 1
-# Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 Metrics/MethodLength:
-  Max: 13
+  Enabled: false
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/PerceivedComplexity:
   Max: 9
 
+Metrics/AbcSize:
+  Enabled: false
+
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Style/Copyright:
+  Notice: 'Copyright (© )?2[0-9]{3} .+'
+  AutocorrectNotice: "# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>\n"
+  Description: 'Include a copyright notice in each file before any code.'
+  Enabled: true
+  # VersionAdded: '0.0.2'
