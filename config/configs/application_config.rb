@@ -5,9 +5,8 @@ class ApplicationConfig < Anyway::Config
   env_prefix :telik
   attr_config(
     host: 'localhost',
+    protocol: 'http',
     geo_lite_city_database: '/usr/share/GeoIP/GeoLiteCity.dat'
-    # telegram_bot_token: nil,
-    # telegram_bot_name: nil
   )
 
   class << self
