@@ -18,7 +18,7 @@ class VisitsController < ApplicationController
       )
 
     redirect_to(
-      "https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" + visit.telegram_key,
+      url_from("https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" + visit.telegram_key),
       allow_other_host: true
     )
   end
