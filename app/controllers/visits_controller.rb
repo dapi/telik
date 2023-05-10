@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 # Учитывает визит пользователя. Это происходит по клику на виджете
@@ -17,7 +19,8 @@ class VisitsController < ApplicationController
         data:
       )
 
-    redirect_url = "https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" + visit.telegram_key
+    redirect_url = "https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" +
+                   visit.telegram_key
     redirect_to redirect_url, allow_other_host: true
   end
 

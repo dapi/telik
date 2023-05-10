@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 # Я думаю из описания понятно что это за модуль )

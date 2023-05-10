@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 # Находит или создает топик для посетителя

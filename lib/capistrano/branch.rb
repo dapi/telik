@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 if ENV['USE_LOCAL_REPO'].nil?

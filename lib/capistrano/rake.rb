@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 # Source https://stackoverflow.com/questions/312214/how-do-i-run-a-rake-task-from-capistrano

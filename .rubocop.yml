@@ -1,6 +1,3 @@
-inherit_mode:
-  override:
-    - Exclude
 require:
   - rubocop-rails
   - rubocop-capybara
@@ -40,6 +37,7 @@ Rails/OutputSafety:
 Metrics/BlockLength:
   Exclude:
     - 'config/environments/*.rb'
+    - 'config/routes.rb'
     - 'Gemfile'
 
 Style/SymbolArray:
@@ -76,3 +74,10 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 Rails/SkipsModelValidations:
   Enabled: false
+
+Style/Copyright:
+  Notice: 'Copyright (© )?2[0-9]{3} .+'
+  AutocorrectNotice: "# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>\n"
+  Description: 'Include a copyright notice in each file before any code.'
+  Enabled: true
+  # VersionAdded: '0.0.2'
