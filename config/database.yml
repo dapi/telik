@@ -27,7 +27,7 @@ default: &default
   username: <%= ENV['TELIK_DATABASE_USERNAME'] %>
   <% end %>
   <% if ENV.key?('TELIK_DATABASE_PASSWORD') %>
-    password: <%= ENV["TELIK_DATABASE_PASSWORD"] %>
+  password: <%= ENV["TELIK_DATABASE_PASSWORD"] %>
   <% end %>
 
 development:
