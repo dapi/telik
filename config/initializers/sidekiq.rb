@@ -9,7 +9,6 @@ if Rails.env.production?
     config.failures_max_count = 50_000
     config.failures_default_mode = :exhausted
     Sidekiq.logger.info("Connection pool #{ApplicationRecord.connection.instance_variable_get('@config').fetch(:pool)}")
-    Sidekiq.logger.info("Concurrency is #{Sidekiq.options[:concurrency]}")
   end
 elsif Rails.env.development?
 
