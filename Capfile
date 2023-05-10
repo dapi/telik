@@ -35,4 +35,3 @@ install_plugin Capistrano::Systemd::MultiService.new_service('sidekiq', service_
 require 'capistrano/faster_assets'
 
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
-

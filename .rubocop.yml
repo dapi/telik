@@ -35,6 +35,7 @@ Rails/OutputSafety:
 Metrics/BlockLength:
   Exclude:
     - 'config/environments/*.rb'
+    - 'Gemfile'
 
 Style/SymbolArray:
   Enabled: false

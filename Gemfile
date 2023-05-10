@@ -137,4 +137,4 @@ gem 'validate_url', '~> 1.0'
 
 gem 'geocoder', '~> 1.8'
 
-gem "bugsnag", "~> 6.25"
+gem 'bugsnag', '~> 6.25'
