@@ -13,8 +13,7 @@ Rails.application.routes.draw do
     telegram_webhook Telegram::OperatorBot::WebhookController, :operator
   end
 
-  get 'telegram/auth_callback'
-
+  get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
   get 'v', to: 'visits#create'
 
   resources :sessions, only: %i[new create] do

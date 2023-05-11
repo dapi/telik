@@ -1,0 +1,2 @@
+class HumanizedError < StandardError
+end
