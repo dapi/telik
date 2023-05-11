@@ -1,12 +1,13 @@
 doctype html
+- layout_width = 900
 html lang=I18n.locale
   head
     = render 'head'
   body
-    .container.px-3.py-5[style='max-width: 900px']
+    .container.px-3.py-5[style="max-width: #{layout_width}px"]
       h1.mb-4
         = link_to root_url, class: 'text-dark' do
           = render 'logo'
       = yield
 
-    = render 'footer', width: 900
+    = render 'footer', width: layout_width

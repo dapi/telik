@@ -1,0 +1,13 @@
+h1 Проект #{project.host}
+
+p Скопируйте код виджета:
+
+code
+  pre
+    = html_escape_once render 'widget', project_key: project.key
+
+- if project.last_visit.present?
+  p Последний контакт с этого виджета:
+  pre.text-muted.text-small= JSON.pretty_generate project.last_visit.as_json
+- else
+  p.text-muted Виджетом еще не пользовались

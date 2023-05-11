@@ -12,6 +12,9 @@ class Project < ApplicationRecord
   has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships
 
+  has_many :visitors
+  has_many :visits, through: :visitors
+
   validates :url, presence: true, url: true, uniqueness: { scope: :owner_id }
   validates :host, presence: true
 
@@ -21,6 +24,12 @@ class Project < ApplicationRecord
 
   before_create do
     self.key = Nanoid.generate
+  end
+
+  def last_visit
+    return @last_visit if defined? @last_visit
+
+    @last_visit = visits.order(:created_at).last
   end
 
   def host_confirmed?

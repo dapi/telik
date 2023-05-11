@@ -20,11 +20,11 @@ owner = User.
 project = Project.
   create_with(
     telegram_group_id: -1001854699958,
-    url: 'http://' + ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
+    url: Rails.application.routes.url_helpers.root_url,
   ).
   create_or_find_by!(
     owner: owner,
-    host: ENV.fetch('RAILS_DEVELOPMENT_HOST', 'localhost'),
+    host: ApplicationConfig.host,
   )
 
 Membership.find_or_create_by!(project: project, user: owner)

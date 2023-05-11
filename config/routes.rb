@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :projects
+
   require 'sidekiq/web'
 
   if Rails.env.production?
