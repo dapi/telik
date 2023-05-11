@@ -13,7 +13,7 @@ class TopicMessageJob < ApplicationJob
     Telegram.bots[:operator].send_message(
       chat_id: visitor.project.telegram_group_id,
       message_thread_id: visitor.telegram_message_thread_id,
-      text: message
+      text: '@' + visitor.username + ': ' + message
     )
   end
 end
