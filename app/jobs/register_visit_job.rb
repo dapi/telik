@@ -14,7 +14,7 @@ class RegisterVisitJob < ApplicationJob
     register_visit! visit, chat unless visit.registered_at?
     CreateForumTopic.new(visit.visitor).perform if visit.visitor.telegram_message_thread_id.nil?
     notify_operators! visit
-    notify_topic! visit
+    TopicMessageJob.perform_later visitor, "Новый поситетиль #{visit.topic_title}"
   end
 
   private
@@ -32,14 +32,5 @@ class RegisterVisitJob < ApplicationJob
         text: "Новый контакт #{visit.visitor.topic_title} #{visit.visitor.topic_url}"
       )
     end
-  end
-
-  # Отправляет в новый топик уведомление
-  def notify_topic!(visit)
-    Telegram.bots[:operator].send_message(
-      chat_id: visit.project.telegram_group_id,
-      message_thread_id: visit.visitor.telegram_message_thread_id,
-      text: "Новый поситетиль #{visit.topic_title}"
-    )
   end
 end

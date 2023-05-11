@@ -17,6 +17,18 @@ class CreateForumTopic < ApplicationService
     @visitor.with_lock do
       update_visitor! @visitor, create_forum_topic_in_telegram!(@visitor)
     end
+  rescue Telegram::Bot::Error => e
+    logger.error e
+    case e.message
+    when 'Bad Request: Bad Request: chat not found'
+      # TODO: Похоже у бота нет доступа к группе, надо уведомить оператора
+      # Telegram.bots[:operator].username
+    when 'Bad Request: Bad Request: not enough rights to create a topic'
+      # TODO
+    else
+      Rails.logger.warn e
+      # TODO
+    end
   end
 
   private
