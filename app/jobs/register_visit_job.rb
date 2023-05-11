@@ -12,7 +12,8 @@ class RegisterVisitJob < ApplicationJob
 
   def perform(visit:, chat:)
     register_visit! visit, chat unless visit.registered_at?
-    CreateForumTopic.new(visit.visitor).perform if visit.visitor.telegram_message_thread_id.nil?
+    visitor = visit.visitor
+    CreateForumTopic.new(visitor).perform if visitor.telegram_message_thread_id.nil?
     notify_operators! visit
     TopicMessageJob.perform_later visitor, "Новый поситетиль #{visit.topic_title}"
   end
