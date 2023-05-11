@@ -4,7 +4,7 @@
 
 # Контроллер бота общения с посетителем клиентского сайта
 #
-class Telegram::SupportBot::WebhookController < Telegram::Bot::UpdatesController
+class Telegram::ClientBot::WebhookController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
 
   use_session!

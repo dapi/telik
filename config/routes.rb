@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   unless Rails.env.test?
-    telegram_webhook Telegram::SupportBot::WebhookController, :support
+    telegram_webhook Telegram::ClientBot::WebhookController, :client
     telegram_webhook Telegram::OperatorBot::WebhookController, :operator
   end
 

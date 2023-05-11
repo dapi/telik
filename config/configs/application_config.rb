@@ -4,14 +4,16 @@
 
 # Base class for application config classes
 class ApplicationConfig < Anyway::Config
+  TELEGRAM_LINK_PREFIX = 'https://t.me/'
   env_prefix :telik
   attr_config(
+    app_title: 'NuiBot',
     host: 'localhost',
     protocol: 'http',
     client_bot_token: '',
     client_bot_username: '',
     operator_bot_token: '',
-    operator_bot_username: '',
+    operator_bot_username: ''
   )
 
   class << self
@@ -20,7 +22,7 @@ class ApplicationConfig < Anyway::Config
     delegate_missing_to :instance
 
     def client_bot_url
-      'https://t.me/' + ApplicationController.client_bot_username
+      TELEGRAM_LINK_PREFIX + ApplicationController.client_bot_username
     end
 
     private

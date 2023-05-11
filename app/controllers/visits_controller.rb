@@ -19,14 +19,14 @@ class VisitsController < ApplicationController
 
   def create_visit
     Visitor
-    .create_or_find_by!(project:, cookie_id:)
-    .visits
-    .create!(
-      referrer: request.referer,
-      remote_ip: request.remote_ip,
-      location: request.location.data,
-      data:
-    )
+      .create_or_find_by!(project:, cookie_id:)
+      .visits
+      .create!(
+        referrer: request.referer,
+        remote_ip: request.remote_ip,
+        location: request.location.data,
+        data:
+      )
   end
 
   def project

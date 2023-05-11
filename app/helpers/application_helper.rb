@@ -3,9 +3,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-
   def link_to_bot(username)
-    link_to '@' + username, 'https://t.me/' + username, target: '_blank'
+    link_to '@' + username, ApplicationConfig::TELEGRAM_LINK_PREFIX + username, target: '_blank', rel: 'noopener'
   end
 
   def sort_column(column, title)
@@ -27,8 +26,7 @@ module ApplicationHelper
   end
 
   def app_title
-    'TELIK'
-    # t 'application.app_title'
+    ApplicationConfig.app_title
   end
 
   def back_link(url = nil)
