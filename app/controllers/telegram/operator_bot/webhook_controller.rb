@@ -75,7 +75,9 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   #}
   def message(data)
     Rails.logger.debug data.to_json
-    if data['is_topic_message']
+    if data['forum_topic_created']
+      # Так это мы его сами и создали
+    elsif data['is_topic_message']
       # TODO: Найти проект по chat.id
       visitor = Visitor.find_by(telegram_message_thread_id: data.fetch('message_thread_id'))
       if visitor.present?
@@ -83,8 +85,6 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
       else
         respond_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
       end
-    elsif data['forum_topic_created']
-      # Так это мы его сами и создали
     elsif chat['is_forum']
       # Похоже пишут в главном топике группы
     else
