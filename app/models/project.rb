@@ -17,6 +17,7 @@ class Project < ApplicationRecord
 
   validates :url, presence: true, url: true
   validates :host, presence: true
+  validates :telegram_group_id, presence: true
 
   validate :host do
     errors.add(:host) unless Addressable::URI.parse(url).host == host

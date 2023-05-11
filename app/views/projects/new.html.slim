@@ -1,0 +1,17 @@
+h1 Регистрируем новый сайт
+= simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
+  = f.error_notification
+  = full_error_messages f if Rails.env.development?
+  .form-inputs
+    .row
+      .col-md-6
+        = f.input :url, input_html: { autofocus: true }
+      .col-md-6
+        = f.input :telegram_group_id
+        ol
+          li Создайте группу с топиками в телеграм
+          li Добавьте в админы бота #{link_to_bot ApplicationConfig.operator_bot_username} и дайте ему право управление топиками
+          li Укажите ее ID в этом поле
+
+  .form-actions.mt-2
+    = f.button :submit,  class: 'btn btn-lg btn-success'

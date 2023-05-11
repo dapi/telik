@@ -10,16 +10,9 @@
         b= project.host
         span.mx-2= link_to 'Код виджета', project_path(project)
 
+  = link_to 'Добавить новый сайт', new_project_path
   p Чтобы воспользоваться::
-
-  p 1. Авторизуйтесь через telegram
-  = render 'telegram_login'
-
-  p 2. Введите URL своего сайта
-  p 3. Скопируйте код виджета и установите его на свой сайт
-  p 4. Создайте группу в телеграм, включите в ней топики, добавьте в неё бота #{link_to_bot ApplicationConfig.operator_bot_username} и дайте ему админа и права управлять топиками.
-
 - else
-  h2.mb-4 Сервис поддержки клиентов через telegram
+  h2.mb-4 Сервис поддержки клиентов через telegram, авторизуйтесь чтобы воспользоваться
 
   = render 'telegram_login'

@@ -4,5 +4,4 @@
 
 # Главная страница сайта
 class WelcomeController < ApplicationController
-  layout 'simple'
 end

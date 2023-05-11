@@ -1,0 +1,16 @@
+---
+ru:
+  helpers:
+    back: назад
+    confirm_delete: Удаляем насовсем?
+    disable_with: Понеслась..
+    invalid_authenticity_token: Просрочен токен аутентификации, авторизуйтесь снова
+    select:
+      prompt: 'Выберите: '
+    submit:
+      project:
+        create: Добавить проект
+      create: Создать %{model}
+      submit: Сохранить изменения
+      update: Сохранить изменения
+    warning: Внимание!

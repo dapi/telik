@@ -1,0 +1,25 @@
+---
+ru:
+  simple_form:
+    error_notification:
+      blank: Не может быть пустым
+      default_message: Обнаружены ошибки,<br /> пожалуйста, взгляните на&nbsp;них
+    hints:
+      project:
+        telegram_group_id: '123456789'
+        url: 'Например https://www.ru'
+    labels:
+      defaults:
+        locale: Язык
+        title: Название
+      project:
+        url: Адрес сайта
+        telegram_group_id: Числовой идентификатор группы в телеграм
+    'no': нет
+    placeholders:
+      project:
+        url: 'https://..'
+    required:
+      mark: "*"
+      text: обязательное поле
+    'yes': да
