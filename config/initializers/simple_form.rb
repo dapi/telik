@@ -2,7 +2,6 @@
 
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
 #
 # Uncomment this and change the path if necessary to include your own
 # components.

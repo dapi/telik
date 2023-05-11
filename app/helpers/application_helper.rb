@@ -39,9 +39,7 @@ module ApplicationHelper
 
     buffer += ' '
     text = hide_zero && count.to_i.zero? ? '' : count.to_s
-    if count.positive?
-      buffer += content_tag(:span, "(#{text})", class: css_class, data: { title_counter: true, count: count.to_i })
-    end
+    buffer += content_tag(:span, "(#{text})", class: css_class, data: { title_counter: true, count: count.to_i }) if count.positive?
 
     buffer.html_safe
   end

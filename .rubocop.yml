@@ -20,6 +20,7 @@ Style/OpenStructUse:
   Enabled: false
 
 Layout/LineLength:
+  Enabled: false
   Exclude:
     - 'config/initializers/simple_form_*.rb'
 
