@@ -34,6 +34,8 @@ class CreateForumTopicJob < ApplicationJob
       # Telegram.bots[:operator].username
     when 'Bad Request: Bad Request: not enough rights to create a topic'
       # TODO
+    when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
+      # Do nothing
     else
       Rails.logger.warn e
       # TODO

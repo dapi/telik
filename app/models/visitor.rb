@@ -21,7 +21,7 @@ class Visitor < ApplicationRecord
   end
 
   def topic_title
-    "##{id} @#{username} по имени #{first_name} из #{city} (#{region}/#{country})"
+    "##{id} @#{username} по имени #{first_name} из #{last_visit.city} (#{last_visit.region}/#{last_visit.country})"
   end
 
   def topic_url
