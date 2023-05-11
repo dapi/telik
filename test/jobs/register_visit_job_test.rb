@@ -20,7 +20,7 @@ class RegisterVisitJobTest < ActiveJob::TestCase
 
     assert_not visit.chat
 
-    CreateForumTopic.stub :new, ->(_visitor) { true } do
+    CreateForumTopicJob.stub :perform_now, ->(_visitor) { true } do
       return true
     end
     RegisterVisitJob.new.perform(visit:, chat:)
