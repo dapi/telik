@@ -8,7 +8,7 @@ if ENV['USE_LOCAL_REPO'].nil?
                 `git remote -v | grep origin | head -1 | awk '{ print $2 }'`.chomp)
 end
 
-default_branch = 'master'
+default_branch = 'main'
 current_branch = `git rev-parse --abbrev-ref HEAD`.chomp
 
 if ENV.key? 'BRANCH'
