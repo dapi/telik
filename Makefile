@@ -1,10 +1,3 @@
-forward_80_on_mac:
-	sudo ncat -l -p 80 -c "ncat -l -p ${PORT}"
-
-minica:
-	# brew install minica
-	minica --domains localhost
-
 https:
-	# npm install -g local-ssl-proxy
-	local-ssl-proxy --source 8080 --target 3000
+	# https://levelup.gitconnected.com/how-to-proxy-https-traffic-to-your-development-server-63c9980d5899
+	sudo ssl-proxy-darwin-amd64 -from 0.0.0.0:443 -to 127.0.0.1:3000

@@ -31,3 +31,6 @@
 /config/master.key
 
 /config/credentials/development.key
+
+cert.pem
+key.pem
