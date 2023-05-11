@@ -33,11 +33,11 @@ class Visit < ApplicationRecord
   end
 
   def chat_object
-    OpenStruct.new chat
+    OpenStruct.new(chat).freeze
   end
 
   def location_object
-    OpenStruct.new location
+    OpenStruct.new(location).freeze
   end
 
   def topic_title

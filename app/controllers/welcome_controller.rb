@@ -2,6 +2,7 @@
 
 # frozen_string_literal: true
 
+# Главная страница сайта
 class WelcomeController < ApplicationController
   layout 'simple'
 end

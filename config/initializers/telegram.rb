@@ -8,11 +8,10 @@ Telegram.bots_config = {
   # default: DEFAULT_BOT_TOKEN,
   client: {
     token: ApplicationConfig.client_bot_token,
-    username: ApplicationConfig.client_bot_username, # to support commands with mentions (/help@ChatBot)
+    username: ApplicationConfig.client_bot_username # to support commands with mentions (/help@ChatBot)
   },
   operator: {
     token: ApplicationConfig.operator_bot_token,
-    username: ApplicationConfig.operator_bot_username, # to support commands with mentions (/help@ChatBot)
-  },
+    username: ApplicationConfig.operator_bot_username # to support commands with mentions (/help@ChatBot)
+  }
 }
-

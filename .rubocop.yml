@@ -16,6 +16,9 @@ AllCops:
 
 Style/StringConcatenation:
   Enabled: false
+Style/OpenStructUse:
+  Enabled: false
+
 Layout/LineLength:
   Exclude:
     - 'config/initializers/simple_form_*.rb'

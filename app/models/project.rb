@@ -12,7 +12,7 @@ class Project < ApplicationRecord
   has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships
 
-  has_many :visitors
+  has_many :visitors, dependent: :delete_all
   has_many :visits, through: :visitors
 
   validates :url, presence: true, url: true
