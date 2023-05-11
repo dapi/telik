@@ -8,13 +8,20 @@ class ApplicationConfig < Anyway::Config
   attr_config(
     host: 'localhost',
     protocol: 'http',
-    geo_lite_city_database: '/usr/share/GeoIP/GeoLiteCity.dat'
+    client_bot_token: '',
+    client_bot_username: '',
+    operator_bot_token: '',
+    operator_bot_username: '',
   )
 
   class << self
     # Make it possible to access a singleton config instance
     # via class methods (i.e., without explicitly calling `instance`)
     delegate_missing_to :instance
+
+    def client_bot_url
+      'https://t.me/' + ApplicationController.client_bot_username
+    end
 
     private
 

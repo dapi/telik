@@ -8,23 +8,26 @@ class VisitsController < ApplicationController
   before_action :cookie_id
 
   def create
-    visit =
-      Visitor
-      .create_or_find_by!(project:, cookie_id:)
-      .visits
-      .create!(
-        referrer: request.referer,
-        remote_ip: request.remote_ip,
-        location: request.location.data,
-        data:
-      )
-
-    redirect_url = "https://t.me/#{Rails.application.credentials.telegram.bots.support.username}?start=" +
-                   visit.telegram_key
-    redirect_to redirect_url, allow_other_host: true
+    redirect_to build_redirect_url, allow_other_host: true
   end
 
   private
+
+  def build_redirect_url
+    ApplicationController.client_bot_url + '?start=' + create_visit.telegram_key
+  end
+
+  def create_visit
+    Visitor
+    .create_or_find_by!(project:, cookie_id:)
+    .visits
+    .create!(
+      referrer: request.referer,
+      remote_ip: request.remote_ip,
+      location: request.location.data,
+      data:
+    )
+  end
 
   def project
     Project.find_by!(key: params[:pk])

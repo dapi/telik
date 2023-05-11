@@ -3,6 +3,11 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+
+  def link_to_bot(username)
+    link_to '@' + username, 'https://t.me/' + username, target: '_blank'
+  end
+
   def sort_column(column, title)
     return column unless defined? q
 

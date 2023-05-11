@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #
 
+puts 'Create owner'
 owner = User.
   create_with(
     telegram_data: {"id"=>"943084337",
@@ -17,6 +18,7 @@ owner = User.
      "first_name"=>"Danil"}).
   find_or_create_by!(telegram_id: 943084337)
 
+puts 'Create project'
 project = Project.
   create_with(
     telegram_group_id: -1001854699958,
@@ -27,4 +29,5 @@ project = Project.
     host: ApplicationConfig.host,
   )
 
+puts 'Create membership'
 Membership.find_or_create_by!(project: project, user: owner)

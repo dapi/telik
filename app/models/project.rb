@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   has_many :visitors
   has_many :visits, through: :visitors
 
-  validates :url, presence: true, url: true, uniqueness: { scope: :owner_id }
+  validates :url, presence: true, url: true
   validates :host, presence: true
 
   validate :host do
