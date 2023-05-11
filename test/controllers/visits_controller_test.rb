@@ -14,7 +14,7 @@ class VisitsControllerTest < ActionDispatch::IntegrationTest
     saved_cookie = cookies[:telik_visitor_id]
     visit_key = response.redirect_url.split('=').last
 
-    visit = Visit.includes(:visitor).find_by telegram_key: visit_key
+    visit = Visit.includes(:visitor).find_by_telegram_key visit_key
     assert visit.present?
 
     visitor = visit.visitor

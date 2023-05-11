@@ -19,6 +19,9 @@ Style/StringConcatenation:
 Style/OpenStructUse:
   Enabled: false
 
+Rails/DynamicFindBy:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: false
   Exclude:
