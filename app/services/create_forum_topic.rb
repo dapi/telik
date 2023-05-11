@@ -18,7 +18,7 @@ class CreateForumTopic < ApplicationService
       update_visitor! @visitor, create_forum_topic_in_telegram!(@visitor)
     end
   rescue Telegram::Bot::Error => e
-    logger.error e
+    Rails.logger.error e
     case e.message
     when 'Bad Request: Bad Request: chat not found'
       # TODO: Похоже у бота нет доступа к группе, надо уведомить оператора
