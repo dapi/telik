@@ -15,3 +15,8 @@ Telegram.bots_config = {
     username: ApplicationConfig.operator_bot_username # to support commands with mentions (/help@ChatBot)
   }
 }
+
+if Rails.env.test?
+  Telegram.reset_bots
+  Telegram::Bot::ClientStub.stub_all!
+end
