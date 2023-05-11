@@ -30,7 +30,7 @@ class Visit < ApplicationRecord
 
   def self.find_by_telegram_key(visit_key)
     if visit_key.start_with? TELEGRAM_KEY_PREFIX
-      find_by key: visit_key.sub(%r{^#{TELEGRAM_KEY_PREFIX}}, '')
+      find_by key: visit_key.sub(/^#{TELEGRAM_KEY_PREFIX}/, '')
     else
       none
     end

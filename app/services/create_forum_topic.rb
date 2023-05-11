@@ -13,6 +13,7 @@ class CreateForumTopic < ApplicationService
 
   def perform
     raise Error, "Visitor (#{@visitor.id}) has no telegram_id" if @visitor.telegram_id.nil?
+
     @visitor.with_lock do
       update_visitor! @visitor, create_forum_topic_in_telegram!(@visitor)
     end

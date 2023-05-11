@@ -14,16 +14,16 @@ class RegisterVisitJobTest < ActiveJob::TestCase
   #
   # send a message to the private operator chat
   #
-  test "register visit and create topic for new visitor" do
+  test 'register visit and create topic for new visitor' do
     visit = visits :yandex
-    chat = {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
+    chat = { 'id' => 943_084_337, 'first_name' => 'Danil', 'last_name' => 'Pismenny', 'username' => 'pismenny', 'type' => 'private' }
 
     assert_not visit.chat
 
-    CreateForumTopic.stub :new, ->(visitor) { true } do
+    CreateForumTopic.stub :new, ->(_visitor) { true } do
       return true
     end
-    RegisterVisitJob.new.perform(visit: visit, chat: chat)
+    RegisterVisitJob.new.perform(visit:, chat:)
 
     assert visit.chat, 'Chat data must be saved'
     assert visit.registered_at, 'Visit must be registered'
