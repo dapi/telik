@@ -20,7 +20,7 @@ class RegisterVisitJob < ApplicationJob
   private
 
   def register_visit!(visit, chat)
-    visit.visitor.update_user_from_chat! chat
+    visit.visitor.update_user_from_chat!(chat || raise('Empty chat data'))
     visit.update! chat:, registered_at: Time.zone.now
   end
 
