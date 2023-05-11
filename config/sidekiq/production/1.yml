@@ -4,5 +4,4 @@
 :queues:
   - [critical, 256]
   - [default, 64]
-  - [telik_production_default, 64]
   - [low, 1]
