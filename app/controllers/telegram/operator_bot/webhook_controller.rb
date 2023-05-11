@@ -64,15 +64,15 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # "text":"ку"}
   #
   # Еще бывают такие сообщения:
-  #{
-    #"message_id":65,
-    #"from":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},
-    #"chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
-    #"date":1683826024,
-    #"message_thread_id":65,
-    #"forum_topic_created":{"name":"#19 @pismenny по имени Danil из Domodedovo (Moscow Oblast/RU)","icon_color":7322096},
-    #"is_topic_message":true
-  #}
+  # {
+  # "message_id":65,
+  # "from":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},
+  # "chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
+  # "date":1683826024,
+  # "message_thread_id":65,
+  # "forum_topic_created":{"name":"#19 @pismenny по имени Danil из Domodedovo (Moscow Oblast/RU)","icon_color":7322096},
+  # "is_topic_message":true
+  # }
   def message(data)
     Rails.logger.debug data.to_json
     if data['forum_topic_created']
