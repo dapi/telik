@@ -62,6 +62,17 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # "chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
   # "date":1683824124,
   # "text":"ку"}
+  #
+  # Еще бывают такие сообщения:
+  #{
+    #"message_id":65,
+    #"from":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},
+    #"chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
+    #"date":1683826024,
+    #"message_thread_id":65,
+    #"forum_topic_created":{"name":"#19 @pismenny по имени Danil из Domodedovo (Moscow Oblast/RU)","icon_color":7322096},
+    #"is_topic_message":true
+  #}
   def message(data)
     Rails.logger.debug data.to_json
     if data['is_topic_message']
@@ -72,6 +83,8 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
       else
         respond_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
       end
+    elsif data['forum_topic_created']
+      # Так это мы его сами и создали
     elsif chat['is_forum']
       # Похоже пишут в главном топике группы
     else
