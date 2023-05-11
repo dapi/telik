@@ -7,27 +7,31 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #
 
-puts 'Create owner'
-owner = User.
-  create_with(
-    telegram_data: {"id"=>"943084337",
-     "username"=>"pismenny",
-     "auth_date"=>"1683466550",
-     "last_name"=>"Pismenny",
-     "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
-     "first_name"=>"Danil"}).
-  find_or_create_by!(telegram_id: 943084337)
+begin
+  puts 'Create owner'
+  owner = User.
+    create_with(
+      telegram_data: {"id"=>"943084337",
+                      "username"=>"pismenny",
+                      "auth_date"=>"1683466550",
+                      "last_name"=>"Pismenny",
+                      "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
+                      "first_name"=>"Danil"}).
+                      find_or_create_by!(telegram_id: 943084337)
 
-puts 'Create project'
-project = Project.
-  create_with(
-    telegram_group_id: -1001854699958,
-    url: Rails.application.routes.url_helpers.root_url,
-  ).
-  create_or_find_by!(
-    owner: owner,
-    host: ApplicationConfig.host,
-  )
+  puts 'Create project'
+  project = Project.
+    create_with(
+      telegram_group_id: -1001854699958,
+      url: Rails.application.routes.url_helpers.root_url,
+    ).
+    create_or_find_by!(
+      owner: owner,
+      host: ApplicationConfig.host,
+    )
 
-puts 'Create membership'
-Membership.find_or_create_by!(project: project, user: owner)
+  puts 'Create membership'
+  Membership.find_or_create_by!(project: project, user: owner)
+rescue => err
+  puts err.record.inspect
+end
