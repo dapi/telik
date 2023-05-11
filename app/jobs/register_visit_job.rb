@@ -11,8 +11,8 @@ class RegisterVisitJob < ApplicationJob
   queue_as :default
 
   def perform(visit:, chat:)
-    register_visit! visit, chat
-    FindOrCreateTopic.new(visit).perform
+    register_visit! visit, chat unless visit.registered_at?
+    CreateForumTopic.new(visit.visitor).perform if visit.visitor.telegram_message_thread_id.nil?
     notify_operators! visit
     notify_topic! visit
   end
@@ -20,17 +20,17 @@ class RegisterVisitJob < ApplicationJob
   private
 
   def register_visit!(visit, chat)
-    return if visit.registered_at?
-
     visit.visitor.update_user_from_chat! chat
     visit.update! chat:, registered_at: Time.zone.now
   end
 
   # Уведомляет оператора о новом посетителе
   def notify_operators!(visit)
-    visit.project.memberships.join(:user).pluck(:telegram_id).find_each do |telegram_id|
-      # TODO: Кидать ссылку на топик
-      Telegram.bots[:operator].send_message chat_id: telegram_id, text: "Новый контакт #{visit.visitor.topic_title}"
+    visit.project.memberships.join(:user).includes(:visitor, :project).pluck(:telegram_id).find_each do |telegram_id|
+      Telegram.bots[:operator].send_message(
+        chat_id: telegram_id,
+        text: "Новый контакт #{visit.visitor.topic_title} #{visit.visitor.topic_url}"
+      )
     end
   end
 

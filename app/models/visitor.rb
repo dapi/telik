@@ -21,4 +21,8 @@ class Visitor < ApplicationRecord
     assign_attributes chat.slice(*%w[first_name last_name username]).merge(telegram_id: chat.fetch('id'))
     save! if changed?
   end
+
+  def topic_url
+    ['https://t.me/c', project.telegram_group_id, telegram_message_thread_id].join('/')
+  end
 end

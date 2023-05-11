@@ -15,3 +15,7 @@
 https://stackoverflow.com/questions/62010077/set-up-https-on-localhost-for-macos-mac-os-catalina-10-15-2
 
 https://www.storyblok.com/faq/setup-dev-server-https-proxy
+
+# TODO
+
+* [] Enable strict loading

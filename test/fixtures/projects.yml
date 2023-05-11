@@ -5,9 +5,11 @@ yandex:
   key: yandex
   url: https://yandex.ru
   owner: one
+  telegram_group_id: 123
 
 dzen:
   host: dzen.ru
   key: dzen
   url: https://dzen.ru
   owner: two
+  telegram_group_id: 456
