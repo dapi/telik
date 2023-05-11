@@ -26,7 +26,7 @@ class RegisterVisitJob < ApplicationJob
 
   # Уведомляет оператора о новом посетителе
   def notify_operators!(visit)
-    visit.project.memberships.joins(:user, :project).pluck(:telegram_id).uniq.find_each do |telegram_id|
+    visit.project.memberships.joins(:user, :project).pluck(:telegram_id).uniq.each do |telegram_id|
       Telegram.bots[:operator].send_message(
         chat_id: telegram_id,
         text: "Новый контакт #{visit.visitor.topic_title} #{visit.visitor.topic_url}"
