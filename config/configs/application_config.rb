@@ -22,7 +22,7 @@ class ApplicationConfig < Anyway::Config
     delegate_missing_to :instance
 
     def client_bot_url
-      TELEGRAM_LINK_PREFIX + ApplicationController.client_bot_username
+      TELEGRAM_LINK_PREFIX + client_bot_username
     end
 
     private

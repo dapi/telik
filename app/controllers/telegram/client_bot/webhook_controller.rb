@@ -13,7 +13,7 @@ class Telegram::ClientBot::WebhookController < Telegram::Bot::UpdatesController
     if visit_key.blank?
       respond_with :message, text: 'Привет! Ты кто?'
     elsif visit_key.start_with? Visit::TELEGRAM_KEY_PREFIX
-      visit = Visit.includes(:visitor).find_by(key: visit_key.sub(Visit::TELEGRAM_KEY_PREFIX, ''))
+      visit = Visit.includes(:visitor).find_by_telegram_key visit_key
       if visit.nil?
         respond_with :message, text: 'Привет! Визит не найден'
       else

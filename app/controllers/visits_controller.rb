@@ -14,12 +14,11 @@ class VisitsController < ApplicationController
   private
 
   def build_redirect_url
-    ApplicationController.client_bot_url + '?start=' + create_visit.telegram_key
+    ApplicationConfig.client_bot_url + '?start=' + create_visit.telegram_key
   end
 
   def create_visit
-    Visitor
-      .create_or_find_by!(project:, cookie_id:)
+    find_or_create_visitor
       .visits
       .create!(
         referrer: request.referer,
@@ -29,12 +28,16 @@ class VisitsController < ApplicationController
       )
   end
 
+  def find_or_create_visitor
+    Visitor.create_or_find_by!(project:, cookie_id:)
+  end
+
   def project
     Project.find_by!(key: params[:pk])
   end
 
   def cookie_id
-    cookies[:telik_visitor_id] ||= Nanoid.generate
+    cookies.signed[:telik_visitor_id] ||= Nanoid.generate
   end
 
   def data

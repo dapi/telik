@@ -28,6 +28,14 @@ class Visit < ApplicationRecord
     visitor.update_column :last_visit_id, id
   end
 
+  def self.find_by_telegram_key(visit_key)
+    if visit_key.start_with? TELEGRAM_KEY_PREFIX
+      find_by key: visit_key.sub(TELEGRAM_KEY_PREFIX, '')
+    else
+      none
+    end
+  end
+
   def to_s
     topic_title
   end

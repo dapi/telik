@@ -80,14 +80,14 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-rails', require: false
+  gem 'pry-byebug'
+  gem 'pry-rails'
 end
 
 group :development do
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
   gem 'foreman'
-  gem 'pry-byebug'
-  gem 'pry-rails'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
