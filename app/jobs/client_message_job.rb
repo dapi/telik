@@ -12,7 +12,7 @@ class ClientMessageJob < ApplicationJob
 
     Telegram.bots[:client].send_message(
       chat_id: visitor.telegram_id,
-      text: message
+      text: '@' + visitor.username + ': ' + message
     )
   end
 end
