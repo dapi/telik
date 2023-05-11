@@ -20,6 +20,7 @@ Layout/LineLength:
 
 Style/Documentation:
   Exclude:
+    - 'app/helpers/*.rb'
     - 'spec/**/*'
     - 'test/**/*'
     - 'app/helpers/application_helper.rb'
