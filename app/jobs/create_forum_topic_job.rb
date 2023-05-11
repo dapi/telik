@@ -4,19 +4,25 @@
 
 # Находит или создает топик операторской группе по пользователю
 #
-class CreateForumTopic < ApplicationService
+class CreateForumTopicJob < ApplicationJob
+  queue_as :default
+
   Error = Class.new StandardError
 
-  def initialize(visitor)
-    @visitor = visitor
+  def perform(visitor)
+    raise Error, "Visitor (#{visitor.id}) has no telegram_id" if visitor.telegram_id.nil?
+
+    safe_perform do
+      visitor.with_lock do
+        update_visitor! visitor, create_forum_topic_in_telegram!(visitor)
+      end
+    end
   end
 
-  def perform
-    raise Error, "Visitor (#{@visitor.id}) has no telegram_id" if @visitor.telegram_id.nil?
+  private
 
-    @visitor.with_lock do
-      update_visitor! @visitor, create_forum_topic_in_telegram!(@visitor)
-    end
+  def safe_perform
+    yield
   rescue Telegram::Bot::Error => e
     Rails.logger.error e
     Bugsnag.notify e do |b|
@@ -33,8 +39,6 @@ class CreateForumTopic < ApplicationService
       # TODO
     end
   end
-
-  private
 
   # @param topic {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}
   #

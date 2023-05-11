@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-class CreateTopicTest < ActiveJob::TestCase
+class CreateTopicJobTest < ActiveJob::TestCase
   fixtures :visitors
 
   test 'creates topic and save its id to telegram_message_thread_id' do
@@ -15,7 +15,7 @@ class CreateTopicTest < ActiveJob::TestCase
     bot.expect :create_forum_topic, response, chat_id: visitor.project.telegram_group_id, name: visitor.topic_title
     Telegram.bots[:operator] = bot
     assert_not visitor.telegram_message_thread_id
-    CreateForumTopic.new(visitor).perform
+    CreateForumTopicJob.perform_now(visitor)
     assert_equal message_thread_id, visitor.telegram_message_thread_id
     bot.verify
   end

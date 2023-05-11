@@ -13,8 +13,6 @@ class Visitor < ApplicationRecord
 
   validates :cookie_id, presence: true
 
-  delegate :topic_title, to: :first_visit
-
   # chat =>
   # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
   def update_user_from_chat!(chat)
@@ -22,7 +20,11 @@ class Visitor < ApplicationRecord
     save! if changed?
   end
 
+  def topic_title
+    "##{id} @#{username} по имени #{first_name} из #{city} (#{region}/#{country})"
+  end
+
   def topic_url
-    ['https://t.me/c', project.telegram_group_id, telegram_message_thread_id].join('/')
+    ['https://t.me/c', project.telegram_group_id.to_s.sub('-100', ''), telegram_message_thread_id].join('/')
   end
 end

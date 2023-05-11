@@ -55,6 +55,13 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # "date":1683820886,
   # "text":"О, работает вроде"
   # }
+  #
+  # Сообщение оператора в главном топику группы
+  # {"message_id":58,
+  # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
+  # "chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
+  # "date":1683824124,
+  # "text":"ку"}
   def message(data)
     Rails.logger.debug data.to_json
     if data['is_topic_message']
@@ -65,10 +72,14 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
       else
         respond_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
       end
+    elsif chat['is_forum']
+      # Похоже пишут в главном топике группы
     else
       respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
     end
   end
+
+  # {"chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},"from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},"date":1683823941,"old_chat_member":{"user":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},"status":"administrator","can_be_edited":false,"can_manage_chat":true,"can_change_info":true,"can_delete_messages":true,"can_invite_users":true,"can_restrict_members":true,"can_pin_messages":true,"can_manage_topics":false,"can_promote_members":false,"can_manage_video_chats":true,"is_anonymous":false,"can_manage_voice_chats":true},"new_chat_member":{"user":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},"status":"administrator","can_be_edited":false,"can_manage_chat":true,"can_change_info":true,"can_delete_messages":true,"can_invite_users":true,"can_restrict_members":true,"can_pin_messages":true,"can_manage_topics":true,"can_promote_members":false,"can_manage_video_chats":true,"is_anonymous":false,"can_manage_voice_chats":true}
 
   def my_chat_member(*args)
     Rails.logger.debug args.to_json

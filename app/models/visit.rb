@@ -37,7 +37,7 @@ class Visit < ApplicationRecord
   end
 
   def to_s
-    topic_title
+    to_json
   end
 
   def chat_object
@@ -46,10 +46,6 @@ class Visit < ApplicationRecord
 
   def location_object
     OpenStruct.new(location).freeze
-  end
-
-  def topic_title
-    "@#{username} по имени #{first_name} из #{city} (#{region}/#{country})"
   end
 
   # chat =>
