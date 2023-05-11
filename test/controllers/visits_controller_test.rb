@@ -11,7 +11,7 @@ class VisitsControllerTest < ActionDispatch::IntegrationTest
     get v_path(pk: projects(:yandex).key)
     assert_redirected_to %r{\Ahttps://t.me}
 
-    saved_cookie = cookies[:telik_visitor_id]
+    saved_cookie = cookies[VisitsController::COOKIE_KEY]
     visit_key = response.redirect_url.split('=').last
 
     visit = Visit.includes(:visitor).find_by_telegram_key visit_key
@@ -25,6 +25,6 @@ class VisitsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 2, visitor.visits.count
 
-    assert_equal saved_cookie, cookies[:telik_visitor_id]
+    assert_equal saved_cookie, cookies[VisitsController::COOKIE_KEY]
   end
 end

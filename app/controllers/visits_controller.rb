@@ -5,6 +5,7 @@
 # Учитывает визит пользователя. Это происходит по клику на виджете
 #
 class VisitsController < ApplicationController
+  COOKIE_KEY = :telik_visitor_id
   before_action :cookie_id
 
   def create
@@ -37,7 +38,7 @@ class VisitsController < ApplicationController
   end
 
   def cookie_id
-    cookies.signed[:telik_visitor_id] ||= Nanoid.generate
+    cookies.signed[COOKIE_KEY] ||= Nanoid.generate
   end
 
   def data
