@@ -8,6 +8,7 @@ require 'addressable/uri'
 #
 class Project < ApplicationRecord
   attr_accessor :just_created
+
   belongs_to :owner, class_name: 'User'
 
   has_many :memberships, dependent: :delete_all
@@ -29,6 +30,7 @@ class Project < ApplicationRecord
 
   def host
     return if url.blank?
+
     Addressable::URI.parse(url).host
   end
 
