@@ -9,6 +9,12 @@ on:
     branches: [main]
     types:
       - completed
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Stage to deploy'
+        required: true
+        default: 'production'
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
