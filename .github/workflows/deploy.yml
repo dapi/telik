@@ -2,34 +2,30 @@ name: Deploy
 run-name: Deploy to production by @${{ github.actor }}
 concurrency: production
 on:
-  push:
-    branches: [ production ]
   workflow_run:
-    workflows: [Test, Rubocop, Brakeman & bundler-audit]
+    workflows: [Ruby on Rails CI]
     branches: [main]
     types:
       - completed
   workflow_dispatch:
-    inputs:
-      stage:
-        description: 'Stage to deploy'
-        required: true
-        default: 'production'
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success') && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     environment: production
+    env:
+      DEPLOY_REPO_URL: git@github.com:${{ github.repository }}.git
+      BRANCH: ${{ github.ref }}
     steps:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
       with:
         submodules: recursive
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      with:
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: ./bin/cap production deploy

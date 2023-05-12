@@ -15,7 +15,7 @@ class RegisterVisitJob < ApplicationJob
     visitor = visit.visitor
     CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
     notify_operators! visit
-    TopicMessageJob.perform_later visitor, "Новый посетитель с #{visit.referrer}"
+    TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}"
   end
 
   private

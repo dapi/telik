@@ -14,17 +14,34 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
-        image: postgres:11-alpine
+      redis:
+        image: redis
         ports:
-          - "5432:5432"
+          - 6379:6379
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
+          POSTGRES_DB: telik_test
+          POSTGRES_PASSWORD: postgres
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      TELIK_DATABASE_HOST: 127.0.0.1
+      TELIK_DATABASE_USERNAME: postgres
+      TELIK_DATABASE_PASSWORD: postgres
+      # DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -39,7 +56,6 @@ jobs:
       # Add or replace test runners here
       - name: Run tests
         run: bin/rake
-
   lint:
     runs-on: ubuntu-latest
     steps:

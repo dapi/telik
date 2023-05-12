@@ -1,5 +1,7 @@
 # Telik – поддержка клиента через телеграм
 
+[![Ruby on Rails CI](https://github.com/dapi/telik/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/dapi/telik/actions/workflows/rubyonrails.yml)
+
 Что нужно чтобы воспользоваться:
 
 1. Авторизоваться через telegram на telik.ru.
