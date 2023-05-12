@@ -24,14 +24,12 @@ class Project < ApplicationRecord
     self.key = Nanoid.generate
   end
 
-  after_create do
-    self.just_created = true
+  before_update do
+    self.host = Addressable::URI.parse(url).host
   end
 
-  def host
-    return if url.blank?
-
-    Addressable::URI.parse(url).host
+  after_create do
+    self.just_created = true
   end
 
   def username
