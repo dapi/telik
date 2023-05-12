@@ -1,15 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 yandex:
-  host: yandex.ru
   key: yandex
-  url: https://yandex.ru
   owner: one
   telegram_group_id: 123
+  name: yandex
 
 dzen:
-  host: dzen.ru
   key: dzen
-  url: https://dzen.ru
   owner: two
   telegram_group_id: 456
+  name: dzen

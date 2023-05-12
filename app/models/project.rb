@@ -7,24 +7,37 @@ require 'addressable/uri'
 # Проект пользователя привязанный к сайту
 #
 class Project < ApplicationRecord
+  attr_accessor :just_created
   belongs_to :owner, class_name: 'User'
 
   has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships
 
-  has_many :visitors, dependent: :delete_all
+  has_many :visitors, dependent: :destroy
   has_many :visits, through: :visitors
 
-  validates :url, presence: true, url: true
-  validates :host, presence: true
+  validates :url, url: true, if: :url?
   validates :telegram_group_id, presence: true
-
-  validate :host do
-    errors.add(:host) unless Addressable::URI.parse(url).host == host
-  end
 
   before_create do
     self.key = Nanoid.generate
+  end
+
+  after_create do
+    self.just_created = true
+  end
+
+  def host
+    return if url.blank?
+    Addressable::URI.parse(url).host
+  end
+
+  def username
+    host || name || custom_username
+  end
+
+  def telegram_group_url
+    ['https://t.me/c', telegram_group_id.to_s.sub('-100', '')].join('/')
   end
 
   def last_visit

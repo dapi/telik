@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_115100) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_065350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,18 +25,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_115100) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "url", null: false
-    t.string "host", null: false
+    t.string "url"
     t.string "key", null: false
     t.datetime "host_confirmed_at", precision: nil
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "telegram_group_id"
+    t.bigint "telegram_group_id", null: false
+    t.string "name", null: false
+    t.jsonb "chat_member"
+    t.datetime "chat_member_updated_at", precision: nil
+    t.string "custom_username"
     t.index ["key"], name: "index_projects_on_key", unique: true
-    t.index ["owner_id", "host"], name: "index_projects_on_owner_id_and_host", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
-    t.index ["url", "owner_id"], name: "index_projects_on_url_and_owner_id", unique: true
+    t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

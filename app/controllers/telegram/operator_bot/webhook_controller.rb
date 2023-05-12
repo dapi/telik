@@ -92,9 +92,116 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
     end
   end
 
+  # Добавили в чат
   # {"chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},"from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},"date":1683823941,"old_chat_member":{"user":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},"status":"administrator","can_be_edited":false,"can_manage_chat":true,"can_change_info":true,"can_delete_messages":true,"can_invite_users":true,"can_restrict_members":true,"can_pin_messages":true,"can_manage_topics":false,"can_promote_members":false,"can_manage_video_chats":true,"is_anonymous":false,"can_manage_voice_chats":true},"new_chat_member":{"user":{"id":6256530950,"is_bot":true,"first_name":"NuiOperatorBot","username":"NuiOperatorBot"},"status":"administrator","can_be_edited":false,"can_manage_chat":true,"can_change_info":true,"can_delete_messages":true,"can_invite_users":true,"can_restrict_members":true,"can_pin_messages":true,"can_manage_topics":true,"can_promote_members":false,"can_manage_video_chats":true,"is_anonymous":false,"can_manage_voice_chats":true}
+  #
 
-  def my_chat_member(*args)
-    Rails.logger.debug args.to_json
+  # Добавили админом
+  # {
+  # "update_id":841395543,
+  # "my_chat_member":{
+  # "chat":{"id":-1001854699958,"title":"Группа поддержки nuichat.ru","is_forum":true,"type":"supergroup"},
+  # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
+  # "date":1683831867,
+  # "old_chat_member":{
+  # "user":{"id":5950953118,"is_bot":true,"first_name":"telik_dev_operator_bot","username":"telik_dev_operator_bot"},
+  # "status":"member"
+  # },
+  # "new_chat_member":{
+  # "user":{"id":5950953118,"is_bot":true,"first_name":"telik_dev_operator_bot","username":"telik_dev_operator_bot"},
+  # "status":"administrator",
+  # "can_be_edited":false,
+  # "can_manage_chat":true,
+  # "can_change_info":true,
+  # "can_delete_messages":true,
+  # "can_invite_users":true,
+  # "can_restrict_members":true,
+  # "can_pin_messages":true,
+  # "can_manage_topics":false,
+  # "can_promote_members":false,
+  # "can_manage_video_chats":true,
+  # "is_anonymous":true,
+  # "can_manage_voice_chats":true
+  # }
+  # }
+  # }
+
+  # Турнули из чата
+  # {"chat":{
+  # "id":-1001854699958,
+  # "title":"Группа поддержки nuichat.ru",
+  # "is_forum":true,
+  # "type":"supergroup"
+  # },"from":{
+  # "id":943084337,
+  # "is_bot":false,
+  # "first_name":"Danil",
+  # "last_name":"Pismenny",
+  # "username":"pismenny",
+  # "language_code":"en"
+  # },
+  # "date":1683831677,
+  # "old_chat_member":{
+  # "user":{
+  # "id":5950953118,
+  # "is_bot":true,
+  # "first_name":"telik_dev_operator_bot",
+  # "username":"telik_dev_operator_bot"
+  # },
+  # "status":"administrator",
+  # "can_be_edited":false,
+  # "can_manage_chat":true,
+  # "can_change_info":true,
+  # "can_delete_messages":true,
+  # "can_invite_users":true,
+  # "can_restrict_members":true,
+  # "can_pin_messages":true,
+  # "can_manage_topics":true,
+  # "can_promote_members":false,
+  # "can_manage_video_chats":true,
+  # "is_anonymous":false,
+  # "can_manage_voice_chats":true
+  # },
+  # "new_chat_member":{
+  # "user":{
+  # "id":5950953118,
+  # "is_bot":true,
+  # "first_name":"telik_dev_operator_bot",
+  # "username":"telik_dev_operator_bot"
+  # },
+  # "status":"member"
+  # }}
+
+  def my_chat_member(data)
+    # Кого-то другого добавили, не нас
+    return unless data.dig('new_chat_member', 'user', 'username') == Telegram.bots[:operator].username
+
+    chat_member = data.fetch('new_chat_member')
+
+    # Кто добавил
+    user = User.find_by(telegram_id: from.fetch('id'))
+
+    if user.present?
+      project = Project
+                .create_with(owner: user, chat_member_updated_at: Time.zone.now, chat_member:, name: chat.fetch('title'))
+                .create_or_find_by!(telegram_group_id: chat.fetch('id'))
+
+      project.assign_attributes(chat_member_updated_at: Time.zone.now, chat_member:)
+      project.save! if project.changed?
+
+      if chat_member.fetch('status') == 'administrator'
+        if chat_member.fetch('can_manage_topics')
+          # TODO: Уведомить оператора через action cable
+          # TODO Показать код виджета
+        else
+          respond_with :message, text: 'Добавьте мне прав управления топиками'
+        end
+      else
+        respond_with :message, text: 'Сделайте меня администратором и дайте права управления топиками'
+      end
+    else
+      Rails.logger.warn('Unknown owner')
+      # TODO: А что делать если надо добавил не известно кто? Написать ему в личку?
+    end
   end
 end

@@ -27,17 +27,18 @@ begin
   Rails.logger.debug 'Create project'
   project = Project
             .create_with(
-              telegram_group_id: -1_001_854_699_958,
+              owner:,
+              name: 'Sample project',
               url: Rails.application.routes.url_helpers.root_url
             )
             .create_or_find_by!(
-              owner:,
-              host: Addressable::URI.parse(Rails.application.routes.url_helpers.root_url).host
+              telegram_group_id: -1_001_854_699_958,
             )
 
   Rails.logger.debug 'Create membership'
   Membership.find_or_create_by!(project:, user: owner)
 rescue StandardError => e
+  puts e
   Rails.logger.debug e.record.inspect
   raise e
 end

@@ -25,11 +25,12 @@ class Visitor < ApplicationRecord
     "##{id} #{name} из #{last_visit.city} (#{last_visit.region}/#{last_visit.country})"
   end
 
+  # Имя используемое в чате в сообщениях "от"
   def name
     [first_name, last_name].join(' ').presence || ('Incognito(' + id.to_s + ')')
   end
 
   def topic_url
-    ['https://t.me/c', project.telegram_group_id.to_s.sub('-100', ''), telegram_message_thread_id].join('/')
+    [project.telegram_group_url, telegram_message_thread_id].join('/')
   end
 end

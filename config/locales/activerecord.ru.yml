@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      project:
+        one: Проект
+        few: Проектов
+        many: Проекты
+        other: Проекты
+    attributes:
+      project:
+        url: Адрес сайта

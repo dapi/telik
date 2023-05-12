@@ -33,7 +33,7 @@ class Telegram::ClientBot::WebhookController < Telegram::Bot::UpdatesController
   def message(data)
     visitor = Visitor.find_by(telegram_id: from.fetch('id'))
     if visitor.present?
-      TopicMessageJob.perform_later visitor, data.fetch('text')
+      TopicMessageJob.perform_later visitor, visitor.name + ': ' + data.fetch('text')
     else
       respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
     end
