@@ -1,7 +1,9 @@
+# Copyright © 2019 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
-# Copyright (c) 2019 Danil Pismenny <danil@brandymint.ru>
-
+# Соглашение для использования ресурса по имени контроллера
+#
 module RansackSupport
   extend ActiveSupport::Concern
   included do
