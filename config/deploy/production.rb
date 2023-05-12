@@ -2,7 +2,7 @@
 
 # frozen_string_literal: true
 
-server 'telikbot.ru',
+server 'nuichat.ru',
        user: fetch(:user),
        port: '22',
        primary: true,
