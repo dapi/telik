@@ -1,17 +1,13 @@
-name: Деплой
-run-name: Деплоим на ${{ inputs.stage }} от @${{ github.actor }}
-on: 
-  workflow_dispatch:
-    inputs:
-      stage:
-        description: 'Стейдж на который заливать'     
-        required: true
-        default: 'production'
+name: Deploy
+run-name: Deploy to production by @${{ github.actor }}
+concurrency: production
+on:
+  push:
+    branches: [ main ]
 jobs:
   deploy:
-    env:
-      STAGE: staging${{ inputs.stage_index }}
     runs-on: ubuntu-latest
+    environment: production
     steps:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
@@ -24,4 +20,4 @@ jobs:
     - uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - run: ./bin/cap ${{STAGE}} deploy
+    - run: ./bin/cap production deploy
