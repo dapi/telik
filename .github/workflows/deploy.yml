@@ -3,9 +3,15 @@ run-name: Deploy to production by @${{ github.actor }}
 concurrency: production
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ production ]
+  workflow_run:
+    workflows: [Test, Rubocop, Brakeman & bundler-audit]
+    branches: [$default-branch]
+    types:
+      - completed
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: production
     steps:
