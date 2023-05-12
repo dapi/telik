@@ -3,7 +3,7 @@ run-name: Deploy to production by @${{ github.actor }}
 concurrency: production
 on:
   push:
-    branches: [ main ]
+    branches: [ $default-branch ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
