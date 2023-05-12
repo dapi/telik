@@ -6,7 +6,7 @@ on:
     branches: [ production ]
   workflow_run:
     workflows: [Test, Rubocop, Brakeman & bundler-audit]
-    branches: [$default-branch]
+    branches: [main]
     types:
       - completed
 jobs:

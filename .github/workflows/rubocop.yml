@@ -7,9 +7,9 @@ name: Rubocop
 
 on:
   push:
-    branches: [ $default_branch ]
+    branches: [ main ]
   pull_request:
-    branches: [ $default_branch ]
+    branches: [ main ]
 jobs:
   run-lint:
     runs-on: ubuntu-latest
