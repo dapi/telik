@@ -5,7 +5,9 @@ h1 Регистрируем новый сайт
   .form-inputs
     .row
       .col-md-6
-        = f.input :url, input_html: { autofocus: true }
+        = f.input :name, input_html: { autofocus: true }
+      .col-md-6
+        = f.input :url
       .col-md-6
         = f.input :telegram_group_id
         ol

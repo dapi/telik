@@ -5,8 +5,6 @@
 require 'test_helper'
 
 class CreateTopicJobTest < ActiveJob::TestCase
-  fixtures :visitors
-
   test 'creates topic and save its id to telegram_message_thread_id' do
     visitor = visitors :dzen
     message_thread_id = 123
