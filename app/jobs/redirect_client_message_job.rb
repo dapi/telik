@@ -9,10 +9,8 @@ class RedirectClientMessageJob < ApplicationJob
 
   def perform(visitor, message)
     CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
-    if visitor.telegram_message_thread_id.present?
-      TopicMessageJob.perform_later visitor, visitor.name + ': ' + message
-    else
-      raise Retry, "No telegram_message_thread_id to redirect message for visitors ##{visitor.id}"
-    end
+    raise Retry, "No telegram_message_thread_id to redirect message for visitors ##{visitor.id}" if visitor.telegram_message_thread_id.blank?
+
+    TopicMessageJob.perform_later visitor, visitor.name + ': ' + message
   end
 end
