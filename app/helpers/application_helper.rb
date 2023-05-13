@@ -3,7 +3,7 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  DIGEST_REGEXP=/(-{1}[a-z0-9]{32}*\.{1}){1}/
+  DIGEST_REGEXP = /(-{1}[a-z0-9]{32}*\.{1}){1}/
   def remove_asset_digest(path)
     path.sub(DIGEST_REGEXP, '.')
   end
