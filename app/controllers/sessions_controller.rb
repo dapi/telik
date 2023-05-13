@@ -9,6 +9,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to root_url, notice: t('flashes.logout')
+    redirect_to root_url(format: :html), notice: 'Пока!'
   end
 end
