@@ -25,6 +25,10 @@ class ApplicationConfig < Anyway::Config
       TELEGRAM_LINK_PREFIX + client_bot_username
     end
 
+    def url
+      protocol + '://' + host
+    end
+
     private
 
     # Returns a singleton config instance

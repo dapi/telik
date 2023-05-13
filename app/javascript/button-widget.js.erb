@@ -1,0 +1,50 @@
+
+(function(window) {
+  if (!window.NuiChatWidget) { window.NuiChatWidget = {}; }
+
+  function getAllWidgets() {
+    var widgets = [];
+    if (document.querySelectorAll) {
+      widgets = document.querySelectorAll('script[data-nuichat-pk]');
+    } else {
+      widgets = Array.prototype.slice.apply(document.getElementsByTagName('SCRIPT'));
+    }
+    return widgets;
+  }
+
+  function initWidget(widgetEl) {
+    var widgetProjectKey;
+    var size = widgetEl.getAttribute('data-size') || 50;
+    var style=`position:fixed;bottom:0;margin:1em;background:none;z-index:9999;width:${size}px;height:${size}px;`;
+    if (!widgetEl.tagName || !(widgetEl.tagName.toUpperCase() == 'SCRIPT')) {
+      return null;
+    }
+    if (window.NuiChatWidget.widgetEl) {
+      return true;
+    }
+    if (widgetProjectKey = widgetEl.getAttribute('data-nuichat-pk')) {
+      var a = document.createElement('A');
+
+      a.setAttribute('style', style);
+      a.setAttribute('title', widgetEl.getAttribute('data-title') || "Нажмите чтобы связаться с оператором");
+      a.setAttribute('target', '_blank');
+      a.href='<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey;
+
+      var img = document.createElement('IMG');
+      img.width = img.height = size;
+      img.src="<%= image_url 'telegram_logo.svg' %>";
+      a.appendChild(img);
+      widgetEl.parentNode.insertBefore(a, widgetEl);
+    }
+    window.NuiChatWidget.widgetEl = widgetEl;
+    return true;
+  }
+
+  if (!document.currentScript ||
+    !initWidget(document.currentScript)) {
+    var widgets = getAllWidgets();
+    for (var i = 0; i < widgets.length; i++) {
+      initWidget(widgets[i]);
+    }
+  }
+})(window);

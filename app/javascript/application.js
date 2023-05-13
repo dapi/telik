@@ -4,7 +4,6 @@ import "controllers"
 import * as bootstrap from 'bootstrap'
 
 const onReady = function() {
-  console.log('turbo:load: onReady')
   var option = { delay: 3000 }
   var toastElList = [].slice.call(document.querySelectorAll('.toast'))
   var toastList = toastElList.map(function (toastEl) {

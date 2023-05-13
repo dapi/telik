@@ -3,6 +3,10 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def remove_asset_digest(path)
+    path.sub(/-[0-9a-z]+\./, '.')
+  end
+
   def link_to_bot(username)
     link_to '@' + username, ApplicationConfig::TELEGRAM_LINK_PREFIX + username, target: '_blank', rel: 'noopener'
   end
