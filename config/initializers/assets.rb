@@ -13,8 +13,9 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w[button-widget.js button-widget.css]
+Rails.application.config.assets.precompile += %w[button-widget.js]
+
+NonDigestAssets.asset_selectors += %w[button-widget.js]
 
 Rails.application.config.action_controller.asset_host =
-  Rails.application.config.asset_host =
-    ApplicationConfig.url
+  Rails.application.config.asset_host = ENV.fetch('CDN_HOST', ApplicationConfig.url)
