@@ -8,12 +8,17 @@ h1 Регистрируем новый сайт
         = f.input :name, input_html: { autofocus: true }
       .col-md-6
         = f.input :url
+    .row
       .col-md-6
-        = f.input :telegram_group_id
-        ol
-          li Создайте в телеграм приватную группу с топиками
-          li Добавьте в админы бота #{link_to_bot ApplicationConfig.operator_bot_username} и дайте ему право управление топиками
-          li Укажите ее ID в этом поле
-
+        = f.input :custom_username
+      .col-md-6
+        = f.input :telegram_group_id, disabled: true
   .form-actions.mt-2
     = f.button :submit,  class: 'btn btn-lg btn-success'
+
+p
+  ol
+    li Создайте в телеграм приватную группу с топиками
+    li Добавьте в админы бота #{link_to_bot ApplicationConfig.operator_bot_username} и дайте ему право управление топиками
+    li Дождитесь когда группа привяжется
+

@@ -7,6 +7,8 @@ require 'addressable/uri'
 # Проект пользователя привязанный к сайту
 #
 class Project < ApplicationRecord
+  strip_attributes
+
   attr_accessor :just_created
 
   belongs_to :owner, class_name: 'User'
@@ -17,6 +19,7 @@ class Project < ApplicationRecord
   has_many :visitors, dependent: :destroy
   has_many :visits, through: :visitors
 
+  validates :name, presence: true
   validates :url, url: true, if: :url?
   validates :telegram_group_id, presence: true
 

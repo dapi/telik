@@ -8,4 +8,7 @@ ru:
         other: Проекты
     attributes:
       project:
+        name: Название проекта
+        username: Имя пользователя в сообщениях
+        custom_username: Имя пользователя в сообщениях
         url: Адрес сайта

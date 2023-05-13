@@ -31,6 +31,6 @@ class ProjectsController < ApplicationController
   private
 
   def permitted_params
-    params.fetch(:project, {}).permit(:url, :telegram_group_id)
+    params.fetch(:project, {}).permit(:name, :custom_username, :url, :telegram_group_id)
   end
 end
