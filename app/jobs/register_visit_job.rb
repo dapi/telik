@@ -11,7 +11,7 @@ class RegisterVisitJob < ApplicationJob
   queue_as :default
 
   def perform(visit:, chat:)
-    visitor.with_lock do
+    visit.visitor.with_lock do
       visit.visitor.update_user_from_chat!(chat || raise('Empty chat data'))
       visit.update! chat:, registered_at: Time.zone.now
     end
