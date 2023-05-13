@@ -1,8 +1,8 @@
 
 - if logged_in?
   .mb-4
-    | Привет, #{current_user}
-    span.ms-2= link_to 'Выйти', sessions_path, data: { turbo_method: :delete }
+    | Привет, #{current_user}!
+    span.ms-4= link_to 'Выйти', sessions_path, data: { turbo_method: :delete }
 
   - if current_user.projects.any?
     h3 Ваши проекты:
