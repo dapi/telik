@@ -15,7 +15,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x0000000108e09a58 /Users/danil/code/telik/config/routes.rb:44>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00000001082a6300 /Users/danil/code/telik/config/routes.rb:44>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

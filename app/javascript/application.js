@@ -1,5 +1,5 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-// import "@hotwired/turbo-rails"
+import "@hotwired/turbo-rails"
 import "controllers"
 import * as bootstrap from 'bootstrap'
 
@@ -11,4 +11,4 @@ const onReady = function() {
   toastList.forEach(toastEl => toastEl.show())
 }
 
-// document.addEventListener("turbo:load", onReady)
+document.addEventListener("turbo:load", onReady)
