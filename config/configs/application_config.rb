@@ -7,7 +7,7 @@ class ApplicationConfig < Anyway::Config
   TELEGRAM_LINK_PREFIX = 'https://t.me/'
   env_prefix :telik
   attr_config(
-    app_title: 'NuiBot',
+    app_title: 'NuiChat',
     host: 'localhost',
     protocol: 'http',
     client_bot_token: '',
