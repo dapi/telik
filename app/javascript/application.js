@@ -4,11 +4,11 @@ import "controllers"
 import * as bootstrap from 'bootstrap'
 
 const onReady = function() {
-  console.log('onReady')
-  const option={}
-  const toastElList = document.querySelectorAll('.toast')
-  const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
-  toastList.forEach(toastEl => toastEl.show())
+  console.log('onReady (turbo:load)')
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, option)
+  })
 }
 
 document.addEventListener("turbo:load", onReady)
