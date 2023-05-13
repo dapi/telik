@@ -14,7 +14,7 @@ set :linked_dirs,
     fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
 # Defaults
-# set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
+set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
 
 desc 'Setup deploy'
 task setup: ['master_key:setup', 'puma:install', 'systemd:sidekiq:setup', 'telegram:bot:set_webhook']
