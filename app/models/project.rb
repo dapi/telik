@@ -7,7 +7,7 @@ require 'addressable/uri'
 # Проект пользователя привязанный к сайту
 #
 class Project < ApplicationRecord
-  BOT_STATUSES = %w[left administrator restricted member]
+  BOT_STATUSES = %w[left administrator restricted member].freeze
 
   strip_attributes
 
@@ -40,10 +40,10 @@ class Project < ApplicationRecord
   end
 
   def add_owner_as_member
-    self.memberships.create_or_find_by! user: owner
+    memberships.create_or_find_by! user: owner
   end
 
-  def member? user
+  def member?(user)
     owner_id == user.id || users.include?(user)
   end
 
@@ -56,19 +56,21 @@ class Project < ApplicationRecord
     bot_status == 'administrator'
   end
 
-  def update_bot_member!(chat_member: , chat:)
+  def update_bot_member!(chat_member:, chat:)
     raise 'Project must be not changed' if changed?
+
     assign_attributes(
       telegram_chat: chat,
       telegram_group_is_forum: chat['is_forum'],
       telegram_group_type: chat.fetch('type'),
       bot_status: chat_member.fetch('status'),
       bot_can_manage_topics: chat_member['can_manage_topics'],
-      chat_member: )
-    if changed?
-      self.chat_member_updated_at=Time.zone.now
-      save!
-    end
+      chat_member:
+    )
+    return unless changed?
+
+    self.chat_member_updated_at = Time.zone.now
+    save!
   end
 
   def telegram_group_url

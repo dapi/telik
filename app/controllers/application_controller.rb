@@ -2,8 +2,9 @@
 
 # frozen_string_literal: true
 
+# Базовый контроллер приложения
+#
 class ApplicationController < ActionController::Base
-
   private
 
   def not_authenticated

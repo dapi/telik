@@ -74,42 +74,42 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # "is_topic_message":true
   # }
   # Выкинули из чата (помимо my_chat_member приходит еще и такое сообщение, его просто игнорируем)
-  #{"message_id":121,
-   #"from":{
-    #"id":943084337,
-    #"is_bot":false,
-    #"first_name":"Danil",
-    #"last_name":"Pismenny",
-    #"username":"pismenny",
-    #"language_code":"en"
-  #},
-  #"chat":{
-    #"id":-1001854699958,
-    #"title":"Группа поддержки nuichat.ru",
-    #"is_forum":true,
-    #"type":"supergroup"
-  #},
-  #"date":1683958326,
-  #"left_chat_participant":{
-    #"id":6189190373,
-    #"is_bot":true,
-    #"first_name":"Telik Chat Bot",
-    #"username":"telik_chat_bot"
-  #},"left_chat_member":{
-    #"id":6189190373,
-    #"is_bot":true,
-    #"first_name":"Telik Chat Bot",
-    #"username":"telik_chat_bot"
-  #}}
+  # {"message_id":121,
+  # "from":{
+  # "id":943084337,
+  # "is_bot":false,
+  # "first_name":"Danil",
+  # "last_name":"Pismenny",
+  # "username":"pismenny",
+  # "language_code":"en"
+  # },
+  # "chat":{
+  # "id":-1001854699958,
+  # "title":"Группа поддержки nuichat.ru",
+  # "is_forum":true,
+  # "type":"supergroup"
+  # },
+  # "date":1683958326,
+  # "left_chat_participant":{
+  # "id":6189190373,
+  # "is_bot":true,
+  # "first_name":"Telik Chat Bot",
+  # "username":"telik_chat_bot"
+  # },"left_chat_member":{
+  # "id":6189190373,
+  # "is_bot":true,
+  # "first_name":"Telik Chat Bot",
+  # "username":"telik_chat_bot"
+  # }}
 
   # Также приходит когда добавляют участника
-  #{"message_id"=>7,
-  #"from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
-  #"chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>true},
-  #"date"=>1683966286,
-  #"new_chat_participant"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-  #"new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-  #"new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}]}
+  # {"message_id"=>7,
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+  # "chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>true},
+  # "date"=>1683966286,
+  # "new_chat_participant"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # "new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # "new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}]}
 
   def message(data)
     Rails.logger.debug data.to_json
@@ -214,95 +214,95 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # }}
   #
   # Изменили доступы:
-  #{"chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки nuichat.ru", "is_forum"=>true, "type"=>"supergroup"},
- #"from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
- #"date"=>1683964878,
- #"old_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-   #"status"=>"administrator",
-   #"can_be_edited"=>false,
-   #"can_manage_chat"=>true,
-   #"can_change_info"=>true,
-   #"can_delete_messages"=>true,
-   #"can_invite_users"=>true,
-   #"can_restrict_members"=>true,
-   #"can_pin_messages"=>true,
-   #"can_manage_topics"=>true,
-   #"can_promote_members"=>false,
-   #"can_manage_video_chats"=>true,
-   #"is_anonymous"=>true,
-   #"can_manage_voice_chats"=>true},
- #"new_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-   #"status"=>"restricted",
-   #"until_date"=>0,
-   #"can_send_messages"=>true,
-   #"can_send_media_messages"=>true,
-   #"can_send_audios"=>true,
-   #"can_send_documents"=>true,
-   #"can_send_photos"=>true,
-   #"can_send_videos"=>true,
-   #"can_send_video_notes"=>true,
-   #"can_send_voice_notes"=>true,
-   #"can_send_polls"=>true,
-   #"can_send_other_messages"=>true,
-   #"can_add_web_page_previews"=>true,
-   #"can_change_info"=>true,
-   #"can_invite_users"=>true,
-   #"can_pin_messages"=>true,
-   #"can_manage_topics"=>false,
-   #"is_member"=>true}}
+  # {"chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки nuichat.ru", "is_forum"=>true, "type"=>"supergroup"},
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+  # "date"=>1683964878,
+  # "old_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # "status"=>"administrator",
+  # "can_be_edited"=>false,
+  # "can_manage_chat"=>true,
+  # "can_change_info"=>true,
+  # "can_delete_messages"=>true,
+  # "can_invite_users"=>true,
+  # "can_restrict_members"=>true,
+  # "can_pin_messages"=>true,
+  # "can_manage_topics"=>true,
+  # "can_promote_members"=>false,
+  # "can_manage_video_chats"=>true,
+  # "is_anonymous"=>true,
+  # "can_manage_voice_chats"=>true},
+  # "new_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # "status"=>"restricted",
+  # "until_date"=>0,
+  # "can_send_messages"=>true,
+  # "can_send_media_messages"=>true,
+  # "can_send_audios"=>true,
+  # "can_send_documents"=>true,
+  # "can_send_photos"=>true,
+  # "can_send_videos"=>true,
+  # "can_send_video_notes"=>true,
+  # "can_send_voice_notes"=>true,
+  # "can_send_polls"=>true,
+  # "can_send_other_messages"=>true,
+  # "can_add_web_page_previews"=>true,
+  # "can_change_info"=>true,
+  # "can_invite_users"=>true,
+  # "can_pin_messages"=>true,
+  # "can_manage_topics"=>false,
+  # "is_member"=>true}}
 
   # Турнули
   #
-  #{"chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки nuichat.ru", "is_forum"=>true, "type"=>"supergroup"},
- #"from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
- #"date"=>1683965960,
- #"old_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-   #"status"=>"restricted",
-   #"until_date"=>0,
-   #"can_send_messages"=>true,
-   #"can_send_media_messages"=>true,
-   #"can_send_audios"=>true,
-   #"can_send_documents"=>true,
-   #"can_send_photos"=>true,
-   #"can_send_videos"=>true,
-   #"can_send_video_notes"=>true,
-   #"can_send_voice_notes"=>true,
-   #"can_send_polls"=>true,
-   #"can_send_other_messages"=>true,
-   #"can_add_web_page_previews"=>true,
-   #"can_change_info"=>true,
-   #"can_invite_users"=>true,
-   #"can_pin_messages"=>false,
-   #"can_manage_topics"=>false,
-   #"is_member"=>true},
- #"new_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"}}
+  # {"chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки nuichat.ru", "is_forum"=>true, "type"=>"supergroup"},
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+  # "date"=>1683965960,
+  # "old_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # "status"=>"restricted",
+  # "until_date"=>0,
+  # "can_send_messages"=>true,
+  # "can_send_media_messages"=>true,
+  # "can_send_audios"=>true,
+  # "can_send_documents"=>true,
+  # "can_send_photos"=>true,
+  # "can_send_videos"=>true,
+  # "can_send_video_notes"=>true,
+  # "can_send_voice_notes"=>true,
+  # "can_send_polls"=>true,
+  # "can_send_other_messages"=>true,
+  # "can_add_web_page_previews"=>true,
+  # "can_change_info"=>true,
+  # "can_invite_users"=>true,
+  # "can_pin_messages"=>false,
+  # "can_manage_topics"=>false,
+  # "is_member"=>true},
+  # "new_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"}}
 
   # Добавили в обычную группу
-  #{"chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>false},
- #"from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
- #"date"=>1683966286,
- #"old_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"},
- #"new_chat_member"=>
-  #{"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"member"}}
+  # {"chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>false},
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+  # "date"=>1683966286,
+  # "old_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"},
+  # "new_chat_member"=>
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"member"}}
   def my_chat_member(data)
     # Кого-то другого добавили, не нас
     return unless data.dig('new_chat_member', 'user', 'username') == Telegram.bots[:operator].username
 
     chat_member = data.fetch('new_chat_member')
-    user = User.
-      create_with(telegram_data: from).
-      create_or_find_by!(telegram_id: from.fetch('id'))
+    user = User
+           .create_with(telegram_data: from)
+           .create_or_find_by!(telegram_id: from.fetch('id'))
 
     project = Project
-      .create_with(owner: user, chat_member_updated_at: Time.zone.now, chat_member:, name: chat.fetch('title'))
-      .create_or_find_by!(telegram_group_id: chat.fetch('id'))
+              .create_with(owner: user, chat_member_updated_at: Time.zone.now, chat_member:, name: chat.fetch('title'))
+              .create_or_find_by!(telegram_group_id: chat.fetch('id'))
 
-    update_project_bot_member!(project:, chat_member:, user: )
+    update_project_bot_member!(project:, chat_member:, user:)
   end
 
   private
@@ -310,22 +310,22 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   def update_project_bot_member!(project:, chat_member:, user:)
     project.update_bot_member!(chat_member:, chat:)
 
-    # TODO Сообщить пользователю ссылку на сайт для авторизации если он ни свеже созданный и еще ниразу не авторизовывался
+    # TODO: Сообщить пользователю ссылку на сайт для авторизации если он ни свеже созданный и еще ниразу не авторизовывался
     # unless user.last_login_at?
 
     text = []
     unless user.last_login_at?
       text += [
         "Привет, #{user.first_name}!",
-        "Мы с тобой ещё не знакомы.",
+        'Мы с тобой ещё не знакомы.',
         "Зайди на #{Rails.application.routes.url_helpers.project_url(project)} чтобы получить код виджета и инструкции по настройке.",
         ''
       ]
     end
     if chat.fetch('type') == 'supergroup'
-      text << "В этой супер-группе необходимо разрешить топики" unless chat['is_forum']
+      text << 'В этой супер-группе необходимо разрешить топики' unless chat['is_forum']
     else
-      text << "В группе необходимо разрешить топики (сделать её супер-группой)"
+      text << 'В группе необходимо разрешить топики (сделать её супер-группой)'
     end
 
     if chat_member.fetch('status') == 'administrator'
@@ -334,7 +334,7 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
         # TODO Показать код виджета
         text += [
           'Поздравляю! Я успешно подключен!',
-          "Зайди на #{Rails.application.routes.url_helpers.project_url(project)} чтобы получить код виджета и инструкции по настройке.",
+          "Зайди на #{Rails.application.routes.url_helpers.project_url(project)} чтобы получить код виджета и инструкции по настройке."
         ]
       else
         text << 'Добавьте мне прав управления топиками'
