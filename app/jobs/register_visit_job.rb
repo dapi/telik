@@ -11,10 +11,11 @@ class RegisterVisitJob < ApplicationJob
   queue_as :default
 
   def perform(visit:, chat:)
-    visit.visitor.with_lock do
-      visit.visitor.update_user_from_chat!(chat || raise('Empty chat data'))
+    visitor = visit.visitor
+    visitor.with_lock do
+      visitor.update_user_from_chat!(chat || raise('Empty chat data'))
       visit.update! chat:, registered_at: Time.zone.now
     end
-    CreateForumTopicJob.perform_now visit.visitor if visitor.telegram_message_thread_id.nil?
+    CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
   end
 end
