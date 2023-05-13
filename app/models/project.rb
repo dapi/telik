@@ -39,6 +39,10 @@ class Project < ApplicationRecord
     self.just_created = true
   end
 
+  after_commit do
+    ProjectRelayJob.perform_later self
+  end
+
   def add_owner_as_member
     memberships.create_or_find_by! user: owner
   end

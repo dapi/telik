@@ -19,8 +19,8 @@ module ApplicationCable
     end
 
     def find_verified_user
-      binding.pry
-      # cookies.encrypted['_session']['user_id']
+      # Alternative:
+      # cookies.encrypted['_telik_session']['user_id']
       user_id = env['rack.session'][:user_id]
       verified_user = User.find_by(id: user_id)
       return verified_user if verified_user
