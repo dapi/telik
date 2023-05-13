@@ -1,0 +1,16 @@
+= simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
+  = f.error_notification
+  = full_error_messages f if Rails.env.development?
+  .form-inputs
+    .row
+      .col-md-6
+        = f.input :name, input_html: { autofocus: true }
+      .col-md-6
+        = f.input :url
+    .row
+      .col-md-6
+        = f.input :custom_username
+      .col-md-6
+        = f.input :telegram_group_id, disabled: true
+  .form-actions.mt-2
+    = f.button :submit,  class: 'btn btn-lg btn-success'

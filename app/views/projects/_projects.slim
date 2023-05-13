@@ -1,0 +1,22 @@
+table.table.table-condensed
+  thead
+    tr
+      th Название
+      th Домен
+      th Имя
+      th Посетителей
+      th Контактов
+      th Действия
+  tbody
+    - current_user.projects.each do |project|
+      tr
+        td= project.name
+        td
+          - if project.host.present?
+            = link_to project.host, project.url, target: '_blank'
+          - else
+            i Не установлено
+        td= project.username
+        td= project.visitors.count
+        td= project.visits.count
+        td= link_to 'Код виджета', project_path(project)
