@@ -53,7 +53,12 @@ class Project < ApplicationRecord
 
   # Бот подключен в группу?
   def bot_connected?
-    bot_status == 'administrator'
+    bot_status.present?
+    # bot_status == 'administrator'
+  end
+
+  def notify_telegram_ids
+    memberships.joins(:user, :project).pluck(:telegram_id).uniq
   end
 
   def update_bot_member!(chat_member:, chat:)

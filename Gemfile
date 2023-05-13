@@ -145,3 +145,5 @@ gem 'dotenv', '~> 2.8'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 gem 'russian', '~> 0.6.0'
+
+gem 'telegram-bot-types', '~> 0.7.0'

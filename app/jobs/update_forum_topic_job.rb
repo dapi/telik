@@ -13,7 +13,7 @@ class UpdateForumTopicJob < CreateForumTopicJob
     raise Error, "Visitor (#{visitor.id}) has no telegram_id" if visitor.telegram_id.nil?
     raise Error, "Visitor (#{visitor.id}) has no defined message_thread_id" if visitor.telegram_message_thread_id.nil?
 
-    safe_perform do
+    safe_perform visitor.project.ownere.telegram_group_id do
       edit_forum_topic(visitor)
     end
   end

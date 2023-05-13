@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_095035) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_152130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_095035) do
     t.string "telegram_group_type"
     t.jsonb "telegram_chat"
     t.boolean "telegram_group_is_forum"
+    t.string "last_error"
+    t.datetime "last_error_at", precision: nil
     t.index ["key"], name: "index_projects_on_key", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
     t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
@@ -81,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_095035) do
     t.bigint "first_visit_id"
     t.bigint "last_visit_id"
     t.jsonb "topic_data"
+    t.datetime "last_visit_at", precision: nil
     t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
     t.index ["last_visit_id"], name: "index_visitors_on_last_visit_id"
     t.index ["project_id", "cookie_id"], name: "index_visitors_on_project_id_and_cookie_id", unique: true

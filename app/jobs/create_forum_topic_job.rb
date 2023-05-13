@@ -12,33 +12,34 @@ class CreateForumTopicJob < ApplicationJob
   def perform(visitor)
     raise Error, "Visitor (#{visitor.id}) has no telegram_id" if visitor.telegram_id.nil?
 
-    safe_perform do
+    safe_perform visitor.project.owner.telegram_id do
       visitor.with_lock do
         update_visitor! visitor, create_forum_topic_in_telegram!(visitor)
       end
+      visit = visitor.last_visit
+      TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visit.present?
     end
   end
 
   private
 
-  def safe_perform
+  def safe_perform(owner_telegram_id)
     yield
   rescue Telegram::Bot::Error => e
     Rails.logger.error e
-    Bugsnag.notify e do |b|
-      b.meta_data = { visitor: visitor.as_json }
-    end
     case e.message
     when 'Bad Request: Bad Request: chat not found'
-      # TODO: Похоже у бота нет доступа к группе, надо уведомить оператора
-      # Telegram.bots[:operator].username
+      OperatorMessageJob.perform_later(owner_telegram_id, 'У меня нет доступа к группе')
     when 'Bad Request: Bad Request: not enough rights to create a topic'
-      # TODO
+      OperatorMessageJob.perform_later(owner_telegram_id, 'У меня нет прав создавать топики')
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
       # Do nothing
     else
       Rails.logger.warn e
-      # TODO
+      Bugsnag.notify e do |b|
+        b.meta_data = { visitor: visitor.as_json }
+      end
+      OperatorMessageJob.perform_later(owner_telegram_id, e.message)
     end
   end
 
@@ -50,6 +51,7 @@ class CreateForumTopicJob < ApplicationJob
       telegram_cached_at: Time.zone.now,
       topic_data: topic
       # {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}
+
     )
   end
 

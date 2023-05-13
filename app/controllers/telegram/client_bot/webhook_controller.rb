@@ -5,10 +5,6 @@
 # Контроллер бота общения с посетителем клиентского сайта
 #
 class Telegram::ClientBot::WebhookController < Telegram::Bot::UpdatesController
-  include Telegram::Bot::UpdatesController::MessageContext
-
-  use_session!
-
   def start!(visit_key = nil, *_args)
     if visit_key.blank?
       respond_with :message, text: 'Привет! Ты кто?'
@@ -31,9 +27,10 @@ class Telegram::ClientBot::WebhookController < Telegram::Bot::UpdatesController
   # "date"=>1683820060,
   # "text"=>"adas"}
   def message(data)
-    visitor = Visitor.find_by(telegram_id: from.fetch('id'))
+    # TODO: Если это ответ, то посылать в конкретный проект
+    visitor = Visitor.order(:last_visit_at).where(telegram_id: from.fetch('id')).last
     if visitor.present?
-      TopicMessageJob.perform_later visitor, visitor.name + ': ' + data.fetch('text')
+      RedirectClientMessageJob.perform_later visitor, data.fetch('text')
     else
       respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
     end
