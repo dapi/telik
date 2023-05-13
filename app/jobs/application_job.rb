@@ -4,8 +4,11 @@
 
 # Базовый класс job-ов
 class ApplicationJob < ActiveJob::Base
+  Retry = Class.new StandardError
+
   # Automatically retry jobs that encountered a deadlock
   retry_on ActiveRecord::Deadlocked
+  retry_on Retry, wait: :exponentially_longer, attempts: 100
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   discard_on ActiveJob::DeserializationError

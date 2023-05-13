@@ -12,7 +12,7 @@ class RedirectClientMessageJob < ApplicationJob
     if visitor.telegram_message_thread_id.present?
       TopicMessageJob.perform_later visitor, visitor.name + ': ' + message
     else
-      Rails.logger.warn "Can't redirect visitors ##{visitor.id} message"
+      raise Retry, "No telegram_message_thread_id to redirect message for visitors ##{visitor.id}"
     end
   end
 end
