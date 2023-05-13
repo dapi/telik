@@ -3,4 +3,10 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+
+  private
+
+  def not_authenticated
+    raise :not_authenticated
+  end
 end

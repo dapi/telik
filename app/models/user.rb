@@ -17,8 +17,12 @@ class User < ApplicationRecord
     public_name
   end
 
+  def first_name
+    telegram_data.fetch('first_name')
+  end
+
   def public_name
-    telegram_data.fetch('first_name') || telegram_nick
+    first_name || telegram_nick
   end
 
   def telegram_nick

@@ -5,7 +5,8 @@
 # Управление опреаторскими проектами
 class ProjectsController < ApplicationController
   def show
-    project = current_user.projects.find(params[:id])
+    project = Project.find params[:id]
+    return not_authenticated unless project.member? current_user
     render locals: {
       project:
     }

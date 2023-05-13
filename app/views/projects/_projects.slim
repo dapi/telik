@@ -3,20 +3,33 @@ table.table.table-condensed
     tr
       th Название
       th Домен
-      th Имя
+      th Имя в переписке
+      th Статус бота
       th Посетителей
       th Контактов
       th Действия
   tbody
     - current_user.projects.each do |project|
       tr
-        td= project.name
+        td
+          span title=project.telegram_group_id
+            = project.name
         td
           - if project.host.present?
             = link_to project.host, project.url, target: '_blank'
           - else
             i Не установлено
         td= project.username
+        td
+          - if project.telegram_group_type == 'supergroup' && project.telegram_group_is_forum
+            .badge.bg-success OK
+          - else
+            .badge.bg-warning Включите в группе топики
+          - if project.bot_status == 'administrator'
+            - unless project.bot_can_manage_topics?
+              .badge.bg-warning Дайте боту доступ управлять топиками
+          - else
+            .badge.bg-warning Сделайте бота администратором и дайте доступ управлять топиками
         td= project.visitors.count
         td= project.visits.count
         td= link_to 'Код виджета', project_path(project)

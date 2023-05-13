@@ -7,6 +7,8 @@ require 'addressable/uri'
 # Проект пользователя привязанный к сайту
 #
 class Project < ApplicationRecord
+  BOT_STATUSES = %w[left administrator restricted member]
+
   strip_attributes
 
   attr_accessor :just_created
@@ -28,15 +30,45 @@ class Project < ApplicationRecord
   end
 
   before_update do
-    self.host = Addressable::URI.parse(url).host
+    self.host = url.present? ? Addressable::URI.parse(url).host : nil
   end
+
+  after_create :add_owner_as_member
 
   after_create do
     self.just_created = true
   end
 
+  def add_owner_as_member
+    self.memberships.create_or_find_by! user: owner
+  end
+
+  def member? user
+    owner_id == user.id || users.include?(user)
+  end
+
   def username
     host || name || custom_username
+  end
+
+  # Бот подключен в группу?
+  def bot_connected?
+    bot_status == 'administrator'
+  end
+
+  def update_bot_member!(chat_member: , chat:)
+    raise 'Project must be not changed' if changed?
+    assign_attributes(
+      telegram_chat: chat,
+      telegram_group_is_forum: chat['is_forum'],
+      telegram_group_type: chat.fetch('type'),
+      bot_status: chat_member.fetch('status'),
+      bot_can_manage_topics: chat_member['can_manage_topics'],
+      chat_member: )
+    if changed?
+      self.chat_member_updated_at=Time.zone.now
+      save!
+    end
   end
 
   def telegram_group_url
