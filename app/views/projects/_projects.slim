@@ -20,16 +20,7 @@ table.table.table-condensed
           - else
             i Не установлено
         td= project.username
-        td
-          - if project.telegram_group_type == 'supergroup' && project.telegram_group_is_forum
-            .badge.bg-success OK
-          - else
-            .badge.bg-warning Включите в группе топики
-          - if project.bot_status == 'administrator'
-            - unless project.bot_can_manage_topics?
-              .badge.bg-warning Дайте боту доступ управлять топиками
-          - else
-            .badge.bg-warning Сделайте бота администратором и дайте доступ управлять топиками
+        td= bot_connection_status project
         td= project.visitors.count
         td= project.visits.count
         td= link_to 'Код виджета', project_path(project)
