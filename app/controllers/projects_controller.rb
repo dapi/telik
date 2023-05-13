@@ -4,6 +4,8 @@
 
 # Управление опреаторскими проектами
 class ProjectsController < ApplicationController
+  before_action :require_login
+
   def show
     project = Project.find params[:id]
     return not_authenticated unless project.member? current_user

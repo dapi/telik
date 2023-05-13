@@ -24,7 +24,7 @@ class VisitsController < ApplicationController
       .create!(
         referrer: request.referer,
         remote_ip: request.remote_ip,
-        location: request.location.data,
+        location: request.location.try(:data) || {},
         data:
       )
   end
