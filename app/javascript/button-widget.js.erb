@@ -19,12 +19,14 @@
     if (!widgetEl.tagName || !(widgetEl.tagName.toUpperCase() == 'SCRIPT')) {
       return null;
     }
-    if (window.NuiChatWidget.widgetEl) {
+    if (window.NuiChatWidget.widgetEl && document.getElementById('nuichat-button-widget')) {
       return true;
     }
     if (widgetProjectKey = widgetEl.getAttribute('data-nuichat-pk')) {
       var a = document.createElement('A');
 
+      console.log('Create nuichat button widget');
+      a.setAttribute('id', 'nuichat-button-widget');
       a.setAttribute('style', style);
       a.setAttribute('title', widgetEl.getAttribute('data-title') || "Нажмите чтобы связаться с оператором");
       a.setAttribute('target', '_blank');
