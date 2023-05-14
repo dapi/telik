@@ -1,3 +1,4 @@
 ru:
   flash:
     buy: До новых встреч!
+    hi: Привет, %{username}!

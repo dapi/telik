@@ -17,9 +17,9 @@ class TelegramAuthCallbackController < ApplicationController
   before_action :authorize!
 
   def create
-    auto_login User.create_with(telegram_data: data_params).find_or_create_by!(telegram_id: params[:id])
+    login data_params
 
-    redirect_back_or_to root_url
+    redirect_back_or_to root_url, notice: t('flash.hi', username: current_user)
   end
 
   private
