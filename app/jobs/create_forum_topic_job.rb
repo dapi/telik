@@ -56,7 +56,7 @@ class CreateForumTopicJob < ApplicationJob
   end
 
   def create_forum_topic_in_telegram!(visitor)
-    topic = Telegram.bots[:operator].create_forum_topic(
+    topic = Telegram.bot.create_forum_topic(
       chat_id: visitor.project.telegram_group_id || raise("no telegram_group_id in project #{visitor.project.id}"),
       name: visitor.topic_title
       # icon_color: ,

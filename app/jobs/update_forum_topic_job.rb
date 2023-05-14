@@ -21,7 +21,7 @@ class UpdateForumTopicJob < CreateForumTopicJob
   private
 
   def edit_forum_topic(visitor)
-    topic = Telegram.bots[:operator].edit_forum_topic(
+    topic = Telegram.bot.edit_forum_topic(
       message_thread_id: visitor.telegram_message_thread_id,
       chat_id: visitor.project.telegram_group_id || raise("no telegram_group_id in project #{visitor.project.id}"),
       name: visitor.topic_title

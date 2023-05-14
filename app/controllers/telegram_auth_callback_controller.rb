@@ -8,7 +8,7 @@
 class TelegramAuthCallbackController < ApplicationController
   def self.sign_params(data_params)
     data_check_string = data_params.sort.map { |k, v| [k, v].join('=') }.join("\n")
-    secret_key = OpenSSL::Digest::SHA256.new(ApplicationConfig.operator_bot_token).digest
+    secret_key = OpenSSL::Digest::SHA256.new(ApplicationConfig.bot_token).digest
     OpenSSL::HMAC.hexdigest('sha256', secret_key, data_check_string)
   end
 

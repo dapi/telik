@@ -2,11 +2,23 @@
 
 # frozen_string_literal: true
 
-# Контроллер операторского бота.
+# Контроллер бота.
 #
-class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesController
-  def start!(*_args)
-    respond_with :message, text: 'Привет, оператор!'
+class Telegram::WebhookController < Telegram::Bot::UpdatesController
+  def start!(visit_key = nil, *_args)
+    if visit_key.blank?
+      respond_with :message, text: 'Привет! Ты кто?'
+    elsif visit_key.start_with? Visit::TELEGRAM_KEY_PREFIX
+      visit = Visit.includes(:visitor).find_by_telegram_key visit_key
+      if visit.nil?
+        respond_with :message, text: 'Привет! Визит не найден'
+      else
+        RegisterVisitJob.perform_later(visit:, chat:)
+        respond_with :message, text: visit.visitor.project.username + ': Привет! Чем вам помочь?'
+      end
+    else
+      respond_with :message, text: 'Привет! Хм..'
+    end
   end
 
   # Пример сообщение которое бот получает сам от себя когда перекидывает его от пользователя в топик
@@ -111,8 +123,33 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # "new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
   # "new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}]}
 
+  # Сообщение от клиента
+  # {"message_id"=>17,
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+  # "chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
+  # "date"=>1683820060,
+  # "text"=>"adas"}
   def message(data)
     Rails.logger.debug data.to_json
+
+    if direct_client_message?
+      client_message data
+    else
+      operator_message data
+    end
+  end
+
+  def client_message(data)
+    # TODO: Если это ответ, то посылать в конкретный проект
+    visitor = Visitor.order(:last_visit_at).where(telegram_id: from.fetch('id')).last
+    if visitor.present?
+      RedirectClientMessageJob.perform_later visitor, data.fetch('text')
+    else
+      respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
+    end
+  end
+
+  def operator_message(data)
     if data['forum_topic_created']
       # Так это мы его сами и создали
     elsif data['is_topic_message']
@@ -291,7 +328,7 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"member"}}
   def my_chat_member(data)
     # Кого-то другого добавили, не нас
-    return unless data.dig('new_chat_member', 'user', 'username') == Telegram.bots[:operator].username
+    return unless data.dig('new_chat_member', 'user', 'username') == Telegram.bot.username
 
     chat_member = data.fetch('new_chat_member')
     user = User
@@ -306,6 +343,10 @@ class Telegram::OperatorBot::WebhookController < Telegram::Bot::UpdatesControlle
   end
 
   private
+
+  def direct_client_message?
+    from['id'] == chat['id'] && !from['is_bot'] && chat['type'] == 'private'
+  end
 
   def update_project_bot_member!(project:, chat_member:, user:)
     project.update_bot_member!(chat_member:, chat:)
