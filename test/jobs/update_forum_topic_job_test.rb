@@ -14,8 +14,9 @@ class UpdateTopicJobTest < ActiveJob::TestCase
                message_thread_id: visitor.telegram_message_thread_id,
                chat_id: visitor.project.telegram_group_id,
                name: visitor.topic_title
-    Telegram.bots[:operator] = bot
-    UpdateForumTopicJob.perform_now(visitor)
+    Telegram.stub :bot, bot do
+      UpdateForumTopicJob.perform_now(visitor)
+    end
     bot.verify
   end
 end

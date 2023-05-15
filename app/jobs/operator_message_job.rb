@@ -13,7 +13,7 @@ class OperatorMessageJob < ApplicationJob
         self.class.perform_later id, message
       end
     else
-      Telegram.bots[:operator].send_message(
+      Telegram.bot.send_message(
         chat_id: telegram_id,
         text: message
       )

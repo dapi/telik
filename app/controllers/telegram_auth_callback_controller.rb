@@ -8,7 +8,7 @@
 class TelegramAuthCallbackController < ApplicationController
   def self.sign_params(data_params)
     data_check_string = data_params.sort.map { |k, v| [k, v].join('=') }.join("\n")
-    secret_key = OpenSSL::Digest::SHA256.new(ApplicationConfig.operator_bot_token).digest
+    secret_key = OpenSSL::Digest::SHA256.new(ApplicationConfig.bot_token).digest
     OpenSSL::HMAC.hexdigest('sha256', secret_key, data_check_string)
   end
 
@@ -17,9 +17,9 @@ class TelegramAuthCallbackController < ApplicationController
   before_action :authorize!
 
   def create
-    auto_login User.create_with(telegram_data: data_params).find_or_create_by!(telegram_id: params[:id])
+    login data_params
 
-    redirect_back_or_to root_url
+    redirect_back_or_to root_url, notice: t('flash.hi', username: current_user)
   end
 
   private

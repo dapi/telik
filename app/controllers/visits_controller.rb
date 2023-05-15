@@ -15,7 +15,7 @@ class VisitsController < ApplicationController
   private
 
   def build_redirect_url
-    ApplicationConfig.client_bot_url + '?start=' + create_visit.telegram_key
+    ApplicationConfig.bot_url + '?start=' + create_visit.telegram_key
   end
 
   def create_visit

@@ -17,6 +17,14 @@ class User < ApplicationRecord
     public_name
   end
 
+  def self.authenticate(telegram_data)
+    yield(
+      User
+        .create_with(telegram_data:)
+        .find_or_create_by!(telegram_id: telegram_data.fetch('id')),
+      nil)
+  end
+
   def first_name
     telegram_data.fetch('first_name')
   end

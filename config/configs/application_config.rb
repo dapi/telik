@@ -10,10 +10,8 @@ class ApplicationConfig < Anyway::Config
     app_title: 'NuiChat',
     host: 'localhost',
     protocol: 'http',
-    client_bot_token: '',
-    client_bot_username: '',
-    operator_bot_token: '',
-    operator_bot_username: ''
+    bot_token: '',
+    bot_username: ''
   )
 
   class << self
@@ -21,8 +19,12 @@ class ApplicationConfig < Anyway::Config
     # via class methods (i.e., without explicitly calling `instance`)
     delegate_missing_to :instance
 
-    def client_bot_url
-      TELEGRAM_LINK_PREFIX + client_bot_username
+    def bot_url
+      TELEGRAM_LINK_PREFIX + bot_username
+    end
+
+    def bot_id
+      bot_token.split(':').first
     end
 
     def url
