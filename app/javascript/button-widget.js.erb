@@ -2,6 +2,9 @@
 (function(window) {
   if (!window.NuiChatWidget) { window.NuiChatWidget = {}; }
 
+  var widgetElId = "nuichat-button-widget";
+  var widgetCssClass = "nuichat-button-widget";
+
   function getAllWidgets() {
     var widgets = [];
     if (document.querySelectorAll) {
@@ -12,31 +15,71 @@
     return widgets;
   }
 
+  function insertStyles() {
+    var stylesId = "nuichat-button-widget-styles";
+    if (document.getElementById(stylesId)) { return };
+    const style = document.createElement("style");
+    style.id = stylesId;
+    style.textContent = `.${widgetCssClass} { 
+    position:fixed;
+    bottom:0;left:0;
+    margin:1em;
+    background:none;
+    z-index:9999;
+    transition:all 0.3s ease;
+    animation: nuichat-widget-popup ease 0.3s;
+    // opacity:0;
+    transform: scale(1);
+    &:hover { 
+      opacity: 1; 
+      transform: scale(1.05);
+     }
+    }
+    .${widgetCssClass} > img {
+      border-radius: 50%;
+      box-shadow: 5px 6px 35px -7px rgba(34, 60, 80, 0.41);;
+     }
+    .${widgetCssClass}:hover > img {
+      box-shadow: 5px 6px 45px -7px rgba(34, 60, 80, 0.41);
+     }
+    @keyframes nuichat-widget-popup {
+      0%{ transform: scale(1); opacity: 0.3; }
+      50%{ transform: scale(0.9); opacity: 1; }
+      100%{ transform: scale(1); opacity: 0.9 }
+    }
+    `;
+    document.head.appendChild(style);
+  }
+
   function initWidget(widgetEl) {
     var widgetProjectKey;
     var size = widgetEl.getAttribute('data-size') || 50;
-    var style=`position:fixed;bottom:0;margin:1em;background:none;z-index:9999;width:${size}px;height:${size}px;`;
     if (!widgetEl.tagName || !(widgetEl.tagName.toUpperCase() == 'SCRIPT')) {
       return null;
     }
-    if (window.NuiChatWidget.widgetEl && document.getElementById('nuichat-button-widget')) {
+    if (window.NuiChatWidget.widgetEl && document.getElementById(widgetElId)) {
       return true;
     }
-    if (widgetProjectKey = widgetEl.getAttribute('data-nuichat-pk')) {
+
+    insertStyles();
+    if (widgetProjectKey = widgetEl.getAttribute('data-pk')) {
       var a = document.createElement('A');
 
       console.log('Create nuichat button widget');
-      a.setAttribute('id', 'nuichat-button-widget');
-      a.setAttribute('style', style);
+      a.id = widgetElId;
       a.setAttribute('title', widgetEl.getAttribute('data-title') || "Нажмите чтобы связаться с оператором");
       a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+      a.setAttribute('class', widgetCssClass);
       a.href='<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey;
 
       var img = document.createElement('IMG');
       img.width = img.height = size;
       img.src="<%= image_url 'telegram_logo.svg' %>";
       a.appendChild(img);
-      widgetEl.parentNode.insertBefore(a, widgetEl);
+      document.body.appendChild(a);
+    } else {
+      console.log('Nuichat widget script has no "data-pk" attribute. Initialization canceled..');
     }
     window.NuiChatWidget.widgetEl = widgetEl;
     return true;
