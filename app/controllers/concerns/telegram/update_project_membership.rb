@@ -4,7 +4,7 @@
 
 # Метод обновляет статусы членства проекта в его группе
 #
-module UpdateProjectMembership
+module Telegram::UpdateProjectMembership
   private
 
   def update_project_bot_member!(project:, chat_member:, user:)
