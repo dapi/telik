@@ -74,11 +74,13 @@
       a.setAttribute('class', widgetCssClass);
 
       // TODO: Update data attributes on click
-      a.href='<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey + 
-        '&user=' + widgetEl.getAttribute('data-user') +
-        '&page=' + widgetEl.getAttribute('data-page') +
-        '&visit=' + widgetEl.getAttribute('data-visit');
+      var href = '<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey;
 
+      if (widgetEl.getAttribute('data-user')) { href += '&user=' + widgetEl.getAttribute('data-user'); }
+      if (widgetEl.getAttribute('data-page')) { href += '&page=' + widgetEl.getAttribute('data-page'); }
+      if (widgetEl.getAttribute('data-visit')) { href += '&visit=' + widgetEl.getAttribute('data-visit'); }
+
+      a.href=href;
       var img = document.createElement('IMG');
       img.width = img.height = size;
       img.src="<%= image_url 'telegram_logo.svg' %>";
