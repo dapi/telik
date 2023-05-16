@@ -13,7 +13,7 @@ class ClientMessageJob < ApplicationJob
     Telegram.bot.send_message(
       chat_id: visitor.telegram_user_id,
       # TODO: Добавить имя оператора
-      text: visitor.project.host + ': ' + message
+      text: visitor.project.username + ': ' + message
     )
   end
 end

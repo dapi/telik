@@ -14,7 +14,7 @@ class RegisterVisitJob < ApplicationJob
     visit.update! chat:, registered_at: Time.zone.now
     if visit.referrer.present?
       visit.project.with_lock do
-        update! url: visit.referrer if visit.project.url.blank?
+        visit.project.update! url: visit.referrer if visit.project.url.blank?
       end
     end
     CreateForumTopicJob.perform_now visit.visitor, visit if visit.visitor.telegram_message_thread_id.nil?
