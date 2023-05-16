@@ -7,12 +7,14 @@
 module VisitHelper
   def telegram_link
     render 'widget', project_key: default_project_key
+  rescue ActiveRecord::RecordNotFound
+    'Не найден проект'
   end
 
   # Это пример поэтому берем первый попавшийся ключ
   # Но в жизни пользователь должен тут подставлять ключ своего проекта
   #
   def default_project_key
-    Project.find_by(host: ApplicationConfig.host).key
+    Project.find_by!(host: ApplicationConfig.host).key
   end
 end

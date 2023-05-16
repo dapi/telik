@@ -18,8 +18,9 @@ class Project < ApplicationRecord
   has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships
 
+  has_many :visitor_sessions, dependent: :destroy
   has_many :visitors, dependent: :destroy
-  has_many :visits, through: :visitors
+  has_many :visits, through: :visitor_sessions
 
   validates :name, presence: true
   validates :url, url: true, if: :url?

@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    raise :not_authenticated
+    render 'welcome/index', alert: 'Вы не авторизованы!'
   end
 end
