@@ -74,7 +74,7 @@
       a.setAttribute('class', widgetCssClass);
 
       // TODO: Update data attributes on click
-      var href = '<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey;
+      var href = '<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey + '&t=' + Date.now();
 
       if (widgetEl.getAttribute('data-user')) { href += '&user=' + widgetEl.getAttribute('data-user'); }
       if (widgetEl.getAttribute('data-page')) { href += '&page=' + widgetEl.getAttribute('data-page'); }
