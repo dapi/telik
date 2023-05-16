@@ -12,7 +12,7 @@ class VisitorsController < ApplicationController
 
   private
 
-  def build_q
+  def records
     super.where(project_id: current_user.projects.pluck(:id))
   end
 end
