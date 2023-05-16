@@ -9,4 +9,10 @@ class VisitorsController < ApplicationController
   include PaginationSupport
 
   before_action :require_login
+
+  private
+
+  def build_q
+    super.where(project_id: current_user.projects.pluck(:id))
+  end
 end
