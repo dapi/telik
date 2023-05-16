@@ -16,8 +16,8 @@ class CreateForumTopicJob < ApplicationJob
       visitor.with_lock do
         update_visitor! visitor, create_forum_topic_in_telegram!(visitor, build_topic_title(visitor, visit))
       end
-      TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visit.present?
     end
+    TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visit.present? && visitor.telegram_message_thread_id.present?
   end
 
   private
@@ -25,7 +25,7 @@ class CreateForumTopicJob < ApplicationJob
   def safe_perform(owner_telegram_user_id)
     yield
   rescue Telegram::Bot::Error => e
-    Bugsnag.notifu e
+    Bugsnag.notify e
     Rails.logger.error e
     case e.message
     when 'Bad Request: Bad Request: chat not found'
@@ -33,7 +33,7 @@ class CreateForumTopicJob < ApplicationJob
     when 'Bad Request: Bad Request: not enough rights to create a topic'
       OperatorMessageJob.perform_later(owner_telegram_user_id, 'У меня нет прав создавать топики')
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
-      next
+      # Do nothing
     else
       Rails.logger.warn e
       Bugsnag.notify e do |b|
