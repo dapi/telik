@@ -17,7 +17,8 @@ class RegisterVisitJob < ApplicationJob
         visit.project.update! url: visit.referrer if visit.project.url.blank?
       end
     end
-    CreateForumTopicJob.perform_now visit.visitor, visit if visit.visitor.telegram_message_thread_id.nil?
-    TopicMessageJob.perform_later visit.visitor, "Контакт с #{visit.referrer}" if visitor.telegram_message_thread_id.present?
+    visitor = visit.visitor
+    CreateForumTopicJob.perform_now visitor, visit if visitor.telegram_message_thread_id.nil?
+    TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visitor.telegram_message_thread_id.present?
   end
 end
