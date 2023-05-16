@@ -21,13 +21,15 @@ class Visit < ApplicationRecord
   delegate(*CHAT_FIELDS, to: :chat_object)
   delegate(*LOCATION_FIELDS, to: :location_object)
 
-  # after_create do
-  # if visitor.first_visit_id.nil?
-  # Visitor.where(id: visitor_id, first_visit_id: nil).update_all first_visit_id: id
-  # visitor.reload
-  # end
-  # visitor.update_columns last_visit_id: id, last_visit_at: created_at
-  # end
+  after_create do
+    visitor.update_column :user_data, visitor.user_data.merge(user_data) if visitor.present?
+    # visitor.
+    # if visitor.first_visit_id.nil?
+    # Visitor.where(id: visitor_id, first_visit_id: nil).update_all first_visit_id: id
+    # visitor.reload
+    # end
+    # visitor.update_columns last_visit_id: id, last_visit_at: created_at
+  end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[project visitor]

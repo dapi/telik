@@ -15,6 +15,10 @@ class Visitor < ApplicationRecord
 
   delegate :last_name, :first_name, :username, to: :telegram_user
 
+  after_create do
+    update_column :user_data, (user_data || {}).merge(last_visit.user_data) if last_visit.present?
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       created_at
@@ -34,13 +38,17 @@ class Visitor < ApplicationRecord
     ]
   end
 
+  def update_user_data!(user_data)
+    update! user_data:
+  end
+
   def first_visit
-    first_visits.order(:created_at).last
+    @first_visit ||= first_visits.order(:created_at).last
   end
 
   # Имя используемое в чате в сообщениях "от"
   def last_visit
-    last_visits.order(:created_at).last
+    @last_visit ||= last_visits.order(:created_at).last
   end
 
   # Имя используемое в чате в сообщениях "от"
