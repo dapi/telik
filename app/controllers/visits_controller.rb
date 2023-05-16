@@ -11,6 +11,6 @@ class VisitsController < ApplicationController
   private
 
   def records
-    super.joins(:visitor_session).where(project_id: current_user.projects.pluck(:id))
+    super.joins(:visitor_session).where(visitor_sessions: { project_id: current_user.projects.pluck(:id) })
   end
 end
