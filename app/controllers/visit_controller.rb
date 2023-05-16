@@ -22,6 +22,7 @@ class VisitController < ApplicationController
   end
 
   def create_visit
+    Rails.logger.info("Location #{request.location}")
     visitor_session
       .visits
       .create!(
