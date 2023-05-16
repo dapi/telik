@@ -25,7 +25,7 @@ class Visit < ApplicationRecord
       Visitor.where(id: visitor_id, first_visit_id: nil).update_all first_visit_id: id
       visitor.reload
     end
-    visitor.update_column :last_visit_id, id
+    visitor.update_columns last_visit_id: id, last_visit_at: created_at
   end
 
   def self.find_by_telegram_key(visit_key)

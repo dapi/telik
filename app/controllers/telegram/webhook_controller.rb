@@ -5,6 +5,8 @@
 # Контроллер бота.
 #
 class Telegram::WebhookController < Telegram::Bot::UpdatesController
+  use_session!
+
   def start!(visit_key = nil, *_args)
     if visit_key.blank?
       respond_with :message, text: 'Привет! Ты кто?'
@@ -13,6 +15,7 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
       if visit.nil?
         respond_with :message, text: 'Привет! Визит не найден'
       else
+        session[:project_id] = visit.project.id
         RegisterVisitJob.perform_later(visit:, chat:)
         respond_with :message, text: visit.visitor.project.username + ': Привет! Чем вам помочь?'
       end
@@ -141,7 +144,10 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
 
   def client_message(data)
     # TODO: Если это ответ, то посылать в конкретный проект
-    visitor = Visitor.order(:last_visit_at).where(telegram_id: from.fetch('id')).last
+    if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
+      visitor = project.visitors.find_by(telegram_id: from.fetch('id'))
+    end
+    visitor ||= Visitor.order(:last_visit_at).where(telegram_id: from.fetch('id')).last
     if visitor.present?
       RedirectClientMessageJob.perform_later visitor, data.fetch('text')
     else
