@@ -13,6 +13,10 @@ class Visitor < ApplicationRecord
 
   validates :cookie_id, presence: true
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[cookie_id created_at first_name first_visit_id id last_name last_visit_at last_visit_id project_id telegram_cached_at telegram_id telegram_message_thread_id topic_data updated_at username]
+  end
+
   # chat =>
   # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
   def update_user_from_chat!(chat)

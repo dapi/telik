@@ -19,10 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects do
-    resources :visits, only: %i[index show]
-    resources :visitors, only: %i[index show]
-  end
+  resources :projects
+  resources :visits, only: %i[index show]
+  resources :visitors, only: %i[index show]
 
   require 'sidekiq/web'
 

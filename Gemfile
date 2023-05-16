@@ -149,3 +149,7 @@ gem 'russian', '~> 0.6.0'
 gem 'telegram-bot-types', '~> 0.7.0'
 
 gem 'non-digest-assets', '~> 2.2'
+
+gem 'ransack', '~> 4.0'
+
+gem 'kaminari', '~> 1.2'

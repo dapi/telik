@@ -43,6 +43,10 @@ class Project < ApplicationRecord
     ProjectRelayJob.perform_later self
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[bot_can_manage_topics bot_status chat_member chat_member_updated_at created_at custom_username host host_confirmed_at id key last_error last_error_at name owner_id telegram_chat telegram_group_id telegram_group_is_forum telegram_group_type updated_at url]
+  end
+
   def add_owner_as_member
     memberships.create_or_find_by! user: owner
   end

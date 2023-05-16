@@ -50,7 +50,8 @@ module ApplicationHelper
   end
 
   def controller_namespace
-    nil if controller.class.name.split('::').one?
+    return nil if controller.class.name.split('::').one?
+
     controller.class.name.split('::').first.underscore.to_sym
   end
 end

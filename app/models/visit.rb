@@ -28,6 +28,14 @@ class Visit < ApplicationRecord
     visitor.update_columns last_visit_id: id, last_visit_at: created_at
   end
 
+  def self.ransackable_associations(_auth_object = nil)
+    %w[project visitor]
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[chat created_at data id key location referrer registered_at remote_ip updated_at visitor_id]
+  end
+
   def self.find_by_telegram_key(visit_key)
     if visit_key.start_with? TELEGRAM_KEY_PREFIX
       find_by key: visit_key.sub(/^#{TELEGRAM_KEY_PREFIX}/, '')

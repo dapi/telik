@@ -4,7 +4,7 @@
 
 # Временные хелперы.
 # Помогают попробовать как работают ссылки на бота с пользовательского сайта
-module VisitsHelper
+module VisitHelper
   def telegram_link
     render 'widget', project_key: default_project_key
   end
