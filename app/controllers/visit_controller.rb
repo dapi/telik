@@ -7,6 +7,8 @@
 #
 class VisitController < ApplicationController
   COOKIE_KEY = :telik_visitor_id
+  MAX_DATA_LENGTH = 256
+
   before_action :cookie_id
 
   def create
@@ -26,7 +28,9 @@ class VisitController < ApplicationController
         referrer: request.referer,
         remote_ip: request.remote_ip,
         location: request.location.try(:data) || {},
-        data:
+        user_data: parse_data(:user),
+        page_data: parse_data(:page),
+        visit_data: parse_data(:visit)
       )
   end
 
@@ -42,10 +46,13 @@ class VisitController < ApplicationController
     cookies.signed[COOKIE_KEY] ||= Nanoid.generate
   end
 
-  def data
-    return {} unless params[:data].is_a? Hash
-    return {} if params[:data].to_s.length > MAX_DATA_LENGTH
+  def parse_data(key)
+    return {} unless params[key].is_a? String
+    return {} if params[key].length > MAX_DATA_LENGTH
 
-    params[:data]
+    JSON.parse(params[key])
+  rescue JSON::ParserError => e
+    Rails.logger.error e
+    {}
   end
 end

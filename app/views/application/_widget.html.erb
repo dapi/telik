@@ -1,1 +1,10 @@
-<script defer src="<%= remove_asset_digest asset_url('button-widget.js') %>" data-size="<%= defined?(size)? size : 50 %>" data-pk="<%= project_key %>"></script>
+<script 
+  defer 
+  src="<%= remove_asset_digest asset_url('button-widget.js') %>" 
+  data-nuichat-pk="<%= project_key %>"<%- if defined? size -%>
+  data-size="<%= size %>"<%- end -%><%- if defined? user -%>
+  data-user="<%= CGI::escape user.to_json %>"<%- end-%><%- if defined? page -%>
+  data-page="<%= CGI::escape page.to_json %>"<%- end-%><%- if defined? visit -%>
+  data-visit="<%= CGI::escape visit.to_json %>"<%- end-%>
+  >
+</script>

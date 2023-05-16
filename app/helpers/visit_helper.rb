@@ -5,8 +5,8 @@
 # Временные хелперы.
 # Помогают попробовать как работают ссылки на бота с пользовательского сайта
 module VisitHelper
-  def telegram_link
-    render 'widget', project_key: default_project_key
+  def telegram_link(user: {}, visit: {}, page: {})
+    render 'widget', project_key: default_project_key, user:, visit:, page:
   rescue ActiveRecord::RecordNotFound
     'Не найден проект'
   end

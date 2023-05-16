@@ -2,13 +2,14 @@
 (function(window) {
   if (!window.NuiChatWidget) { window.NuiChatWidget = {}; }
 
+  var projectKeyAttribute = 'data-nuichat-pk';
   var widgetElId = "nuichat-button-widget";
   var widgetCssClass = "nuichat-button-widget";
 
   function getAllWidgets() {
     var widgets = [];
     if (document.querySelectorAll) {
-      widgets = document.querySelectorAll('script[data-nuichat-pk]');
+      widgets = document.querySelectorAll(`script[${projectKeyAttribute}]`);
     } else {
       widgets = Array.prototype.slice.apply(document.getElementsByTagName('SCRIPT'));
     }
@@ -62,7 +63,7 @@
     }
 
     insertStyles();
-    if (widgetProjectKey = widgetEl.getAttribute('data-pk')) {
+    if (widgetProjectKey = (widgetEl.getAttribute(projectKeyAttribute) || widgetEl.getAttribute('data-pk'))) {
       var a = document.createElement('A');
 
       console.log('Create nuichat button widget');
@@ -71,7 +72,12 @@
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener');
       a.setAttribute('class', widgetCssClass);
-      a.href='<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey;
+
+      // TODO: Update data attributes on click
+      a.href='<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey + 
+        '&user=' + widgetEl.getAttribute('data-user') +
+        '&page=' + widgetEl.getAttribute('data-page') +
+        '&visit=' + widgetEl.getAttribute('data-visit');
 
       var img = document.createElement('IMG');
       img.width = img.height = size;

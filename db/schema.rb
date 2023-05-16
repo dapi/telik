@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_130733) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_144639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,13 +111,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_130733) do
     t.string "key", null: false
     t.inet "remote_ip", null: false
     t.jsonb "location", null: false
-    t.jsonb "data", default: {}, null: false
+    t.jsonb "page_data", default: {}, null: false
     t.jsonb "chat"
     t.string "referrer"
     t.datetime "registered_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "visitor_session_id", null: false
+    t.jsonb "user_data", default: {}, null: false
+    t.jsonb "visit_data", default: {}, null: false
     t.index ["key"], name: "index_visits_on_key", unique: true
     t.index ["visitor_session_id"], name: "index_visits_on_visitor_session_id"
   end

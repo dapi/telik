@@ -45,8 +45,9 @@ module Telegram
         .create_or_find_by!(
           cookie_id: 'telegram_id:' + telegram_user.id.to_s,
           project: visitor.project
-        ).visits
-        .create!(referrer: 'https://t.me/', remote_ip: '127.0.0.1', location: {}, chat:, data: {})
+        )
+        .visits
+        .create!(referrer: 'https://t.me/', remote_ip: '127.0.0.1', location: {})
     end
 
     def start_visit!(visit)
@@ -58,7 +59,7 @@ module Telegram
 
       session[:project_id] = visit.project.id
       RegisterVisitJob.perform_later(visit:, chat:)
-      respond_with :message, text: visit.visitor_session.project.username + ': Привет! Чем вам помочь?'
+      respond_with :message, text: visit.visitor_session.project.username + ": Привет, #{telegram_user.first_name}! Чем вам помочь?"
     end
 
     def find_or_create_visitor(project)

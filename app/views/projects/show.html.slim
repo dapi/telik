@@ -1,10 +1,22 @@
 h1 Проект #{project.host}
 
-p Скопируйте код виджета:
+.row
+  .col-md-6
+    h3 Скопируйте код виджета:
 
-code
-  pre
-    = html_escape_once render 'widget', project_key: project.key
+    code
+      pre
+        = html_escape_once render 'widget', project_key: project.key
+  .col-md-6
+    h3 Расширенный вариант
+    code
+      pre
+        = html_escape_once render 'widget', 
+          project_key: project.key, 
+          size: 30, 
+          user: { id: 123, email: 'danil@nuichat.ru', name: 'Anatoly' },
+          page: { product_id: 123 },
+          visit: { utm_source: 'google' }
 
 - if project.last_visit.present?
   p Последний контакт с этого виджета:
