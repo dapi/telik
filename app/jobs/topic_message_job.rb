@@ -15,12 +15,14 @@ class TopicMessageJob < ApplicationJob
     )
     # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
   rescue Telegram::Bot::Error => e
+    Bugsnag.notify e
     raise e unless e.message.include? 'message thread not found'
 
     visitor.update! telegram_message_thread_id: nil
 
     # Telegram::Bot::Forbidden (Forbidden: bot was kicked from the supergroup chat)
   rescue Telegram::Bot::Forbidden => e
+    Bugsnag.notify e
     Rails.logger.error e
     OperatorMessageJob.perform_later(visitor.project.owner.telegram_user_id, 'У меня нет доступа к группе')
     visitor.projects.update! last_error: e.message, last_error_at: Time.zone.now

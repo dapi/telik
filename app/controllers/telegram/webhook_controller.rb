@@ -50,18 +50,6 @@ module Telegram
         .create!(referrer: 'https://t.me/', remote_ip: '127.0.0.1', location: {})
     end
 
-    def start_visit!(visit)
-      if visit.visitor_session.visitor_id.nil?
-        visit.visitor_session.with_lock do
-          visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project)
-        end
-      end
-
-      session[:project_id] = visit.project.id
-      RegisterVisitJob.perform_later(visit:, chat:)
-      respond_with :message, text: visit.visitor_session.project.username + ": Привет, #{telegram_user.first_name}! Чем вам помочь?"
-    end
-
     def find_or_create_visitor(project)
       Visitor
         .create_or_find_by!(project:, telegram_user:)

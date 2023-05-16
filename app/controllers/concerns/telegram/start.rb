@@ -20,5 +20,19 @@ module Telegram
            "Чтобы подключиться следуйте по ссылке #{Rails.application.routes.url_helpers.root_url}"].join("\n")
       end
     end
+
+    private
+
+    def start_visit!(visit)
+      if visit.visitor_session.visitor_id.nil?
+        visit.visitor_session.with_lock do
+          visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project)
+        end
+      end
+
+      session[:project_id] = visit.project.id
+      RegisterVisitJob.perform_later(visit:, chat:)
+      respond_with :message, text: visit.visitor_session.project.username + ": Привет, #{telegram_user.first_name}! Чем вам помочь?"
+    end
   end
 end
