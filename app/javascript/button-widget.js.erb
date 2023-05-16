@@ -85,7 +85,7 @@
       a.appendChild(img);
       document.body.appendChild(a);
     } else {
-      console.log('Nuichat widget script has no "data-pk" attribute. Initialization canceled..');
+      console.log(`Nuichat widget script has no "${projectKeyAttribute}" attribute. Initialization canceled..`);
     }
     window.NuiChatWidget.widgetEl = widgetEl;
     return true;
