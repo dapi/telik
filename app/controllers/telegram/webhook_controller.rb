@@ -25,7 +25,7 @@ module Telegram
             end
           end
           RegisterVisitJob.perform_later(visit:, chat:)
-          respond_with :message, text: visit.visitor.project.username + ': Привет! Чем вам помочь?'
+          respond_with :message, text: visit.visitor_session.project.username + ': Привет! Чем вам помочь?'
         end
       else
         respond_with :message, text: 'Привет! Хм..'

@@ -61,7 +61,7 @@ class Visit < ApplicationRecord
     "#{city} (#{region_and_country.presence || remote_ip})"
   end
 
-  def region_and_coutry
+  def region_and_country
     [region, country].join('/')
   end
 
