@@ -7,30 +7,9 @@ module Telegram
   #
   class WebhookController < Bot::UpdatesController
     include UpdateProjectMembership
+    include Start
 
     use_session!
-
-    def start!(visit_key = nil, *_args)
-      if visit_key.blank?
-        respond_with :message, text: 'Привет! Ты кто?'
-      elsif visit_key.start_with? Visit::TELEGRAM_KEY_PREFIX
-        visit = Visit.includes(:visitor).find_by_telegram_key visit_key
-        if visit.nil?
-          respond_with :message, text: 'Привет! Визит не найден'
-        else
-          session[:project_id] = visit.project.id
-          if visit.visitor_session.visitor_id.nil?
-            visit.visitor_session.with_lock do
-              visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project)
-            end
-          end
-          RegisterVisitJob.perform_later(visit:, chat:)
-          respond_with :message, text: visit.visitor_session.project.username + ': Привет! Чем вам помочь?'
-        end
-      else
-        respond_with :message, text: 'Привет! Хм..'
-      end
-    end
 
     def message(data)
       Rails.logger.debug data.to_json
@@ -60,22 +39,49 @@ module Telegram
 
     private
 
+    def auto_create_visit(visitor)
+      VisitorSession
+        .create_with(visitor:)
+        .create_or_find_by!(
+          cookie_id: 'telegram_id:' + telegram_user.id.to_s,
+          project: visitor.project
+        ).visits
+        .create!(referrer: 'https://t.me/', remote_ip: '127.0.0.1', location: {}, chat:, data: {})
+    end
+
+    def start_visit!(visit)
+      if visit.visitor_session.visitor_id.nil?
+        visit.visitor_session.with_lock do
+          visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project)
+        end
+      end
+
+      session[:project_id] = visit.project.id
+      RegisterVisitJob.perform_later(visit:, chat:)
+      respond_with :message, text: visit.visitor_session.project.username + ': Привет! Чем вам помочь?'
+    end
+
     def find_or_create_visitor(project)
       Visitor
         .create_or_find_by!(project:, telegram_user:)
     end
 
     def client_message(data)
-      # TODO: Если это ответ, то посылать в конкретный проект
-      if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
-        visitor = telegram_user.visitors.where(project_id: project.id).take
-      end
-      visitor ||= telegram_user.visitors.order(:last_visit_at).last
+      visitor = last_used_visitor
       if visitor.present?
         RedirectClientMessageJob.perform_later visitor, data.fetch('text')
       else
         respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
       end
+    end
+
+    def last_used_visitor
+      # TODO: Если это ответ, то посылать в конкретный проект
+      if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
+        visitor = telegram_user.visitors.where(project_id: project.id).take
+      end
+      visitor ||= telegram_user.visitors.order(:last_visit_at).last
+      visitor
     end
 
     def telegram_user
