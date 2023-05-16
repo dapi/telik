@@ -2,7 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Перенаправляет клиентское сообщение оператору в группу
+# Перенаправляет клиентское сообщение из телеги оператору в группу
 #
 class RedirectClientMessageJob < ApplicationJob
   queue_as :default

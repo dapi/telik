@@ -10,8 +10,9 @@ class Visit < ApplicationRecord
   LOCATION_FIELDS = %i[city region country timezone].freeze
   CHAT_FIELDS = %i[first_name last_name username].freeze
 
-  belongs_to :visitor
-  has_one :project, through: :visitor
+  belongs_to :visitor_session
+  has_one :visitor, through: :visitor_session
+  has_one :project, through: :visitor_session
 
   before_create do
     self.key = Nanoid.generate
@@ -20,13 +21,13 @@ class Visit < ApplicationRecord
   delegate(*CHAT_FIELDS, to: :chat_object)
   delegate(*LOCATION_FIELDS, to: :location_object)
 
-  after_create do
-    if visitor.first_visit_id.nil?
-      Visitor.where(id: visitor_id, first_visit_id: nil).update_all first_visit_id: id
-      visitor.reload
-    end
-    visitor.update_columns last_visit_id: id, last_visit_at: created_at
-  end
+  # after_create do
+  # if visitor.first_visit_id.nil?
+  # Visitor.where(id: visitor_id, first_visit_id: nil).update_all first_visit_id: id
+  # visitor.reload
+  # end
+  # visitor.update_columns last_visit_id: id, last_visit_at: created_at
+  # end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[project visitor]

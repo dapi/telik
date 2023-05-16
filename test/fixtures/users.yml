@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  telegram_id: 1
+  telegram_user_id: 1
   telegram_data: >
     {
       "id"=>"1",
@@ -17,7 +17,7 @@ one:
     }
 
 two:
-  telegram_id: 2
+  telegram_user_id: 2
   telegram_data: >
     {
       "id"=>"2",

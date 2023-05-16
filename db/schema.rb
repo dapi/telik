@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_103932) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_120030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_103932) do
     t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
   end
 
+  create_table "telegram_users", id: false, force: :cascade do |t|
+    t.bigint "id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "crypted_password"
@@ -61,39 +70,45 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_103932) do
     t.datetime "last_logout_at"
     t.datetime "last_activity_at"
     t.string "last_login_from_ip_address"
-    t.bigint "telegram_id", null: false
+    t.bigint "telegram_user_id", null: false
     t.jsonb "telegram_data", default: {}, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
-    t.index ["telegram_id"], name: "index_users_on_telegram_id", unique: true
+    t.index ["telegram_user_id"], name: "index_users_on_telegram_user_id", unique: true
+  end
+
+  create_table "visitor_sessions", force: :cascade do |t|
+    t.string "cookie_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "visitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "last_visit_id"
+    t.bigint "first_visit_id"
+    t.index ["cookie_id", "project_id"], name: "index_visitor_sessions_on_cookie_id_and_project_id", unique: true
+    t.index ["first_visit_id"], name: "index_visitor_sessions_on_first_visit_id"
+    t.index ["last_visit_id"], name: "index_visitor_sessions_on_last_visit_id"
+    t.index ["project_id"], name: "index_visitor_sessions_on_project_id"
+    t.index ["visitor_id"], name: "index_visitor_sessions_on_visitor_id"
   end
 
   create_table "visitors", force: :cascade do |t|
-    t.string "cookie_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id", null: false
     t.bigint "telegram_message_thread_id"
     t.datetime "telegram_cached_at", precision: nil
-    t.string "first_name"
-    t.string "last_name"
-    t.string "username"
-    t.bigint "telegram_id"
-    t.bigint "first_visit_id"
-    t.bigint "last_visit_id"
     t.jsonb "topic_data"
     t.datetime "last_visit_at", precision: nil
-    t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
-    t.index ["last_visit_id"], name: "index_visitors_on_last_visit_id"
-    t.index ["project_id", "cookie_id"], name: "index_visitors_on_project_id_and_cookie_id", unique: true
-    t.index ["project_id", "telegram_id"], name: "index_visitors_on_project_id_and_telegram_id", unique: true
+    t.bigint "telegram_user_id"
+    t.index ["project_id", "telegram_user_id"], name: "index_visitors_on_project_id_and_telegram_user_id", unique: true, where: "(telegram_user_id IS NOT NULL)"
     t.index ["project_id"], name: "index_visitors_on_project_id"
+    t.index ["telegram_user_id"], name: "index_visitors_on_telegram_user_id"
   end
 
   create_table "visits", force: :cascade do |t|
     t.string "key", null: false
-    t.bigint "visitor_id", null: false
     t.inet "remote_ip", null: false
     t.jsonb "location", null: false
     t.jsonb "data", default: {}, null: false
@@ -102,12 +117,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_103932) do
     t.datetime "registered_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "visitor_session_id", null: false
     t.index ["key"], name: "index_visits_on_key", unique: true
-    t.index ["visitor_id"], name: "index_visits_on_visitor_id"
+    t.index ["visitor_session_id"], name: "index_visits_on_visitor_session_id"
   end
 
   add_foreign_key "memberships", "projects"
   add_foreign_key "memberships", "users"
   add_foreign_key "projects", "users", column: "owner_id"
-  add_foreign_key "visits", "visitors"
+  add_foreign_key "visitor_sessions", "projects"
+  add_foreign_key "visitor_sessions", "visitors"
 end

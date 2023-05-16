@@ -2,31 +2,24 @@
 
 # frozen_string_literal: true
 
-# Посетитель сайта нашего клиента
+# Посетитель сайта нашего клиента (так сказать в разрезе проекта)
 #
 class Visitor < ApplicationRecord
   belongs_to :project
-  has_many :visits, dependent: :delete_all
+  belongs_to :telegram_user, optional: true
 
-  has_one :last_visit, class_name: 'Visit', dependent: :nullify
-  has_one :first_visit, class_name: 'Visit', dependent: :nullify
+  has_many :visitor_sessions, dependent: :nullify
 
-  validates :cookie_id, presence: true
+  delegate :last_name, :first_name, :username, to: :telegram_user
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[cookie_id created_at first_name first_visit_id id last_name last_visit_at last_visit_id project_id telegram_cached_at telegram_id telegram_message_thread_id topic_data updated_at username]
-  end
-
-  # chat =>
-  # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
-  def update_user_from_chat!(chat)
-    assign_attributes chat.slice(*%w[first_name last_name username]).merge(telegram_id: chat.fetch('id'))
-    save! if changed?
+    %w[created_at first_name first_visit_id id last_name last_visit_at last_visit_id project_id telegram_cached_at telegram_user_id telegram_message_thread_id topic_data updated_at username]
   end
 
   def topic_title
     # TODO: Добавлять опционально @#{username}
-    "##{id} #{name} из #{last_visit.city} (#{last_visit.region}/#{last_visit.country})"
+    # "##{id} #{name} из #{last_visit.city} (#{last_visit.region}/#{last_visit.country})"
+    "##{id} #{name}"
   end
 
   # Имя используемое в чате в сообщениях "от"

@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 yandex:
-  visitor: yandex
+  visitor_session: yandex
   key: yandex
   remote_ip: 127.0.0.1
   referrer: https://yandex.ru
@@ -18,7 +18,7 @@ yandex:
     readme: "https://ipinfo.io/missingauth"
 
 dzen:
-  visitor: dzen
+  visitor_session: dzen
   key: dzen
   remote_ip: 127.0.0.1
   referrer: https://dzen.ru

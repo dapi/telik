@@ -65,8 +65,8 @@ class Project < ApplicationRecord
     # bot_status == 'administrator'
   end
 
-  def notify_telegram_ids
-    memberships.joins(:user, :project).pluck(:telegram_id).uniq
+  def notify_telegram_user_ids
+    memberships.joins(:user, :project).pluck(:telegram_user_id).uniq
   end
 
   def update_bot_member!(chat_member:, chat:)

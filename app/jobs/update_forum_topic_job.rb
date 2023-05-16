@@ -10,10 +10,10 @@ class UpdateForumTopicJob < CreateForumTopicJob
   queue_as :default
 
   def perform(visitor)
-    raise Error, "Visitor (#{visitor.id}) has no telegram_id" if visitor.telegram_id.nil?
+    raise Error, "Visitor (#{visitor.id}) has no telegram_user_id" if visitor.telegram_user_id.nil?
     raise Error, "Visitor (#{visitor.id}) has no defined message_thread_id" if visitor.telegram_message_thread_id.nil?
 
-    safe_perform visitor.project.owner.telegram_id do
+    safe_perform visitor.project.owner.telegram_user_id do
       edit_forum_topic(visitor)
     end
   end

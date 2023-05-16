@@ -22,7 +22,7 @@ class TopicMessageJob < ApplicationJob
     # Telegram::Bot::Forbidden (Forbidden: bot was kicked from the supergroup chat)
   rescue Telegram::Bot::Forbidden => e
     Rails.logger.error e
-    OperatorMessageJob.perform_later(visitor.project.owner.telegram_id, 'У меня нет доступа к группе')
+    OperatorMessageJob.perform_later(visitor.project.owner.telegram_user_id, 'У меня нет доступа к группе')
     visitor.projects.update! last_error: e.message, last_error_at: Time.zone.now
   end
 end

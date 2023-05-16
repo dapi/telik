@@ -22,7 +22,7 @@ begin
                              'photo_url' => 'https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg',
                              'first_name' => 'Danil' }
           )
-          .create_or_find_by!(telegram_id: 943_084_337)
+          .create_or_find_by!(telegram_user_id: 943_084_337)
 
   Rails.logger.debug 'Create project'
   project = Project

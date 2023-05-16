@@ -10,13 +10,16 @@
 class RegisterVisitJob < ApplicationJob
   queue_as :default
 
-  def perform(visit:, chat:)
-    visitor = visit.visitor
-    visitor.with_lock do
-      visitor.update_user_from_chat!(chat || raise('Empty chat data'))
-      visit.update! chat:, registered_at: Time.zone.now
+  def perform(visit:, chat:, telegram_user_id:)
+    visit.visitor.with_lock do
+      update! telegram_user_id: telegram_user_id if visit.visitor.telegram_user_id.nil?
     end
-    visit.project.update! url: visit.referrer if visit.referrer.present? && visit.project.url.blank?
-    CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
+    visit.update! chat:, registered_at: Time.zone.now
+    if visit.referrer.present?
+      visit.project.with_lock do
+        update! url: visit.referrer if visit.project.url.blank?
+      end
+    end
+    CreateForumTopicJob.perform_now visit.visitor, visit if visit.visitor.telegram_message_thread_id.nil?
   end
 end

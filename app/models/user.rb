@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :delete_all
   has_many :projects, through: :memberships
 
-  validates :telegram_id, presence: true
+  validates :telegram_user_id, presence: true
 
   def to_s
     public_name
@@ -21,7 +21,7 @@ class User < ApplicationRecord
     yield(
       User
         .create_with(telegram_data:)
-        .find_or_create_by!(telegram_id: telegram_data.fetch('id')),
+        .find_or_create_by!(telegram_user_id: telegram_data.fetch('id')),
       nil)
   end
 

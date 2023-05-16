@@ -20,7 +20,7 @@ class VisitController < ApplicationController
   end
 
   def create_visit
-    find_or_create_visitor
+    visitor_session
       .visits
       .create!(
         referrer: request.referer,
@@ -30,8 +30,8 @@ class VisitController < ApplicationController
       )
   end
 
-  def find_or_create_visitor
-    Visitor.create_or_find_by!(project:, cookie_id:)
+  def visitor_session
+    VisitorSession.create_or_find_by!(project:, cookie_id:)
   end
 
   def project
