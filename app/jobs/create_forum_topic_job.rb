@@ -17,7 +17,6 @@ class CreateForumTopicJob < ApplicationJob
         update_visitor! visitor, create_forum_topic_in_telegram!(visitor, build_topic_title(visitor, visit))
       end
     end
-    TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visit.present? && visitor.telegram_message_thread_id.present?
   end
 
   private

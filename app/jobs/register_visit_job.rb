@@ -18,5 +18,6 @@ class RegisterVisitJob < ApplicationJob
       end
     end
     CreateForumTopicJob.perform_now visit.visitor, visit if visit.visitor.telegram_message_thread_id.nil?
+    TopicMessageJob.perform_later visit.visitor, "Контакт с #{visit.referrer}" if visitor.telegram_message_thread_id.present?
   end
 end
