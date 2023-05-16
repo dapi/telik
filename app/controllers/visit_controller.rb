@@ -50,7 +50,8 @@ class VisitController < ApplicationController
     return {} unless params[key].is_a? String
     return {} if params[key].length > MAX_DATA_LENGTH
 
-    JSON.parse(params[key])
+    data = JSON.parse(params[key])
+    data.is_a?(Hash) ? data : {}
   rescue JSON::ParserError => e
     Rails.logger.error e
     {}
