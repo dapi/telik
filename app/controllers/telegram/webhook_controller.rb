@@ -39,23 +39,13 @@ module Telegram
 
     private
 
-    def auto_create_visit(visitor)
-      VisitorSession
-        .create_with(visitor:)
-        .create_or_find_by!(
-          cookie_id: 'telegram_id:' + telegram_user.id.to_s,
-          project: visitor.project
-        )
-        .visits
-        .create!(referrer: 'https://t.me/', remote_ip: '127.0.0.1', location: {})
-    end
-
     def find_or_create_visitor(project)
       Visitor
         .create_or_find_by!(project:, telegram_user:)
     end
 
     def client_message(data)
+      # TODO: Если это ответ, то посылать в конкретный проект
       visitor = last_used_visitor
       if visitor.present?
         RedirectClientMessageJob.perform_later visitor, data.fetch('text')
@@ -65,12 +55,10 @@ module Telegram
     end
 
     def last_used_visitor
-      # TODO: Если это ответ, то посылать в конкретный проект
       if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
         visitor = telegram_user.visitors.where(project_id: project.id).take
       end
-      visitor ||= telegram_user.visitors.order(:last_visit_at).last
-      visitor
+      visitor || telegram_user.visitors.order(:last_visit_at).last
     end
 
     def telegram_user
