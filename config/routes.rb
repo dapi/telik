@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   telegram_webhook Telegram::WebhookController unless Rails.env.test?
 
   get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
-  get 'v', to: 'visits#create'
+  get 'v', to: 'visit#create'
 
   resources :sessions, only: %i[new create] do
     collection do
@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects
+  resources :projects do
+    resources :visits, only: %i[index show]
+    resources :visitors, only: %i[index show]
+  end
 
   require 'sidekiq/web'
 

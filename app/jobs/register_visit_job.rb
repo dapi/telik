@@ -16,6 +16,7 @@ class RegisterVisitJob < ApplicationJob
       visitor.update_user_from_chat!(chat || raise('Empty chat data'))
       visit.update! chat:, registered_at: Time.zone.now
     end
+    visit.project.update! url: visit.referrer if visit.referrer.present? && visit.project.url.blank?
     CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
   end
 end

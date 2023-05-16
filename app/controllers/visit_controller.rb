@@ -2,9 +2,10 @@
 
 # frozen_string_literal: true
 
-# Учитывает визит пользователя. Это происходит по клику на виджете
+# Учитывает визит пользователя. Это происходит по клику на виджете.
+# Публичный контроллер.
 #
-class VisitsController < ApplicationController
+class VisitController < ApplicationController
   COOKIE_KEY = :telik_visitor_id
   before_action :cookie_id
 

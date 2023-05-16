@@ -4,14 +4,14 @@
 
 require 'test_helper'
 
-class VisitsControllerTest < ActionDispatch::IntegrationTest
+class VisitControllerTest < ActionDispatch::IntegrationTest
   fixtures :projects
 
   test 'create a new visitor, setup a cookie, register a visit. Next time use same cookie and just register a new visit' do
     get v_path(pk: projects(:yandex).key)
     assert_redirected_to %r{\Ahttps://t.me}
 
-    saved_cookie = cookies[VisitsController::COOKIE_KEY]
+    saved_cookie = cookies[VisitController::COOKIE_KEY]
     visit_key = response.redirect_url.split('=').last
 
     visit = Visit.includes(:visitor).find_by_telegram_key visit_key
@@ -25,6 +25,6 @@ class VisitsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 2, visitor.visits.count
 
-    assert_equal saved_cookie, cookies[VisitsController::COOKIE_KEY]
+    assert_equal saved_cookie, cookies[VisitController::COOKIE_KEY]
   end
 end
