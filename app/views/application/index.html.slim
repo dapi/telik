@@ -5,8 +5,8 @@ h1= paginated_records.model_name.human_plural
 /.clearfix
 /hr
 div.mb-2
-  = render 'new_link', model_name: paginated_records.model_name
-  br
+  /= render 'new_link', model_name: paginated_records.model_name
+  /br
   = t 'application.index.total_records', count: paginated_records.total_count
 = render 'table', items: paginated_records.decorate if paginated_records.count.positive?
 = paginate paginated_records
