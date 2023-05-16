@@ -19,7 +19,10 @@ module Telegram
           respond_with :message, text: 'Привет! Визит не найден'
         else
           session[:project_id] = visit.project.id
-          RegisterVisitJob.perform_later(visit:, chat:, telegram_user_id: telegram_user.id)
+          visit.visitor_session.with_lock do
+            visit.visitor_session.update! visitor: find_or_create_visitor
+          end
+          RegisterVisitJob.perform_later(visit:, chat:)
           respond_with :message, text: visit.visitor.project.username + ': Привет! Чем вам помочь?'
         end
       else
@@ -54,6 +57,11 @@ module Telegram
     end
 
     private
+
+    def find_or_create_visitor(project)
+      Visitor
+        .create_or_find_by!(project:, telegram_user:)
+    end
 
     def client_message(data)
       # TODO: Если это ответ, то посылать в конкретный проект

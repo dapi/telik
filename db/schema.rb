@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_120030) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_130733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,7 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_120030) do
     t.datetime "telegram_cached_at", precision: nil
     t.jsonb "topic_data"
     t.datetime "last_visit_at", precision: nil
-    t.bigint "telegram_user_id"
+    t.bigint "telegram_user_id", null: false
     t.index ["project_id", "telegram_user_id"], name: "index_visitors_on_project_id_and_telegram_user_id", unique: true, where: "(telegram_user_id IS NOT NULL)"
     t.index ["project_id"], name: "index_visitors_on_project_id"
     t.index ["telegram_user_id"], name: "index_visitors_on_telegram_user_id"

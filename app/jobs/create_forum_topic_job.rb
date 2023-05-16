@@ -14,7 +14,7 @@ class CreateForumTopicJob < ApplicationJob
 
     safe_perform visitor.project.owner.telegram_user_id do
       visitor.with_lock do
-        update_visitor! visitor, create_forum_topic_in_telegram!(visitor)
+        update_visitor! visitor, create_forum_topic_in_telegram!(visitor, build_topic_title(visitor, visit))
       end
       TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visit.present?
     end
@@ -42,6 +42,13 @@ class CreateForumTopicJob < ApplicationJob
     end
   end
 
+  def build_topic_title(visitor, visit = nil)
+    visit ||= visitor.last_visit
+
+    # TODO: Добавлять опционально @#{username}
+    ["##{visitor.id} #{visitor.name}", visit.try(:from)].join(' ')
+  end
+
   # @param topic {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}
   #
   def update_visitor!(visitor, topic)
@@ -50,14 +57,13 @@ class CreateForumTopicJob < ApplicationJob
       telegram_cached_at: Time.zone.now,
       topic_data: topic
       # {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}
-
     )
   end
 
-  def create_forum_topic_in_telegram!(visitor)
+  def create_forum_topic_in_telegram!(visitor, topic_title)
     topic = Telegram.bot.create_forum_topic(
       chat_id: visitor.project.telegram_group_id || raise("no telegram_group_id in project #{visitor.project.id}"),
-      name: visitor.topic_title
+      name: topic_title
       # icon_color: ,
       # icon_custom_emoji_id
     )

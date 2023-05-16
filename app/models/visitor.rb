@@ -6,20 +6,41 @@
 #
 class Visitor < ApplicationRecord
   belongs_to :project
-  belongs_to :telegram_user, optional: true
+  belongs_to :telegram_user
 
   has_many :visitor_sessions, dependent: :nullify
+  has_many :visits, through: :visitor_sessions
+  has_many :last_visits, through: :visitor_sessions
+  has_many :first_visits, through: :visitor_sessions
 
   delegate :last_name, :first_name, :username, to: :telegram_user
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at first_name first_visit_id id last_name last_visit_at last_visit_id project_id telegram_cached_at telegram_user_id telegram_message_thread_id topic_data updated_at username]
+    %w[
+      created_at
+      first_name
+      first_visit_id
+      id
+      last_name
+      last_visit_at
+      last_visit_id
+      project_id
+      telegram_cached_at
+      telegram_user_id
+      telegram_message_thread_id
+      topic_data
+      updated_at
+      username
+    ]
   end
 
-  def topic_title
-    # TODO: Добавлять опционально @#{username}
-    # "##{id} #{name} из #{last_visit.city} (#{last_visit.region}/#{last_visit.country})"
-    "##{id} #{name}"
+  def first_visit
+    first_visits.order(:created_at).last
+  end
+
+  # Имя используемое в чате в сообщениях "от"
+  def last_visit
+    last_visits.order(:created_at).last
   end
 
   # Имя используемое в чате в сообщениях "от"

@@ -13,7 +13,7 @@ class UpdateTopicJobTest < ActiveJob::TestCase
     bot.expect :edit_forum_topic, response,
                message_thread_id: visitor.telegram_message_thread_id,
                chat_id: visitor.project.telegram_group_id,
-               name: visitor.topic_title
+               name: String
     Telegram.stub :bot, bot do
       UpdateForumTopicJob.perform_now(visitor)
     end

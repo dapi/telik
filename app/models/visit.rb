@@ -57,6 +57,14 @@ class Visit < ApplicationRecord
     OpenStruct.new(location).freeze
   end
 
+  def from
+    "#{city} (#{region_and_country.presence || remote_ip})"
+  end
+
+  def region_and_coutry
+    [region, country].join('/')
+  end
+
   # chat =>
   # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
   #

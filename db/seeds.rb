@@ -12,7 +12,7 @@
 #
 
 begin
-  Rails.logger.debug 'Create owner'
+  puts 'Create owner'
   owner = User
           .create_with(
             telegram_data: { 'id' => '943084337',
@@ -24,7 +24,7 @@ begin
           )
           .create_or_find_by!(telegram_user_id: 943_084_337)
 
-  Rails.logger.debug 'Create project'
+  puts 'Create project'
   project = Project
             .create_with(
               owner:,
@@ -35,7 +35,7 @@ begin
               telegram_group_id: -1_001_854_699_958,
             )
 
-  Rails.logger.debug 'Create membership'
+  puts 'Create membership'
   Membership.find_or_create_by!(project:, user: owner)
 rescue StandardError => e
   puts e
