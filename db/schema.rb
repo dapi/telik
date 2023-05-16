@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_152130) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_103932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_152130) do
     t.index ["first_visit_id"], name: "index_visitors_on_first_visit_id"
     t.index ["last_visit_id"], name: "index_visitors_on_last_visit_id"
     t.index ["project_id", "cookie_id"], name: "index_visitors_on_project_id_and_cookie_id", unique: true
+    t.index ["project_id", "telegram_id"], name: "index_visitors_on_project_id_and_telegram_id", unique: true
     t.index ["project_id"], name: "index_visitors_on_project_id"
   end
 
