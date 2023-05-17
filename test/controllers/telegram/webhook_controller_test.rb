@@ -113,6 +113,11 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
   # "date"=>1683820060,
   # "text"=>"adas"}
+  #
+  #
+  # Поймал в operator_message
+  #  {"update_id":124132485,"message":{"message_id":47,"from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},"date":1684320600,"message_thread_id":29,"forum_topic_edited":{"name":"#53 Danil Pismenny (127.0.0.1)"},"is_topic_message":true}}
+
   test 'message' do
     assert true
   end
