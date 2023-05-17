@@ -32,8 +32,9 @@ begin
               url: Rails.application.routes.url_helpers.root_url
             )
             .create_or_find_by!(
-              telegram_group_id: -1_001_854_699_958,
+              telegram_group_id: -1001896739063,
             )
+  project.update! url:  Rails.application.routes.url_helpers.root_url unless project.url ==  Rails.application.routes.url_helpers.root_url
 
   puts 'Create membership'
   Membership.find_or_create_by!(project:, user: owner)
