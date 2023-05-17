@@ -63,11 +63,11 @@ class Visit < ApplicationRecord
   end
 
   def geo
-    "#{city} (#{region_and_country.presence || remote_ip})"
+    [city.presence, "(#{region_and_country.presence || remote_ip})"].compact.join(' ')
   end
 
   def region_and_country
-    [region, country].join('/')
+    [region.presence, country.presence].compact.join('/').presence
   end
 
   # chat =>
