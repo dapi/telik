@@ -3,6 +3,8 @@
 yandex:
   telegram_user: danil
   project: yandex
+  user_data:
+    user_id: 123
 
 dzen:
   telegram_user: danil

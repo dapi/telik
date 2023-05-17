@@ -43,10 +43,7 @@ class CreateForumTopicJob < ApplicationJob
   end
 
   def build_topic_title(visitor, visit = nil)
-    visit ||= visitor.last_visit
-
-    # TODO: Добавлять опционально @#{username}
-    ["##{visitor.id} #{visitor.name}", visit.try(:from)].join(' ')
+    TopicTitleBuilder.new.build_topic(visitor, visit)
   end
 
   # @param topic {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}

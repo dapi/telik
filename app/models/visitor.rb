@@ -42,6 +42,10 @@ class Visitor < ApplicationRecord
     update! user_data:
   end
 
+  def user_data_object
+    OpenStruct.new(user_data || {}).freeze
+  end
+
   def first_visit
     @first_visit ||= first_visits.order(:created_at).last
   end

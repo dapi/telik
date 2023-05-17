@@ -46,6 +46,10 @@ class Visit < ApplicationRecord
     end
   end
 
+  def host
+    Addressable.new(referrer).host if referrer.present?
+  end
+
   def to_s
     to_json
   end
@@ -58,7 +62,7 @@ class Visit < ApplicationRecord
     OpenStruct.new(location).freeze
   end
 
-  def from
+  def geo
     "#{city} (#{region_and_country.presence || remote_ip})"
   end
 

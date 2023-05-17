@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 Geocoder.configure(
   # Geocoding options
   # timeout: 3,                 # geocoding service timeout (secs)
@@ -17,7 +21,7 @@ Geocoder.configure(
 
   # Calculation options
   cache: Redis.new,
-  units: :km,                 # :km for kilometers or :mi for miles
+  units: :km # :km for kilometers or :mi for miles
   # distances: :linear          # :spherical or :linear
 
   # Cache configuration
