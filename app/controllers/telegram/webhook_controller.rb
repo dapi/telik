@@ -68,7 +68,7 @@ module Telegram
     end
 
     def operator_message(data)
-      if data['forum_topic_created']
+      if data['forum_topic_created'] || data['forum_topic_edited']
         # Так это мы его сами и создали
       elsif data['is_topic_message']
         # TODO: Найти проект по chat.id
