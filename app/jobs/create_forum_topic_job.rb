@@ -43,7 +43,7 @@ class CreateForumTopicJob < ApplicationJob
   end
 
   def build_topic_title(visitor, visit = nil)
-    TopicTitleBuilder.new.build_topic(visitor, visit)
+    TopicTitleBuilder.new(visitor, visit).build
   end
 
   # @param topic {"message_thread_id"=>11, "name"=>"94.232.57.6", "icon_color"=>7322096}}
