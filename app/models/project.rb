@@ -7,6 +7,7 @@ require 'addressable/uri'
 # Проект пользователя привязанный к сайту
 #
 class Project < ApplicationRecord
+  include ProjectBot
   BOT_STATUSES = %w[left administrator restricted member].freeze
 
   strip_attributes

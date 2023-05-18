@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_211847) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_213745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_211847) do
     t.datetime "last_error_at", precision: nil
     t.string "topic_title_template"
     t.string "welcome_message"
+    t.string "bot_token"
+    t.string "bot_username"
     t.index ["key"], name: "index_projects_on_key", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
     t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
