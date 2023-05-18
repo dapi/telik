@@ -19,7 +19,7 @@ class UpdateForumTopicJob < CreateForumTopicJob
     raise Error, "Visitor (#{visitor.id}) has no telegram_user_id" if visitor.telegram_user_id.nil?
     raise Error, "Visitor (#{visitor.id}) has no defined message_thread_id" if visitor.telegram_message_thread_id.nil?
 
-    safe_perform visitor.project.owner.telegram_user_id do
+    safe_perform visitor.project do
       edit_forum_topic(visitor)
     end
   end
@@ -27,7 +27,7 @@ class UpdateForumTopicJob < CreateForumTopicJob
   private
 
   def edit_forum_topic(visitor)
-    topic = Telegram.bot.edit_forum_topic(
+    topic = visitor.project.bot.edit_forum_topic(
       message_thread_id: visitor.telegram_message_thread_id,
       chat_id: visitor.project.telegram_group_id || raise("no telegram_group_id in project #{visitor.project.id}"),
       name: build_topic_title(visitor, visitor.last_visit)
