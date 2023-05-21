@@ -23,7 +23,7 @@ module Telegram
 
     def my_chat_member(data)
       # Кого-то другого добавили, не нас
-      return unless data.dig('new_chat_member', 'user', 'username') == Telegram.bot.username
+      return unless (Project.with_bots.pluck(:bot_username) + [Telegram.bot.username]).include? data.dig('new_chat_member', 'user', 'username')
 
       chat_member = data.fetch('new_chat_member')
       user = User
