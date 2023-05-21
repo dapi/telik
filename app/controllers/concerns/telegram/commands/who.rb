@@ -10,7 +10,7 @@ module Telegram
       def who!(*_args)
         if direct_client_message?
           # Пропускаем
-        elsif is_topic_message?
+        elsif topic_message?
           tell_about_visitor
         else
           Bugsnag.notify 'Не понятно откуда команда' do |b|
