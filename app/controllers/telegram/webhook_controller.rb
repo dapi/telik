@@ -7,19 +7,11 @@ module Telegram
   #
   class WebhookController < Bot::UpdatesController
     include UpdateProjectMembership
-    include Start
+    include Commands::Start
+    include Commands::Who
+    include Actions::Message
 
     use_session!
-
-    def message(data)
-      Rails.logger.debug data.to_json
-
-      if direct_client_message?
-        client_message data
-      else
-        operator_message data
-      end
-    end
 
     def my_chat_member(data)
       # Кого-то другого добавили, не нас
@@ -39,19 +31,34 @@ module Telegram
 
     private
 
+    def topic_visitor
+      return if chat_project.nil?
+
+      chat_project.visitors.find_by(telegram_message_thread_id: payload.fetch('message_thread_id'))
+    end
+
+    def forum_topic_action?
+      payload['forum_topic_created'] || payload['forum_topic_edited']
+    end
+
+    def forum?
+      chat['is_forum']
+    end
+
+    def topic_message?
+      payload['is_topic_message']
+    end
+
+    # Проект найденный по chat.id
+    def chat_project
+      return unless chat['is_forum']
+
+      Project.find_by(telegram_group_id: chat['id'])
+    end
+
     def find_or_create_visitor(project)
       Visitor
         .create_or_find_by!(project:, telegram_user:)
-    end
-
-    def client_message(data)
-      # TODO: Если это ответ, то посылать в конкретный проект
-      visitor = last_used_visitor
-      if visitor.present?
-        RedirectClientMessageJob.perform_later visitor, data.fetch('text')
-      else
-        respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
-      end
     end
 
     def last_used_visitor
@@ -65,27 +72,6 @@ module Telegram
       @telegram_user ||= TelegramUser
                          .create_with(chat.slice(*%w[first_name last_name username]))
                          .create_or_find_by! id: chat.fetch('id')
-    end
-
-    def operator_message(data)
-      if data['forum_topic_created'] || data['forum_topic_edited']
-        # Так это мы его сами и создали
-      elsif data['is_topic_message']
-        # TODO: Найти проект по chat.id
-        visitor = Visitor.find_by(telegram_message_thread_id: data.fetch('message_thread_id'))
-        if visitor.present?
-          ClientMessageJob.perform_later visitor, data.fetch('text')
-        else
-          reply_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
-        end
-      elsif chat['is_forum']
-        # Возможно надо проверять еще на chat['supergroup']
-        # Похоже пишут в главном топике группы
-      elsif chat['type'] == 'group'
-        # Возможно сообщение о добавлении пользователей
-      else
-        respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
-      end
     end
 
     def direct_client_message?

@@ -31,7 +31,7 @@ class Project < ApplicationRecord
     self.key = Nanoid.generate
   end
 
-  before_update do
+  before_save do
     self.host = url.present? ? Addressable::URI.parse(url).host : nil
   end
 

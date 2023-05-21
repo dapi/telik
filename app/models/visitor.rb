@@ -22,10 +22,8 @@ class Visitor < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       created_at
-      first_name
       first_visit_id
       id
-      last_name
       last_visit_at
       last_visit_id
       project_id
@@ -34,7 +32,6 @@ class Visitor < ApplicationRecord
       telegram_message_thread_id
       topic_data
       updated_at
-      username
     ]
   end
 
@@ -47,7 +44,7 @@ class Visitor < ApplicationRecord
   end
 
   def first_visit
-    @first_visit ||= first_visits.order(:created_at).last
+    @first_visit ||= first_visits.order(:created_at).first
   end
 
   # Имя используемое в чате в сообщениях "от"

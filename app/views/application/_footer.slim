@@ -3,4 +3,4 @@ footer.mt-5.app-footer
     .row
       .col-md-6
         .text-muted= "#{app_title} #{AppVersion} #{Rails.env}"
-= telegram_link user: { telegram_id: current_user.try(:telegram_user_id) }, page: { url: request.url }, visit: { params: params }
+= telegram_link user: { telegram_id: current_user.try(:telegram_user_id) }, page: { url: request.url }
