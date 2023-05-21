@@ -23,9 +23,16 @@ module Telegram
     def brief_visit(visit)
       return '' if visit.nil?
 
-      [visit.referrer, visit.geo.presence, 'visit_data=' + visit.visit_data.to_json, 'page_data=' + visit.page_data.to_json]
+      [visit.referrer, visit.geo.presence, present_custom_data(visit, :visit_data), present_custom_data(visit, :page_data)]
         .compact
         .join(' ')
+    end
+
+    def present_custom_data(visit, field)
+      value = visit.visit_data
+      return '' if value.blank?
+
+      [field, value.to_json].join('=')
     end
   end
 end
