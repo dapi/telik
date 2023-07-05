@@ -15,6 +15,6 @@ module VisitHelper
   # Но в жизни пользователь должен тут подставлять ключ своего проекта
   #
   def default_project_key
-    Project.find_by!(host: ApplicationConfig.host).key
+    Project.find_by!(host: request.host).key
   end
 end
