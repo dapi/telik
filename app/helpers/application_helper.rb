@@ -30,10 +30,6 @@ module ApplicationHelper
     []
   end
 
-  def app_title
-    ApplicationConfig.app_title
-  end
-
   def back_link(url = nil)
     link_to "&larr; #{t('helpers.back')}".html_safe, url || root_path
   end
