@@ -17,5 +17,7 @@ Rails.application.config.assets.precompile += %w[button-widget.js]
 
 NonDigestAssets.asset_selectors += %w[button-widget.js]
 
-Rails.application.config.action_controller.asset_host =
-  Rails.application.config.asset_host = ENV.fetch('CDN_HOST', ApplicationConfig.url)
+if ENV.key?('CDN_HOST')
+  Rails.application.config.action_controller.asset_host =
+    Rails.application.config.asset_host = ENV.fetch('CDN_HOST')
+end
