@@ -23,21 +23,6 @@ begin
                              'first_name' => 'Danil' }
           )
           .create_or_find_by!(telegram_user_id: 943_084_337)
-
-  puts 'Create project'
-  project = Project
-            .create_with(
-              owner:,
-              name: 'Sample project',
-              url: Rails.application.routes.url_helpers.root_url
-            )
-            .create_or_find_by!(
-              telegram_group_id: -1001896739063,
-            )
-  project.update! url:  Rails.application.routes.url_helpers.root_url unless project.url ==  Rails.application.routes.url_helpers.root_url
-
-  puts 'Create membership'
-  Membership.find_or_create_by!(project:, user: owner)
 rescue StandardError => e
   puts e
   Rails.logger.debug e.record.inspect
