@@ -16,7 +16,7 @@ module Telegram
           respond_with :message, text: "Привет, #{user.public_name}! Следуйте по ссылке #{Rails.application.routes.url_helpers.root_url}"
         else
           respond_with :message, text:
-            ["Привет!",
+            ['Привет!',
              'Это сервис для поддержки пользователей через телеграм',
              "Чтобы подключиться следуйте по ссылке #{Rails.application.routes.url_helpers.root_url}"].join("\n")
         end
