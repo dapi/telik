@@ -8,9 +8,9 @@ class WelcomeMessageBuilder < StringInterpolator
   DEFAULT_TEMPLATE = '%{project.username}: Привет, %{visitor.first_name}! Чем вам помочь?'
 
   def initialize(visit)
-    @visit = visit
-    @visitor = visit.visitor
-    @project = visit.project
+    @visit = visit || raise('bisit must be defined')
+    @visitor = visit.visitor || raise('visit.visitor must be defined')
+    @project = visit.project || raise('visit.project must be defined')
   end
 
   def build
