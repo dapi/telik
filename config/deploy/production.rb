@@ -2,7 +2,8 @@
 
 # frozen_string_literal: true
 
-server 'nuichat.ru',
+set :application, 'samochat.ru'
+server 'samochat.ru',
        user: fetch(:user),
        port: '22',
        primary: true,

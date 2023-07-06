@@ -90,4 +90,4 @@ test:
 #
 production:
   <<: *default
-  database: telik_production
+  database: <%= ENV.fetch('TELIK_DATABASE_NAME', 'telik_production') %>

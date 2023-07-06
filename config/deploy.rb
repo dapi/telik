@@ -3,7 +3,6 @@
 # frozen_string_literal: true
 
 lock '3.16'
-set :application, 'telikbot.ru'
 set :user, 'app'
 set :deploy_to, -> { "/home/#{fetch(:user)}/#{fetch(:application)}" }
 
