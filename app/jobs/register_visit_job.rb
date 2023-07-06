@@ -12,18 +12,24 @@ class RegisterVisitJob < ApplicationJob
 
   def perform(visit:, chat:)
     visit.with_lock do
-      visit.update! chat:, registered_at: Time.zone.now
-      visit.visitor.with_lock do
-        update! last_visit_at: visit.created_at if visit.visitor.last_visit_at.nil? || visit.visitor.last_visit_at < visit.created_at
-      end
-      if visit.referrer.present?
-        visit.project.with_lock do
-          visit.project.update! url: visit.referrer if visit.project.url.blank?
-        end
-      end
+      visit.update! chat:, registered_at: Time.zone.now if visit.chat.nil?
     end
+
+    save_project_url(visit)
     visitor = visit.visitor
     CreateForumTopicJob.perform_now visitor, visit if visitor.telegram_message_thread_id.nil?
     TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visitor.telegram_message_thread_id.present?
+  end
+
+  private
+
+  def save_project_url(visit)
+    # Первое посещение, можно установить url проекта
+    # TODO Убедиться что посетитель это владелец
+    return if visit.referrer.blank?
+
+    visit.project.with_lock do
+      visit.project.update! url: visit.referrer if visit.project.url.blank?
+    end
   end
 end

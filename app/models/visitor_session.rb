@@ -2,7 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Сессия веб-посетителя по конкнетному проекту
+# Сессия веб-посетителя по конкретному проекту
 #
 class VisitorSession < ApplicationRecord
   belongs_to :project

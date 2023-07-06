@@ -22,3 +22,4 @@ https://www.storyblok.com/faq/setup-dev-server-https-proxy
 # TODO
 
 * [] Enable strict loading
+* [] Удалить "last_visit_id" и "first_visit_id" из visitor_sessions

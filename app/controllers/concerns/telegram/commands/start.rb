@@ -36,10 +36,9 @@ module Telegram
       end
 
       def start_client_visit!(visit)
-        if visit.visitor_session.visitor_id.nil?
-          visit.visitor_session.with_lock do
-            visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project)
-          end
+        visit.visitor_session.with_lock do
+          visit.visitor_session.update! visitor: find_or_create_visitor(visit.visitor_session.project) if visit.visitor_session.visitor_id.nil?
+          raise 'Visit without visitor' if visit.visitor.blank?
         end
 
         session[:project_id] = visit.project.id
