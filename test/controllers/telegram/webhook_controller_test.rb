@@ -118,6 +118,45 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # Поймал в operator_message
   #  {"update_id":124132485,"message":{"message_id":47,"from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},"date":1684320600,"message_thread_id":29,"forum_topic_edited":{"name":"#53 Danil Pismenny (127.0.0.1)"},"is_topic_message":true}}
 
+  # Добавили в приватный чат
+  # {
+  # "update_id": 124132626,
+  # "my_chat_member": {
+  # "chat": {
+  # "id": 5386965721,
+  # "first_name": "GunClappa",
+  # "username": "gclappamain",
+  # "type": "private"
+  # },
+  # "from": {
+  # "id": 5386965721,
+  # "is_bot": false,
+  # "first_name": "GunClappa",
+  # "username": "gclappamain",
+  # "language_code": "ru"
+  # },
+  # "date": 1688601532,
+  # "old_chat_member": {
+  # "user": {
+  # "id": 5933409757,
+  # "is_bot": true,
+  # "first_name": "Nui Chat",
+  # "username": "NuiChatBot"
+  # },
+  # "status": "member"
+  # },
+  # "new_chat_member": {
+  # "user": {
+  # "id": 5933409757,
+  # "is_bot": true,
+  # "first_name": "Nui Chat",
+  # "username": "NuiChatBot"
+  # },
+  # "status": "kicked",
+  # "until_date": 0
+  # }
+  # }
+  # }
   test 'message' do
     assert true
   end
