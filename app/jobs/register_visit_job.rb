@@ -14,7 +14,7 @@ class RegisterVisitJob < ApplicationJob
     visit.with_lock do
       visit.update! chat:, registered_at: Time.zone.now
       visit.visitor.with_lock do
-        update! last_visit_at: visit.created_at if visitor.last_visit_at.nil? || visitor.last_visit_at < visit.created_at
+        update! last_visit_at: visit.created_at if visit.visitor.last_visit_at.nil? || visit.visitor.last_visit_at < visit.created_at
       end
       if visit.referrer.present?
         visit.project.with_lock do
