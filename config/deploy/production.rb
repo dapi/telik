@@ -2,8 +2,9 @@
 
 # frozen_string_literal: true
 
-set :application, 'samochat.ru'
-server 'samochat.ru',
+host = ENV.fetch('DEPLOY_HOST', 'samochat.ru')
+set :application, host
+server host,
        user: fetch(:user),
        port: '22',
        primary: true,
