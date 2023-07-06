@@ -15,8 +15,9 @@ class TopicMessageJob < ApplicationJob
     )
     # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
   rescue Telegram::Bot::Error => e
-    Bugsnag.notify e
     if e.message.include? 'message thread not found'
+      Rails.logger.error e
+      Bugsnag.notify e
       visitor.update! telegram_message_thread_id: nil
 
       # Too Many Requests: Too Many Requests: retry after 42
@@ -24,6 +25,8 @@ class TopicMessageJob < ApplicationJob
       timeout = e.message.split.last.to_i
       self.class.set(wait: (timeout + rand(1..50)).seconds).perform_later(visitor, message)
     else
+      Rails.logger.error e
+      Bugsnag.notify e
       raise e
     end
 
