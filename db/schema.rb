@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_213745) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_214422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,8 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_213745) do
     t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
   end
 
-  create_table "telegram_users", id: false, force: :cascade do |t|
-    t.bigint "id"
+  create_table "telegram_users", id: :bigint, default: nil, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "username"
