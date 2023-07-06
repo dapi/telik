@@ -16,9 +16,16 @@ class TopicMessageJob < ApplicationJob
     # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
   rescue Telegram::Bot::Error => e
     Bugsnag.notify e
-    raise e unless e.message.include? 'message thread not found'
+    if e.message.include? 'message thread not found'
+      visitor.update! telegram_message_thread_id: nil
 
-    visitor.update! telegram_message_thread_id: nil
+      # Too Many Requests: Too Many Requests: retry after 42
+    elsif e.message.include? 'Too Many Requests'
+      timeout = e.message.split.last.to_i
+      self.class.set(wait: (timeout + rand(1..50)).seconds).perform_later(visitor, message)
+    else
+      raise e
+    end
 
     # Telegram::Bot::Forbidden (Forbidden: bot was kicked from the supergroup chat)
   rescue Telegram::Bot::Forbidden => e
