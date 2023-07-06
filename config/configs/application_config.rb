@@ -12,7 +12,7 @@ class ApplicationConfig < Anyway::Config
     protocol: 'http',
     bot_token: '',
     bot_username: '',
-    sidekiq_redis_url: 'redis://localhost:6379/0'
+    sidekiq_redis_url: 'redis://localhost:6379/0',
     redis_cache_store_url: 'redis://localhost:6379/2'
   )
 
