@@ -37,6 +37,7 @@ module Telegram
       chat_project.visitors.find_by(telegram_message_thread_id: payload.fetch('message_thread_id'))
     end
 
+    # Топик создан или отредактирован
     def forum_topic_action?
       payload['forum_topic_created'] || payload['forum_topic_edited']
     end

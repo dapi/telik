@@ -22,7 +22,7 @@ module Telegram
       def operator_message(data)
         if forum_topic_action?
           # Так это мы его сами и создали
-        elsif operator_topic_message?
+        elsif topic_message?
           operator_topic_message(data)
         elsif forum?
           # Возможно надо проверять еще на chat['supergroup']
