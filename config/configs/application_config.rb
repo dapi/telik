@@ -31,6 +31,10 @@ class ApplicationConfig < Anyway::Config
       protocol + '://' + host
     end
 
+    def queue_name_prefix
+      host.downcase
+    end
+
     private
 
     # Returns a singleton config instance
