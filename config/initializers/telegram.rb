@@ -5,10 +5,15 @@
 Rails.application.config.telegram_updates_controller.session_store = :redis_cache_store, { expires_in: 1.month }
 
 Telegram.bots_config = {
-  default: {
-    token: ApplicationConfig.bot_token,
-    username: ApplicationConfig.bot_username, # to support commands with mentions (/help@ChatBot)
-    id: ApplicationConfig.bot_id
+  nuichat: {
+    token: ApplicationConfig.nuichat_bot_token,
+    username: ApplicationConfig.nuichat_bot_username, # to support commands with mentions (/help@ChatBot)
+    id: ApplicationConfig.nuichat_bot_id
+  },
+  samochat: {
+    token: ApplicationConfig.samochat_bot_token,
+    username: ApplicationConfig.samochat_bot_username, # to support commands with mentions (/help@ChatBot)
+    id: ApplicationConfig.samochat_bot_id
   }
 }
 

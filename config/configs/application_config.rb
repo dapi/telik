@@ -9,8 +9,10 @@ class ApplicationConfig < Anyway::Config
   attr_config(
     host: 'localhost',
     protocol: 'http',
-    bot_token: '',
-    bot_username: ''
+    nuichat_bot_token: '',
+    nuichat_bot_username: '',
+    samochat_bot_token: '',
+    samochat_bot_username: ''
   )
 
   class << self
@@ -18,12 +20,20 @@ class ApplicationConfig < Anyway::Config
     # via class methods (i.e., without explicitly calling `instance`)
     delegate_missing_to :instance
 
-    def bot_url
-      TELEGRAM_LINK_PREFIX + bot_username
+    def samochat_bot_url
+      TELEGRAM_LINK_PREFIX + samochat_bot_username
     end
 
-    def bot_id
-      bot_token.split(':').first
+    def samochat_bot_id
+      samochat_bot_token.split(':').first
+    end
+
+    def nuichat_bot_url
+      TELEGRAM_LINK_PREFIX + nuichat_bot_username
+    end
+
+    def nuichat_bot_id
+      nuichat_bot_token.split(':').first
     end
 
     def url
