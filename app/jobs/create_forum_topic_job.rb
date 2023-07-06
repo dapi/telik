@@ -28,7 +28,7 @@ class CreateForumTopicJob < ApplicationJob
     Rails.logger.error e
     case e.message
     when 'Bad Request: Bad Request: chat not found'
-      OperatorMessageJob.perform_later(project, 'У меня нет доступа к группе')
+      OperatorMessageJob.perform_later(project, "У меня нет доступа к группе (#{e.message})")
     when 'Bad Request: Bad Request: not enough rights to create a topic'
       OperatorMessageJob.perform_later(project, 'У меня нет прав создавать топики')
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'

@@ -24,7 +24,7 @@ class TopicMessageJob < ApplicationJob
   rescue Telegram::Bot::Forbidden => e
     Bugsnag.notify e
     Rails.logger.error e
-    OperatorMessageJob.perform_later(visitor.project, 'У меня нет доступа к группе')
+    OperatorMessageJob.perform_later(visitor.project, "У меня нет доступа к группе #{visitor.project.telegram_group_id} (#{e.message})")
     visitor.projects.update! last_error: e.message, last_error_at: Time.zone.now
   end
 end
