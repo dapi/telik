@@ -10,6 +10,7 @@ module Telegram
     include Commands::Start
     include Commands::Who
     include Actions::Message
+    include Telegram::RescueErrors
 
     use_session!
 
