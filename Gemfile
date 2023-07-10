@@ -10,6 +10,8 @@ ruby '3.2.1'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0'
 
+gem 'cloud_payments', github: 'platmart/cloud_payments'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -153,3 +155,5 @@ gem 'non-digest-assets', '~> 2.2'
 gem 'ransack', '~> 4.0'
 
 gem 'kaminari', '~> 1.2'
+
+gem 'money-rails', '~> 1.15'

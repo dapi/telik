@@ -3,6 +3,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resource :account
+  resources :invoices
+  resources :payments, only: %(new create) do
+    member do
+      get :success
+      post :post3ds
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

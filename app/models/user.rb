@@ -9,7 +9,8 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :memberships, dependent: :delete_all
-  has_many :projects, through: :memberships
+  has_many :projects, through: :memberships, dependent: :delete_all
+  has_one :account, inverse_of: :owner, dependent: :delete
 
   validates :telegram_user_id, presence: true
 
