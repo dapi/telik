@@ -5,3 +5,4 @@ git commit -m `./bin/semver`
 git push
 bundle
 bundle exec cap production deploy
+DEPLOY_HOST=nuichat.ru bundle exec cap production deploy 
