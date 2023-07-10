@@ -13,6 +13,12 @@ class VisitController < ApplicationController
 
   def create
     redirect_to build_redirect_url, allow_other_host: true
+  rescue ActiveRecord::RecordNotFound => e
+    Rails.logger.error e
+    Bugsnag.notify e do |b|
+      b.severity = :warn
+    end
+    render :not_found
   end
 
   private
