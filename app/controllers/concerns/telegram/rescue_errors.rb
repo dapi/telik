@@ -2,9 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Отрабатываем ошибки телеграма
-#
 module Telegram
+  # Отрабатываем ошибки телеграма
   module RescueErrors
     extend ActiveSupport::Concern
     included do
