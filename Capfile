@@ -37,7 +37,7 @@ install_plugin Capistrano::Puma::Systemd
 require 'capistrano/systemd/multiservice'
 install_plugin Capistrano::Systemd::MultiService.new_service('sidekiq', service_type: 'user')
 
-require 'capistrano/faster_assets'
+require 'capistrano/faster_assets' unless ENV['FORCE_ASSETS']
 
 Dir.glob('lib/capistrano/*.rb').each { |r| import r }
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
