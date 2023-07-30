@@ -38,8 +38,10 @@ module Telegram
         # TODO: Если это ответ, то посылать в конкретный проект
         visitor = last_used_visitor
         if visitor.present?
-          RedirectClientMessageJob.perform_later visitor, data.fetch('text')
+          ForwardClientMessageJob.perform_later visitor, data
         else
+          # TODO: Задавать вопрос с какго сайта?
+          # Если это кастомный бот, то мы знаем откуда и можно сразу форвардить вопрос к оператору
           respond_with :message, text: 'Ой, а мы с вами не знакомы :*'
         end
       end

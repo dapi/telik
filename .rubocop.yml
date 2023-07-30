@@ -52,6 +52,7 @@ Metrics/BlockLength:
     - 'config/environments/*.rb'
     - 'config/routes.rb'
     - 'Gemfile'
+    - 'test/**/*'
 
 Style/SymbolArray:
   Enabled: false
