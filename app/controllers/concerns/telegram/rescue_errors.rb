@@ -14,7 +14,7 @@ module Telegram
 
     # Пользователь написал в бота и заблокировал его (наверное добавлен где-то в канале или тп)
     def bot_forbidden(error)
-      Rails.logger.error "#{error} #{params.to_json}"
+      Rails.logger.error "#{error} #{chat.to_json}"
     end
   end
 end
