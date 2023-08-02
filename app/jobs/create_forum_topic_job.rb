@@ -14,7 +14,7 @@ class CreateForumTopicJob < ApplicationJob
 
     safe_perform visitor.project do
       visitor.with_lock do
-        update_visitor! visitor, create_forum_topic_in_telegram!(visitor, build_topic_title(visitor, visit))
+        update_visitor! visitor, create_forum_topic_in_telegram!(visitor, build_topic_title(visitor, visit)) if visitor.telegram_message_thread_id.nil?
       end
     end
   end

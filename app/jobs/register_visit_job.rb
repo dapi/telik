@@ -18,7 +18,16 @@ class RegisterVisitJob < ApplicationJob
     save_project_url(visit)
     visitor = visit.visitor
     CreateForumTopicJob.perform_now visitor, visit if visitor.telegram_message_thread_id.nil?
-    TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visitor.telegram_message_thread_id.present?
+    if visitor.telegram_message_thread_id.present?
+      TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}"
+    else
+      Bugsnag.notify "Не удалось отправить регистрационное сообщение о контакте" do |b|
+        b.severity = :warn
+        b.meta_data = {
+          visitor_id: visit.id
+        }
+      end
+    end
   end
 
   private
