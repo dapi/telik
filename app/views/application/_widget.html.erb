@@ -1,6 +1,6 @@
 <script 
   defer 
-  src="<%= remove_asset_digest asset_url('button-widget.js') %>" 
+  src="<%= (defined?(use_asset_digest) && use_asset_digest) ? asset_url('button-widget.js') : remove_asset_digest(asset_url('button-widget.js')) %>" 
   data-nuichat-pk="<%= project_key %>"<%- if defined? size -%>
   data-size="<%= size %>"<%- end -%><%- if defined? user -%>
   data-user="<%= CGI::escape user.to_json %>"<%- end-%><%- if defined? page -%>

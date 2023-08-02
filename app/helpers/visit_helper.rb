@@ -6,7 +6,7 @@
 # Помогают попробовать как работают ссылки на бота с пользовательского сайта
 module VisitHelper
   def telegram_link(user: {}, visit: {}, page: {})
-    render 'widget', project_key: default_project_key, user:, visit:, page:
+    render 'widget', project_key: default_project_key, user:, visit:, page:, use_asset_digest: true
   rescue ActiveRecord::RecordNotFound
     'Не найден проект'
   end
