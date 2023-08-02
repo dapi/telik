@@ -32,16 +32,20 @@ class ApplicationJob < ActiveJob::Base
 
   private
 
+  def logger
+    @logger ||= ActiveSupport::TaggedLogging.new(Rails.logger).tagged self.class.name
+  end
+
   def rescue_bot_forbidden(error)
     Bugsnag.notify error
-    Rails.logger.error error
+    logger.error error
     OperatorMessageJob.perform_later(visitor.project, "У меня нет доступа к группе #{visitor.project.telegram_group_id} (#{error.message})")
     visitor.projects.update! last_error: error.message, last_error_at: Time.zone.now
   end
 
   def rescue_bot_error(error)
     if error.message.include? 'message thread not found'
-      Rails.logger.error error
+      logger.error error
       Bugsnag.notify error
       visitor.update! telegram_message_thread_id: nil
 
@@ -50,7 +54,7 @@ class ApplicationJob < ActiveJob::Base
       timeout = error.message.split.last.to_i
       retru_job wait: (timeout + rand(1..50)).seconds
     else
-      Rails.logger.error error
+      logger.error error
       Bugsnag.notify error
       raise error
     end

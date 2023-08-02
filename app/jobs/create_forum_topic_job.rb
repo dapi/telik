@@ -25,7 +25,7 @@ class CreateForumTopicJob < ApplicationJob
     yield
   rescue Telegram::Bot::Error => e
     Bugsnag.notify e
-    Rails.logger.error e
+    logger.error e
     case e.message
     when 'Bad Request: Bad Request: chat not found'
       OperatorMessageJob.perform_later(project, "У меня нет доступа к группе [#{visitor.project.telegram_group_id}] (#{e.message})")
@@ -34,7 +34,7 @@ class CreateForumTopicJob < ApplicationJob
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
       # Do nothing
     else
-      Rails.logger.warn e
+      logger.warn e
       Bugsnag.notify e do |b|
         b.meta_data = { visitor: visitor.as_json }
       end
