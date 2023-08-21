@@ -12,7 +12,7 @@ class ApplicationJob < ActiveJob::Base
 
   # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
   rescue_from Telegram::Bot::Error do |job, error|
-    Rails.logger.error [self.name, job, error].join(' ')
+    Rails.logger.error [self, job, error].join(' ')
     rescue_bot_error error
   end
 
@@ -30,7 +30,8 @@ class ApplicationJob < ActiveJob::Base
     def rescue_bot_forbidden(error)
       Bugsnag.notify error
       logger.error error
-      OperatorMessageJob.perform_later(visitor.project, "У меня нет доступа к группе #{visitor.project.telegram_group_id} (#{error.message})")
+      # TODO
+      # OperatorMessageJob.perform_later(visitor.project, "У меня нет доступа к группе #{visitor.project.telegram_group_id} (#{error.message})")
       visitor.projects.update! last_error: error.message, last_error_at: Time.zone.now
     end
 
