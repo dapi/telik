@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def app_title
-    '🛎 ' + ApplicationConfig.app_title
+    ApplicationConfig.app_title
   end
 
   def back_link(url = nil)
