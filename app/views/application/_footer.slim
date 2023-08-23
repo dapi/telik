@@ -1,5 +1,5 @@
 footer.mt-5.app-footer
   .container.px-3.py-5
     .row
-      .col-md-6
-        .text-muted= "#{app_title} #{AppVersion} #{Rails.env}"
+      .col-md-12
+        .text-muted= "&copy; #{link_to 'pismenny.ru', 'https://pismenny.ru', target: 'blank'} #{AppVersion} #{Rails.env}".html_safe

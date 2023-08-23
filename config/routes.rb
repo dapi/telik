@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects
+  resources :projects do
+    member do
+      post :check
+    end
+  end
   resources :visits, only: %i[index show]
   resources :visitors, only: %i[index show]
 

@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_214422) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_23_183549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.decimal "amount", default: "0.0", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_accounts_on_owner_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.decimal "amount", precision: 9, scale: 2, null: false
+    t.datetime "fully_paid_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_invoices_on_account_id"
+  end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -24,6 +41,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_214422) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "payment_cards", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "token", null: false
+    t.string "card_first_six", null: false
+    t.string "card_last_four", null: false
+    t.string "card_type", null: false
+    t.string "issuer_bank_country", null: false
+    t.string "card_exp_date", null: false
+    t.jsonb "dump", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_payment_cards_on_account_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "payment_card_id"
+    t.string "token", null: false
+    t.decimal "amount", precision: 9, scale: 2, null: false
+    t.jsonb "dump", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_payments_on_account_id"
+    t.index ["payment_card_id"], name: "index_payments_on_payment_card_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "url"
     t.string "key", null: false
@@ -31,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_214422) do
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "telegram_group_id", null: false
+    t.bigint "telegram_group_id"
     t.string "name", null: false
     t.jsonb "chat_member"
     t.datetime "chat_member_updated_at", precision: nil
@@ -128,6 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_214422) do
     t.index ["visitor_session_id"], name: "index_visits_on_visitor_session_id"
   end
 
+  add_foreign_key "accounts", "users", column: "owner_id"
+  add_foreign_key "invoices", "accounts"
   add_foreign_key "memberships", "projects"
   add_foreign_key "memberships", "users"
   add_foreign_key "projects", "users", column: "owner_id"

@@ -1,10 +1,10 @@
 
 (function(window) {
-  if (!window.NuiChatWidget) { window.NuiChatWidget = {}; }
+if (!window.<%= ApplicationController.helpers.widget_window_object %>) { window.<%= ApplicationController.helpers.widget_window_object %> = {}; }
 
-  var projectKeyAttribute = 'data-nuichat-pk';
-  var widgetElId = "nuichat-button-widget";
-  var widgetCssClass = "nuichat-button-widget";
+  var projectKeyAttribute = 'data-<%= ApplicationController.helpers.widget_namespace %>-pk';
+  var widgetElId = "<%= ApplicationController.helpers.widget_namespace %>-button-widget";
+  var widgetCssClass = "<%= ApplicationController.helpers.widget_namespace %>-button-widget";
 
   function getAllWidgets() {
     var widgets = [];
@@ -17,7 +17,7 @@
   }
 
   function insertStyles() {
-    var stylesId = "nuichat-button-widget-styles";
+  var stylesId = "<%= ApplicationController.helpers.widget_namespace %>-button-widget-styles";
     if (document.getElementById(stylesId)) { return };
     const style = document.createElement("style");
     style.id = stylesId;
@@ -28,7 +28,7 @@
     background:none;
     z-index:9999;
     transition:all 0.3s ease;
-    animation: nuichat-widget-popup ease 0.3s;
+    animation: <%= ApplicationController.helpers.widget_namespace %>-widget-popup ease 0.3s;
     // opacity:0;
     transform: scale(1);
     &:hover { 
@@ -43,7 +43,7 @@
     .${widgetCssClass}:hover > img {
       box-shadow: 5px 6px 45px -7px rgba(34, 60, 80, 0.41);
      }
-    @keyframes nuichat-widget-popup {
+     @keyframes <%= ApplicationController.helpers.widget_namespace %>-widget-popup {
       0%{ transform: scale(1); opacity: 0.3; }
       50%{ transform: scale(0.9); opacity: 1; }
       100%{ transform: scale(1); opacity: 0.9 }
@@ -58,7 +58,7 @@
     if (!widgetEl.tagName || !(widgetEl.tagName.toUpperCase() == 'SCRIPT')) {
       return null;
     }
-    if (window.NuiChatWidget.widgetEl && document.getElementById(widgetElId)) {
+    if (window.<%= ApplicationController.helpers.widget_window_object %>.widgetEl && document.getElementById(widgetElId)) {
       return true;
     }
 
@@ -66,7 +66,7 @@
     if (widgetProjectKey = (widgetEl.getAttribute(projectKeyAttribute) || widgetEl.getAttribute('data-pk'))) {
       var a = document.createElement('A');
 
-      console.log('Create nuichat button widget');
+      console.log('Create <%= ApplicationController.helpers.widget_namespace %> button widget');
       a.id = widgetElId;
       a.setAttribute('title', widgetEl.getAttribute('data-title') || "Нажмите чтобы связаться с оператором");
       a.setAttribute('target', '_blank');
@@ -89,7 +89,7 @@
     } else {
       console.log(`Nuichat widget script has no "${projectKeyAttribute}" attribute. Initialization canceled..`);
     }
-    window.NuiChatWidget.widgetEl = widgetEl;
+    window.<%= ApplicationController.helpers.widget_window_object %>.widgetEl = widgetEl;
     return true;
   }
 

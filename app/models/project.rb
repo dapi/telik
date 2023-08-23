@@ -23,9 +23,14 @@ class Project < ApplicationRecord
   has_many :visitors, dependent: :destroy
   has_many :visits, through: :visitor_sessions
 
+  before_validation do
+    self.url = 'http://' + url if url.present? && url.exclude?('://')
+    self.name = Addressable::URI.parse(url).host if url.present? && name.blank?
+  end
+
   validates :name, presence: true
   validates :url, url: true, if: :url?
-  validates :telegram_group_id, presence: true
+  # validates :telegram_group_id, presence: true
 
   before_create do
     self.key = Nanoid.generate
