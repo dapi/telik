@@ -1,0 +1,9 @@
+nav.navbar.navbar-light
+  .container.px-3
+    span.navbar-brand.mb-0.h1
+      = link_to root_url, class: 'text-dark' do
+        = render 'logo'
+    .navbar-text
+      | Привет, #{current_user}!
+      span.ms-4= link_to 'Выйти', sessions_path, data: { turbo_method: :delete }
+

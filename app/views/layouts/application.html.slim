@@ -1,14 +1,12 @@
 doctype html
-- layout_width = 1200
 html lang=I18n.locale
   head
     = render 'head'
   body
-    main.container.px-3.py-5[style="max-width: #{layout_width}px"]
-      h1.mb-4
-        = link_to root_url, class: 'text-dark' do
-          = render 'logo'
+    = render 'header'
+    main.container.px-3.py-5
       = yield
 
-    = render 'footer', width: layout_width
+    = render 'footer'
     = render 'flashes'
+    = telegram_link user: { telegram_id: current_user.try(:telegram_user_id) }, page: { url: request.url }
