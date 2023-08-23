@@ -17,7 +17,7 @@ class ActiveSupport::TestCase
   teardown do
     Telegram.bot.reset
     # or for multiple bots:
-    Telegram.bots.each_value(&:reset)
+    # Telegram.bots.each_value(&:reset)
   end
 
   # Add more helper methods to be used by all tests here...

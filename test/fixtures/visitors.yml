@@ -2,6 +2,7 @@
 
 yandex:
   telegram_user: danil
+  telegram_message_thread_id: 123
   project: yandex
   user_data:
     user_id: 123
