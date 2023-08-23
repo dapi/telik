@@ -9,7 +9,7 @@ class UpdateTopicJobTest < ActiveJob::TestCase
     visitor = visitors :dzen
     visitor.telegram_message_thread_id = Random.rand(1..100_000)
     response = { 'ok' => true, 'result' => true }
-    bot = MiniTest::Mock.new
+    bot = ::Minitest::Mock.new
     bot.expect :edit_forum_topic, response,
                message_thread_id: visitor.telegram_message_thread_id,
                chat_id: visitor.project.telegram_group_id,

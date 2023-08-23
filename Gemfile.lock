@@ -602,6 +602,7 @@ DEPENDENCIES
   jbuilder
   kaminari (~> 1.2)
   listen
+  minitest (~> 5.19)
   nanoid (~> 2.0)
   non-digest-assets (~> 2.2)
   pg (~> 1.1)
