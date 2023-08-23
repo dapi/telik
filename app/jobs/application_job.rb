@@ -32,7 +32,7 @@ class ApplicationJob < ActiveJob::Base
       logger.error error
       # TODO
       # OperatorMessageJob.perform_later(visitor.project, "У меня нет доступа к группе #{visitor.project.telegram_group_id} (#{error.message})")
-      visitor.projects.update! last_error: error.message, last_error_at: Time.zone.now
+      # visitor.projects.update! last_error: error.message, last_error_at: Time.zone.now
     end
 
     def rescue_bot_error(error)
