@@ -5,8 +5,8 @@ tr id=dom_id(project, :row)
       .text-muted.text-small
         = project.host
   td= bot_connection_status project
-  td= link_to project.visitors.count, visitors_path(q: { project_id_eq: project.id })
-  td= link_to project.visits.count, visits_path(q: { project_id_eq: project.id })
+  td= link_to project.visitors.count, project_visitors_path(project)
+  td= link_to project.visits.count, project_visits_path(project)
   td
     - if project.setup_errors.any?
       - if project.widget_installed?

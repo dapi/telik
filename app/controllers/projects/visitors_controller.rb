@@ -2,9 +2,9 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Контроллер оператора для просмотра посещений
+# Посетители проекта
 #
-class Project::VisitsController < ApplicationController
+class Projects::VisitorsController < ApplicationController
   include RansackSupport
   include PaginationSupport
 
@@ -16,7 +16,7 @@ class Project::VisitsController < ApplicationController
   private
 
   def records
-    super.joins(:visitor_session).where(visitor_sessions: { project_id: project.id })
+    super.where(project_id: project.id)
   end
 
   def project
