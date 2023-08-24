@@ -20,10 +20,8 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
-    member do
-      get :widget_setup
-      post :widget_check
-    end
+    resource :widget, only: %i[show create], controller: 'projects/widget'
+    resource :bot, only: %i[show create], controller: 'projects/bot'
   end
   resources :visits, only: %i[index show]
   resources :visitors, only: %i[index show]

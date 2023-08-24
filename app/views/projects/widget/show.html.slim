@@ -16,4 +16,4 @@ p
       = render 'doc_extend_widget_params', project: project
 
 p Установили? 
-= link_to 'Проверить', widget_check_project_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+= link_to 'Проверить', project_widget_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }

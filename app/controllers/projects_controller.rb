@@ -5,18 +5,18 @@
 # Управление опреаторскими проектами
 class ProjectsController < ApplicationController
   before_action :require_login
-
   helper_method :back_url
-
   layout 'simple'
 
   def show
-    if project.widget_installed?
+    if project.setup_errors.empty?
       render locals: {
         project:
-      }
-    else
-      redirect_to widget_setup_project_path(project)
+      }, layout: 'project'
+    elsif !project.widget_installed?
+      redirect_to project_widget_path(project)
+    elsif !project.bot_installed?
+      redirect_to bot_setup_project_path(project)
     end
   end
 
@@ -36,22 +36,6 @@ class ProjectsController < ApplicationController
     render :new, locals: {
       project: e.record
     }
-  end
-
-  def widget_setup
-    render locals: { project: }
-  end
-
-  def widget_check
-    if project.host_confirmed?
-      redirect_to project_path(project),
-                  status: :see_other,
-                  notice: "Виджет отлично установлен на сайт #{project.host}"
-    else
-      redirect_to widget_setup_project_path(project),
-                  status: :see_other,
-                  alert: 'Проверка не прошла. Установите виджет на сайт и воспользуйтемь им сами хотя бы однажды.'
-    end
   end
 
   private
