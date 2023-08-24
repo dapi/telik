@@ -6,10 +6,14 @@
                                 sessions DELETE /sessions(.:format)                                                                               sessions#destroy
                                          POST   /sessions(.:format)                                                                               sessions#create
                              new_session GET    /sessions/new(.:format)                                                                           sessions#new
-                          project_widget GET    /projects/:project_id/widget(.:format)                                                            widgets#show
-                                         POST   /projects/:project_id/widget(.:format)                                                            widgets#create
-                    widget_setup_project GET    /projects/:id/widget_setup(.:format)                                                              projects#widget_setup
-                    widget_check_project POST   /projects/:id/widget_check(.:format)                                                              projects#widget_check
+                          project_widget GET    /projects/:project_id/widget(.:format)                                                            project/widget#show
+                                         POST   /projects/:project_id/widget(.:format)                                                            project/widget#create
+                             project_bot GET    /projects/:project_id/bot(.:format)                                                               project/bot#show
+                                         POST   /projects/:project_id/bot(.:format)                                                               project/bot#create
+                          project_visits GET    /projects/:project_id/visits(.:format)                                                            project/visits#index
+                           project_visit GET    /projects/:project_id/visits/:id(.:format)                                                        project/visits#show
+                        project_visitors GET    /projects/:project_id/visitors(.:format)                                                          project/visitors#index
+                         project_visitor GET    /projects/:project_id/visitors/:id(.:format)                                                      project/visitors#show
                                 projects GET    /projects(.:format)                                                                               projects#index
                                          POST   /projects(.:format)                                                                               projects#create
                              new_project GET    /projects/new(.:format)                                                                           projects#new
@@ -18,11 +22,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                                  visits GET    /visits(.:format)                                                                                 visits#index
-                                   visit GET    /visits/:id(.:format)                                                                             visits#show
-                                visitors GET    /visitors(.:format)                                                                               visitors#index
-                                 visitor GET    /visitors/:id(.:format)                                                                           visitors#show
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007fc5761b8918 /home/danil/code/telik/config/routes.rb:49>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007fa938dc8848 /home/danil/code/telik/config/routes.rb:46>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

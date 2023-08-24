@@ -10,13 +10,12 @@ aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light
         svg.bi.me-2 height = "16" width = "16"
           use xlink:href="#home"
         | Home
-    - links = %i[settings widget bot visitors visits]
-    - links.each do |link|
+    - project_sidebar_links(project).each do |link|
       li
-        a.nav-link.link-dark href = "#"
+        a.nav-link.link-dark href=link.fetch(:url)
           svg.bi.me-2  height = "16" width = "16"
-            use xlink:href="#speedometer2"
-          = link
+            use xlink:href=link.fetch(:url)
+          = link.fetch(:title)
   /hr/
   /.dropdown
     /a#dropdownUser2.d-flex.align-items-center.link-dark.text-decoration-none.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#"

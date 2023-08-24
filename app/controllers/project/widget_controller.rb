@@ -4,7 +4,7 @@
 
 # Настройка виджета по проекту
 #
-class Projects::WidgetController < ApplicationController
+class Project::WidgetController < ApplicationController
   before_action :require_login
   helper_method :back_url
   layout 'simple'

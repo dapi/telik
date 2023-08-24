@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
   helper_method :back_url
   layout 'simple'
 
+  helper_method :project
+
   def show
     if project.setup_errors.empty?
       render locals: {

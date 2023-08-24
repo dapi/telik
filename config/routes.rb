@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
-    resource :widget, only: %i[show create], controller: 'projects/widget'
-    resource :bot, only: %i[show create], controller: 'projects/bot'
+    resource :widget, only: %i[show create], controller: 'project/widget'
+    resource :bot, only: %i[show create], controller: 'project/bot'
+    resources :visits, only: %i[index show], controller: 'project/visits'
+    resources :visitors, only: %i[index show], controller: 'project/visitors'
   end
-  resources :visits, only: %i[index show]
-  resources :visitors, only: %i[index show]
 
   require 'sidekiq/web'
 

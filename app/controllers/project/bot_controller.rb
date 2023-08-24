@@ -3,7 +3,7 @@
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
 # Настройка бота по проекту
-class Projects::BotController < ApplicationController
+class Project::BotController < ApplicationController
   before_action :require_login
   helper_method :back_url
   layout 'simple'

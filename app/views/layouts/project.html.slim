@@ -6,9 +6,9 @@ html lang=I18n.locale
     = render 'header'
     main.container.px-3.py-5
       .row
-        .col.col-2
-          = render 'sidebar'
-        section.col-md-auto
+        .col-3
+          = render 'sidebar', project: project
+        section.col-9
           = yield
 
     = render 'footer'
