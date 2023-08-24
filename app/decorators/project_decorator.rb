@@ -2,6 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Декоратор проекта
+#
 class ProjectDecorator < ApplicationDecorator
   delegate_all
 
