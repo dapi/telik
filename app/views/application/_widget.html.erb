@@ -1,5 +1,4 @@
-<script 
-  defer 
+<script defer 
   src="<%= (defined?(use_asset_digest) && use_asset_digest) ? asset_url('button-widget.js') : remove_asset_digest(asset_url('button-widget.js')) %>" 
   data-<%= widget_namespace %>-pk="<%= project_key %>"<%- if defined? size -%>
   data-size="<%= size %>"<%- end -%><%- if defined? user -%>

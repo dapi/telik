@@ -18,4 +18,14 @@ meta name="turbolinks-cache-control" content="no-preview"
 = stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all'
 //= stylesheet_link_tag 'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css', media: 'all'
 
+//= javascript_include_tag 'https://getbootstrap.com/docs/5.1/assets/js/docs.min.js'
+= javascript_include_tag "https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"
+= stylesheet_link_tag 'https://getbootstrap.com/docs/5.1/assets/css/docs.css'
+
+= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css'
+= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'
+= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/xml.min.js'
+javascript:
+  hljs.highlightAll();
+
 -# = render 'load_overlay'

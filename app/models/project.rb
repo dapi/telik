@@ -8,6 +8,8 @@ require 'addressable/uri'
 #
 class Project < ApplicationRecord
   include ProjectBot
+  include ProjectSetup
+
   BOT_STATUSES = %w[left administrator restricted member].freeze
 
   strip_attributes

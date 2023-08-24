@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    project = Project.new(permitted_params)
+    project = Project.new(permitted_params.reverse_merge(name: 'Безымянный #1'))
     render locals: {
       project:
     }
