@@ -1,0 +1,14 @@
+tr id=dom_id(project, :row)
+  td
+    = link_to project.title, project_path(project)
+    - if project.host.present?
+      .text-muted.text-small
+        = project.host
+  td= bot_connection_status project
+  td= link_to project.visitors.count, visitors_path(q: { project_id_eq: project.id })
+  td= link_to project.visits.count, visits_path(q: { project_id_eq: project.id })
+  td
+    - if project.setup_errors.any?
+      = link_to 'Настроить бота &rarr;'.html_safe, project_path(project)
+    - else
+      = link_to 'Перейти в управление &rarr;'.html_safe, project_path(project)

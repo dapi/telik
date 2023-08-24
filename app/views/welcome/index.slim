@@ -1,8 +1,8 @@
 
 - if logged_in?
   - if current_user.projects.any?
-    h3 Ваши проекты:
-    = render 'projects/projects'
+    h1.mb-4 Ваши проекты
+    = render 'projects'
 
   .mt-4
     = render 'add_project_hint'

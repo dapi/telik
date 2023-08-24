@@ -1,0 +1,10 @@
+table.table.table-condensed data-projects-table=true
+  thead
+    tr
+      th scope="col" Проект
+      th scope="col" Статус
+      th scope="col" Посетителей
+      th scope="col" Контактов
+      th scope="col" 
+  tbody
+    = render partial: 'project', collection: ProjectDecorator.decorate_collection(current_user.projects.order(:created_at))
