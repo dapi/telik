@@ -17,7 +17,7 @@ module WidgetHelper
     if value == EXAMPLE_CODE
       value
     else
-      CGI::escape value.to_json
+      CGI.escape value.to_json
     end
   end
 end

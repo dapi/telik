@@ -13,6 +13,7 @@ class VisitController < ApplicationController
 
   def create
     redirect_to build_redirect_url, allow_other_host: true
+    host_confirms unless project.host_confirmed?
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.error e
     Bugsnag.notify e do |b|
@@ -22,6 +23,11 @@ class VisitController < ApplicationController
   end
 
   private
+
+  def host_confirms
+    host = Addressable::URI.parse(request.referer).host
+    project.update host: host, host_confirmed_at: Time.zone.now if host.present?
+  end
 
   def build_redirect_url
     ApplicationConfig.bot_url + '?start=' + create_visit.telegram_key

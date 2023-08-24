@@ -11,12 +11,12 @@ class ProjectsController < ApplicationController
   layout 'simple'
 
   def show
-    if !project.widget_installed?
-      redirect_to widget_setup_project_path(project)
-    else
+    if project.widget_installed?
       render locals: {
         project:
       }
+    else
+      redirect_to widget_setup_project_path(project)
     end
   end
 
@@ -44,9 +44,13 @@ class ProjectsController < ApplicationController
 
   def widget_check
     if project.host_confirmed?
-      redirect_to project_path(project), notice: "Виджет отлично установлен на сайт #{project.host}"
+      redirect_to project_path(project),
+                  status: :see_other,
+                  notice: "Виджет отлично установлен на сайт #{project.host}"
     else
-      redirect_to widget_setup_project_path(project), alert: 'Проверка не прошла. Установите виджет на сайт и воспользуйтемь им сами хотябы однажды.'
+      redirect_to widget_setup_project_path(project),
+                  status: :see_other,
+                  alert: 'Проверка не прошла. Установите виджет на сайт и воспользуйтемь им сами хотя бы однажды.'
     end
   end
 

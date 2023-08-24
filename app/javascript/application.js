@@ -6,6 +6,7 @@ import "./clipboard"
 import * as bootstrap from 'bootstrap'
 
 const onReady = function() {
+  console.log("turbo:load emited");
   var option = { delay: 3000 }
   var toastElList = [].slice.call(document.querySelectorAll('.toast'))
   var toastList = toastElList.map(function (toastEl) {
@@ -18,6 +19,7 @@ const onReady = function() {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
+  hljs.highlightAll();
 }
 
 document.addEventListener("turbo:load", onReady);
