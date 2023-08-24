@@ -6,6 +6,10 @@
 class ProjectsController < ApplicationController
   before_action :require_login
 
+  helper_method :back_url
+
+  layout 'simple'
+
   def show
     project = Project.find params[:id]
     return not_authenticated unless project.member? current_user
@@ -16,8 +20,9 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    project = Project.new(permitted_params)
     render locals: {
-      project: Project.new(permitted_params)
+      project:
     }
   end
 
@@ -33,6 +38,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def back_url
+    root_url
+  end
 
   def permitted_params
     params.fetch(:project, {}).permit(:name, :custom_username, :url, :telegram_group_id)

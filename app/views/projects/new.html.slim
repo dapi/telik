@@ -1,2 +1,11 @@
-h1 Регистрируем новый сайт
-= render 'form', project: project
+h1 Создаём новый проект
+
+= simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
+  = f.error_notification
+  = full_error_messages f if Rails.env.development?
+  .form-inputs
+    .row
+      .col-md-6
+        = f.input :url, input_html: { autofocus: true }
+  .form-actions.mt-2
+    = f.button :submit,  class: 'btn btn-lg btn-success'

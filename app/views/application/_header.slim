@@ -1,0 +1,12 @@
+nav.navbar.navbar-light
+  .container.px-3
+    span.navbar-brand.mb-0.h1
+      = link_to root_url, class: 'text-dark text-decoration-none' do
+        = render 'logo'
+    - if logged_in?
+      = link_to 'Создать проект', new_project_path, class: 'btn btn-sm btn-success'
+      .navbar-text
+        | 🙋 Привет, #{current_user}!
+        span.ms-4= link_to 'Попрощаться', sessions_path, data: { turbo_method: :delete }
+    - else
+      = render 'telegram_login'

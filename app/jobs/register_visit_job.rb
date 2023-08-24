@@ -21,7 +21,7 @@ class RegisterVisitJob < ApplicationJob
     if visitor.telegram_message_thread_id.present?
       TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}"
     else
-      Bugsnag.notify "Не удалось отправить регистрационное сообщение о контакте" do |b|
+      Bugsnag.notify 'Не удалось отправить регистрационное сообщение о контакте' do |b|
         b.severity = :warn
         b.meta_data = {
           visitor_id: visit.id

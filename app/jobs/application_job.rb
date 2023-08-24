@@ -20,7 +20,7 @@ class ApplicationJob < ActiveJob::Base
   discard_on ActiveJob::DeserializationError
   # Telegram::Bot::Forbidden (Forbidden: bot was kicked from the supergroup chat)
   discard_on Telegram::Bot::Forbidden do |job, error|
-    Rails.logger.error [self.name, job, error].join(' ')
+    Rails.logger.error [name, job, error].join(' ')
     rescue_bot_forbidden error
   end
 
@@ -51,6 +51,7 @@ class ApplicationJob < ActiveJob::Base
         raise error
       end
     end
+
     def default_url_options
       Rails.application.config.action_controller.default_url_options
     end
@@ -61,5 +62,4 @@ class ApplicationJob < ActiveJob::Base
   def logger
     @logger ||= ActiveSupport::TaggedLogging.new(Rails.logger).tagged self.class.name
   end
-
 end
