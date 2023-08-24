@@ -9,6 +9,14 @@ module ProjectSetup
     @setup_errors ||= build_setup_errors
   end
 
+  def bot_installed?
+    (setup_errors - [:host_not_confirmed]).empty?
+  end
+
+  def widget_installed?
+    host_confirmed?
+  end
+
   private
 
   def build_setup_errors

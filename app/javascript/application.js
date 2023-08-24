@@ -5,18 +5,6 @@ import "channels"
 import "./clipboard"
 import * as bootstrap from 'bootstrap'
 
-//import hljs from 'highlightjs/lib/core';
-//import html from 'highlightjs/lib/languages/html';
-
-//// Then register the languages you need
-//hljs.registerLanguage('html', html);
-
-//= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css'
-//= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'
-//= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/html.min.js'
-//javascript:
-  //hljs.highlightAll();
-
 const onReady = function() {
   var option = { delay: 3000 }
   var toastElList = [].slice.call(document.querySelectorAll('.toast'))

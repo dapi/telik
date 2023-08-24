@@ -11,16 +11,17 @@ class ProjectsController < ApplicationController
   layout 'simple'
 
   def show
-    project = Project.find params[:id]
-    return not_authenticated unless project.member? current_user
-
-    render locals: {
-      project:
-    }
+    if !project.widget_installed?
+      redirect_to widget_setup_project_path(project)
+    else
+      render locals: {
+        project:
+      }
+    end
   end
 
   def new
-    project = Project.new(permitted_params.reverse_merge(name: 'Безымянный #1'))
+    project = Project.new(permitted_params.reverse_merge(name: 'Безымянный #' + current_user.projects.count + 1))
     render locals: {
       project:
     }
@@ -37,7 +38,23 @@ class ProjectsController < ApplicationController
     }
   end
 
+  def widget_setup
+    render locals: { project: }
+  end
+
+  def widget_check
+    if project.host_confirmed?
+      redirect_to project_path(project), notice: "Виджет отлично установлен на сайт #{project.host}"
+    else
+      redirect_to widget_setup_project_path(project), alert: 'Проверка не прошла. Установите виджет на сайт и воспользуйтемь им сами хотябы однажды.'
+    end
+  end
+
   private
+
+  def project
+    @project ||= current_user.projects.find params[:id]
+  end
 
   def back_url
     root_url

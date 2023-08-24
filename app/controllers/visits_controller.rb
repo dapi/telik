@@ -2,7 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Посещения
+# Контроллер оператора для просмотра посещений
+#
 class VisitsController < ApplicationController
   include RansackSupport
   include PaginationSupport

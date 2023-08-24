@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :projects do
     member do
-      post :check
+      get :widget_setup
+      post :widget_check
     end
   end
   resources :visits, only: %i[index show]
