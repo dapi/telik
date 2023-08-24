@@ -25,7 +25,7 @@ class VisitController < ApplicationController
   private
 
   def host_confirms
-    host = Addressable::URI.parse(request.referer).host
+    host = Addressable::URI.parse(request.referer).try(:host)
     project.update host: host, host_confirmed_at: Time.zone.now if host.present?
   end
 
