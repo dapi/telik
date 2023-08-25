@@ -10,7 +10,7 @@ class Projects::BotController < ApplicationController
 
   # Показывает страницу настройки виджета
   def show
-    render locals: { project: }
+    render locals: { project:, messages: project.setup_errors }
   end
 
   # Делает проверку на настроенность бота и если все ок редиректит далее на настройку проекта
@@ -20,9 +20,9 @@ class Projects::BotController < ApplicationController
                   status: :see_other,
                   notice: 'Поздравляю! Бот подключен.'
     else
-      redirect_to bot_project_path(project),
+      redirect_to project_bot_path(project),
                   status: :see_other,
-                  alert: 'Проверка не прошла. Настройте супер-группу и подключите в нее бота по инструкции.'
+                  alert: "Проверка не прошла. #{project.setup_errors.join(',')}"
     end
   end
 

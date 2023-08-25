@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     elsif !project.widget_installed?
       redirect_to project_widget_path(project)
     elsif !project.bot_installed?
-      redirect_to bot_setup_project_path(project)
+      redirect_to project_bot_path(project)
     end
   end
 

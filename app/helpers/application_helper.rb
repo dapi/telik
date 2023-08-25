@@ -8,7 +8,7 @@ module ApplicationHelper
     path.sub(DIGEST_REGEXP, '.')
   end
 
-  def link_to_bot(username)
+  def link_to_bot(username = ApplicationConfig.bot_username)
     link_to '@' + username, ApplicationConfig::TELEGRAM_LINK_PREFIX + username, target: '_blank', rel: 'noopener'
   end
 

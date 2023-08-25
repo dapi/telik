@@ -10,11 +10,22 @@ module ProjectSetup
   end
 
   def bot_installed?
-    (setup_errors - [:host_not_confirmed]).empty?
+    telegram_supergroup? && bot_admin? && bot_can_manage_topics?
+
+    # Альтерантивный вариант:
+    # (setup_errors - [:host_not_confirmed]).empty?
   end
 
   def widget_installed?
     host_confirmed?
+  end
+
+  def telegram_supergroup?
+    telegram_group_type == 'supergroup' && telegram_group_is_forum
+  end
+
+  def bot_admin?
+    bot_status == 'administrator'
   end
 
   private
@@ -25,9 +36,9 @@ module ProjectSetup
     if telegram_group_id.blank?
       setup_errors << :no_telegram_group
     else
-      setup_errors << :not_supergroup unless telegram_group_type == 'supergroup' && telegram_group_is_forum
+      setup_errors << :not_supergroup unless telegram_supergroup?
 
-      if bot_status == 'administrator'
+      if bot_admin?
         setup_errors << :admin_cant_manage_topics unless bot_can_manage_topics?
       else
         setup_errors << :not_admin
