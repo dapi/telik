@@ -2,6 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Обработка события my_chat_member
+#
 module Telegram::Actions::MyChatMember
   # Удалили чат и бота выкинуло из чата
   # {"chat"=>{"id"=>-1001828619257, "title"=>"Tesy3", "is_forum"=>true, "type"=>"supergroup"},

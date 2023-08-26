@@ -3,7 +3,7 @@
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
 # Метод обновляет статусы членства проекта в его группе
-#
+# rubocop:disable Metrics/PerceivedComplexity
 module Telegram::UpdateProjectMembership
   private
 
@@ -48,3 +48,4 @@ module Telegram::UpdateProjectMembership
     respond_with :message, text: text.flatten.join("\n")
   end
 end
+# rubocop:enable Metrics/PerceivedComplexity
