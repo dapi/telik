@@ -1,13 +1,3 @@
-h1 Как назовём новый проект?
+p Шаг 1 из 2-х
 
-
-.mt-5
-  = simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
-    = f.error_notification
-    = full_error_messages f if Rails.env.development?
-    .form-inputs
-      .row
-        .col-md-6
-          = f.input :name, input_html: { autofocus: true }, label: false, hint: 'Рекомендем в качестве названия использовать адрес сайта.'
-    .form-actions.mt-4
-      = f.button :submit,  class: 'btn btn-lg btn-success'
+= render 'bot/setup', project: project

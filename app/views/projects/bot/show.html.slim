@@ -1,18 +1,1 @@
-h1.mb-5 Создайте в телеграм супер-группу и добавьте бота админом
-
-h3 Messages #{messages.count}
-= Time.zone.now
-= messages.join(', ')
-ul.list-group.mb-3
-  li.list-group-item 
-    input class="form-check-input me-2" type="checkbox" value="" checked=(project.telegram_group_id.present? && project.telegram_supergroup?) aria-label="telegram_supergroup"
-    | Создайте в телеграм приватную супер-группу (группа с топиками)
-  li.list-group-item 
-    input class="form-check-input me-2" type="checkbox" value="" checked=(project.bot_admin?) aria-label="telegram_bot_admin"
-    | Добавьте в админы группы бота #{link_to_bot}
-  li.list-group-item 
-    input class="form-check-input me-2" type="checkbox" value="" checked=(project.bot_can_manage_topics?) aria-label="telegram_bot_can_manage_topics"
-    | Дайте боту #{link_to_bot} права управления топиками
-
-p Готово?
-= link_to 'Проверить', project_bot_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+= render 'setup', project: project

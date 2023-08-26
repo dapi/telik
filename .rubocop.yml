@@ -6,6 +6,9 @@ require:
 Rails/I18nLocaleTexts:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2

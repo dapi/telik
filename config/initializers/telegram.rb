@@ -12,6 +12,9 @@ Telegram.bots_config = {
   }
 }
 
+# Способ добавить новый вид payloads
+# Telegram::Bot::UpdatesController::PAYLOAD_TYPES =  Telegram::Bot::UpdatesController::PAYLOAD_TYPES.dup + %w[]
+
 if Rails.env.test?
   Telegram.reset_bots
   Telegram::Bot::ClientStub.stub_all!

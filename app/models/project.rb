@@ -32,7 +32,10 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :url, url: true, if: :url?
-  # validates :telegram_group_id, presence: true
+
+  # Сначала создается группа, к группе добавляется бот и тогда бот создает проект
+  # привязывается проект.
+  validates :telegram_group_id, presence: true
 
   before_create do
     self.key = Nanoid.generate

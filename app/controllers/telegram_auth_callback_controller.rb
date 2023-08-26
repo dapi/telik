@@ -26,8 +26,8 @@ class TelegramAuthCallbackController < ApplicationController
 
   def data_params
     @data_params ||= params
-                     .permit(:id, :first_name, :last_name, :username, :photo_url, :auth_date)
-                     .to_h
+      .permit(:id, :first_name, :last_name, :username, :photo_url, :auth_date)
+      .to_h
   end
 
   def authorize!

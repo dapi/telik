@@ -8,6 +8,10 @@ class Projects::BotController < ApplicationController
   helper_method :back_url
   layout 'simple'
 
+  before_action do
+    @header_title = project.name
+  end
+
   # Показывает страницу настройки виджета
   def show
     render locals: { project:, messages: project.setup_errors }
@@ -22,7 +26,7 @@ class Projects::BotController < ApplicationController
     else
       redirect_to project_bot_path(project),
                   status: :see_other,
-                  alert: "Проверка не прошла. #{project.setup_errors.join(',')}"
+                  alert: "Проверка не прошла. #{project.bot_setup_errors.join(',')}"
     end
   end
 

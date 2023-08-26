@@ -11,19 +11,18 @@ class ProjectsController < ApplicationController
   helper_method :project
 
   def show
+    @header_title = project.name
     if project.setup_errors.empty?
-      render locals: {
-        project:
-      }, layout: 'project'
-    elsif !project.widget_installed?
-      redirect_to project_widget_path(project)
+      render locals: { project: }, layout: 'project'
     elsif !project.bot_installed?
       redirect_to project_bot_path(project)
+    elsif !project.widget_installed?
+      redirect_to project_widget_path(project)
     end
   end
 
   def new
-    project = Project.new(permitted_params.reverse_merge(name: 'Безымянный #' + current_user.projects.count + 1))
+    project = Project.new(permitted_params)
     render locals: {
       project:
     }

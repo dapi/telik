@@ -8,6 +8,20 @@ module ApplicationHelper
     path.sub(DIGEST_REGEXP, '.')
   end
 
+  def setup_checkbox(flag, tooltip: nil)
+    content_tag :span, title: tooltip || flag do
+      flag ? '✅' : '⭕'
+    end
+  end
+
+  def spinner
+    content_tag :div, class: 'spinner-border', role: 'status' do
+      content_tag :span, class: "visually-hidden" do
+        'Loading...'
+      end
+    end
+  end
+
   def link_to_bot(username = ApplicationConfig.bot_username)
     link_to '@' + username, ApplicationConfig::TELEGRAM_LINK_PREFIX + username, target: '_blank', rel: 'noopener'
   end
