@@ -5,8 +5,8 @@
 # Коллекция методов по настройке проекта
 #
 module ProjectSetup
-  LEFT_STATUSES = %w[left kicked]
-  WIDGET_ERRORS = %i[host_not_confirmed]
+  LEFT_STATUSES = %w[left kicked].freeze
+  WIDGET_ERRORS = %i[host_not_confirmed].freeze
 
   def setup_errors
     @setup_errors ||= build_setup_errors
@@ -24,7 +24,7 @@ module ProjectSetup
   end
 
   def bot_added?
-    bot_status.present? && !LEFT_STATUSES.include?(bot_status)
+    bot_status.present? && LEFT_STATUSES.exclude?(bot_status)
   end
 
   def widget_installed?

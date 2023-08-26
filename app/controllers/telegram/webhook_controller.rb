@@ -25,7 +25,7 @@ module Telegram
 
     # Топик создан или отредактирован
     def forum_topic_action?
-      payload.key?( 'forum_topic_created' ) || payload.key?( 'forum_topic_edited' )
+      payload.key?('forum_topic_created') || payload.key?('forum_topic_edited')
     end
 
     # Это означает что сообщение из группы, а не из личной перепики

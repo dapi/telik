@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def spinner
     content_tag :div, class: 'spinner-border', role: 'status' do
-      content_tag :span, class: "visually-hidden" do
+      content_tag :span, class: 'visually-hidden' do
         'Loading...'
       end
     end
