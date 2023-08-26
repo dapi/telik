@@ -9,6 +9,10 @@ class Projects::WidgetController < ApplicationController
   helper_method :back_url
   layout 'simple'
 
+  before_action do
+    @header_title = project.name
+  end
+
   # Показывает страницу настройки виджета
   def show
     render locals: { project: }
