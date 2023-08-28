@@ -1,5 +1,5 @@
 footer.mt-5.app-footer
-  .container.px-3.py-5
+  = content_tag :div, class: "#{defined?(container_class) ? container_class : 'container'} px-3 py-5" do
     hr
     .row
       .col-md-12

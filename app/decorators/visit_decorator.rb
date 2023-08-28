@@ -7,7 +7,11 @@ class VisitDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at geo remote_ip referrer page_data visit_data user_data]
+    %i[created_at visitor geo remote_ip referrer page_data visit_data user_data]
+  end
+
+  def visitor
+    VisitorDecorator.decorate(object.visitor).topic_subject
   end
 
   def geo

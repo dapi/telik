@@ -5,12 +5,12 @@ html lang=I18n.locale
   body
     = render 'header', container_class: 'container-fluid'
     main.container-fluid.px-3.py-5
-      .row
-        .col-3
+      .d-flex
+        .flex-column.flex-shrink-0 style='max-width: 280px'
           = render 'sidebar', project: project
-        section.col-9
+        .flex-column.flex-shrink-0.align-items-stretch.flex-fill.px-4
           = yield
 
-    = render 'footer'
+    = render 'footer', container_class: 'container-fluid'
     = render 'flashes'
     = telegram_link user: { telegram_id: current_user.try(:telegram_user_id) }, page: { url: request.url }
