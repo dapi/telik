@@ -102,8 +102,12 @@ class Project < ApplicationRecord
     save!
   end
 
-  def telegram_group_url
+  def telegram_group_prefix_url
     ['https://t.me/c', telegram_group_id.to_s.sub('-100', '')].join('/')
+  end
+
+  def telegram_group_url
+    telegram_group_prefix_url + '/1'
   end
 
   def last_visit

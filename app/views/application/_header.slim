@@ -3,6 +3,8 @@ nav.navbar.navbar-light
     span.navbar-brand.mb-0.h1
       = link_to root_url, class: 'text-dark text-decoration-none' do
         = render 'logo'
+    .alert.alert-warning.mb-0
+      | 🧁 Сервис находится в разработке. Используйте на свой страх и риск.
     - if logged_in?
       .navbar-text
         | 🙋 Привет, #{current_user}!

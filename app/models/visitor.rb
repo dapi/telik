@@ -60,6 +60,6 @@ class Visitor < ApplicationRecord
   def topic_url
     raise "No telegram_message_thread_id for visitor ##{id}" if telegram_message_thread_id.nil?
 
-    [project.telegram_group_url, telegram_message_thread_id].join('/')
+    [project.telegram_group_prefix_url, telegram_message_thread_id].join('/')
   end
 end
