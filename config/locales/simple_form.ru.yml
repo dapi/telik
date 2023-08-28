@@ -9,6 +9,7 @@ ru:
         url: 'Например https://www.ru'
         custom_username: 'Например: "nuichat.ru: Чем вам помочь?"'
         name: 'Например: Интернет-магазин "У Дома"'
+        thread_on_start: Так Вы получаете контакт с пользователем даже если он ничего не написал
     labels:
       defaults:
         locale: Язык

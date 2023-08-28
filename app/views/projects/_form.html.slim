@@ -1,4 +1,4 @@
-= simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
+= simple_form_for project, wrapper_mappings: { boolean: :vertical_boolean }, html: { id: "#{dom_id(project)}_form" } do |f|
   = f.error_notification
   = full_error_messages f if Rails.env.development?
   .form-inputs
@@ -7,8 +7,9 @@
         = f.input :name, input_html: { autofocus: true }
         = f.input :url
         = f.input :custom_username
+        = f.input :thread_on_start
       .col-md-6
-        = f.input :host_confirmed?, disabled: true
+        = f.input :host_confirmed?, disabled: true, wrapper: :vertical_boolean
         = f.input :telegram_group_id, disabled: true
         = f.input :telegram_group_name, disabled: true
   .form-actions.mt-2

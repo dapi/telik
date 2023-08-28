@@ -20,6 +20,7 @@ ru:
         url: Адрес сайта
         telegram_group_id: Числовой идентификатор группы в телеграм
         telegram_group_name: Имя группы в телеграм
+        thread_on_start: Открывать новую тему сразу после команды /start?
 
       visitor:
         created_at: Первое посещение
