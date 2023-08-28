@@ -12,6 +12,7 @@ class VisitorDecorator < ApplicationDecorator
   end
 
   def topic_subject
+    return '-' if object.topic_data.blank?
     h.link_to object.topic_data.fetch('name'), object.topic_url, target: '_blank', rel: 'noopener'
   end
 
