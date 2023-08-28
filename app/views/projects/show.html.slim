@@ -1,7 +1,13 @@
-h1 Проект #{project}
-//= render 'widget_setup', project: project
+p Название проекта: #{project.name}
+p Название телеграм-группы: #{project.telegram_group_name}
 
-/- if project.last_visit.present?
-  /p Последний контакт с этого виджета:
-  /pre.text-muted.text-small= JSON.pretty_generate project.last_visit.as_json
-/- else
+- if project.host_confirmed?
+  .alert.alert-success Установлен на веб-сайте #{link_to project.host, project.url, target: '_blank'}
+
+= link_to 'Установить виджет', project_widget_path(project, back_url: project_path(project))
+
+.mt-4
+  - if project.bot_installed?
+    .alert.alert-success Бот установлен
+  - else
+    = link_to 'Подключить бота', project_bot_path(project, back_url: project_path(project))

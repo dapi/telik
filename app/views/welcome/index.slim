@@ -1,10 +1,9 @@
 .alert.alert-warning Сервис в разработке!
-.display-5 Сервис поддержки посетителий сайта через управляемый чат в telegram
+.display-5.mb-4 Сервис поддержки посетителий сайта через управляемый чат в telegram
 - if logged_in?
   - if current_user.projects.any?
     = link_to 'Перейти в мои проекты &rarr;'.html_safe, projects_path
-
-  .mt-2
+  - else
     = link_to 'Создать новый проект', new_project_path, class: 'btn btn-primary'
 
 - else

@@ -6,9 +6,28 @@ ru:
         few: Проектов
         many: Проекты
         other: Проекты
+      visit:
+        one: Посещение
+        many: Посещения
+      visitor:
+        one: Посетитель
+        many: Посетители
     attributes:
       project:
         name: Название проекта
         username: Имя пользователя в сообщениях
         custom_username: Имя пользователя в сообщениях
         url: Адрес сайта
+
+      visitor:
+        created_at: Первое посещение
+        topic_subject: Тема в группе
+        telegram_user: Пользователь в телеграм
+        updated_at: Последнее посещение
+      visit:
+        region_and_country: Местоположение
+        created_at: Дата посещения
+        referrer: Откуда
+        page_data: Данные страницы
+        visit_data: Данные посещения
+        user_data: Данные пользователя

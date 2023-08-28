@@ -5,17 +5,21 @@ aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light
     /span.fs-4 Sidebar
   /hr/
   ul.nav.nav-pills.flex-column.mb-auto
-    li.nav-item
-      a.nav-link.active aria-current="page" href = "#"
-        svg.bi.me-2 height = "16" width = "16"
-          use xlink:href="#home"
-        | Home
-    - project_sidebar_links(project).each do |link|
-      li
-        a.nav-link.link-dark href=link.fetch(:url)
-          svg.bi.me-2  height = "16" width = "16"
-            use xlink:href=link.fetch(:url)
-          = link.fetch(:title)
+    /li.nav-item
+      /a.nav-link.active aria-current="page" href = "#"
+        /svg.bi.me-2 height = "16" width = "16"
+          /use xlink:href="#home"
+        /| Home
+    li.nav-item= active_link_to 'Рабочий стол', project_path(project), class: 'nav-link link-dark', active: :exact
+    /li.nav-item= active_link_to 'Настройка виджета', project_widget_path(project), class: 'nav-link link-dark'
+    /li.nav-item= active_link_to 'Настройка бота', project_bot_path(project), class: 'nav-link link-dark'
+    li.nav-item= active_link_to 'Посетители', project_visitors_path(project), class: 'nav-link link-dark'
+    li.nav-item= active_link_to 'Посещения', project_visits_path(project), class: 'nav-link link-dark'
+    li
+      hr.dropdown-divider
+
+    - if current_user.projects.many?
+      li.nav-item= active_link_to 'Другие проекты &rarr;'.html_safe, projects_path, class: 'nav-link link-dark', active: :exact
   /hr/
   /.dropdown
     /a#dropdownUser2.d-flex.align-items-center.link-dark.text-decoration-none.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#"

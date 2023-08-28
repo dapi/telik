@@ -3,8 +3,8 @@ html lang=I18n.locale
   head
     = render 'head'
   body
-    = render 'header'
-    main.container.px-3.py-5
+    = render 'header', container_class: 'container-fluid'
+    main.container-fluid.px-3.py-5
       .row
         .col-3
           = render 'sidebar', project: project
