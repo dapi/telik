@@ -24,6 +24,7 @@ class VisitorDecorator < ApplicationDecorator
   end
 
   def telegram_user
+    return '-' if object.telegram_user.blank?
     h.link_to '@' + object.telegram_user.username, 'https://t.me/' + object.telegram_user.username, target: '_blank', rel: 'noopener'
   end
 
