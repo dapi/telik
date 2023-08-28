@@ -6,7 +6,7 @@
 #
 class Projects::WidgetController < ApplicationController
   before_action :require_login
-  helper_method :back_url
+  before_action { @back_url = projects_path }
   layout 'simple'
 
   before_action do
@@ -35,9 +35,5 @@ class Projects::WidgetController < ApplicationController
 
   def project
     @project ||= current_user.projects.find params[:project_id]
-  end
-
-  def back_url
-    projects_path
   end
 end

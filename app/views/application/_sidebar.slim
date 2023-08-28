@@ -1,4 +1,4 @@
-aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light 
+aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light style='width: 240px'
   /a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.link-dark.text-decoration-none href = "/"
     /svg.bi.me-2 height = "32" width = "40"
       /use xlink:href= "#bootstrap"
@@ -19,7 +19,7 @@ aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light
       hr.dropdown-divider
 
     - if current_user.projects.many?
-      li.nav-item= active_link_to 'Другие проекты &rarr;'.html_safe, projects_path, class: 'nav-link link-dark', active: :exact
+      li.nav-item= active_link_to 'Другие проекты &rarr;'.html_safe, projects_path(back_url: request.url), class: 'nav-link link-dark', active: :exact
   /hr/
   /.dropdown
     /a#dropdownUser2.d-flex.align-items-center.link-dark.text-decoration-none.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#"

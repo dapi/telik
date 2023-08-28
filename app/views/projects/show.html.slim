@@ -2,9 +2,12 @@
 
 .tab-content.mt-3
   .tab-pane.show.active#common role="tabpanel" aria-labelledby="common-tab"
-    = render 'form', project: project
+    .container style='margin-left: 0'
+      = render 'form', project: project
   .tab-pane#widget role="tabpanel" aria-labelledby="widget-tab"
-    = render 'projects/widget/setup', project: project
+    .container style='margin-left: 0'
+      = render 'projects/widget/setup', project: project
   .tab-pane#telegram role="tabpanel" aria-labelledby="telegram-tab"
-    = render 'projects/bot/setup', project: project
+    .container style='margin-left: 0'
+      = render 'projects/bot/setup', project: project
 

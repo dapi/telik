@@ -9,6 +9,10 @@ module ApplicationHelper
     end
   end
 
+  def back_url
+    params[:back_url] || @back_url
+  end
+
   def spinner
     content_tag :div, class: 'spinner-border', role: 'status' do
       content_tag :span, class: 'visually-hidden' do

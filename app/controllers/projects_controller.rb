@@ -5,7 +5,8 @@
 # Управление опреаторскими проектами
 class ProjectsController < ApplicationController
   before_action :require_login
-  helper_method :back_url
+  before_action { @back_url = root_url }
+
   layout 'simple'
 
   helper_method :project
@@ -55,10 +56,6 @@ class ProjectsController < ApplicationController
 
   def project
     @project ||= current_user.projects.find params[:id]
-  end
-
-  def back_url
-    root_url
   end
 
   def permitted_params
