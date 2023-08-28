@@ -23,6 +23,7 @@ class VisitController < ApplicationController
   end
 
   def logo
+    host_confirms! if params[:pk].present?
     redirect_to helpers.remove_asset_digest(
       helpers.image_url("telegram_logo.#{request.format.symbol}")
     ), allow_other_host: true
