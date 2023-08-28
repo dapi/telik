@@ -12,8 +12,14 @@ consumer.subscriptions.create("ProjectsChannel", {
 
   received(data) {
     console.log('Received', data);
-    var tbody = document.querySelector("table[data-projects-table] tbody");
-    var projectRow = document.getElementById(`row_project_${data.project.id}`) || tbody.insertRow();
-    projectRow.outerHTML=data.row;
+    // Временно отключил из-за глючности
+    //var tbody = document.querySelector("table[data-projects-table] tbody");
+    //var projectRow = document.getElementById(`row_project_${data.project.id}`);
+    //if (!projectRow && tbody) {
+      //projectRow = tbody.insertRow();
+    //};
+    //if (projectRow) {
+      //projectRow.outerHTML=data.row;
+    //};
   }
 });

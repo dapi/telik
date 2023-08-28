@@ -9,7 +9,7 @@ class Projects::VisitsController < ApplicationController
   include PaginationSupport
 
   layout 'project'
-  helper_method :back_url
+
   helper_method :project
 
   before_action :require_login
@@ -22,9 +22,5 @@ class Projects::VisitsController < ApplicationController
 
   def project
     @project ||= current_user.projects.find params[:project_id]
-  end
-
-  def back_url
-    project_path(project)
   end
 end
