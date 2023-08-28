@@ -10,29 +10,10 @@ module Telegram
     include Commands::Start
     include Commands::Who
     include Actions::Message
+    include Actions::MyChatMember
     include Telegram::RescueErrors
 
     use_session!
-
-    def my_chat_member(data)
-      # Кого-то другого добавили, не нас
-      return unless (Project.with_bots.pluck(:bot_username) + [Telegram.bot.username]).include? data.dig('new_chat_member', 'user', 'username')
-
-      chat_member = data.fetch('new_chat_member')
-      user = User
-             .create_with(telegram_data: from)
-             .create_or_find_by!(telegram_user_id: from.fetch('id'))
-
-      if chat.fetch('type') == 'supergroup'
-        project = Project
-                  .create_with(owner: user, chat_member_updated_at: Time.zone.now, chat_member:, name: chat.fetch('title'))
-                  .create_or_find_by!(telegram_group_id: chat.fetch('id'))
-
-        update_project_bot_member!(project:, chat_member:, user:)
-      else
-        respond_with :message, text: 'Добавьте меня в супер-группу. В приватных чатах я общаться не умею'
-      end
-    end
 
     private
 
@@ -44,9 +25,10 @@ module Telegram
 
     # Топик создан или отредактирован
     def forum_topic_action?
-      payload['forum_topic_created'] || payload['forum_topic_edited']
+      payload.key?('forum_topic_created') || payload.key?('forum_topic_edited')
     end
 
+    # Это означает что сообщение из группы, а не из личной перепики
     def forum?
       chat['is_forum']
     end
@@ -57,9 +39,7 @@ module Telegram
 
     # Проект найденный по chat.id
     def chat_project
-      return unless chat['is_forum']
-
-      Project.find_by(telegram_group_id: chat['id'])
+      @chat_project ||= Project.find_by(telegram_group_id: chat['id']) if forum?
     end
 
     def find_or_create_visitor(project)
@@ -76,8 +56,8 @@ module Telegram
 
     def telegram_user
       @telegram_user ||= TelegramUser
-                         .create_with(chat.slice(*%w[first_name last_name username]))
-                         .create_or_find_by! id: chat.fetch('id')
+        .create_with(chat.slice(*%w[first_name last_name username]))
+        .create_or_find_by! id: chat.fetch('id')
     end
 
     def direct_client_message?

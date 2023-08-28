@@ -60,6 +60,6 @@ class ApplicationJob < ActiveJob::Base
   private
 
   def logger
-    @logger ||= ActiveSupport::TaggedLogging.new(Rails.logger).tagged self.class.name
+    @logger ||= ActiveSupport::TaggedLogging.new(Rails.logger.dup).tagged self.class.name
   end
 end

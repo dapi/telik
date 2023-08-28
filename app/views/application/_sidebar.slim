@@ -1,0 +1,34 @@
+aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light 
+  /a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.link-dark.text-decoration-none href = "/"
+    /svg.bi.me-2 height = "32" width = "40"
+      /use xlink:href= "#bootstrap"
+    /span.fs-4 Sidebar
+  /hr/
+  ul.nav.nav-pills.flex-column.mb-auto
+    li.nav-item
+      a.nav-link.active aria-current="page" href = "#"
+        svg.bi.me-2 height = "16" width = "16"
+          use xlink:href="#home"
+        | Home
+    - project_sidebar_links(project).each do |link|
+      li
+        a.nav-link.link-dark href=link.fetch(:url)
+          svg.bi.me-2  height = "16" width = "16"
+            use xlink:href=link.fetch(:url)
+          = link.fetch(:title)
+  /hr/
+  /.dropdown
+    /a#dropdownUser2.d-flex.align-items-center.link-dark.text-decoration-none.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#"
+      /img.rounded-circle.me-2 alt="" height="32" src="https://github.com/mdo.png" width= "32"
+      /strong mdo
+    /ul.dropdown-menu.text-small.shadow aria-labelledby="dropdownUser2"
+      /li
+        /a.dropdown-item href="#" New project...
+      /li
+        /a.dropdown-item href="#" Settings
+      /li
+        /a.dropdown-item href="#" Profile
+      /li
+        /hr.dropdown-divider/
+      /li
+        /a.dropdown-item href="#" Sign out

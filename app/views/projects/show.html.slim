@@ -1,8 +1,7 @@
-= render 'widget_setup', project: project
+h1 Проект #{project}
+//= render 'widget_setup', project: project
 
-- if project.last_visit.present?
-  p Последний контакт с этого виджета:
-  pre.text-muted.text-small= JSON.pretty_generate project.last_visit.as_json
-- else
-  p Установили? 
-  = link_to 'Проверить', check_project_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+/- if project.last_visit.present?
+  /p Последний контакт с этого виджета:
+  /pre.text-muted.text-small= JSON.pretty_generate project.last_visit.as_json
+/- else

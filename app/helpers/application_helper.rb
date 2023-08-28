@@ -3,12 +3,21 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  DIGEST_REGEXP = /(-{1}[a-z0-9]{32}*\.{1}){1}/
-  def remove_asset_digest(path)
-    path.sub(DIGEST_REGEXP, '.')
+  def setup_checkbox(flag, tooltip: nil)
+    content_tag :span, title: tooltip || flag do
+      flag ? '✅' : '⭕'
+    end
   end
 
-  def link_to_bot(username)
+  def spinner
+    content_tag :div, class: 'spinner-border', role: 'status' do
+      content_tag :span, class: 'visually-hidden' do
+        'Loading...'
+      end
+    end
+  end
+
+  def link_to_bot(username = ApplicationConfig.bot_username)
     link_to '@' + username, ApplicationConfig::TELEGRAM_LINK_PREFIX + username, target: '_blank', rel: 'noopener'
   end
 

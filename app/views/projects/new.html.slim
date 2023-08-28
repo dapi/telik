@@ -1,13 +1,5 @@
-h1 Как назовём новый проект?
 
+div.progress.mb-4 style='height: 2rem'
+  div.progress-bar.bg-success.py-2 role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" Шаг 1 из 3-х
 
-.mt-5
-  = simple_form_for project, html: { id: "#{dom_id(project)}_form" } do |f|
-    = f.error_notification
-    = full_error_messages f if Rails.env.development?
-    .form-inputs
-      .row
-        .col-md-6
-          = f.input :name, input_html: { autofocus: true }, label: false, hint: 'Рекомендем в качестве названия использовать адрес сайта.'
-    .form-actions.mt-4
-      = f.button :submit,  class: 'btn btn-lg btn-success'
+= render 'projects/bot/setup', project: project

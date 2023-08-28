@@ -7,9 +7,9 @@ module Telegram
     # Обработчик сообщений (def message)
     #
     module Message
+      # Поменяли в проекте имя
+      #  {"message_id":19,"from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},"chat":{"id":-1001927279455,"title":"Группа поддержи моего проекта","is_forum":true,"type":"supergroup"},"date":1693040081,"new_chat_title":"Группа поддержи моего проекта"}
       def message(data)
-        Rails.logger.debug data.to_json
-
         if direct_client_message?
           client_message data
         else
@@ -20,15 +20,25 @@ module Telegram
       private
 
       def operator_message(data)
-        if forum_topic_action?
-          # Так это мы его сами и создали
+        if data.key? 'new_chat_title'
+          # Старое название data.dig('chat', 'title')
+          chat_project&.update! telegram_group_name: data.fetch('new_chat_title'), name: data.fetch('new_chat_title')
+        elsif forum_topic_action? # Так это мы его сами и создали
+          # Skip
         elsif topic_message?
           operator_topic_message(data)
         elsif forum?
-          # Возможно надо проверять еще на chat['supergroup']
-          # Похоже пишут в главном топике группы
-        elsif chat['type'] == 'group'
-          # Возможно сообщение о добавлении пользователей
+          # Skip
+        elsif chat['type'] == 'group' # Похоже пишут в главном топике группы, возможно надо проверять еще на chat['supergroup']
+          # Skip
+        elsif data.key? 'migrate_from_chat_id' # The supergroup has been migrated from a group with the specified identifier.
+          # {"message_id"=>1,
+          # "from"=>{"id"=>1087968824, "is_bot"=>true, "first_name"=>"Group", "username"=>"GroupAnonymousBot"},
+          # "sender_chat"=>{"id"=>-1001666935694, "title"=>"Test", "type"=>"supergroup"},
+          # "chat"=>{"id"=>-1001666935694, "title"=>"Test", "type"=>"supergroup"},
+          # "date"=>1692960088,
+          # "migrate_from_chat_id"=>-933474784}
+          respond_with :message, text: "Прекрассно!\nТеперь это супер-группа!\nОсталось дать мне право управлять темами."
         else
           respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
         end

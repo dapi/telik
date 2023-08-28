@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
   get 'v', to: 'visit#create'
+  get 'i', to: 'visit#logo'
 
   resources :sessions, only: %i[new create] do
     collection do
@@ -20,12 +21,11 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
-    member do
-      post :check
-    end
+    resource :widget, only: %i[show create], controller: 'projects/widget'
+    resource :bot, only: %i[show create], controller: 'projects/bot'
+    resources :visits, only: %i[index show], controller: 'projects/visits'
+    resources :visitors, only: %i[index show], controller: 'projects/visitors'
   end
-  resources :visits, only: %i[index show]
-  resources :visitors, only: %i[index show]
 
   require 'sidekiq/web'
 

@@ -1,12 +1,19 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
                                     root GET    /                                                                                                 welcome#index
-                 client_telegram_webhook POST   /telegram/Z96DXJZ68mrWGqyI9mQf1olFt3Q                                                             #<Telegram::Bot::Middleware(Telegram::ClientBot::WebhookController)>
-               operator_telegram_webhook POST   /telegram/FcxCjf6Pua7fqw5Bh26uDy0quxI                                                             #<Telegram::Bot::Middleware(Telegram::OperatorBot::WebhookController)>
+                        telegram_webhook POST   /telegram/y8xrmb4nLHjeQO-CxSAA50HY-Jo                                                             #<Telegram::Bot::Middleware(Telegram::WebhookController)>
                   telegram_auth_callback GET    /telegram/auth_callback(.:format)                                                                 telegram_auth_callback#create
-                                       v GET    /v(.:format)                                                                                      visits#create
+                                       v GET    /v(.:format)                                                                                      visit#create
                                 sessions DELETE /sessions(.:format)                                                                               sessions#destroy
                                          POST   /sessions(.:format)                                                                               sessions#create
                              new_session GET    /sessions/new(.:format)                                                                           sessions#new
+                          project_widget GET    /projects/:project_id/widget(.:format)                                                            projects/widget#show
+                                         POST   /projects/:project_id/widget(.:format)                                                            projects/widget#create
+                             project_bot GET    /projects/:project_id/bot(.:format)                                                               projects/bot#show
+                                         POST   /projects/:project_id/bot(.:format)                                                               projects/bot#create
+                          project_visits GET    /projects/:project_id/visits(.:format)                                                            projects/visits#index
+                           project_visit GET    /projects/:project_id/visits/:id(.:format)                                                        projects/visits#show
+                        project_visitors GET    /projects/:project_id/visitors(.:format)                                                          projects/visitors#index
+                         project_visitor GET    /projects/:project_id/visitors/:id(.:format)                                                      projects/visitors#show
                                 projects GET    /projects(.:format)                                                                               projects#index
                                          POST   /projects(.:format)                                                                               projects#create
                              new_project GET    /projects/new(.:format)                                                                           projects#new
@@ -15,7 +22,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00000001082a6300 /Users/danil/code/telik/config/routes.rb:44>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f736051daf8 /home/danil/code/telik/config/routes.rb:46>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

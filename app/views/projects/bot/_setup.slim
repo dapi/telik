@@ -1,0 +1,45 @@
+h1 
+  | Нужна супер-группа в телеграм
+
+p Для начала создайте в телеграм группу с темами (супер-группа) , в которой Вы будете отвечать на вопросы клиентов. 
+p Затем пригласите в неё #{link_to_bot} администратором  и дайте ему право управлять темами.
+
+p Клиенты не будут иметь доступ в эту группу, но в неё через бота будут поступать восросы от клиентов на которые сможет отвечать любой участник группы.
+p Вопросы от каждого клиента поступают в отдельную тему.
+
+
+h2 Чек-лист в помощь
+ul.list-group.mb-3
+  li.list-group-item 
+    span.me-2= setup_checkbox project.telegram_group_id
+    //input class="form-check-input me-2" type="checkbox" value="" checked=(project&.telegram_supergroup?) aria-label="telegram_supergroup"
+    - if project.telegram_group_name.present?
+      | Создана группа с названием "#{project.telegram_group_name}" и в неё приглашён #{link_to_bot}.
+    - else
+      | Группа создана и в неё приглашён #{link_to_bot}.
+  li.list-group-item 
+    span.me-2= setup_checkbox project.telegram_supergroup?, tooltip: project.telegram_group_type
+    | Созданная группа является супер-группой – то есть в ней разрешены "Темы".
+  li.list-group-item 
+    span.me-2= setup_checkbox project.bot_added?, tooltip: project.bot_status
+    // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_admin?) aria-label="telegram_bot_admin"
+    | #{link_to_bot} является участником группы.
+    - if ProjectSetup::LEFT_STATUSES.include? project.bot_status
+      .mt-3.alert.alert-warning Похоже что вы приглашали бота, но или удалили группу или выкинули бота из группы. Верните.
+
+  li.list-group-item 
+    span.me-2= setup_checkbox project.bot_admin?, tooltip: project.bot_status
+    // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_admin?) aria-label="telegram_bot_admin"
+    | #{link_to_bot} является администратором группы.
+  li.list-group-item 
+    span.me-2= setup_checkbox project.bot_can_manage_topics?
+    // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_can_manage_topics?) aria-label="telegram_bot_can_manage_topics"
+    | #{link_to_bot} имеет право управлять темами в группе.
+
+.mt-4
+  // span.me-2= spinner
+  h2 Готово?
+  - if project.persisted?
+    = link_to 'Проверить', project_bot_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+  - else
+    = link_to 'Проверить', new_project_path, class: 'btn btn-success btn-lg'

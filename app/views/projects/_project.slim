@@ -1,16 +1,17 @@
 tr id=dom_id(project, :row)
   td
-    span title=project.telegram_group_id
-      = project.name
-  td
+    = link_to project.title, project_path(project)
     - if project.host.present?
-      = link_to project.host, project.url, target: '_blank'
-    - else
-      i Не установлено
-  td= project.username
+      .text-muted.text-small
+        = project.host
   td= bot_connection_status project
-  td= project.telegram_group_id
-  td= link_to project.visitors.count, visitors_path(q: { project_id_eq: project.id })
-  td= link_to project.visits.count, visits_path(q: { project_id_eq: project.id })
-  td= link_to 'Код виджета', project_path(project)
-
+  td= link_to project.visitors.count, project_visitors_path(project)
+  td= link_to project.visits.count, project_visits_path(project)
+  td
+    - if project.bot_installed?
+      - if project.widget_installed?
+        = link_to 'Перейти в управление &rarr;'.html_safe, project_path(project)
+      - else
+          = link_to 'Установить виджет &rarr;'.html_safe, project_path(project)
+    - else
+      = link_to 'Настроить бота &rarr;'.html_safe, project_path(project)

@@ -32,7 +32,10 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :url, url: true, if: :url?
-  # validates :telegram_group_id, presence: true
+
+  # Сначала создается группа, к группе добавляется бот и тогда бот создает проект
+  # привязывается проект.
+  validates :telegram_group_id, presence: true
 
   before_create do
     self.key = Nanoid.generate
@@ -54,6 +57,10 @@ class Project < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[bot_can_manage_topics bot_status chat_member chat_member_updated_at created_at custom_username host host_confirmed_at id key last_error last_error_at name owner_id telegram_chat telegram_group_id telegram_group_is_forum telegram_group_type updated_at url]
+  end
+
+  def title
+    name.presence || telegram_group_name
   end
 
   def add_owner_as_member
