@@ -27,6 +27,7 @@ ru:
         topic_subject: Тема в группе
         telegram_user: Пользователь в телеграм
         updated_at: Последнее посещение
+        visits: Посещений
       visit:
         region_and_country: Местоположение
         created_at: Дата посещения

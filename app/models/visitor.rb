@@ -35,6 +35,12 @@ class Visitor < ApplicationRecord
     ]
   end
 
+  def self.ransackable_associations(_auth_object = nil)
+    %w[first_visits last_visits project telegram_user visitor_sessions visits]
+  end
+
+  delegate :count, to: :visits, prefix: true
+
   def update_user_data!(user_data)
     update! user_data:
   end

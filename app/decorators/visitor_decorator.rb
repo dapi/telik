@@ -8,11 +8,19 @@ class VisitorDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at updated_at topic_subject telegram_user user_data]
+    %i[telegram_user name created_at updated_at topic_subject visits user_data]
   end
 
   def topic_subject
     h.link_to object.topic_data.fetch('name'), object.topic_url, target: '_blank', rel: 'noopener'
+  end
+
+  def name
+    object.telegram_user.name
+  end
+
+  def visits
+    h.link_to object.visits_count, h.project_visits_path(project, q: { visitor_session_id_in: object.visitor_sessions.pluck(:id) })
   end
 
   def telegram_user

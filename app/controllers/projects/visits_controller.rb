@@ -14,6 +14,10 @@ class Projects::VisitsController < ApplicationController
 
   before_action :require_login
 
+  def show
+    render locals: { record: project.visits.find(params[:id]) }
+  end
+
   private
 
   def records

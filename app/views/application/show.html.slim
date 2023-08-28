@@ -1,6 +1,6 @@
-.py-3= back_link url_for([:admin, record.class])
+= link_to '&larr; назад'.html_safe, url_for([record.project, record.class]), class: 'mb-2'
 h1= record.model_name.human + ' #' + record.id.to_s
 hr
 = render 'attributes', item: record
 
-= render 'show_actions', record: record
+-# = render 'show_actions', record: record

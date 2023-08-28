@@ -10,8 +10,34 @@ class VisitDecorator < ApplicationDecorator
     %i[created_at visitor geo remote_ip referrer page_data visit_data user_data]
   end
 
+  def self.attributes
+    table_columns + %i[location registered_at]
+  end
+
+  def created_at
+    h.link_to super, h.project_visit_path(object.project.id, object)
+  end
+
+  def user_data
+    h.content_tag :pre, object.user_data
+  end
+
+  def visit_data
+    h.content_tag :pre, object.visit_data
+  end
+
+  def page_data
+    h.content_tag :pre, object.page_data
+  end
+
+  def location
+    h.content_tag :pre do
+      JSON.pretty_generate object.location
+    end
+  end
+
   def visitor
-    VisitorDecorator.decorate(object.visitor).topic_subject
+    VisitorDecorator.decorate(object.visitor).telegram_user
   end
 
   def geo
