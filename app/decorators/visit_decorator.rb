@@ -37,6 +37,7 @@ class VisitDecorator < ApplicationDecorator
   end
 
   def visitor
+    return '-' if object.visitor.nil?
     VisitorDecorator.decorate(object.visitor).telegram_user
   end
 
