@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "channels"
-import "./clipboard.js"
+import "libs"
 import * as bootstrap from 'bootstrap'
 
 const onReady = function() {
