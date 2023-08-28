@@ -31,3 +31,4 @@ ru:
         page_data: Данные страницы
         visit_data: Данные посещения
         user_data: Данные пользователя
+        remote_ip: IP-адрес
