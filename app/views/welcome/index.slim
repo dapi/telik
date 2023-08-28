@@ -1,3 +1,4 @@
+.display-5 Сервис поддержки посетителий сайта через управляемый чат в telegram
 - if logged_in?
   - if current_user.projects.any?
     = link_to 'Перейти в мои проекты &rarr;'.html_safe, projects_path
@@ -6,6 +7,7 @@
     = link_to 'Создать новый проект', new_project_path, class: 'btn btn-primary'
 
 - else
+
   .row.g-4.py-5.row-cols-1.row-cols-lg-3
     = render 'feature', icon: :collection do
       h3.fs-2.text-body-emphasis Прямая связь с клиентом
@@ -29,3 +31,7 @@
       li В отличии от обычных веб-виджетов для поддержки #{app_title} не портит дизайн и верстку вашего сайта, не зависает (код минимальный и там нечему виснуть), не пугает пользователя своим интерфейсом. Клиент общается с вами через привычный для себя чат в телеграм.
       li #{app_title} может работать в режиме бота и отвечать на частые вопросы.
       li Даже если пользователь удалит историю в своем чате у вас все равно останется полная переписка.
+
+  .lead 
+    = link_to 'Попробовать &rarr;'.html_safe, new_project_path, class: 'btn btn-primary'
+  = render 'telegram_login'

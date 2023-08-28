@@ -1,5 +1,4 @@
 h1 
-  span.me-2= spinner
   | Нужна супер-группа в телеграм
 
 p Для начала создайте в телеграм группу с темами (супер-группа) , в которой Вы будете отвечать на вопросы клиентов. 
@@ -38,6 +37,9 @@ ul.list-group.mb-3
     | #{link_to_bot} имеет право управлять темами в группе.
 
 .mt-4
+  // span.me-2= spinner
+  h2 Готово?
   - if project.persisted?
-    p Готово?
     = link_to 'Проверить', project_bot_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+  - else
+    = link_to 'Проверить', new_project_path, class: 'btn btn-success btn-lg'

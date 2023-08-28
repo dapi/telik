@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    render 'welcome/index', alert: 'Вы не авторизованы!', layout: 'application'
+    flash.now[:alert] = 'Вы не авторизованы'
+    render 'not_authenticated', layout: 'simple'
   end
 end

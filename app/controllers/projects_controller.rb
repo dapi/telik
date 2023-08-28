@@ -22,10 +22,22 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    project = Project.new(permitted_params)
-    render locals: {
-      project:
-    }
+    project = current_user.projects.where(host_confirmed_at: nil).where.not(telegram_group_id: nil).take
+    if project.present?
+      if !project.bot_installed?
+        redirect_to project_bot_path(project)
+      elsif !project.widget_installed?
+        redirect_to project_widget_path(project)
+      else
+        render locals: {
+          project:
+        }
+      end
+    else
+      render locals: {
+        project: Project.new(permitted_params)
+      }
+    end
   end
 
   def create
