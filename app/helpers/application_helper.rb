@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def back_url
-    params[:back_url] || @back_url
+    params[:back_url] || @back_url # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def spinner
