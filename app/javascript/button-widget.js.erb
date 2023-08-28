@@ -74,16 +74,17 @@ if (!window.<%= ApplicationController.helpers.widget_window_object %>) { window.
       a.setAttribute('class', widgetCssClass);
 
       // TODO: Update data attributes on click
-      var href = '<%= Rails.application.routes.url_helpers.v_url %>?pk=' + widgetProjectKey + '&t=' + Date.now();
+      var params = '?pk=' + widgetProjectKey + '&t=' + Date.now();
 
-      if (widgetEl.getAttribute('data-user')) { href += '&user=' + widgetEl.getAttribute('data-user'); }
-      if (widgetEl.getAttribute('data-page')) { href += '&page=' + widgetEl.getAttribute('data-page'); }
-      if (widgetEl.getAttribute('data-visit')) { href += '&visit=' + widgetEl.getAttribute('data-visit'); }
+      if (widgetEl.getAttribute('data-user')) { params += '&user=' + widgetEl.getAttribute('data-user'); }
+      if (widgetEl.getAttribute('data-page')) { params += '&page=' + widgetEl.getAttribute('data-page'); }
+      if (widgetEl.getAttribute('data-visit')) { params += '&visit=' + widgetEl.getAttribute('data-visit'); }
 
-      a.href=href;
+      a.href='<%= Rails.application.routes.url_helpers.v_url %>' + params;
       var img = document.createElement('IMG');
       img.width = img.height = size;
-      img.src="<%= image_url 'telegram_logo.svg' %>";
+      // img.src="<%= image_url 'telegram_logo.svg?pk=' %>";
+      img.src='<%= Rails.application.routes.url_helpers.i_url(format: :svg) %>' + params;
       a.appendChild(img);
       document.body.appendChild(a);
     } else {

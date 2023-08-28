@@ -13,7 +13,7 @@ class VisitController < ApplicationController
 
   def create
     redirect_to build_redirect_url, allow_other_host: true
-    host_confirms unless project.host_confirmed?
+    host_confirms! unless project.host_confirmed?
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.error e
     Bugsnag.notify e do |b|
@@ -22,11 +22,17 @@ class VisitController < ApplicationController
     render :not_found
   end
 
+  def logo
+    redirect_to helpers.remove_asset_digest(
+      helpers.image_url("telegram_logo.#{request.format.symbol}")
+    ), allow_other_host: true
+  end
+
   private
 
-  def host_confirms
+  def host_confirms!
     host = Addressable::URI.parse(request.referer).try(:host)
-    project.update host: host, host_confirmed_at: Time.zone.now if host.present?
+    project.update! host: host, host_confirmed_at: Time.zone.now if host.present?
   end
 
   def build_redirect_url

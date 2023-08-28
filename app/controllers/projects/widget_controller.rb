@@ -38,6 +38,6 @@ class Projects::WidgetController < ApplicationController
   end
 
   def back_url
-    root_url
+    projects_path
   end
 end

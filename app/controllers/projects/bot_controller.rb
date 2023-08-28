@@ -37,6 +37,6 @@ class Projects::BotController < ApplicationController
   end
 
   def back_url
-    root_url
+    projects_path
   end
 end

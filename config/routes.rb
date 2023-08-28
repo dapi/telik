@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
   get 'v', to: 'visit#create'
+  get 'i', to: 'visit#logo'
 
   resources :sessions, only: %i[new create] do
     collection do
