@@ -5,12 +5,11 @@
     .row
       .col-md-6
         = f.input :name, input_html: { autofocus: true }
-      .col-md-6
         = f.input :url
-    .row
-      .col-md-6
         = f.input :custom_username
       .col-md-6
+        = f.input :host_confirmed?, disabled: true
         = f.input :telegram_group_id, disabled: true
+        = f.input :telegram_group_name, disabled: true
   .form-actions.mt-2
     = f.button :submit,  class: 'btn btn-lg btn-success'

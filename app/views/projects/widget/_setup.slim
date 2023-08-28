@@ -1,0 +1,14 @@
+p 
+  | Скопируйте код виджета и установите на сайт до закрывающего тега 
+  code = h'</body>'
+
+.highlight
+  pre.chroma
+    code.language-html
+      = html_escape_once render 'widget', project_key: project.key
+
+.mb-3
+  a data-bs-toggle="collapse" href="#collapseExtend" role="button" aria-expanded="false" aria-controls="collapseExtend" Дополнительные параметры &darr;
+  #collapseExtend.collapse
+    .mt-4
+      = render 'projects/widget/doc_extend_widget_params', project: project

@@ -1,14 +1,15 @@
-h1 
-  | Нужна супер-группа в телеграм
 
-p Для начала создайте в телеграм группу с темами (супер-группа) , в которой Вы будете отвечать на вопросы клиентов. 
-p Затем пригласите в неё #{link_to_bot} администратором  и дайте ему право управлять темами.
+- if project.bot_installed?
+  p С группой все в порядке.
+- else
+  p Для начала создайте в телеграм группу с темами (супер-группа) , в которой Вы будете отвечать на вопросы клиентов. 
+  p Затем пригласите в неё #{link_to_bot} администратором  и дайте ему право управлять темами.
 
-p Клиенты не будут иметь доступ в эту группу, но в неё через бота будут поступать восросы от клиентов на которые сможет отвечать любой участник группы.
-p Вопросы от каждого клиента поступают в отдельную тему.
+  p Клиенты не будут иметь доступ в эту группу, но в неё через бота будут поступать восросы от клиентов на которые сможет отвечать любой участник группы.
+  p Вопросы от каждого клиента поступают в отдельную тему.
 
 
-h2 Чек-лист в помощь
+  h2 Чек-лист в помощь
 ul.list-group.mb-3
   li.list-group-item 
     span.me-2= setup_checkbox project.telegram_group_id
@@ -36,10 +37,11 @@ ul.list-group.mb-3
     // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_can_manage_topics?) aria-label="telegram_bot_can_manage_topics"
     | #{link_to_bot} имеет право управлять темами в группе.
 
-.mt-4
-  // span.me-2= spinner
-  h2 Готово?
-  - if project.persisted?
-    = link_to 'Проверить', project_bot_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
-  - else
-    = link_to 'Проверить', new_project_path, class: 'btn btn-success btn-lg'
+- unless project.bot_installed?
+  .mt-4
+    // span.me-2= spinner
+    h2 Готово?
+    - if project.persisted?
+      = link_to 'Проверить', project_bot_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+    - else
+      = link_to 'Проверить', new_project_path, class: 'btn btn-success btn-lg'

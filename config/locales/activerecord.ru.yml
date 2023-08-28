@@ -18,6 +18,8 @@ ru:
         username: Имя пользователя в сообщениях
         custom_username: Имя пользователя в сообщениях
         url: Адрес сайта
+        telegram_group_id: Числовой идентификатор группы в телеграм
+        telegram_group_name: Имя группы в телеграм
 
       visitor:
         created_at: Первое посещение

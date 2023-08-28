@@ -1,13 +1,10 @@
-p Название проекта: #{project.name}
-p Название телеграм-группы: #{project.telegram_group_name}
+= render 'navbar'
 
-- if project.host_confirmed?
-  .alert.alert-success Установлен на веб-сайте #{link_to project.host, project.url, target: '_blank'}
+.tab-content.mt-3
+  .tab-pane.show.active#common role="tabpanel" aria-labelledby="common-tab"
+    = render 'form', project: project
+  .tab-pane#widget role="tabpanel" aria-labelledby="widget-tab"
+    = render 'projects/widget/setup', project: project
+  .tab-pane#telegram role="tabpanel" aria-labelledby="telegram-tab"
+    = render 'projects/bot/setup', project: project
 
-= link_to 'Установить виджет', project_widget_path(project, back_url: project_path(project))
-
-.mt-4
-  - if project.bot_installed?
-    .alert.alert-success Бот установлен
-  - else
-    = link_to 'Подключить бота', project_bot_path(project, back_url: project_path(project))

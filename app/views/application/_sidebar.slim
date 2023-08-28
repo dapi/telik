@@ -10,11 +10,11 @@ aside.d-flex.flex-column.flex-shrink-0.p-3.bg-light
         /svg.bi.me-2 height = "16" width = "16"
           /use xlink:href="#home"
         /| Home
-    li.nav-item= active_link_to 'Рабочий стол', project_path(project), class: 'nav-link link-dark', active: :exact
-    /li.nav-item= active_link_to 'Настройка виджета', project_widget_path(project), class: 'nav-link link-dark'
-    /li.nav-item= active_link_to 'Настройка бота', project_bot_path(project), class: 'nav-link link-dark'
     li.nav-item= active_link_to 'Посетители', project_visitors_path(project), class: 'nav-link link-dark'
     li.nav-item= active_link_to 'Посещения', project_visits_path(project), class: 'nav-link link-dark'
+    li.nav-item= active_link_to 'Настройки', project_path(project), class: 'nav-link link-dark', active: :exact
+    - unless project.bot_installed?
+      li.nav-item= active_link_to 'Настройка бота', project_bot_path(project), class: 'nav-link link-dark'
     li
       hr.dropdown-divider
 

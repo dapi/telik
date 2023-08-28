@@ -15,8 +15,7 @@ ru:
         title: Название
 
       project:
-        url: Адрес сайта
-        telegram_group_id: Числовой идентификатор группы в телеграм
+        host_confirmed?: Сайт подтверждён
     'no': нет
     placeholders:
       project:
