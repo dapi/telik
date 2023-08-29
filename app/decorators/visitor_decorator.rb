@@ -8,7 +8,11 @@ class VisitorDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[telegram_user name created_at updated_at topic_subject visits user_data]
+    %i[telegram_user_name name created_at updated_at topic_subject visits user_data]
+  end
+
+  def self.attributes
+    super + %i[telegram_user]
   end
 
   def topic_subject
@@ -21,11 +25,18 @@ class VisitorDecorator < ApplicationDecorator
     object.telegram_user.try(:name) || '-'
   end
 
+  def telegram_user
+    return '-' if object.telegram_user.nil?
+    h.content_tag :pre do
+      JSON.pretty_generate object.telegram_user.as_json
+    end
+  end
+
   def visits
     h.link_to object.visits_count, h.project_visits_path(project, q: { visitor_session_id_in: object.visitor_sessions.pluck(:id) })
   end
 
-  def telegram_user
+  def telegram_user_name
     return '-' if object.telegram_user.blank?
 
     h.link_to '@' + object.telegram_user.username.to_s, 'https://t.me/' + object.telegram_user.username.to_s, target: '_blank', rel: 'noopener'
