@@ -27,6 +27,7 @@ class VisitorDecorator < ApplicationDecorator
 
   def telegram_user
     return '-' if object.telegram_user.nil?
+
     h.content_tag :pre do
       JSON.pretty_generate object.telegram_user.as_json
     end
