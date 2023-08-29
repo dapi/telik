@@ -7,7 +7,7 @@ class VisitDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at visitor geo remote_ip referrer page_data visit_data user_data]
+    %i[created_at visitor visitor_session_id visitor_session geo remote_ip referrer page_data visit_data user_data]
   end
 
   def self.attributes
@@ -16,6 +16,10 @@ class VisitDecorator < ApplicationDecorator
 
   def created_at
     h.link_to super, h.project_visit_path(object.project.id, object)
+  end
+
+  def visitor_session
+    object.visitor_session.inspect
   end
 
   def user_data
