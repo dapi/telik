@@ -18,7 +18,7 @@ class VisitorDecorator < ApplicationDecorator
   end
 
   def name
-    object.telegram_user.name
+    object.telegram_user.try(:name) || '-'
   end
 
   def visits

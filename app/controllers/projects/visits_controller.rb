@@ -9,13 +9,11 @@ class Projects::VisitsController < ApplicationController
   include PaginationSupport
 
   layout 'project'
-
   helper_method :project
-
   before_action :require_login
 
   def show
-    render locals: { record: project.visits.find(params[:id]) }
+    render locals: { record: project.visitors.find(params[:id]) }
   end
 
   private

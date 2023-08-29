@@ -10,8 +10,11 @@ class Projects::VisitorsController < ApplicationController
 
   layout 'project'
   helper_method :project
-
   before_action :require_login
+
+  def show
+    render locals: { record: project.visits.find(params[:id]) }
+  end
 
   private
 
