@@ -8,11 +8,17 @@ class VisitorDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[telegram_username name created_at updated_at topic_subject visits user_data]
+    %i[created_at telegram_username name updated_at topic_subject visits user_data]
   end
 
   def self.attributes
     super + %i[telegram_user]
+  end
+
+  def created_at
+    h.link_to h.visitor_path(object) do
+      super
+    end
   end
 
   def topic_subject
