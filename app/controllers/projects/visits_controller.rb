@@ -19,7 +19,7 @@ class Projects::VisitsController < ApplicationController
   private
 
   def records
-    super.joins(:visitor_session).where(visitor_sessions: { project_id: project.id })
+    super.with_visitor.by_project(project.id)
   end
 
   def project

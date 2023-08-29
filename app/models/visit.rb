@@ -14,6 +14,9 @@ class Visit < ApplicationRecord
   has_one :visitor, through: :visitor_session
   has_one :project, through: :visitor_session
 
+  scope :with_visitor, -> { joins(:visitor_session).where.not(visitor_sessions: { visitor_id: nil }) }
+  scope :by_project, ->(project_id) { joins(:visitor_session).where(visitor_sessions: { project_id: }) }
+
   before_create do
     self.key = Nanoid.generate
   end
