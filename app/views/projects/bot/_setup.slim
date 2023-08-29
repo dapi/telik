@@ -15,7 +15,7 @@ ul.list-group.mb-3
     span.me-2= setup_checkbox project.telegram_group_id
     //input class="form-check-input me-2" type="checkbox" value="" checked=(project&.telegram_supergroup?) aria-label="telegram_supergroup"
     - if project.telegram_group_name.present?
-      | Создана группа с названием "#{link_to project.telegram_group_name, project.telegram_group_url, target: '_blank'}" и в неё приглашён #{link_to_bot}.
+      | Создана группа с названием "#{link_to_telegram_group project}" и в неё приглашён #{link_to_bot}.
     - else
       | Группа создана и в неё приглашён #{link_to_bot}.
   li.list-group-item 

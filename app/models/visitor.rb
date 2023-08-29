@@ -45,6 +45,10 @@ class Visitor < ApplicationRecord
     update! user_data:
   end
 
+  def to_s
+    name
+  end
+
   def user_data_object
     OpenStruct.new(user_data || {}).freeze
   end

@@ -7,19 +7,26 @@ class VisitDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at visitor geo remote_ip referrer chat page_data visit_data user_data]
+    %i[created_at telegram_user geo remote_ip referrer chat page_data visit_data user_data]
   end
 
   def self.attributes
-    table_columns + %i[location registered_at visitor_session]
+    table_columns + %i[location registered_at visitor visitor_session]
   end
 
   def created_at
     h.link_to super, h.project_visit_path(object.project.id, object)
   end
 
+  def telegram_user
+    return '-' if object.visitor.nil?
+    VisitorDecorator.decorate(object.visitor).telegram_user
+  end
+
   def visitor_session
-    object.visitor_session.inspect
+    h.content_tag :pre do
+      JSON.pretty_generate object.visitor_session.as_json
+    end
   end
 
   def user_data
@@ -42,7 +49,7 @@ class VisitDecorator < ApplicationDecorator
 
   def visitor
     return '-' if object.visitor.nil?
-    VisitorDecorator.decorate(object.visitor).telegram_user
+    h.link_to object.visitor, h.project_visitor_path(project, object.visitor)
   end
 
   def geo

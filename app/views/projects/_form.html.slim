@@ -8,6 +8,8 @@
         = f.input :url
         = f.input :custom_username
         = f.input :thread_on_start
+        = f.input :welcome_message, placeholder: WelcomeMessageBuilder::DEFAULT_TEMPLATE
+        = f.input :topic_title_template, placeholder: TopicTitleBuilder::DEFAULT_TEMPLATE
       .col-md-6
         = f.input :host_confirmed?, disabled: true, wrapper: :vertical_boolean
         = f.input :telegram_group_id, disabled: true

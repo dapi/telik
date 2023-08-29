@@ -21,7 +21,8 @@ ru:
         telegram_group_id: Числовой идентификатор группы в телеграм
         telegram_group_name: Имя группы в телеграм
         thread_on_start: Открывать новую тему сразу после команды /start?
-
+        welcome_message: Шаблон приветственного сообщения
+        topic_title_template: Шаблон темы
       visitor:
         created_at: Первое посещение
         topic_subject: Тема в группе
@@ -29,6 +30,7 @@ ru:
         updated_at: Последнее посещение
         visits: Посещений
       visit:
+        registered_at: Зарегистрирован контакт в телеграм
         region_and_country: Местоположение
         created_at: Дата посещения
         referrer: Откуда

@@ -52,6 +52,16 @@ class ProjectsController < ApplicationController
     }
   end
 
+  def update
+    project = current_user.projects.find params[:id]
+    project.update! permitted_params
+    redirect_to project_path(project)
+  rescue ActiveRecord::RecordInvalid => e
+    render :new, locals: {
+      project: e.record
+    }
+  end
+
   private
 
   def project
@@ -59,6 +69,8 @@ class ProjectsController < ApplicationController
   end
 
   def permitted_params
-    params.fetch(:project, {}).permit(:name, :custom_username, :url, :telegram_group_id)
+    params.
+      fetch(:project, {}).
+      permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start)
   end
 end

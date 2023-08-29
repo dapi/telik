@@ -9,6 +9,13 @@ module ApplicationHelper
     end
   end
 
+  def link_to_telegram_group(project)
+    link_to project.telegram_group_name, project.telegram_group_url,
+      target: '_blank',
+      'data-bs-toggle': :tooltip,
+      tooltip: "ID Группы #{project.telegram_group_id}"
+  end
+
   def back_url
     params[:back_url] || @back_url # rubocop:disable Rails/HelperInstanceVariable
   end

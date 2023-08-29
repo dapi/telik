@@ -19,7 +19,7 @@ class RegisterVisitJob < ApplicationJob
     visitor = visit.visitor
     CreateForumTopicJob.perform_now visitor, visit if visitor.telegram_message_thread_id.nil?
     if visitor.telegram_message_thread_id.present?
-      TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer}" if visitor.project.thread_on_start?
+      TopicMessageJob.perform_later visitor, "Контакт с #{visit.referrer.presence || 'не установленной страницы'}" if visitor.project.thread_on_start?
     else
       Bugsnag.notify 'Не удалось отправить регистрационное сообщение о контакте' do |b|
         b.severity = :warn
