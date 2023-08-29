@@ -16,7 +16,7 @@ class VisitorDecorator < ApplicationDecorator
   end
 
   def created_at
-    h.link_to h.visitor_path(object) do
+    h.link_to h.project_visitor_path(object.project_id, object) do
       super
     end
   end
