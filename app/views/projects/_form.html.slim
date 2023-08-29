@@ -4,15 +4,15 @@
   .form-inputs
     .row
       .col-md-6
+        h3 Общие настройки
         = f.input :name, input_html: { autofocus: true }
         = f.input :url
+        = f.input :host_confirmed?, disabled: true, wrapper: :vertical_boolean
+      .col-md-6
+        h3 Настройки бота
         = f.input :custom_username
         = f.input :thread_on_start
         = f.input :welcome_message, placeholder: WelcomeMessageBuilder::DEFAULT_TEMPLATE
         = f.input :topic_title_template, placeholder: TopicTitleBuilder::DEFAULT_TEMPLATE
-      .col-md-6
-        = f.input :host_confirmed?, disabled: true, wrapper: :vertical_boolean
-        = f.input :telegram_group_id, disabled: true
-        = f.input :telegram_group_name, disabled: true
   .form-actions.mt-2
     = f.button :submit,  class: 'btn btn-lg btn-primary'
