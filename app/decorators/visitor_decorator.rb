@@ -8,7 +8,7 @@ class VisitorDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[telegram_user_name name created_at updated_at topic_subject visits user_data]
+    %i[telegram_username name created_at updated_at topic_subject visits user_data]
   end
 
   def self.attributes
@@ -37,7 +37,7 @@ class VisitorDecorator < ApplicationDecorator
     h.link_to object.visits_count, h.project_visits_path(project, q: { visitor_session_id_in: object.visitor_sessions.pluck(:id) })
   end
 
-  def telegram_user_name
+  def telegram_username
     return '-' if object.telegram_user.blank?
 
     if object.telegram_user.username.blank?
