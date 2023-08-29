@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   def not_authenticated
     flash.now[:alert] = 'Вы не авторизованы'
+    @back_url = root_url
     render 'not_authenticated', layout: 'simple'
   end
 end
