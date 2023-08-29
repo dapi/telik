@@ -20,6 +20,7 @@ class VisitDecorator < ApplicationDecorator
 
   def telegram_user
     return '-' if object.visitor.nil?
+
     VisitorDecorator.decorate(object.visitor).telegram_user
   end
 
@@ -49,6 +50,7 @@ class VisitDecorator < ApplicationDecorator
 
   def visitor
     return '-' if object.visitor.nil?
+
     h.link_to object.visitor, h.project_visitor_path(project, object.visitor)
   end
 

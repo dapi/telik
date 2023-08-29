@@ -13,6 +13,7 @@ class VisitorDecorator < ApplicationDecorator
 
   def topic_subject
     return '-' if object.topic_data.blank?
+
     h.link_to object.topic_data.fetch('name'), object.topic_url, target: '_blank', rel: 'noopener'
   end
 
@@ -26,6 +27,7 @@ class VisitorDecorator < ApplicationDecorator
 
   def telegram_user
     return '-' if object.telegram_user.blank?
+
     h.link_to '@' + object.telegram_user.username.to_s, 'https://t.me/' + object.telegram_user.username.to_s, target: '_blank', rel: 'noopener'
   end
 

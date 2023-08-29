@@ -11,9 +11,9 @@ module ApplicationHelper
 
   def link_to_telegram_group(project)
     link_to project.telegram_group_name, project.telegram_group_url,
-      target: '_blank',
-      'data-bs-toggle': :tooltip,
-      tooltip: "ID Группы #{project.telegram_group_id}"
+            target: '_blank',
+            'data-bs-toggle': :tooltip,
+            tooltip: "ID Группы #{project.telegram_group_id}", rel: 'noopener'
   end
 
   def back_url

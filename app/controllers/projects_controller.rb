@@ -69,8 +69,8 @@ class ProjectsController < ApplicationController
   end
 
   def permitted_params
-    params.
-      fetch(:project, {}).
-      permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start)
+    params
+      .fetch(:project, {})
+      .permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start)
   end
 end
