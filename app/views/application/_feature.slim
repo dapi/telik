@@ -1,7 +1,14 @@
-.feature.col
-  .feature-icon.d-inline-flex.align-items-center.justify-content-center.text-bg-primary.bg-primary.bg-gradient.fs-2.mb-3
-    svg.bi height="1em" width="1em"
-      use xlink:href="/bootstrap-icons.svg##{icon}"
-  = yield
-    
-
+- if true
+  .col.d-flex.align-items-start
+    .icon-square.bg-light.text-dark.flex-shrink-0.me-3
+      svg.bi height="1em" width="1em"
+        use xlink:href="/bootstrap-icons.svg##{icon}"
+    div
+      = yield
+- else
+  .feature.col
+    .feature-icon.d-inline-flex.align-items-center.justify-content-center.text-bg-primary.bg-primary.bg-gradient.fs-2.mb-3
+      svg.bi height="1em" width="1em"
+        use xlink:href="/bootstrap-icons.svg##{icon}"
+    -# h3.fs-2.text-body-emphasis Прямая связь с клиентом
+    = yield

@@ -1,13 +1,13 @@
-.display-5.px-4.py-5.my-5.text-center Поддержка посетителий сайта через телеграм-бота
+.display-5.px-4.py-5.my-4.text-center Поддержка посетителий сайта через телеграм-бота
 .row.g-4.py-5.row-cols-1.row-cols-lg-3
   = render 'feature', icon: :chat do
-    h3.fs-2.text-body-emphasis Прямая связь с клиентом
+    h2 Прямая связь с клиентом
     p В отличии от обычных чатов на вебсайте Вы получаете прямой контакт в телеграм и остаетесь на связи даже если клиент ушел с сайта.
   = render 'feature', icon: :mailbox do
-    h3.fs-2.text-body-emphasis Рассылки через телеграм
+    h2 Рассылки через телеграм
     p Так как есть прямой контакт можно делать транзакционную и маркетинговую рассылку.
   = render 'feature', icon: :phone do
-    h3.fs-2.text-body-emphasis Поддержка в кармане
+    h2 Поддержка в кармане
     p Вам для поддержки клиентов требуется только установленный на телефоне телеграм.
 
 /.row
@@ -21,6 +21,6 @@
 
 .text-center.mt-4
   - if logged_in? && current_user.projects.any?
-    = link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-success btn-lg'
+    = link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-outline-success btn-lg'
   - else
     = link_to 'Попробовать &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'
