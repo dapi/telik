@@ -7,7 +7,7 @@ class VisitDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at telegram_user geo remote_ip referrer chat page_data visit_data user_data]
+    %i[created_at telegram_user_name geo remote_ip referrer chat page_data visit_data user_data]
   end
 
   def self.attributes
@@ -18,10 +18,10 @@ class VisitDecorator < ApplicationDecorator
     h.link_to super, h.project_visit_path(object.project.id, object)
   end
 
-  def telegram_user
+  def telegram_user_name
     return '-' if object.visitor.nil?
 
-    VisitorDecorator.decorate(object.visitor).telegram_user
+    VisitorDecorator.decorate(object.visitor).telegram_user_name
   end
 
   def visitor_session

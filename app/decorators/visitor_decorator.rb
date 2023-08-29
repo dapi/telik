@@ -39,7 +39,11 @@ class VisitorDecorator < ApplicationDecorator
   def telegram_user_name
     return '-' if object.telegram_user.blank?
 
-    h.link_to '@' + object.telegram_user.username.to_s, 'https://t.me/' + object.telegram_user.username.to_s, target: '_blank', rel: 'noopener'
+    if object.telegram_user.name.blank?
+      object.telegram_user.name
+    else
+      h.link_to '@' + object.telegram_user.username.to_s, 'https://t.me/' + object.telegram_user.username.to_s, target: '_blank', rel: 'noopener'
+    end
   end
 
   # Define presentation-specific methods here. Helpers are accessed through
