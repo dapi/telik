@@ -11,7 +11,7 @@ class VisitDecorator < ApplicationDecorator
   end
 
   def self.attributes
-    table_columns + %i[location registered_at]
+    table_columns + %i[location registered_at visitor_session]
   end
 
   def created_at
