@@ -19,7 +19,15 @@ class TelegramAuthCallbackController < ApplicationController
   def create
     login data_params
 
-    redirect_back_or_to root_url, notice: t('flash.hi', username: current_user)
+    if current_user.projects.many?
+      url = projects_url
+    elsif current_user.projects.one?
+      url = project_url(current_user.projects.take)
+    else
+      url = root_url
+    end
+
+    redirect_back_or_to url, notice: t('flash.hi', username: current_user)
   end
 
   private
