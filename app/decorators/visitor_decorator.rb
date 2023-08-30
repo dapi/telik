@@ -40,7 +40,7 @@ class VisitorDecorator < ApplicationDecorator
   end
 
   def visits
-    h.link_to object.visits_count, h.project_visits_path(project, q: { visitor_session_id_in: object.visitor_sessions.pluck(:id) })
+    h.link_to object.visits_count, h.project_visits_path(project, q: { by_visitor: object.id })
   end
 
   def telegram_username

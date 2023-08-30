@@ -15,7 +15,9 @@ class Visit < ApplicationRecord
   has_one :project, through: :visitor_session
 
   scope :with_visitor, -> { joins(:visitor_session).where.not(visitor_sessions: { visitor_id: nil }) }
+  scope :without_visitor, -> { joins(:visitor_session).where(visitor_sessions: { visitor_id: nil }) }
   scope :by_project, ->(project_id) { joins(:visitor_session).where(visitor_sessions: { project_id: }) }
+  scope :by_visitor, ->(visitor_id) { joins(:visitor_session).where(visitor_sessions: { visitor_id: }) }
 
   before_create do
     self.key = Nanoid.generate
@@ -31,6 +33,10 @@ class Visit < ApplicationRecord
         last_visit_at: created_at
       )
     end
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[by_visitor with_visitor without_visitor]
   end
 
   def self.ransackable_associations(_auth_object = nil)
