@@ -95,11 +95,14 @@ module Telegram
         .create_or_find_by!(project:, telegram_user:)
     end
 
+    # TODO: Если несколько visitor-ов то возможно имеет смысл спрашивать пользователя кому он отвечает
+    # потому что иначе может ответить не туда
+    # Например спрашивать в случае если совсем не давно ему кто-то отвечал
     def last_used_visitor
       if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
         visitor = telegram_user.visitors.where(project_id: project.id).take
       end
-      visitor || telegram_user.visitors.order(:last_visit_at).last
+      visitor || telegram_user.visitors.order(:last_visit_at, :operator_replied_at).last
     end
 
     def telegram_user

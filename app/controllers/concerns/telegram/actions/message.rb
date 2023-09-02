@@ -61,6 +61,7 @@ module Telegram
       def operator_topic_message(data)
         if chat_project.present?
           if topic_visitor.present?
+            topic_visitor.touch :operator_replied_at
             ForwardOperatorMessageJob.perform_later topic_visitor, data
           else
             reply_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
