@@ -49,20 +49,20 @@ module Telegram
         # но для этого нужно сохранять все сообщения и искать их по-базе
 
         # Пример ответа
-        #{
-          #"message_id"=>463,
-          #"from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
-          #"chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
-          #"date"=>1693677761,
-          #"reply_to_message"=>{
-            #"message_id"=>460,
-            #"from"=>{"id"=>5933409757, "is_bot"=>true, "first_name"=>"Nui Chat", "username"=>"NuiChatBot"},
-            #"chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
-            #"date"=>1693677684,
-            #"text"=>"А?"
-          #},
-          #"text"=>"Согласен"
-        #}
+        # {
+        # "message_id"=>463,
+        # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+        # "chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
+        # "date"=>1693677761,
+        # "reply_to_message"=>{
+        # "message_id"=>460,
+        # "from"=>{"id"=>5933409757, "is_bot"=>true, "first_name"=>"Nui Chat", "username"=>"NuiChatBot"},
+        # "chat"=>{"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"},
+        # "date"=>1693677684,
+        # "text"=>"А?"
+        # },
+        # "text"=>"Согласен"
+        # }
         visitor = last_used_visitor
         if visitor.present?
           ForwardClientMessageJob.perform_later visitor, data
