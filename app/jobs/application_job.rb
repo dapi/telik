@@ -35,29 +35,29 @@ class ApplicationJob < ActiveJob::Base
       # visitor.projects.update! last_error: error.message, last_error_at: Time.zone.now
     end
 
-    def rescue_bot_error(error)
-      if error.message.include? 'message thread not found'
-        logger.error error
-        Bugsnag.notify error
-        visitor.update! telegram_message_thread_id: nil
-
-        # Too Many Requests: Too Many Requests: retry after 42
-      elsif error.message.include? 'Too Many Requests'
-        timeout = error.message.split.last.to_i
-        retru_job wait: (timeout + rand(1..50)).seconds
-      else
-        logger.error error
-        Bugsnag.notify error
-        raise error
-      end
-    end
-
     def default_url_options
       Rails.application.config.action_controller.default_url_options
     end
   end
 
   private
+
+  def rescue_bot_error(error)
+    if error.message.include? 'message thread not found'
+      logger.error error
+      Bugsnag.notify error
+      visitor.update! telegram_message_thread_id: nil
+
+      # Too Many Requests: Too Many Requests: retry after 42
+    elsif error.message.include? 'Too Many Requests'
+      timeout = error.message.split.last.to_i
+      retru_job wait: (timeout + rand(1..50)).seconds
+    else
+      logger.error error
+      Bugsnag.notify error
+      raise error
+    end
+  end
 
   def logger
     @logger ||= ActiveSupport::TaggedLogging.new(Rails.logger.dup).tagged self.class.name

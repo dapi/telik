@@ -56,6 +56,8 @@ module Telegram
         end
       end
 
+      # Сообщение оператора в теме
+      #
       def operator_topic_message(data)
         if chat_project.present?
           if topic_visitor.present?
