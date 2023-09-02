@@ -8,19 +8,19 @@ module Telegram
     #
     module Message
       # Поменяли в проекте имя
-      #{
+      # {
       # "message_id":19,
       # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
       # "chat":{"id":-1001927279455,"title":"Группа поддержи моего проекта","is_forum":true,"type":"supergroup"},
       # "date":1693040081,
       # "new_chat_title":"Группа поддержи моего проекта"
-      #}
+      # }
       def message(data)
-        Message.
-          create!(message_id: data.fetch('message_id'),
-                  chat_id: chat.fetch('id'),
-                  from_telegram: true,
-                  payload: data)
+        Message
+          .create!(message_id: data.fetch('message_id'),
+                   chat_id: chat.fetch('id'),
+                   from_telegram: true,
+                   payload: data)
         if direct_client_message?
           client_message data
         else
