@@ -12,7 +12,7 @@ class ApplicationJob < ActiveJob::Base
 
   # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
   rescue_from Telegram::Bot::Error do |job, error|
-    Rails.logger.error [self, job, error].join(' ')
+    Rails.logger.error "rescue_from Telegram::Bot::Error '#{self}', '#{job}', '#{error}'"
     rescue_bot_error error
   end
 

@@ -19,52 +19,52 @@ module Telegram
 
     # Это пример нормальноо ответа от оператора в теме группы
     #
-    #{
-      #"update_id":124132842,
-      #"message":{
-        #"message_id":427,
-        #"from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
-        #"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
-        #"date":1693674816,
-        #"message_thread_id":407,
-        #"reply_to_message":{
-          #"message_id":407,
-          #"from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},
-          #"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
-          #"date":1693583716,
-          #"message_thread_id":407,
-          #"forum_topic_created":{"name":"#129 Ivan Krasnoyarsk (Krasnoyarsk Krai/RU)","icon_color":7322096},
-          #"is_topic_message":true
-        #},
-        #"text":"Согласен",
-        #"is_topic_message":true
-      #}
-    #}
+    # {
+    # "update_id":124132842,
+    # "message":{
+    # "message_id":427,
+    # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
+    # "chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
+    # "date":1693674816,
+    # "message_thread_id":407,
+    # "reply_to_message":{
+    # "message_id":407,
+    # "from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},
+    # "chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
+    # "date":1693583716,
+    # "message_thread_id":407,
+    # "forum_topic_created":{"name":"#129 Ivan Krasnoyarsk (Krasnoyarsk Krai/RU)","icon_color":7322096},
+    # "is_topic_message":true
+    # },
+    # "text":"Согласен",
+    # "is_topic_message":true
+    # }
+    # }
 
     # Это пример когда почему-то сообщение оператора в тему приходит от якобы ответа в главное теме.
     # Такой ответ нами не считывается, телеграммом перекидывается в general
     #
-    #{
-      #"update_id":124132841,
-      #"message":{
-        #"message_id":425,
-        #"from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
-        #"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
-        #"date":1693674723,
-        #"message_thread_id":1,
-        #"reply_to_message":{
-          #"message_id":411,
-          #"from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},
-          #"chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
-          #"date":1693639505,
-          #"message_thread_id":411,
-          #"forum_topic_created":{"name":"#130 Кирилл Amsterdam (North Holland/NL)","icon_color":7322096},
-          #"is_topic_message":true
-        #},
-        #"text":"Добрый!",
-        #"is_topic_message":true
-      #}
-    #}
+    # {
+    # "update_id":124132841,
+    # "message":{
+    # "message_id":425,
+    # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
+    # "chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
+    # "date":1693674723,
+    # "message_thread_id":1,
+    # "reply_to_message":{
+    # "message_id":411,
+    # "from":{"id":5933409757,"is_bot":true,"first_name":"Nui Chat","username":"NuiChatBot"},
+    # "chat":{"id":-1001989718457,"title":"kiiiosk.store","is_forum":true,"type":"supergroup"},
+    # "date":1693639505,
+    # "message_thread_id":411,
+    # "forum_topic_created":{"name":"#130 Кирилл Amsterdam (North Holland/NL)","icon_color":7322096},
+    # "is_topic_message":true
+    # },
+    # "text":"Добрый!",
+    # "is_topic_message":true
+    # }
+    # }
     def topic_visitor
       return if chat_project.nil?
 
