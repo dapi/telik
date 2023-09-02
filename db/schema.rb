@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_02_175742) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_02_181547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_175742) do
     t.index ["project_id", "user_id"], name: "index_memberships_on_project_id_and_user_id", unique: true
     t.index ["project_id"], name: "index_memberships_on_project_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "chat_id", null: false
+    t.jsonb "payload", null: false
+    t.boolean "from_telegram", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id", "message_id"], name: "index_messages_on_chat_id_and_message_id", unique: true
   end
 
   create_table "payment_cards", force: :cascade do |t|
