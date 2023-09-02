@@ -11,8 +11,8 @@ class ApplicationJob < ActiveJob::Base
   retry_on Retry, wait: :exponentially_longer, attempts: 100
 
   # Telegram::Bot::Error: Bad Request: Bad Request: message thread not found
-  rescue_from Telegram::Bot::Error do |job, error|
-    Rails.logger.error "rescue_from Telegram::Bot::Error '#{self}', '#{job}', '#{error}'"
+  rescue_from Telegram::Bot::Error do |error|
+    logger.error "#{error}: #{Rails.backtrace_cleaner(error.backtrace)}"
     rescue_bot_error error
   end
 
