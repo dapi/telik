@@ -12,6 +12,7 @@ class ForwardClientMessageJob < ApplicationJob
     CreateForumTopicJob.perform_now visitor if visitor.telegram_message_thread_id.nil?
     raise Retry, "No telegram_message_thread_id to redirect message for visitors ##{visitor.id}" if visitor.telegram_message_thread_id.blank?
 
+    logger.info "Copy message for #{visitor} with payload #{message}"
     # Может быть и forward
     visitor.project.bot.copy_message(
       chat_id: visitor.project.telegram_group_id || raise("Project ##{visitor.project_id} has no telegram_group_id"),

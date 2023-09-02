@@ -10,6 +10,7 @@ class CreateForumTopicJob < ApplicationJob
   Error = Class.new StandardError
 
   def perform(visitor, visit = nil)
+    logger.info "create forum topic for #{visitor.id}"
     raise Error, "Visitor (#{visitor.id}) has no telegram_user_id" if visitor.telegram_user_id.nil?
 
     safe_perform visitor.project do
