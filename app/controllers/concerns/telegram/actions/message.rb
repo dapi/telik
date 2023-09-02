@@ -16,7 +16,7 @@ module Telegram
       # "new_chat_title":"Группа поддержи моего проекта"
       # }
       def message(data)
-        Message
+        ::Message
           .create!(message_id: data.fetch('message_id'),
                    chat_id: chat.fetch('id'),
                    from_telegram: true,
