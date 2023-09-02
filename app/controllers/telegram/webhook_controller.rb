@@ -102,7 +102,9 @@ module Telegram
       if session[:project_id] && (project = Project.find_by(id: session[:project_id]))
         visitor = telegram_user.visitors.where(project_id: project.id).take
       end
-      visitor || telegram_user.visitors.order(:last_visit_at, :operator_replied_at).last
+      visitor ||
+        telegram_user.visitors.where.not(operator_replied_at: nil).order(:operator_replied_at).last ||
+        telegram_user.visitors.order(:last_visit_at).last
     end
 
     def telegram_user
