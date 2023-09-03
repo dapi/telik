@@ -5,8 +5,10 @@ footer.mt-5.app-footer
       .col-md-12
         .d-flex.justify-content-between.text-muted
           div
-            = app_title
+            span title=AppVersion.to_s data-bs-toggle='tooltip'
+              = app_title
             = ' – поддержка клиентов через управляемый чат в telegram'
 
           div
-            =" &copy; #{Date.today.year} #{link_to 'pismenny.ru', 'https://pismenny.ru', target: 'blank'} #{AppVersion}".html_safe
+            =" &copy; #{Date.today.year} ".html_safe
+            = link_to 'pismenny.ru', 'https://pismenny.ru', target: 'blank'
