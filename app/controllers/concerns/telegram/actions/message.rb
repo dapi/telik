@@ -30,12 +30,14 @@ module Telegram
 
       private
 
-      def operator_message(data)
+      def operator_message(data) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         if data.key? 'new_chat_title'
           # Старое название data.dig('chat', 'title')
           chat_project&.update! telegram_group_name: data.fetch('new_chat_title'), name: data.fetch('new_chat_title')
-        elsif forum_topic_action? # Так это мы его сами и создали
-          # Skip
+        elsif forum_topic_created? # Так это мы его сами и создали
+          chat_project&.add_skipped_topic! data.fetch('message_thread_id')
+        elsif forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
+          update_forum_topic! data
         elsif topic_message?
           operator_topic_message(data)
         elsif forum?
@@ -84,11 +86,32 @@ module Telegram
         end
       end
 
+      # {"message_id"=>52,
+      # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
+      # "chat"=>{"id"=>-1001619875491, "title"=>"LocalNuiChatBot Support", "is_forum"=>true, "type"=>"supergroup"},
+      # "date"=>1693755660,
+      # "message_thread_id"=>5,
+      # "forum_topic_edited"=>{"name"=>"Переименовалка", "icon_custom_emoji_id"=>"5312322066328853156"},
+      # "is_topic_message"=>true}
+      def update_forum_topic!(data)
+        if topic_visitor.present?
+          # {"name"=>"Переименовалка", "icon_custom_emoji_id"=>"5312322066328853156"}
+          topic_visitor.update! topic_data: topic_visitor.topic_data.merge(data.fetch('forum_topic_edited'))
+        else
+          Bugsnag.notify 'Переименовали не известный топик' do |b|
+            b.metadata = { payload: }
+            b.severity = :warning
+          end
+        end
+      end
+
       # Сообщение оператора в теме
       #
       def operator_topic_message(data)
         if chat_project.present?
-          if topic_visitor.present?
+          if chat_project.skip_threads_ids.include? topic_id
+            Rails.logger.debug 'Skip thread'
+          elsif topic_visitor.present?
             topic_visitor.touch :operator_replied_at
             ForwardOperatorMessageJob.perform_later topic_visitor, data
           else

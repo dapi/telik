@@ -8,7 +8,7 @@ class VisitorDecorator < ApplicationDecorator
   delegate_all
 
   def self.table_columns
-    %i[created_at telegram_username name updated_at topic_subject visits user_data]
+    %i[created_at telegram_username name updated_at topic_subject visits user_data topic_data]
   end
 
   def self.attributes
@@ -18,6 +18,18 @@ class VisitorDecorator < ApplicationDecorator
   def created_at
     h.link_to h.project_visitor_path(object.project_id, object) do
       super
+    end
+  end
+
+  def user_data
+    h.content_tag :pre do
+      JSON.pretty_generate object.user_data.as_json
+    end
+  end
+
+  def topic_data
+    h.content_tag :pre do
+      JSON.pretty_generate object.topic_data.as_json
     end
   end
 

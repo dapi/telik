@@ -68,12 +68,36 @@ module Telegram
     def topic_visitor
       return if chat_project.nil?
 
-      chat_project.visitors.find_by(telegram_message_thread_id: payload.fetch('message_thread_id'))
+      chat_project.visitors.find_by(telegram_message_thread_id: topic_id)
+    end
+
+    def topic_id
+      payload.fetch('message_thread_id')
     end
 
     # Топик создан или отредактирован
+    # {
+    # "update_id":797404202,
+    # "message":{
+    # "message_id":44,
+    # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
+    # "chat":{"id":-1001927279455,"title":"Группа поддержи моего проекта!","is_forum":true,"type":"supergroup"},
+    # "date":1693754470,
+    # "message_thread_id":44,
+    # "forum_topic_created":{"name":"Тестовый топик","icon_color":16766590},
+    # "is_topic_message":true
+    # }
+    # }
     def forum_topic_action?
-      payload.key?('forum_topic_created') || payload.key?('forum_topic_edited')
+      forum_topic_created? || forum_topic_edited?
+    end
+
+    def forum_topic_created?
+      payload.key?('forum_topic_created')
+    end
+
+    def forum_topic_edited?
+      payload.key?('forum_topic_edited')
     end
 
     # Это означает что сообщение из группы, а не из личной перепики

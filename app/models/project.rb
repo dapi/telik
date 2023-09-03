@@ -32,6 +32,7 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :url, url: true, if: :url?
+  validates :skip_threads_ids, type: Array
 
   # Сначала создается группа, к группе добавляется бот и тогда бот создает проект
   # привязывается проект.
@@ -65,6 +66,12 @@ class Project < ApplicationRecord
 
   def add_owner_as_member
     memberships.create_or_find_by! user: owner
+  end
+
+  def add_skipped_topic!(thread_id)
+    with_lock do
+      update! skip_threads_ids: skip_threads_ids + [thread_id]
+    end
   end
 
   def member?(user)
