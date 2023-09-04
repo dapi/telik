@@ -2,6 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Декоратор тарифа
 class TariffDecorator < ApplicationDecorator
   delegate_all
 
@@ -10,7 +11,7 @@ class TariffDecorator < ApplicationDecorator
   end
 
   def details
-    ERB.new(object.details).result(binding).html_safe
+    ERB.new(object.details).result(binding).html_safe # rubocop:disable Rails/OutputSafety
   end
 
   # Define presentation-specific methods here. Helpers are accessed through

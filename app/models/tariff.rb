@@ -2,8 +2,9 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Тариф ;)
 class Tariff < ApplicationRecord
-  has_many :projects
+  has_many :projects, dependent: :restrict_with_error
 
   scope :ordered, -> { order :position }
   scope :alive, -> { order :archived_at }

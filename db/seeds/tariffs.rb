@@ -13,11 +13,11 @@ Rails.logger.debug 'Create tariffes'
     transaction_mails_allowed: false,
     marketing_mails_allowed: false,
     button_title: 'Начать',
-    details: <<~END
+    details: <<~DETAILS
       <li>Бот – <%= h.link_to_bot %></li>
       <li>До 100 посетителей</li>
       <li>Один оператор</li>
-    END
+    DETAILS
   },
   {
     price: 190,
@@ -28,12 +28,12 @@ Rails.logger.debug 'Create tariffes'
     transaction_mails_allowed: true,
     marketing_mails_allowed: false,
     button_title: 'Поехали!',
-    details: <<END
+    details: <<DETAILS
     <li>Брендированное имя бота</li>
     <li>До 1 тыс. посетителей</li>
     <li>3 оператора</li>
     <li>Транзакционная рассылка</li>
-END
+DETAILS
   },
   {
     price: 2500,
@@ -44,13 +44,13 @@ END
     transaction_mails_allowed: true,
     marketing_mails_allowed: true,
     button_title: 'Погнали!',
-    details: <<END
+    details: <<DETAILS
     <li>Брендированное имя бота</li>
     <li>До 10 тыс. посетителей</li>
     <li>5 операторов</li>
     <li>Транзакционная и маркетинговая рассылка</li>
     <li>Поддержка в течение 24 часов</li>
-END
+DETAILS
   }
 ].each_with_index do |item, index|
   tariff = Tariff
