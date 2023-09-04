@@ -36,8 +36,11 @@ h1.display-5.my-5.text-center Как это работает?
       code= '</html>'
     pre.my-3
       code.language-html style='font-size: 75%'
-        = html_escape_once render 'widget', project_key: 'example'
+        = html_escape_once render 'widget', project_key: '…', src: '…'
 
+    p.lead
+      | И получаете на сайте в левом нижнем углу такую кнопку:
+    span= image_tag '/images/telegram_logo.svg', size: '36'
   .col-md-4
     h2.my-3.fw-normal 
       span.text-muted 2. 
@@ -49,8 +52,12 @@ h1.display-5.my-5.text-center Как это работает?
     h2.my-3.fw-normal 
       span.text-muted 3. 
       | Получаете сообщения от пользователей
-    p.lead Для каждого пользователя создается своя тема в рамках которой ведется переписка.
+    p.lead Для каждого пользователя создается своя тема в которой ведётся переписка.
     .my-3= image_tag '/images/telegram_group.jpeg', width: 300
       
-.my-5
+.my-5.pb-5
   = render 'action_button'
+
+h1.display-5.my-5.text-center Частые вопросы
+h2.my-3.fw-normal Чем это отличается от того что я размещу на сайте ссылку на свой аккаунт в Telegram?
+p.lead В таком случае пользователи будут видеть Ваш аккаунт и писать Вам напрямую даже когда Вы этого не ждёте. Вы не сможете передать поддержку кому-то другому или запустить рассылку.
