@@ -13,7 +13,7 @@
           ul.list-unstyled.mt-3.mb-4
             = tariff.details
 
-          = link_to 'Поехали!', new_project_url(project: { tariff_id: tariff.id }), class: "w-100 btn btn-lg #{is_active ? 'btn-primary' : 'btn-outline-primary'}"
+          = link_to tariff.button_title, new_project_url(project: { tariff_id: tariff.id }), class: "w-100 btn btn-lg #{is_active ? 'btn-primary' : 'btn-outline-primary'}"
           -# button.w-100.btn.btn-lg.btn-primary type="button" Get started
   /.col
     /.card.mb-4.rounded-3.shadow-sm.border-primary

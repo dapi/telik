@@ -6,12 +6,13 @@ Rails.logger.debug 'Create tariffes'
 [
   {
     price: 0,
-    title: 'Талантливый любитель',
+    title: '🧪 Талантливый экспериментатор',
     max_visitors_count: 100,
     max_operators_count: 1,
     custom_bot_allowed: false,
     transaction_mails_allowed: false,
     marketing_mails_allowed: false,
+    button_title: 'Начать',
     details: <<~END
       <li>Бот – <%= h.link_to_bot %></li>
       <li>До 100 посетителей</li>
@@ -20,12 +21,13 @@ Rails.logger.debug 'Create tariffes'
   },
   {
     price: 190,
-    title: 'Находчивый предприниматель',
+    title: '🚀 Находчивый предприниматель',
     max_visitors_count: 1000,
     max_operators_count: 3,
     custom_bot_allowed: true,
     transaction_mails_allowed: true,
     marketing_mails_allowed: false,
+    button_title: 'Поехали!',
     details: <<END
     <li>Брендированное имя бота</li>
     <li>До 1 тыс. посетителей</li>
@@ -34,19 +36,20 @@ Rails.logger.debug 'Create tariffes'
 END
   },
   {
-    price: 1890,
-    title: 'Успешный бизнес',
+    price: 2500,
+    title: '✊ Успешный бизнес',
     max_visitors_count: 1000,
     max_operators_count: 5,
     custom_bot_allowed: true,
     transaction_mails_allowed: true,
     marketing_mails_allowed: true,
+    button_title: 'Погнали!',
     details: <<END
     <li>Брендированное имя бота</li>
     <li>До 10 тыс. посетителей</li>
     <li>5 операторов</li>
     <li>Транзакционная и маркетинговая рассылка</li>
-    <li>Поддержка в течении 24 часов</li>
+    <li>Поддержка в течение 24 часов</li>
 END
   }
 ].each_with_index do |item, index|

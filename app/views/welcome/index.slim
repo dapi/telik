@@ -1,33 +1,56 @@
-.display-5.px-4.py-4.my-4.text-center Поддержка посетителий сайта через телеграм-бота
-.row.g-4.py-4.row-cols-1.row-cols-lg-3
-  = render 'feature', icon: :chat do
+h1.display-5.px-4.py-5.my-5.text-center Поддержка посетителей сайта через телеграм-бота
+.row.g-4.py-2.row-cols-1.row-cols-lg-3
+  = render 'feature', icon: :telegram do
     h2 Прямая связь с клиентом
-    p В отличии от обычных чатов на вебсайте Вы получаете прямой контакт в телеграм и остаетесь на связи даже если клиент ушел с сайта.
-  = render 'feature', icon: :mailbox do
-    h2 Маркетинг через телеграм
-    p Так как есть прямой контакт можно делать транзакционную и маркетинговую рассылку.
+    p Вы получаете контакт пользователя в Telegram, что даёт Вам возможность оставаться с ним на связи всегда.
   = render 'feature', icon: :phone do
     h2 Поддержка в кармане
-    p Вам для поддержки клиентов требуется только установленный на телефоне телеграм.
+    p Вам для поддержки клиентов требуется только установленный на телефоне Telegram.
+  = render 'feature', icon: :mailbox do
+    h2 Рассылка через Telegram
+    p Транзакционная и маркетинговая рассылка в Telegram.
+
+
+.pb-5
+  = render 'action_button'
 
 /.row
-  /h3.fs-2.text-body-emphasis И многое другое:
-  /ul.lead
+  /.lead.px-4.py-1.my-5.text-center А также:
+  /ul
     /li Контакт получаете даже если клиент еще ничего не написал, а просто нажал на виджет посмотреть. Вы видите на какой странице он находится, откуда перешел и можете сразу помочь ему с выбором.
     /li Не смотря на прямую связь с клиентом, клиент общается с вами через бота и ваш личный аккаунт становится для него невидим, а вы можете подключать для сопровождения операторов и передавать клиента другим сотрудникам которые могут видеть всю переписку.
     /li В отличии от обычных веб-виджетов для поддержки #{app_title} не портит дизайн и верстку вашего сайта, не зависает (код минимальный и там нечему виснуть), не пугает пользователя своим интерфейсом. Клиент общается с вами через привычный для себя чат в телеграм.
     /li #{app_title} может работать в режиме бота и отвечать на частые вопросы.
     /li Даже если пользователь удалит историю в своем чате у вас все равно останется полная переписка.
 
-/.text-center.mt-4
-  /- if logged_in? && current_user.projects.any?
-    /= link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-outline-success btn-lg'
-  /- else
-    /= link_to 'Попробовать &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'
 
+h1.display-5.my-5.text-center Как это работает?
 
-/div.p-3.pb-md-4.mx-auto.text-center 
-  /h1.display-4.fw-normal Сколько это стоит?
-.display-5.px-4.pb-5.my-4.text-center Сколько это стоит
-.container style='max-width: 980px'
-  = render 'tariffs/tariffs'
+.row
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 1. 
+      | Добавляете виджет на сайт
+    p.lead 
+      | Вставляете код виджета на все страницы сайта перед закрывающим тэгом 
+      code= '</html>'
+    pre.my-3
+      code.language-html style='font-size: 75%'
+        = html_escape_once render 'widget', project_key: 'example'
+
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 2. 
+      | Создаёте группу с темами в Telegram
+    p.lead Создаёте группу с темами (супер-группу) и добавляете туда бота.
+    .my-3= image_tag '/images/create_group.jpeg', width: 300
+
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 3. 
+      | Получаете сообщения от пользователей
+    p.lead Для каждого пользователя создается своя тема в рамках которой ведется переписка.
+    .my-3= image_tag '/images/telegram_group.jpeg', width: 300
+      
+.my-5
+  = render 'action_button'
