@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_03_151654) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_04_133933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,9 +104,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_151654) do
     t.string "telegram_group_name"
     t.boolean "thread_on_start", default: true, null: false
     t.jsonb "skip_threads_ids", default: [], null: false
+    t.bigint "tariff_id", null: false
     t.index ["key"], name: "index_projects_on_key", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.index ["tariff_id"], name: "index_projects_on_tariff_id"
     t.index ["telegram_group_id"], name: "index_projects_on_telegram_group_id", unique: true
+  end
+
+  create_table "tariffs", force: :cascade do |t|
+    t.decimal "price", null: false
+    t.string "title", null: false
+    t.text "details", null: false
+    t.integer "max_visitors_count", null: false
+    t.integer "max_operators_count", null: false
+    t.boolean "custom_bot_allowed", null: false
+    t.boolean "transaction_mails_allowed", null: false
+    t.boolean "marketing_mails_allowed", null: false
+    t.integer "position", null: false
+    t.datetime "archived_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_tariffs_on_position", unique: true
   end
 
   create_table "telegram_users", id: :bigint, default: nil, force: :cascade do |t|
@@ -131,6 +149,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_151654) do
     t.string "last_login_from_ip_address"
     t.bigint "telegram_user_id", null: false
     t.jsonb "telegram_data", default: {}, null: false
+    t.boolean "super_admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
@@ -189,6 +208,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_151654) do
   add_foreign_key "invoices", "accounts"
   add_foreign_key "memberships", "projects"
   add_foreign_key "memberships", "users"
+  add_foreign_key "projects", "tariffs"
   add_foreign_key "projects", "users", column: "owner_id"
   add_foreign_key "visitor_sessions", "projects"
   add_foreign_key "visitor_sessions", "visitors"

@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     if project.setup_errors.empty?
       render locals: { project: }, layout: 'project'
     elsif !project.bot_installed?
-      redirect_to project_bot_path(project)
+      redirect_to project_group_path(project)
     elsif !project.widget_installed?
       redirect_to project_widget_path(project)
     end
@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
     project = current_user.projects.where(host_confirmed_at: nil).where.not(telegram_group_id: nil).take
     if project.present?
       if !project.bot_installed?
-        redirect_to project_bot_path(project)
+        redirect_to project_group_path(project)
       elsif !project.widget_installed?
         redirect_to project_widget_path(project)
       else
@@ -71,6 +71,6 @@ class ProjectsController < ApplicationController
   def permitted_params
     params
       .fetch(:project, {})
-      .permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start)
+      .permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start, :bot_token, :tariff_id)
   end
 end

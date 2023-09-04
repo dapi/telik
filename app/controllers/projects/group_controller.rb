@@ -2,8 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Настройка бота по проекту
-class Projects::BotController < ApplicationController
+# Настройка телеграм группы по проекту
+class Projects::GroupController < ApplicationController
   before_action :require_login
   before_action { @back_url = projects_path }
   layout 'simple'

@@ -3,6 +3,10 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def format_price(price)
+    price.to_s + ' ₽'
+  end
+
   def setup_checkbox(flag, tooltip: nil)
     content_tag :span, title: tooltip || flag do
       flag ? '✅' : '⭕'

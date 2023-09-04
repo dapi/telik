@@ -1,5 +1,5 @@
-.display-5.px-4.py-5.my-4.text-center Поддержка посетителий сайта через телеграм-бота
-.row.g-4.py-5.row-cols-1.row-cols-lg-3
+.display-5.px-4.py-4.my-4.text-center Поддержка посетителий сайта через телеграм-бота
+.row.g-4.py-4.row-cols-1.row-cols-lg-3
   = render 'feature', icon: :chat do
     h2 Прямая связь с клиентом
     p В отличии от обычных чатов на вебсайте Вы получаете прямой контакт в телеграм и остаетесь на связи даже если клиент ушел с сайта.
@@ -19,8 +19,15 @@
     /li #{app_title} может работать в режиме бота и отвечать на частые вопросы.
     /li Даже если пользователь удалит историю в своем чате у вас все равно останется полная переписка.
 
-.text-center.mt-4
-  - if logged_in? && current_user.projects.any?
-    = link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-outline-success btn-lg'
-  - else
-    = link_to 'Попробовать &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'
+/.text-center.mt-4
+  /- if logged_in? && current_user.projects.any?
+    /= link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-outline-success btn-lg'
+  /- else
+    /= link_to 'Попробовать &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'
+
+
+/div.p-3.pb-md-4.mx-auto.text-center 
+  /h1.display-4.fw-normal Сколько это стоит?
+.display-5.px-4.pb-5.my-4.text-center Сколько это стоит
+.container style='max-width: 980px'
+  = render 'tariffs/tariffs'

@@ -20,9 +20,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tariffs
+
   resources :projects do
     resource :widget, only: %i[show create], controller: 'projects/widget'
-    resource :bot, only: %i[show create], controller: 'projects/bot'
+    resource :group, only: %i[show create], controller: 'projects/group'
     resources :visits, only: %i[index show], controller: 'projects/visits'
     resources :visitors, only: %i[index show], controller: 'projects/visitors'
   end

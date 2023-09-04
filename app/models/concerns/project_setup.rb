@@ -16,6 +16,7 @@ module ProjectSetup
     setup_errors - WIDGET_ERRORS
   end
 
+  # Бот подключен в группу?
   def bot_installed?
     telegram_supergroup? && bot_admin? && bot_can_manage_topics?
 

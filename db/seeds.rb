@@ -15,6 +15,7 @@ begin
   puts 'Create owner'
   owner = User
           .create_with(
+            super_admin: true,
             telegram_data: { 'id' => '943084337',
                              'username' => 'pismenny',
                              'auth_date' => '1683466550',
@@ -23,8 +24,11 @@ begin
                              'first_name' => 'Danil' }
           )
           .create_or_find_by!(telegram_user_id: 943_084_337)
+
 rescue StandardError => e
   puts e
   Rails.logger.debug e.record.inspect
   raise e
 end
+
+require './db/seeds/tariffs.rb'

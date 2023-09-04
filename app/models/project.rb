@@ -17,6 +17,7 @@ class Project < ApplicationRecord
   attr_accessor :just_created
 
   belongs_to :owner, class_name: 'User'
+  belongs_to :tariff
 
   has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships
