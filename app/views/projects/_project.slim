@@ -4,9 +4,10 @@ tr id=dom_id(project, :row)
     - if project.host.present?
       .text-muted.text-small
         = project.host
+  td= project.telegram_group_name
+  td= project.bot_username
   td= bot_connection_status project
   td= link_to project.visitors.count, project_visitors_path(project)
-  td= link_to project.visits.count, project_visits_path(project)
   td
     - if project.bot_installed?
       - if project.widget_installed?

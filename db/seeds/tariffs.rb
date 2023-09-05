@@ -17,6 +17,7 @@ Rails.logger.debug 'Create tariffes'
       <li>Бот – <%= h.link_to_bot %></li>
       <li>До 100 посетителей</li>
       <li>Один оператор</li>
+      <li>Невозможно перейти на брендированного бота</li>
     DETAILS
   },
   {

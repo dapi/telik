@@ -15,41 +15,33 @@ class ProjectsController < ApplicationController
     @header_title = project.name
     if project.setup_errors.empty?
       render locals: { project: }, layout: 'project'
-    elsif !project.bot_installed?
-      redirect_to project_group_path(project)
-    elsif !project.widget_installed?
-      redirect_to project_widget_path(project)
+    else
+      redirect_to next_step_redirect_url(project)
     end
   end
 
   def new
     project = current_user.projects.where(host_confirmed_at: nil).where.not(telegram_group_id: nil).take
     if project.present?
-      if !project.bot_installed?
-        redirect_to project_group_path(project)
-      elsif !project.widget_installed?
-        redirect_to project_widget_path(project)
-      else
-        render locals: {
-          project:
-        }
-      end
+      redirect_to next_step_redirect_url(project)
     else
-      render locals: {
-        project: Project.new(permitted_params)
-      }
+      project = Project.new(permitted_params)
+
+      render next_step_view(project), locals: { project: }
     end
   end
 
   def create
-    project = current_user.projects.build owner: current_user
+    project = current_user.projects.build permitted_params.merge(owner: current_user)
     project.assign_attributes permitted_params
+
+    project.name ||= project.bot_username = fetch_bot_username(project) if project.bot_token_required? && project.bot_token.present? && project.errors[:bot_token].empty?
     project.save!
-    redirect_to project_path(project)
+    redirect_to next_step_redirect_url(project)
   rescue ActiveRecord::RecordInvalid => e
-    render :new, locals: {
+    render next_step_view(e.record), locals: {
       project: e.record
-    }
+    }, status: :unprocessable_entity
   end
 
   def update
@@ -63,6 +55,42 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def fetch_bot_username(project)
+    # {
+    # "ok"=>true,
+    # "result"=>{
+    # "id"=>6177763867,
+    # "is_bot"=>true,
+    # "first_name"=>"LocalNuiChatBot",
+    # "username"=>"LocalNuiChatBot",
+    # "can_join_groups"=>true,
+    # "can_read_all_group_messages"=>false,
+    # "supports_inline_queries"=>false
+    # }
+    # }
+    project.bot(true).get_me.dig('result', 'username')
+  rescue Telegram::Bot::NotFound
+    project.errors.add :bot_token, 'Не действующий токен. Проверьте правильность ввода или создайте новый.'
+  end
+
+  def next_step_redirect_url(project)
+    if !project.bot_installed?
+      project_group_path(project)
+    elsif !project.widget_installed?
+      project_widget_path(project)
+    else
+      project_path(project)
+    end
+  end
+
+  def next_step_view(project)
+    if project.tariff.present?
+      project.tariff.custom_bot_allowed? ? :setup_bot_token : :setup_group
+    else
+      :select_tariff
+    end
+  end
 
   def project
     @project ||= current_user.projects.find params[:id]

@@ -7,6 +7,10 @@ module ApplicationHelper
     price.to_s + ' ₽'
   end
 
+  def default_tariff_id
+    @default_tariff_id ||= Tariff.where(is_default: true).take.id
+  end
+
   def setup_checkbox(flag, tooltip: nil)
     content_tag :span, title: tooltip || flag do
       flag ? '✅' : '⭕'
@@ -31,6 +35,10 @@ module ApplicationHelper
         'Loading...'
       end
     end
+  end
+
+  def link_to_project_bot(project)
+    link_to_bot project.bot_username.presence || ApplicationConfig.bot_username
   end
 
   def link_to_bot(username = ApplicationConfig.bot_username)

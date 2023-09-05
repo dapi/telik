@@ -31,13 +31,24 @@ class Project < ApplicationRecord
     self.name = Addressable::URI.parse(url).host if url.present? && name.blank?
   end
 
+  validates :bot_token, presence: true, if: :bot_token_required?
+  validates :bot_token,
+            uniqueness: true,
+            format: { with: /\A[0-9]+:[a-z0-9-]+\z/i, message: 'имеет не верный формат' },
+            if: :bot_token?
   validates :name, presence: true
   validates :url, url: true, if: :url?
   validates :skip_threads_ids, type: Array
+  validates :bot_username,
+            presence: { message: 'Уже заведен проект с таким токеном' },
+            if: :bot_token?
 
-  # Сначала создается группа, к группе добавляется бот и тогда бот создает проект
+  # Есть два способа создания проекта.
+  # Вариант 1. Сначала создается группа, к группе добавляется бот и тогда бот создает проект
   # привязывается проект.
-  validates :telegram_group_id, presence: true
+  #
+  # Вариант 2. Сначала создается проект с ботом, затем к непу прикручивается группа.
+  validates :telegram_group_id, presence: true, unless: :bot_token_required?
 
   before_create do
     self.key = Nanoid.generate

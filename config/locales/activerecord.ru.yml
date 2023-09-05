@@ -14,6 +14,7 @@ ru:
         many: Посетители
     attributes:
       project:
+        bot_token: Токен
         name: Название проекта
         username: Имя пользователя в сообщениях
         custom_username: Имя пользователя в сообщениях

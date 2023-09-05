@@ -7,6 +7,18 @@
 class ProjectDecorator < ApplicationDecorator
   delegate_all
 
+  def bot_username
+    h.link_to_bot(
+      object.bot_username.presence || ApplicationConfig.bot_username
+    )
+  end
+
+  def telegram_group_name
+    return '-' if object.telegram_group_name.blank?
+
+    h.link_to object.telegram_group_name, object.telegram_group_url
+  end
+
   def title
     object.name
     #- if project.host.present?

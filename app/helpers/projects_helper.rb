@@ -10,4 +10,25 @@ module ProjectsHelper
       content_tag :span, 'OK', class: 'badge bg-success'
     end
   end
+
+  # Сколько шагов в настройке проекта требуется
+  def project_setup_steps(project)
+    project&.tariff&.custom_bot_allowed? ? 3 : 2
+  end
+
+  def project_current_step(project) # rubocop:disable Metrics/PerceivedComplexity
+    if project&.tariff&.custom_bot_allowed?
+      if !project.bot_token?
+        1
+      elsif !project.bot_installed?
+        2
+      elsif !project.widget_installed?
+        3
+      end
+    elsif !project.bot_installed?
+      1
+    elsif !project.widget_installed?
+      2
+    end
+  end
 end

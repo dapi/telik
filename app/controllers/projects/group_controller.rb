@@ -24,7 +24,7 @@ class Projects::GroupController < ApplicationController
                   status: :see_other,
                   notice: 'Поздравляю! Бот подключен.'
     else
-      redirect_to project_bot_path(project),
+      redirect_to project_group_path(project),
                   status: :see_other,
                   alert: "Проверка не прошла. #{project.bot_setup_errors.join(',')}"
     end
