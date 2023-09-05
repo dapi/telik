@@ -40,8 +40,9 @@ ul.list-group.mb-3
 - unless project.bot_installed?
   .mt-4
     // span.me-2= spinner
-    h2 Готово?
-    - if project.persisted?
-      = link_to 'Проверить', project_group_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
-    - else
-      = link_to 'Проверить', new_project_path, class: 'btn btn-success btn-lg'
+    h2.float-start Готово?
+    .float-end
+      - if project.persisted?
+        = link_to 'Проверить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+      - else
+        = link_to 'Проверить &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'

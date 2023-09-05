@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   include ProjectSetup
 
   BOT_STATUSES = %w[left administrator restricted member].freeze
+  BOT_TOKEN_FORMAT = /\A[0-9]+:[a-z0-9-]+\z/i
 
   strip_attributes
 
@@ -34,8 +35,9 @@ class Project < ApplicationRecord
   validates :bot_token, presence: true, if: :bot_token_required?
   validates :bot_token,
             uniqueness: true,
-            format: { with: /\A[0-9]+:[a-z0-9-]+\z/i, message: 'имеет не верный формат' },
+            format: { with: BOT_TOKEN_FORMAT, message: 'имеет не верный формат' },
             if: :bot_token?
+  validate :validate_bot_token
   validates :name, presence: true
   validates :url, url: true, if: :url?
   validates :skip_threads_ids, type: Array

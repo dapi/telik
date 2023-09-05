@@ -1,15 +1,26 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
                                     root GET    /                                                                                                 welcome#index
                         telegram_webhook POST   /telegram/y8xrmb4nLHjeQO-CxSAA50HY-Jo                                                             #<Telegram::Bot::Middleware(Telegram::WebhookController)>
+                 telegram_custom_webhook POST   /telegram/custom_webhook(.:format)                                                                #<CustomTelegramBotMiddleware(Telegram::WebhookController)>
                   telegram_auth_callback GET    /telegram/auth_callback(.:format)                                                                 telegram_auth_callback#create
                                        v GET    /v(.:format)                                                                                      visit#create
+                                       i GET    /i(.:format)                                                                                      visit#logo
                                 sessions DELETE /sessions(.:format)                                                                               sessions#destroy
                                          POST   /sessions(.:format)                                                                               sessions#create
                              new_session GET    /sessions/new(.:format)                                                                           sessions#new
+                                 tariffs GET    /tariffs(.:format)                                                                                tariffs#index
+                                         POST   /tariffs(.:format)                                                                                tariffs#create
+                              new_tariff GET    /tariffs/new(.:format)                                                                            tariffs#new
+                             edit_tariff GET    /tariffs/:id/edit(.:format)                                                                       tariffs#edit
+                                  tariff GET    /tariffs/:id(.:format)                                                                            tariffs#show
+                                         PATCH  /tariffs/:id(.:format)                                                                            tariffs#update
+                                         PUT    /tariffs/:id(.:format)                                                                            tariffs#update
+                                         DELETE /tariffs/:id(.:format)                                                                            tariffs#destroy
+                       reset_bot_project PUT    /projects/:id/reset_bot(.:format)                                                                 projects#reset_bot
                           project_widget GET    /projects/:project_id/widget(.:format)                                                            projects/widget#show
                                          POST   /projects/:project_id/widget(.:format)                                                            projects/widget#create
-                             project_bot GET    /projects/:project_id/bot(.:format)                                                               projects/bot#show
-                                         POST   /projects/:project_id/bot(.:format)                                                               projects/bot#create
+                           project_group GET    /projects/:project_id/group(.:format)                                                             projects/group#show
+                                         POST   /projects/:project_id/group(.:format)                                                             projects/group#create
                           project_visits GET    /projects/:project_id/visits(.:format)                                                            projects/visits#index
                            project_visit GET    /projects/:project_id/visits/:id(.:format)                                                        projects/visits#show
                         project_visitors GET    /projects/:project_id/visitors(.:format)                                                          projects/visitors#index
@@ -22,7 +33,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f736051daf8 /home/danil/code/telik/config/routes.rb:46>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f10d38af3a0 /home/danil/code/telik/config/routes.rb:55>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

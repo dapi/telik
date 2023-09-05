@@ -21,7 +21,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    project = current_user.projects.where(host_confirmed_at: nil).where.not(telegram_group_id: nil).take
+    project = current_user
+      .projects
+      .where(host_confirmed_at: nil)
+      .where.not(telegram_group_id: nil)
+      .where(bot_token: nil)
+      .take
     if project.present?
       redirect_to next_step_redirect_url(project)
     else
@@ -34,14 +39,21 @@ class ProjectsController < ApplicationController
   def create
     project = current_user.projects.build permitted_params.merge(owner: current_user)
     project.assign_attributes permitted_params
-
-    project.name ||= project.bot_username = fetch_bot_username(project) if project.bot_token_required? && project.bot_token.present? && project.errors[:bot_token].empty?
     project.save!
     redirect_to next_step_redirect_url(project)
   rescue ActiveRecord::RecordInvalid => e
     render next_step_view(e.record), locals: {
       project: e.record
     }, status: :unprocessable_entity
+  end
+
+  def reset_bot
+    raise :not_authoried unless current_user.super_admin?
+
+    project.custom_bot.delete_webhook if project.bot_token.present?
+    project.update!(bot_id: nil, bot_username: nil, bot_token: nil)
+    flash[:alert] = 'Сбросили бота'
+    redirect_back fallback_location: projects_path
   end
 
   def update
@@ -54,25 +66,15 @@ class ProjectsController < ApplicationController
     }
   end
 
-  private
+  def destroy
+    raise :not_authoried unless current_user.super_admin?
 
-  def fetch_bot_username(project)
-    # {
-    # "ok"=>true,
-    # "result"=>{
-    # "id"=>6177763867,
-    # "is_bot"=>true,
-    # "first_name"=>"LocalNuiChatBot",
-    # "username"=>"LocalNuiChatBot",
-    # "can_join_groups"=>true,
-    # "can_read_all_group_messages"=>false,
-    # "supports_inline_queries"=>false
-    # }
-    # }
-    project.bot(true).get_me.dig('result', 'username')
-  rescue Telegram::Bot::NotFound
-    project.errors.add :bot_token, 'Не действующий токен. Проверьте правильность ввода или создайте новый.'
+    project.destroy!
+    flash[:alert] = 'Проект удалили'
+    redirect_back fallback_location: projects_path
   end
+
+  private
 
   def next_step_redirect_url(project)
     if !project.bot_installed?

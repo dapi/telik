@@ -35,10 +35,8 @@ module Telegram::Actions::MyChatMember
     if users_ids.include? ApplicationConfig.bot_id
       perform_my_chat_member(data)
       # Отлично, пропускаем
-    elsif project = Project.with_bots.find_by_bot_id(current_bot_id)
+    elsif (project = Project.with_bots.find_by_bot_id(current_bot_id))
       perform_my_chat_member(data, project)
-    else
-      # Не про нас ;)
     end
   end
 
@@ -61,18 +59,16 @@ module Telegram::Actions::MyChatMember
         name: chat.fetch('title')
       }
       project ||= Project
-        .create_with(attrs.merge owner: user)
+        .create_with(attrs.merge(owner: user))
         .create_or_find_by!(telegram_group_id: chat.fetch('id'))
 
-      binding.pry
       project.assign_attributes attrs.merge(telegram_group_id: chat.fetch('id'))
-      binding.pry
       project.save! if project.changed?
 
       update_project_bot_member!(project:, chat_member:, user:)
     else
       respond_with :message,
-        text: "Привет!\nГруппа уже есть, мы на пол пути!\nДалее включите в группе 'Темы', чтобы я мог заводить отдельную тему для каждого обращения клиента."
+                   text: "Привет!\nГруппа уже есть, мы на пол пути!\nДалее включите в группе 'Темы', чтобы я мог заводить отдельную тему для каждого обращения клиента."
     end
   end
 end

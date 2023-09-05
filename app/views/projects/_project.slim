@@ -11,8 +11,12 @@ tr id=dom_id(project, :row)
   td
     - if project.bot_installed?
       - if project.widget_installed?
-        = link_to 'Перейти в управление &rarr;'.html_safe, project_path(project)
+        = link_to 'Управление&nbsp;&rarr;'.html_safe, project_path(project)
       - else
           = link_to 'Установить виджет &rarr;'.html_safe, project_path(project)
     - else
-      = link_to 'Настроить бота &rarr;'.html_safe, project_path(project)
+      = link_to 'Настроить группу &rarr;'.html_safe, project_path(project)
+
+    - if Rails.env.development? # || current_user.super_admin?
+      = link_to 'Сбросить бота', reset_bot_project_path(project), data: { turbo_method: :put }, class: 'btn btn-sm btn-outline-danger'
+      = link_to 'Удалить проект', project_path(project), data: { turbo_method: :delete }, class: 'btn btn-sm btn-outline-danger'
