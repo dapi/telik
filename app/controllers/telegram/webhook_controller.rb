@@ -17,6 +17,10 @@ module Telegram
 
     private
 
+    def current_bot_id
+      bot.token.split(':').first
+    end
+
     # Это пример нормальноо ответа от оператора в теме группы
     #
     # {

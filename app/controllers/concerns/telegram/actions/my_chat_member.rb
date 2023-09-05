@@ -30,27 +30,49 @@ module Telegram::Actions::MyChatMember
     # Кого-то другого добавили, не нас
     # TODO Может лучше проверять по ID?
     # TODO По какому боту проект нашли, с таким проектом дальше и работать
-    return unless (Project.with_bots.pluck(:bot_username) + [Telegram.bot.username]).include? data.dig('new_chat_member', 'user', 'username')
+    users_ids = [data.dig('new_chat_member', 'user', 'id'), data.dig('old_chat_member', 'user', 'id')].compact
 
-    chat_member = data.fetch('new_chat_member')
+    if users_ids.include? ApplicationConfig.bot_id
+      perform_my_chat_member(data)
+      # Отлично, пропускаем
+    elsif project = Project.with_bots.find_by_bot_id(current_bot_id)
+      perform_my_chat_member(data, project)
+    else
+      # Не про нас ;)
+    end
+  end
+
+  private
+
+  def perform_my_chat_member(data, project = nil)
     user = User
       .create_with(telegram_data: from)
       .create_or_find_by!(telegram_user_id: from.fetch('id'))
 
+    chat_member = data.fetch('new_chat_member')
+
     if %w[kicked left].include? data.dig('new_chat_member', 'status')
       chat_project&.update_bot_member!(chat_member:, chat:)
     elsif chat.fetch('type') == 'supergroup'
-      project = Project
-        .create_with(owner: user,
-                     chat_member_updated_at: Time.zone.now,
-                     chat_member:,
-                     telegram_group_name: chat.fetch('title'),
-                     name: chat.fetch('title'))
+      attrs = {
+        chat_member_updated_at: Time.zone.now,
+        chat_member:,
+        telegram_group_name: chat.fetch('title'),
+        name: chat.fetch('title')
+      }
+      project ||= Project
+        .create_with(attrs.merge owner: user)
         .create_or_find_by!(telegram_group_id: chat.fetch('id'))
+
+      binding.pry
+      project.assign_attributes attrs.merge(telegram_group_id: chat.fetch('id'))
+      binding.pry
+      project.save! if project.changed?
 
       update_project_bot_member!(project:, chat_member:, user:)
     else
-      respond_with :message, text: "Привет!\nГруппа уже есть, мы на пол пути!\nДалее включите в группе 'Темы', чтобы я мог заводить отдельную тему для каждого обращения клиента."
+      respond_with :message,
+        text: "Привет!\nГруппа уже есть, мы на пол пути!\nДалее включите в группе 'Темы', чтобы я мог заводить отдельную тему для каждого обращения клиента."
     end
   end
 end

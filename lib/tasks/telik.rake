@@ -15,12 +15,12 @@ namespace :telik do
               'TELIK_BOT_TOKEN' => project.bot_token,
               'TELIK_BOT_USERNAME' => project.bot_username
             },
-            'rake telegram:bol:poller'
+            'rake telegram:bot:poller'
           )
         end
 
       threads << Thread.new do
-        system 'rake telegram:bol:poller'
+        system 'rake telegram:bot:poller'
       end
       threads.each(&:join)
     end

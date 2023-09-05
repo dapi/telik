@@ -9,6 +9,9 @@ module ProjectBot
 
   included do
     scope :with_bots, -> { where.not bot_token: nil }
+    before_create do
+      self.bot_id = bot_token.present? ? fetch_bot_id : ApplicationConfig.bot_id
+    end
   end
 
   def bot_token_required?
@@ -20,7 +23,7 @@ module ProjectBot
     super value
   end
 
-  def bot_id
+  def fetch_bot_id
     bot_token.to_s.split(':').first
   end
 
