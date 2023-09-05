@@ -1,0 +1,33 @@
+h1.display-5.my-5.text-center Как это работает?
+
+.row
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 1. 
+      | Добавляете виджет на сайт
+    p.lead 
+      | Вставляете код виджета на все страницы сайта перед закрывающим тэгом 
+      code= '</html>'
+    pre.my-3
+      code.language-html style='font-size: 75%'
+        = html_escape_once render 'widget', project_key: '…', src: '…'
+
+    p.lead
+      | И получаете на сайте в левом нижнем углу такую кнопку:
+    span= image_tag '/images/telegram_logo.svg', size: '36'
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 2. 
+      | Создаёте группу с темами в Telegram
+    p.lead Создаёте группу с темами (супер-группу) и добавляете туда бота.
+    .my-3= image_tag '/images/create_group.jpeg', width: 300
+
+  .col-md-4
+    h2.my-3.fw-normal 
+      span.text-muted 3. 
+      | Получаете сообщения от пользователей
+    p.lead Для каждого пользователя создается своя тема в которой ведётся переписка.
+    .my-3= image_tag '/images/telegram_group.jpeg', width: 300
+      
+.my-5.pb-5
+  = render 'action_button'
