@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def default_tariff_id
-    @default_tariff_id ||= Tariff.where(is_default: true).take.id
+    @default_tariff_id ||= Tariff.where(is_default: true).take.id || raise('No default tariff found')
   end
 
   def setup_checkbox(flag, tooltip: nil)
