@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_191716) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_193441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,10 +19,67 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_191716) do
   create_enum "account_kind", ["negative", "positive", "any"]
   create_enum "currency_type", ["coin", "fiat"]
 
-  create_table "currencies", primary_key: "code", id: { type: :string, limit: 8 }, force: :cascade do |t|
+  create_table "blockchain_currencies", force: :cascade do |t|
+    t.bigint "blockchain_id", null: false
+    t.string "currency_id", null: false
+    t.string "contract_address"
+    t.bigint "gas_limit"
+    t.bigint "parent_id"
+    t.bigint "base_factor", null: false
+    t.jsonb "options"
+    t.decimal "withdraw_fee", precision: 32, scale: 18, default: "0.0", null: false
+    t.decimal "min_deposit_amount", precision: 32, scale: 18, default: "0.0", null: false
+    t.boolean "visible", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blockchain_id"], name: "index_blockchain_currencies_on_blockchain_id"
+    t.index ["currency_id"], name: "index_blockchain_currencies_on_currency_id"
+    t.index ["parent_id"], name: "index_blockchain_currencies_on_parent_id"
+    t.check_constraint "parent_id IS NOT NULL AND contract_address IS NOT NULL OR parent_id IS NULL AND contract_address IS NULL", name: "blockchain_currencies_contract_address"
+  end
+
+  create_table "blockchains", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name"
+    t.bigint "height", null: false
+    t.string "explorer_address"
+    t.string "explorer_transaction"
+    t.string "status", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.boolean "enable_invoice", default: false, null: false
+    t.string "explorer_contract_address"
+    t.string "client", null: false
+    t.jsonb "client_options", default: {}, null: false
+    t.datetime "height_updated_at", precision: nil
+    t.string "client_version"
+    t.string "address_type"
+    t.boolean "disable_collection", default: false, null: false
+    t.boolean "allowance_enabled", default: false, null: false
+    t.integer "chain_id"
+    t.index ["key"], name: "index_blockchains_on_key", unique: true
+  end
+
+  create_table "currencies", id: { type: :string, limit: 8 }, force: :cascade do |t|
     t.enum "type", default: "coin", null: false, enum_type: "currency_type"
     t.decimal "precision", default: "8.0", null: false
     t.integer "base_factor", default: 0, null: false
+    t.decimal "withdraw_limit_24h", precision: 36, scale: 18, default: "0.0", null: false
+    t.jsonb "options"
+    t.boolean "visible", default: true, null: false
+    t.decimal "deposit_fee", precision: 36, scale: 18, default: "0.0", null: false
+    t.string "icon_url"
+    t.decimal "withdraw_limit_72h", precision: 36, scale: 18, default: "0.0", null: false
+    t.decimal "min_collection_amount", precision: 36, scale: 18, default: "0.0", null: false
+    t.decimal "min_withdraw_amount", precision: 36, scale: 18, default: "0.0", null: false
+    t.string "name"
+    t.integer "position"
+    t.boolean "deposit_enabled"
+    t.boolean "withdrawal_enabled"
+    t.text "description"
+    t.string "homepage"
+    t.string "price"
+    t.string "cc_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -96,13 +153,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_191716) do
 
   create_table "user_accounts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "currency_code", limit: 8, null: false
+    t.string "currency_id", limit: 8, null: false
     t.bigint "openbill_account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["currency_code"], name: "index_user_accounts_on_currency_code"
+    t.index ["currency_id"], name: "index_user_accounts_on_currency_id"
     t.index ["openbill_account_id"], name: "index_user_accounts_on_openbill_account_id_uniq", unique: true
-    t.index ["user_id", "currency_code"], name: "index_user_accounts_on_user_id_and_currency_code", unique: true
+    t.index ["user_id", "currency_id"], name: "index_user_accounts_on_user_id_and_currency_id", unique: true
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 
@@ -127,19 +184,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_191716) do
     t.index ["telegram_user_id"], name: "index_users_on_telegram_user_id", unique: true
   end
 
-  add_foreign_key "openbill_accounts", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
+  add_foreign_key "openbill_accounts", "currencies", column: "amount_currency", on_delete: :restrict
   add_foreign_key "openbill_accounts", "openbill_categories", column: "category_id", name: "openbill_accounts_category_id_fkey", on_delete: :restrict
-  add_foreign_key "openbill_holds", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
+  add_foreign_key "openbill_holds", "currencies", column: "amount_currency", on_delete: :restrict
   add_foreign_key "openbill_holds", "openbill_accounts", column: "account_id", name: "openbill_holds_account_id_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_holds", "openbill_holds", column: "hold_key", primary_key: "remote_idempotency_key", name: "openbill_holds_hold_key_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_policies", "openbill_accounts", column: "from_account_id", name: "openbill_policies_from_account_id_fkey"
   add_foreign_key "openbill_policies", "openbill_accounts", column: "to_account_id", name: "openbill_policies_to_account_id_fkey"
   add_foreign_key "openbill_policies", "openbill_categories", column: "from_category_id", name: "openbill_policies_from_category_id_fkey"
   add_foreign_key "openbill_policies", "openbill_categories", column: "to_category_id", name: "openbill_policies_to_category_id_fkey"
-  add_foreign_key "openbill_transactions", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
+  add_foreign_key "openbill_transactions", "currencies", column: "amount_currency", on_delete: :restrict
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "from_account_id", name: "openbill_transactions_from_account_id_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "to_account_id", name: "openbill_transactions_to_account_id_fkey"
   add_foreign_key "openbill_transactions", "openbill_transactions", column: "reverse_transaction_id", name: "reverse_transaction_foreign_key"
-  add_foreign_key "user_accounts", "currencies", column: "currency_code", primary_key: "code", on_delete: :restrict
+  add_foreign_key "user_accounts", "currencies", on_delete: :restrict
   add_foreign_key "user_accounts", "users"
 end

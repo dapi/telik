@@ -32,3 +32,5 @@ rescue StandardError => e
 end
 
 require './db/seeds/openbill.rb'
+Rake::Task['seed:blockchains'].invoke
+Rake::Task['seed:currencies'].invoke
