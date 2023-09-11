@@ -31,4 +31,4 @@ rescue StandardError => e
   raise e
 end
 
-require './db/seeds/tariffs.rb'
+require './db/seeds/openbill.rb'

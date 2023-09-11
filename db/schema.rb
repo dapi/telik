@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_180816) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_191716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "account_kind", ["negative", "positive", "any"]
+  create_enum "currency_type", ["coin", "fiat"]
+
+  create_table "currencies", primary_key: "code", id: { type: :string, limit: 8 }, force: :cascade do |t|
+    t.enum "type", default: "coin", null: false, enum_type: "currency_type"
+    t.decimal "precision", default: "8.0", null: false
+    t.integer "base_factor", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "openbill_accounts", id: { comment: "Account unique id" }, comment: "Account. Has a unique bigint identifier. Has information about the state of the account (balance), currency", force: :cascade do |t|
     t.bigint "category_id", null: false, comment: "Account category id, referenes on table OPENBILL_CATEGORIES. Use for grouping accounts"
@@ -85,7 +94,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_180816) do
     t.check_constraint "to_account_id <> from_account_id", name: "different_accounts"
   end
 
-  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "user_accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "currency_code", limit: 8, null: false
+    t.bigint "openbill_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_code"], name: "index_user_accounts_on_currency_code"
+    t.index ["openbill_account_id"], name: "index_user_accounts_on_openbill_account_id_uniq", unique: true
+    t.index ["user_id", "currency_code"], name: "index_user_accounts_on_user_id_and_currency_code", unique: true
+    t.index ["user_id"], name: "index_user_accounts_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "crypted_password"
     t.string "salt"
@@ -106,14 +127,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_180816) do
     t.index ["telegram_user_id"], name: "index_users_on_telegram_user_id", unique: true
   end
 
+  add_foreign_key "openbill_accounts", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
   add_foreign_key "openbill_accounts", "openbill_categories", column: "category_id", name: "openbill_accounts_category_id_fkey", on_delete: :restrict
+  add_foreign_key "openbill_holds", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
   add_foreign_key "openbill_holds", "openbill_accounts", column: "account_id", name: "openbill_holds_account_id_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_holds", "openbill_holds", column: "hold_key", primary_key: "remote_idempotency_key", name: "openbill_holds_hold_key_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_policies", "openbill_accounts", column: "from_account_id", name: "openbill_policies_from_account_id_fkey"
   add_foreign_key "openbill_policies", "openbill_accounts", column: "to_account_id", name: "openbill_policies_to_account_id_fkey"
   add_foreign_key "openbill_policies", "openbill_categories", column: "from_category_id", name: "openbill_policies_from_category_id_fkey"
   add_foreign_key "openbill_policies", "openbill_categories", column: "to_category_id", name: "openbill_policies_to_category_id_fkey"
+  add_foreign_key "openbill_transactions", "currencies", column: "amount_currency", primary_key: "code", on_delete: :restrict
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "from_account_id", name: "openbill_transactions_from_account_id_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "to_account_id", name: "openbill_transactions_to_account_id_fkey"
   add_foreign_key "openbill_transactions", "openbill_transactions", column: "reverse_transaction_id", name: "reverse_transaction_foreign_key"
+  add_foreign_key "user_accounts", "currencies", column: "currency_code", primary_key: "code", on_delete: :restrict
+  add_foreign_key "user_accounts", "users"
 end
