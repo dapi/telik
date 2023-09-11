@@ -9,13 +9,13 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   #
   # {"message_id"=>40,
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
-  # "chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки telikbot.ru", "is_forum"=>true, "type"=>"supergroup"},
+  # "chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки paprikabot.ru", "is_forum"=>true, "type"=>"supergroup"},
   # "date"=>1683820391,
   # "message_thread_id"=>30,
   # "reply_to_message"=>
   # {"message_id"=>30,
-  # "from"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-  # "chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки telikbot.ru", "is_forum"=>true, "type"=>"supergroup"},
+  # "from"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
+  # "chat"=>{"id"=>-1001854699958, "title"=>"Группа поддержки paprikabot.ru", "is_forum"=>true, "type"=>"supergroup"},
   # "date"=>1683819664,
   # "message_thread_id"=>30,
   # "forum_topic_created"=>{"name"=>"@pismenny по имени Danil из (/)", "icon_color"=>7322096},
@@ -27,13 +27,13 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # {
   # "message_id":45,
   # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
-  # "chat":{"id":-1001854699958,"title":"Группа поддержки telikbot.ru","is_forum":true,"type":"supergroup"},
+  # "chat":{"id":-1001854699958,"title":"Группа поддержки paprikabot.ru","is_forum":true,"type":"supergroup"},
   # "date":1683820590,
   # "message_thread_id":30,
   # "reply_to_message":{
   # "message_id":30,
-  # "from":{"id":5950953118,"is_bot":true,"first_name":"telik_dev_operator_bot","username":"telik_dev_operator_bot"},
-  # "chat":{"id":-1001854699958,"title":"Группа поддержки telikbot.ru","is_forum":true,"type":"supergroup"},
+  # "from":{"id":5950953118,"is_bot":true,"first_name":"paprika_dev_operator_bot","username":"paprika_dev_operator_bot"},
+  # "chat":{"id":-1001854699958,"title":"Группа поддержки paprikabot.ru","is_forum":true,"type":"supergroup"},
   # "date":1683819664,
   # "message_thread_id":30,
   # "forum_topic_created":{"name":"@pismenny по имени Danil из (/)","icon_color":7322096},
@@ -89,13 +89,13 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "left_chat_participant":{
   # "id":6189190373,
   # "is_bot":true,
-  # "first_name":"Telik Chat Bot",
-  # "username":"telik_chat_bot"
+  # "first_name":"Paprika Chat Bot",
+  # "username":"paprika_chat_bot"
   # },"left_chat_member":{
   # "id":6189190373,
   # "is_bot":true,
-  # "first_name":"Telik Chat Bot",
-  # "username":"telik_chat_bot"
+  # "first_name":"Paprika Chat Bot",
+  # "username":"paprika_chat_bot"
   # }}
 
   # Также приходит когда добавляют участника
@@ -103,9 +103,9 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
   # "chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>true},
   # "date"=>1683966286,
-  # "new_chat_participant"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-  # "new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
-  # "new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}]}
+  # "new_chat_participant"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
+  # "new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
+  # "new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"}]}
 
   # Сообщение от клиента
   # {"message_id"=>17,
@@ -173,11 +173,11 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "from":{"id":943084337,"is_bot":false,"first_name":"Danil","last_name":"Pismenny","username":"pismenny","language_code":"en"},
   # "date":1683831867,
   # "old_chat_member":{
-  # "user":{"id":5950953118,"is_bot":true,"first_name":"telik_dev_operator_bot","username":"telik_dev_operator_bot"},
+  # "user":{"id":5950953118,"is_bot":true,"first_name":"paprika_dev_operator_bot","username":"paprika_dev_operator_bot"},
   # "status":"member"
   # },
   # "new_chat_member":{
-  # "user":{"id":5950953118,"is_bot":true,"first_name":"telik_dev_operator_bot","username":"telik_dev_operator_bot"},
+  # "user":{"id":5950953118,"is_bot":true,"first_name":"paprika_dev_operator_bot","username":"paprika_dev_operator_bot"},
   # "status":"administrator",
   # "can_be_edited":false,
   # "can_manage_chat":true,
@@ -214,8 +214,8 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "user":{
   # "id":5950953118,
   # "is_bot":true,
-  # "first_name":"telik_dev_operator_bot",
-  # "username":"telik_dev_operator_bot"
+  # "first_name":"paprika_dev_operator_bot",
+  # "username":"paprika_dev_operator_bot"
   # },
   # "status":"administrator",
   # "can_be_edited":false,
@@ -235,8 +235,8 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "user":{
   # "id":5950953118,
   # "is_bot":true,
-  # "first_name":"telik_dev_operator_bot",
-  # "username":"telik_dev_operator_bot"
+  # "first_name":"paprika_dev_operator_bot",
+  # "username":"paprika_dev_operator_bot"
   # },
   # "status":"member"
   # }}
@@ -246,7 +246,7 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
   # "date"=>1683964878,
   # "old_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
   # "status"=>"administrator",
   # "can_be_edited"=>false,
   # "can_manage_chat"=>true,
@@ -261,7 +261,7 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "is_anonymous"=>true,
   # "can_manage_voice_chats"=>true},
   # "new_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
   # "status"=>"restricted",
   # "until_date"=>0,
   # "can_send_messages"=>true,
@@ -287,7 +287,7 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
   # "date"=>1683965960,
   # "old_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"},
   # "status"=>"restricted",
   # "until_date"=>0,
   # "can_send_messages"=>true,
@@ -307,16 +307,16 @@ class TelegramWebhookControllerTest < ActionDispatch::IntegrationTest
   # "can_manage_topics"=>false,
   # "is_member"=>true},
   # "new_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"}}
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"}, "status"=>"left"}}
 
   # Добавили в обычную группу
   # {"chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>false},
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
   # "date"=>1683966286,
   # "old_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"},
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"}, "status"=>"left"},
   # "new_chat_member"=>
-  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"member"}}
+  # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"paprika_dev_operator_bot", "username"=>"paprika_dev_operator_bot"}, "status"=>"member"}}
   test 'my_chat_member' do
     assert true
   end

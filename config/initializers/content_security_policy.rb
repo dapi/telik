@@ -16,7 +16,7 @@
 # policy.object_src  :none
 # policy.script_src  :self, :https, :unsafe_inline, 'oauth.telegram.org'
 ## policy.script_src :self, :unsafe_inline, '*.google-analytics.com', 'player.vimeo.com', '*.cloudflare.com'
-## https://oauth.telegram.org/embed/telik_dev_operator_bot?origin=http%3A%2F%2F127.0.0.1%3A3000&return_to=http%3A%2F%2F127.0.0.1%3A3000%2F&size=large&request_access=write
+## https://oauth.telegram.org/embed/paprika_dev_operator_bot?origin=http%3A%2F%2F127.0.0.1%3A3000&return_to=http%3A%2F%2F127.0.0.1%3A3000%2F&size=large&request_access=write
 # policy.style_src   :self, :https, :unsafe_inline, 'oauth.telegram.org'
 ## policy.frame_src   :self, :https, :unsafe_inline, 'oauth.telegram.org'
 # policy.frame_src   :self, :unsafe_inline, 'oauth.telegram.org'

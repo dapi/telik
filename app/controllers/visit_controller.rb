@@ -6,7 +6,7 @@
 # Публичный контроллер.
 #
 class VisitController < ApplicationController
-  COOKIE_KEY = :telik_visitor_id
+  COOKIE_KEY = :paprika_visitor_id
   MAX_DATA_LENGTH = 256
 
   before_action :cookie_id

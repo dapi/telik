@@ -20,7 +20,7 @@ module ApplicationCable
 
     def find_verified_user
       # Alternative:
-      # cookies.encrypted['_telik_session']['user_id']
+      # cookies.encrypted['_paprika_session']['user_id']
       user_id = env['rack.session'][:user_id]
       verified_user = User.find_by(id: user_id)
       return verified_user if verified_user

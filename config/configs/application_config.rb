@@ -5,9 +5,9 @@
 # Base class for application config classes
 class ApplicationConfig < Anyway::Config
   TELEGRAM_LINK_PREFIX = 'https://t.me/'
-  env_prefix :telik
+  env_prefix :paprika
   attr_config(
-    app_title: 'TelikBot',
+    app_title: 'PaprikaBot',
     host: 'localhost',
     protocol: 'http',
     bot_token: '',
