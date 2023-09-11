@@ -2,7 +2,6 @@
 
 # frozen_string_literal: true
 
-require 'custom_telegram_bot_middleware'
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -11,30 +10,12 @@ Rails.application.routes.draw do
 
   telegram_webhook Telegram::WebhookController unless Rails.env.test?
 
-  post 'telegram/custom_webhook/:custom_bot_id',
-       to: CustomTelegramBotMiddleware.new(Telegram::WebhookController),
-       as: :telegram_custom_webhook
-
   get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
-  get 'v', to: 'visit#create'
-  get 'i', to: 'visit#logo'
 
   resources :sessions, only: %i[new create] do
     collection do
       delete :destroy
     end
-  end
-
-  resources :tariffs
-
-  resources :projects do
-    member do
-      put :reset_bot
-    end
-    resource :widget, only: %i[show create], controller: 'projects/widget'
-    resource :group, only: %i[show create], controller: 'projects/group'
-    resources :visits, only: %i[index show], controller: 'projects/visits'
-    resources :visitors, only: %i[index show], controller: 'projects/visitors'
   end
 
   require 'sidekiq/web'

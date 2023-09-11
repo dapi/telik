@@ -2,10 +2,9 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Канал обновлений проектов
-class ProjectsChannel < ApplicationCable::Channel
+class UsersChannel < ApplicationCable::Channel
   def subscribed
-    stream_from 'projects:' + current_user.id.to_s
+    stream_from 'users:' + current_user.id.to_s
   end
 
   def unsubscribed

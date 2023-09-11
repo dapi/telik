@@ -2,8 +2,7 @@
 
 # frozen_string_literal: true
 
-# Контроллер аутентияикации участников проекта
-# TODO: Переименовать в TelegramAuthCallback
+# Контроллер аутентификации через телеграм
 #
 class TelegramAuthCallbackController < ApplicationController
   def self.sign_params(data_params)
@@ -19,15 +18,7 @@ class TelegramAuthCallbackController < ApplicationController
   def create
     login data_params
 
-    url = if current_user.projects.many?
-            projects_url
-          elsif current_user.projects.one?
-            project_url(current_user.projects.take)
-          else
-            root_url
-          end
-
-    redirect_back_or_to url, notice: t('flash.hi', username: current_user)
+    redirect_back_or_to root_url, notice: t('flash.hi', username: current_user)
   end
 
   private
