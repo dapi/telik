@@ -216,6 +216,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
     t.decimal "rate_price", null: false
     t.bigint "rate_source_id"
     t.text "advert_details", null: false
+    t.jsonb "history", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advert_id"], name: "index_trades_on_advert_id"

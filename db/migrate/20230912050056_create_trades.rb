@@ -14,6 +14,7 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.decimal :rate_price, null: false
       t.references :rate_source, foreign_key: true
       t.text :advert_details, null: false
+      t.jsonb :history, null: false, default: []
 
       t.timestamps
     end
