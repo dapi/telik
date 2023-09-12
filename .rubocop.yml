@@ -38,6 +38,7 @@ Layout/LineLength:
 
 Style/Documentation:
   Exclude:
+    - 'app/decorators/*.rb'
     - 'app/helpers/*.rb'
     - 'spec/**/*'
     - 'test/**/*'

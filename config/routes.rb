@@ -12,6 +12,11 @@ Rails.application.routes.draw do
 
   get 'telegram/auth_callback', to: 'telegram_auth_callback#create'
 
+  resources :trades
+  resources :adverts
+  resources :payment_methods
+  resources :payment_method_currencies
+
   resources :sessions, only: %i[new create] do
     collection do
       delete :destroy
