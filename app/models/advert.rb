@@ -16,7 +16,7 @@ class Advert < ApplicationRecord
   has_one :make_currency, through: :make_method_currency, source: :currency
   has_one :take_currency, through: :take_method_currency, source: :currency
 
-  has_many :trades, dependent: :restrict
+  has_many :trades, dependent: :restrict_with_exception
 
   # Предлагаем купить или продать?
   #

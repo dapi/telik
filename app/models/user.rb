@@ -8,7 +8,7 @@ class User < ApplicationRecord
   strip_attributes
   authenticates_with_sorcery!
 
-  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict
+  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict_with_exception
   belongs_to :telegram_user
 
   has_many :memberships, dependent: :delete_all

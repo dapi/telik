@@ -4,7 +4,7 @@
 
 # Тариф ;)
 class Tariff < ApplicationRecord
-  has_many :projects, dependent: :restrict_with_error
+  has_many :projects, dependent: :restrict_with_exception_with_error
 
   scope :ordered, -> { order :position }
   scope :alive, -> { order :archived_at }
