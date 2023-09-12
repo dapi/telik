@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trade: one
+  user: one
+  content: MyText
+  chat_type: 
+
+two:
+  trade: two
+  user: two
+  content: MyText
+  chat_type: 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_123725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "account_kind", ["negative", "positive", "any"]
   create_enum "advert_type", ["buy", "sell"]
+  create_enum "chat_type", ["trade", "taker_arbitr", "maker_arbitr"]
   create_enum "currency_type", ["coin", "fiat"]
   create_enum "rate_type", ["fixed", "relative"]
   create_enum "trade_type", ["proposed", "wait_for_payment", "rejected_by_maker", "rejected_by_taker", "wait_for_delivery", "delivery_confirmed", "canceled"]
@@ -203,6 +204,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
     t.index ["name"], name: "index_rate_sources_on_name", unique: true
   end
 
+  create_table "trade_messages", force: :cascade do |t|
+    t.bigint "trade_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content", null: false
+    t.enum "chat_type", null: false, enum_type: "chat_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trade_id"], name: "index_trade_messages_on_trade_id"
+    t.index ["user_id"], name: "index_trade_messages_on_user_id"
+  end
+
   create_table "trades", force: :cascade do |t|
     t.bigint "advert_id", null: false
     t.bigint "taker_id", null: false
@@ -217,6 +229,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
     t.bigint "rate_source_id"
     t.text "advert_details", null: false
     t.jsonb "history", default: [], null: false
+    t.datetime "accepted_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advert_id"], name: "index_trades_on_advert_id"
@@ -278,6 +291,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
   add_foreign_key "openbill_transactions", "openbill_transactions", column: "reverse_transaction_id", name: "reverse_transaction_foreign_key"
   add_foreign_key "payment_method_currencies", "currencies"
   add_foreign_key "payment_method_currencies", "payment_methods"
+  add_foreign_key "trade_messages", "trades"
+  add_foreign_key "trade_messages", "users"
   add_foreign_key "trades", "adverts"
   add_foreign_key "trades", "currencies", column: "buy_currency_id"
   add_foreign_key "trades", "currencies", column: "sell_currency_id"
