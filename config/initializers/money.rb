@@ -1,3 +1,5 @@
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
 
 # Copyright (c) 2019 Danil Pismenny <danil@brandymint.ru>
@@ -84,4 +86,3 @@ Money.locale_backend = :i18n
 Money.default_currency = :RUB
 Money.default_bank = nil
 Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
-

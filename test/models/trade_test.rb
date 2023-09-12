@@ -4,7 +4,8 @@
 
 require 'test_helper'
 
-class TradeMessageTest < ActiveSupport::TestCase
+class TradeTest < ActiveSupport::TestCase
+  fixtures :trades
   # test "the truth" do
   #   assert true
   # end

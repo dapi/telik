@@ -1,7 +1,6 @@
 require:
   - rubocop-rails
   - rubocop-capybara
-  - rubocop-rspec 
 
 Rails/I18nLocaleTexts:
   Enabled: false

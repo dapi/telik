@@ -2,8 +2,6 @@
 
 one:
   user: one
-  project: yandex
 
 two:
   user: two
-  project: dzen

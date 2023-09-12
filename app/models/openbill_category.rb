@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 class OpenbillCategory < OpenbillRecord
   has_many :accounts, class_name: 'OpenbillAccount', foreign_key: :category_id
 

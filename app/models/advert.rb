@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 class Advert < ApplicationRecord
   belongs_to :user
   belongs_to :sell_method_currency, class_name: 'PaymentMethod'

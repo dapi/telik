@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 class Trade < ApplicationRecord
   belongs_to :advert
   belongs_to :taker, class_name: 'User'
@@ -7,6 +11,6 @@ class Trade < ApplicationRecord
   include TradeStateMachine
 
   before_save do
-    self.history = history_was << {at: Time.zone.now, changes: }
+    self.history = history_was << { at: Time.zone.now, changes: }
   end
 end

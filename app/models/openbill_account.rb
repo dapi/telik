@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 class OpenbillAccount < OpenbillRecord
   belongs_to :category, class_name: 'OpenbillCategory'
   belongs_to :reference, polymorphic: true

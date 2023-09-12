@@ -7,7 +7,7 @@ module Telegram
     # Команда /start
     #
     module Start
-      def start!(visit_key = nil, *_args)
+      def start!(_visit_key = nil, *_args)
         respond_with :message, text: 'Поехали'
       end
     end

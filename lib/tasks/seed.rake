@@ -1,5 +1,7 @@
-# encoding: UTF-8
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
 # frozen_string_literal: true
+
 require 'yaml'
 
 namespace :seed do
@@ -22,6 +24,7 @@ namespace :seed do
     Blockchain.transaction do
       YAML.load_file(Rails.root.join('config/seed/blockchains.yml')).each do |hash|
         next if Blockchain.exists?(key: hash.fetch('key'))
+
         Blockchain.create!(hash)
       end
     end

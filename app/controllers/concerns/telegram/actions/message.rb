@@ -15,7 +15,7 @@ module Telegram
       # "date":1693040081,
       # "new_chat_title":"Группа поддержи моего проекта"
       # }
-      def message(data)
+      def message(_data)
         respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла'
       end
     end
