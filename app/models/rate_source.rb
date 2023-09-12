@@ -1,0 +1,2 @@
+class RateSource < ApplicationRecord
+end

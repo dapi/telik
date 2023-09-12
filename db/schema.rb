@@ -10,14 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_193441) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_201635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "account_kind", ["negative", "positive", "any"]
+  create_enum "advert_type", ["buy", "sell"]
   create_enum "currency_type", ["coin", "fiat"]
+  create_enum "rate_type", ["fixed", "relative"]
+
+  create_table "adverts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "sale_method_currency_id", null: false
+    t.bigint "buy_method_currency_id", null: false
+    t.enum "advert_type", null: false, enum_type: "advert_type"
+    t.decimal "min_amount", null: false
+    t.decimal "max_amount", null: false
+    t.enum "rate_type", null: false, enum_type: "rate_type"
+    t.decimal "rate_percent"
+    t.decimal "rate_price"
+    t.bigint "rate_source_id", null: false
+    t.datetime "archived_at", precision: nil
+    t.text "details", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buy_method_currency_id"], name: "index_adverts_on_buy_method_currency_id"
+    t.index ["rate_source_id"], name: "index_adverts_on_rate_source_id"
+    t.index ["sale_method_currency_id"], name: "index_adverts_on_sale_method_currency_id"
+    t.index ["user_id"], name: "index_adverts_on_user_id"
+    t.check_constraint "rate_type = 'relative'::rate_type AND rate_percent IS NOT NULL AND rate_source_id IS NOT NULL OR rate_type = 'fixed'::rate_type AND rate_price IS NOT NULL"
+  end
 
   create_table "blockchain_currencies", force: :cascade do |t|
     t.bigint "blockchain_id", null: false
@@ -151,6 +175,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_193441) do
     t.check_constraint "to_account_id <> from_account_id", name: "different_accounts"
   end
 
+  create_table "payment_method_currencies", force: :cascade do |t|
+    t.bigint "payment_method_id", null: false
+    t.string "currency_id", limit: 8, null: false
+    t.boolean "available_in", default: false, null: false
+    t.boolean "available_out", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_id"], name: "index_payment_method_currencies_on_currency_id"
+    t.index ["payment_method_id"], name: "index_payment_method_currencies_on_payment_method_id"
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "available_in", default: false, null: false
+    t.boolean "available_out", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_payment_methods_on_name", unique: true
+  end
+
+  create_table "rate_sources", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_rate_sources_on_name", unique: true
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "currency_id", limit: 8, null: false
@@ -184,6 +235,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_193441) do
     t.index ["telegram_user_id"], name: "index_users_on_telegram_user_id", unique: true
   end
 
+  add_foreign_key "adverts", "payment_method_currencies", column: "buy_method_currency_id"
+  add_foreign_key "adverts", "payment_method_currencies", column: "sale_method_currency_id"
+  add_foreign_key "adverts", "rate_sources"
+  add_foreign_key "adverts", "users"
   add_foreign_key "openbill_accounts", "currencies", column: "amount_currency", on_delete: :restrict
   add_foreign_key "openbill_accounts", "openbill_categories", column: "category_id", name: "openbill_accounts_category_id_fkey", on_delete: :restrict
   add_foreign_key "openbill_holds", "currencies", column: "amount_currency", on_delete: :restrict
@@ -197,6 +252,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_193441) do
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "from_account_id", name: "openbill_transactions_from_account_id_fkey", on_update: :restrict, on_delete: :restrict
   add_foreign_key "openbill_transactions", "openbill_accounts", column: "to_account_id", name: "openbill_transactions_to_account_id_fkey"
   add_foreign_key "openbill_transactions", "openbill_transactions", column: "reverse_transaction_id", name: "reverse_transaction_foreign_key"
+  add_foreign_key "payment_method_currencies", "currencies"
+  add_foreign_key "payment_method_currencies", "payment_methods"
   add_foreign_key "user_accounts", "currencies", on_delete: :restrict
   add_foreign_key "user_accounts", "users"
 end
