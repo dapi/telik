@@ -79,11 +79,9 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.0'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', '~> 2.23'
 end
 
 group :development do
@@ -105,7 +103,6 @@ group :development do
   gem 'guard-ctags-bundler'
   gem 'guard-minitest'
   gem 'guard-rails'
-  gem 'guard-rspec', '~> 4.7'
 
   gem 'capistrano', require: false
   gem 'capistrano3-puma', github: 'seuros/capistrano-puma', require: false

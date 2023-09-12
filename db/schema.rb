@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_201635) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_050056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_201635) do
   create_enum "advert_type", ["buy", "sell"]
   create_enum "currency_type", ["coin", "fiat"]
   create_enum "rate_type", ["fixed", "relative"]
+  create_enum "trade_type", ["proposed", "wait_for_payment", "rejected_by_maker", "rejected_by_taker", "wait_for_delivery", "delivery_confirmed", "canceled"]
 
   create_table "adverts", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -202,6 +203,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_201635) do
     t.index ["name"], name: "index_rate_sources_on_name", unique: true
   end
 
+  create_table "trades", force: :cascade do |t|
+    t.bigint "advert_id", null: false
+    t.bigint "taker_id", null: false
+    t.enum "state", default: "proposed", null: false, enum_type: "trade_type"
+    t.decimal "sell_amount"
+    t.string "sell_currency_id", limit: 8, null: false
+    t.decimal "buy_amount"
+    t.string "buy_currency_id", limit: 8, null: false
+    t.enum "rate_type", null: false, enum_type: "rate_type"
+    t.decimal "rate_percent"
+    t.decimal "rate_price", null: false
+    t.bigint "rate_source_id"
+    t.text "advert_details", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advert_id"], name: "index_trades_on_advert_id"
+    t.index ["buy_currency_id"], name: "index_trades_on_buy_currency_id"
+    t.index ["rate_source_id"], name: "index_trades_on_rate_source_id"
+    t.index ["sell_currency_id"], name: "index_trades_on_sell_currency_id"
+    t.index ["taker_id"], name: "index_trades_on_taker_id"
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "currency_id", limit: 8, null: false
@@ -254,6 +277,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_201635) do
   add_foreign_key "openbill_transactions", "openbill_transactions", column: "reverse_transaction_id", name: "reverse_transaction_foreign_key"
   add_foreign_key "payment_method_currencies", "currencies"
   add_foreign_key "payment_method_currencies", "payment_methods"
+  add_foreign_key "trades", "adverts"
+  add_foreign_key "trades", "currencies", column: "buy_currency_id"
+  add_foreign_key "trades", "currencies", column: "sell_currency_id"
+  add_foreign_key "trades", "rate_sources"
+  add_foreign_key "trades", "users", column: "taker_id"
   add_foreign_key "user_accounts", "currencies", on_delete: :restrict
   add_foreign_key "user_accounts", "users"
 end
