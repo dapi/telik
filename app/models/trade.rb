@@ -2,6 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Сделка по предложению
 class Trade < ApplicationRecord
   belongs_to :advert
   belongs_to :taker, class_name: 'User'

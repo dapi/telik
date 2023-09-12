@@ -1,0 +1,7 @@
+tinkoff_rub:
+  payment_method: tinkoff
+  currency_id: rub
+
+blockchain_btc:
+  payment_method: blockchain
+  currency_id: btc

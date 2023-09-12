@@ -4,5 +4,9 @@
 
 require 'test_helper'
 
-class VisitorDecoratorTest < Draper::TestCase
+class AdvertTest < ActiveSupport::TestCase
+  fixtures :adverts
+  # test "the truth" do
+  #   assert true
+  # end
 end

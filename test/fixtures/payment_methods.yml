@@ -1,0 +1,9 @@
+tinkoff:
+  name: tinkoff
+  available_out: true
+  available_in: true
+
+blockchain:
+  name: blockchain
+  available_out: true
+  available_in: true

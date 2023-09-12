@@ -4,26 +4,20 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
-  telegram_user_id: 1
+john:
+  telegram_user: john
   telegram_data: >
     {
       "id"=>"1",
-      "username"=>"pismenny",
+      "username"=>"john",
       "auth_date"=>"1683466550",
-      "last_name"=>"Pismenny",
-      "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
-      "first_name"=>"Danil"
     }
 
-two:
-  telegram_user_id: 2
+bob:
+  telegram_user: bob
   telegram_data: >
     {
       "id"=>"2",
-      "username"=>"pismenny",
+      "username"=>"bob",
       "auth_date"=>"1683466550",
-      "last_name"=>"Pismenny",
-      "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
-      "first_name"=>"Danil"
     }

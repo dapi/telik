@@ -2,9 +2,9 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Холдирование средств на счету
+#
 class OpenbillHold < OpenbillRecord
-  include MetaSupport
-
   belongs_to :account, class_name: 'OpenbillAccount'
 
   scope :ordered, -> { order 'date desc' }

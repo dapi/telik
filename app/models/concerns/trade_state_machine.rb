@@ -2,6 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Конечный автомат для сделки
 module TradeStateMachine
   extend ActiveSupport::Concern
   included do

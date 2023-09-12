@@ -8,6 +8,6 @@ class UserTest < ActiveSupport::TestCase
   fixtures :users
 
   test 'user is persisted' do
-    assert users(:one).persisted?
+    assert users(:bob).persisted?
   end
 end

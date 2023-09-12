@@ -2,6 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Канал для уведомлений по пользователю
 class UsersChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'users:' + current_user.id.to_s

@@ -1,0 +1,3 @@
+binance:
+  name: binance
+  # importer_type: BinanceRateImporter

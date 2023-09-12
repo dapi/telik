@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 module Telegram
+  # Контроллер обрабатывающий запросы с телеги
   class WebhookController < Bot::UpdatesController
     include Commands::Start
     include Actions::Message

@@ -8,12 +8,11 @@ class User < ApplicationRecord
   strip_attributes
   authenticates_with_sorcery!
 
-  has_one :account, class_name: 'OpenbillAccount'
+  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict
+  belongs_to :telegram_user
 
   has_many :memberships, dependent: :delete_all
   has_many :projects, through: :memberships
-
-  validates :telegram_user_id, presence: true
 
   after_create :create_accounts
 

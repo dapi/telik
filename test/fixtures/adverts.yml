@@ -1,0 +1,45 @@
+btc_rub_buy_fluid:
+  maker: bob
+  make_method_currency: bitcoin_btc
+  take_method_currency: tinkoff_rub
+  advert_type: buy
+  min_amount: 0.001
+  max_amount: 1
+  rate_type: fluid
+  rate_source: binance
+  rate_percent: 3
+  details: Перечислю на вашу карту в тиньке
+
+btc_rub_buy_fixed:
+  maker: john
+  take_method_currency: tinkoff_rub
+  make_method_currency: bitcoin_btc
+  advert_type: buy
+  min_amount: 0.001
+  max_amount: 1
+  rate_type: fixed
+  rate_price: 900_000.0
+  details: Перечислю на вашу карту в тиньке
+
+btc_rub_sell_fluid:
+  maker: bob
+  make_method_currency: bitcoin_btc
+  take_method_currency: tinkoff_rub
+  advert_type: sell
+  min_amount: 0.001
+  max_amount: 1
+  rate_type: fluid
+  rate_source: binance
+  rate_percent: 2.1
+  details: Прошу перечислять очень быстро на вот эту карту XXXX-XXXX-XXXX-XXXX
+
+btc_rub_sell_fixed:
+  maker: john
+  take_method_currency: tinkoff_rub
+  make_method_currency: bitcoin_btc
+  advert_type: sell
+  min_amount: 0.001
+  max_amount: 1
+  rate_type: fixed
+  rate_price: 1_000_000.0
+  details: Прошу перечислять очень быстро на вот эту карту XXXX-XXXX-XXXX-XXXX

@@ -4,7 +4,7 @@ class CreateTrades < ActiveRecord::Migration[7.0]
     create_table :trades do |t|
       t.references :advert, null: false, foreign_key: true
       t.references :taker, null: false, foreign_key: { to_table: :users }
-      t.enum :state, enum_type: :trade_type, null: false, default: :proposed
+      t.enum :state, enum_type: :trade_type, null: false
       t.decimal :sell_amount
       t.references :sell_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
       t.decimal :buy_amount

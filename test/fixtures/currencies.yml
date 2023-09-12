@@ -1,0 +1,7 @@
+rub:
+  id: rub
+  type: fiat
+
+btc:
+  id: btc
+  type: coin

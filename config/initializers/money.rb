@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 # Copyright (c) 2019 Danil Pismenny <danil@brandymint.ru>
+# rubocop:disable  Style/Documentation
 class Money
   def base_units
     fractional
@@ -86,3 +87,4 @@ Money.locale_backend = :i18n
 Money.default_currency = :RUB
 Money.default_bank = nil
 Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
+# rubocop:enable  Style/Documentation
