@@ -156,3 +156,5 @@ gem 'kaminari', '~> 1.2'
 
 gem 'money', github: 'finfex/money', branch: 'main'
 gem "money-rails"
+
+gem "state_machines-activerecord", "~> 0.9.0"

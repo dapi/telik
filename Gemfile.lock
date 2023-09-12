@@ -205,7 +205,6 @@ GEM
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    diff-lcs (1.5.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -268,10 +267,6 @@ GEM
     guard-rails (0.8.1)
       guard (~> 2.11)
       guard-compat (~> 1.0)
-    guard-rspec (4.7.3)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
     hashie (5.0.0)
     hiredis (0.6.3)
     httpclient (2.8.3)
@@ -431,27 +426,6 @@ GEM
     request_store (1.5.1)
       rack (>= 1.4)
     rexml (3.2.5)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.6)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-rails (6.0.3)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
-      rspec-core (~> 3.12)
-      rspec-expectations (~> 3.12)
-      rspec-mocks (~> 3.12)
-      rspec-support (~> 3.12)
-    rspec-support (3.12.1)
     rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -466,16 +440,10 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.17.1)
       rubocop (~> 1.41)
-    rubocop-factory_bot (2.23.1)
-      rubocop (~> 1.33)
     rubocop-rails (2.19.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    rubocop-rspec (2.23.2)
-      rubocop (~> 1.33)
-      rubocop-capybara (~> 2.17)
-      rubocop-factory_bot (~> 2.22)
     ruby-next-core (0.15.3)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
@@ -532,6 +500,13 @@ GEM
       net-ssh (>= 2.8.0)
     sshkit-interactive (0.3.0)
       sshkit (~> 1.12)
+    state_machines (0.6.0)
+    state_machines-activemodel (0.9.0)
+      activemodel (>= 6.0)
+      state_machines (>= 0.6.0)
+    state_machines-activerecord (0.9.0)
+      activerecord (>= 6.0)
+      state_machines-activemodel (>= 0.9.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     strip_attributes (1.13.0)
@@ -611,7 +586,6 @@ DEPENDENCIES
   guard-ctags-bundler
   guard-minitest
   guard-rails
-  guard-rspec (~> 4.7)
   hiredis
   importmap-rails
   jbuilder
@@ -629,11 +603,9 @@ DEPENDENCIES
   ransack (~> 4.0)
   redis (~> 4.0)
   request_store
-  rspec-rails (~> 6.0)
   rubocop
   rubocop-capybara
   rubocop-rails
-  rubocop-rspec (~> 2.23)
   russian (~> 0.6.0)
   sassc-rails
   selenium-webdriver
@@ -645,6 +617,7 @@ DEPENDENCIES
   slim-rails
   sorcery (~> 0.16.5)
   sprockets-rails
+  state_machines-activerecord (~> 0.9.0)
   stimulus-rails
   strip_attributes
   telegram-bot!
