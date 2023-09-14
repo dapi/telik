@@ -6,7 +6,10 @@
 module TradeStateMachine
   extend ActiveSupport::Concern
   included do
-    state_machine initial: :parked do
+    state_machine initial: :proposed do
+      event :accept do
+        transition proposed: :wait_for_payment
+      end
       # before_transition :parked => any - :parked, :do => :put_on_seatbelt
       # after_transition any => :parked do |vehicle, transition|
       # vehicle.seatbelt = 'off'

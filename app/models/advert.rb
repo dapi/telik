@@ -5,6 +5,7 @@
 # Собственно объявление на обмен
 #
 class Advert < ApplicationRecord
+  # TODO: Сохранять в историю только изменений определенных полей: disabled_at, disable_reason
   include History
   include Archivation
   include AdvertDisable

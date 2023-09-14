@@ -2,6 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Методы по запрету объявления оператором
+#
 module AdvertDisable
   extend ActiveSupport::Concern
   included do

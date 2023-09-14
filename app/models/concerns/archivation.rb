@@ -2,6 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Архивация
+#
 module Archivation
   extend ActiveSupport::Concern
   included do

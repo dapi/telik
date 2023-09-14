@@ -2,6 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# Добавляет историю к модели
+#
 module History
   extend ActiveSupport::Concern
   included do
