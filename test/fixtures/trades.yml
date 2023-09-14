@@ -1,8 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  advert: btc_rub
-  taker: one
-
-two:
-  taker: two
+btc_rub_buy_fluid:
+  advert: btc_rub_buy_fluid
+  taker: john
+  state: proposed
+  sell_amount: 1
+  sell_currency_id: btc
+  buy_amount: 100_000
+  buy_currency_id: rub
+  comission_currency_id: btc
+  comission_amount: 0.0001
+  rate_type: fixed
+  rate_price: 100_000
+  advert_details: copy details from advert

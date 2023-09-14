@@ -5,8 +5,8 @@
 require 'test_helper'
 
 class AdvertTest < ActiveSupport::TestCase
-  fixtures :adverts
-  # test "the truth" do
-  #   assert true
-  # end
+  fixtures :users, :payment_methods, :payment_method_currencies, :adverts
+  test 'the truth' do
+    assert adverts(:btc_rub_buy_fluid)
+  end
 end

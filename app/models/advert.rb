@@ -5,6 +5,10 @@
 # Собственно объявление на обмен
 #
 class Advert < ApplicationRecord
+  include History
+  include Archivation
+  include AdvertDisable
+
   belongs_to :maker, class_name: 'User'
   # Что предлагаем
   belongs_to :make_method_currency, class_name: 'PaymentMethodCurrency'
@@ -18,10 +22,16 @@ class Advert < ApplicationRecord
 
   has_many :trades, dependent: :restrict_with_exception
 
+  scope :active, -> { alive.enabled }
+
   # Предлагаем купить или продать?
   #
   enum :advert_type, %w[buy sell].each_with_object({}) { |k, a| a[k] = k }
 
   # Тип курса
   enum :rate_type, %w[fixed fluid].each_with_object({}) { |k, a| a[k] = k }
+
+  def active?
+    alive? && enabled?
+  end
 end

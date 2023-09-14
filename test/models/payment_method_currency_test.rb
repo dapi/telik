@@ -8,6 +8,7 @@ class PaymentMethodCurrencyTest < ActiveSupport::TestCase
   fixtures :currencies, :payment_method_currencies
 
   test 'tinkoff_rub' do
+    # ActiveRecord::Base.connection.all_foreign_keys_valid?
     assert payment_method_currencies(:tinkoff_rub)
     assert_equal payment_method_currencies(:tinkoff_rub).currency, currencies(:rub)
   end

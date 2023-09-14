@@ -1,13 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  trade: one
-  user: one
+  trade: btc_rub_buy_fluid
+  user: bob
   content: MyText
-  chat_type: 
+  chat_type: trade
+  author_type: taker
+
 
 two:
-  trade: two
-  user: two
+  trade: btc_rub_buy_fluid
+  user: bob
   content: MyText
-  chat_type: 
+  chat_type: taker_arbitr 
+  author_type: arbitr
+
+two:
+  trade: btc_rub_buy_fluid
+  user: bob
+  content: MyText
+  chat_type: maker_arbitr
+  author_type: maker
