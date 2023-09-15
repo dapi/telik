@@ -18,6 +18,7 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.text :advert_details, null: false
       t.jsonb :history, null: false, default: []
       t.timestamp :accepted_at
+      t.jsonb :advert_dump, null: false, default: {}
 
       t.timestamps
     end

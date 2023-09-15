@@ -13,3 +13,4 @@ btc_rub_buy_fluid:
   rate_type: fixed
   rate_price: 100_000
   advert_details: copy details from advert
+  advert_dump: {}
