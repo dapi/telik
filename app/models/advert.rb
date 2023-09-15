@@ -10,16 +10,17 @@ class Advert < ApplicationRecord
   include Archivation
   include AdvertDisable
 
-  belongs_to :maker, class_name: 'User'
-  # Что предлагаем
-  belongs_to :make_method_currency, class_name: 'PaymentMethodCurrency'
+  belongs_to :trader, class_name: 'User'
+  # Что покупаем/продаем (чем торгуем)
+  belongs_to :good_method_currency, class_name: 'PaymentMethodCurrency'
 
-  # Что забираем
-  belongs_to :take_method_currency, class_name: 'PaymentMethodCurrency'
+  # За что покупаем/продаем (валюта оплаты)
+  belongs_to :payment_method_currency, class_name: 'PaymentMethodCurrency'
+
   belongs_to :rate_source, optional: true
 
-  has_one :make_currency, through: :make_method_currency, source: :currency
-  has_one :take_currency, through: :take_method_currency, source: :currency
+  has_one :good_currency, through: :good_method_currency, source: :currency
+  has_one :payment_currency, through: :payment_method_currency, source: :currency
 
   has_many :trades, dependent: :restrict_with_exception
 

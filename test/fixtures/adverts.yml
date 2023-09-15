@@ -1,7 +1,7 @@
 btc_rub_buy_fluid:
   maker: bob
-  make_method_currency: blockchain_btc
-  take_method_currency: tinkoff_rub
+  good_method_currency: blockchain_btc
+  payment_method_currency: tinkoff_rub
   advert_type: buy
   min_amount: 0.001
   max_amount: 1
@@ -12,8 +12,8 @@ btc_rub_buy_fluid:
 
 btc_rub_buy_fixed:
   maker: john
-  take_method_currency: tinkoff_rub
-  make_method_currency: blockchain_btc
+  payment_method_currency: tinkoff_rub
+  good_method_currency: blockchain_btc
   advert_type: buy
   min_amount: 0.001
   max_amount: 1
@@ -23,8 +23,8 @@ btc_rub_buy_fixed:
 
 btc_rub_sell_fluid:
   maker: bob
-  make_method_currency: blockchain_btc
-  take_method_currency: tinkoff_rub
+  good_method_currency: blockchain_btc
+  payment_method_currency: tinkoff_rub
   advert_type: sell
   min_amount: 0.001
   max_amount: 1
@@ -35,8 +35,8 @@ btc_rub_sell_fluid:
 
 btc_rub_sell_fixed:
   maker: john
-  take_method_currency: tinkoff_rub
-  make_method_currency: blockchain_btc
+  payment_method_currency: tinkoff_rub
+  good_method_currency: blockchain_btc
   advert_type: sell
   min_amount: 0.001
   max_amount: 1

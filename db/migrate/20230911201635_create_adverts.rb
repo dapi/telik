@@ -3,9 +3,9 @@ class CreateAdverts < ActiveRecord::Migration[7.0]
     create_enum :advert_type, %i[buy sell]
     create_enum :rate_type, %i[fixed fluid]
     create_table :adverts do |t|
-      t.references :maker, null: false, foreign_key: { to_table: :users }
-      t.references :make_method_currency, null: false, foreign_key: { to_table: :payment_method_currencies }
-      t.references :take_method_currency, null: false, foreign_key: { to_table: :payment_method_currencies }
+      t.references :trader, null: false, foreign_key: { to_table: :users }
+      t.references :good_method_currency, null: false, foreign_key: { to_table: :payment_method_currencies }
+      t.references :payment_method_currency, null: false, foreign_key: { to_table: :payment_method_currencies }
       t.enum :advert_type, null: false, enum_type: :advert_type
       t.decimal :min_amount, null: false
       t.decimal :max_amount, null: false

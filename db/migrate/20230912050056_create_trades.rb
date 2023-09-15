@@ -7,10 +7,10 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.enum :state, enum_type: :trade_type, null: false
       t.decimal :comission_amount, null: false
       t.references :comission_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
-      t.decimal :sell_amount, null: false
-      t.references :sell_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
-      t.decimal :buy_amount, null: false
-      t.references :buy_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
+      t.decimal :good_amount, null: false
+      t.references :good_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
+      t.decimal :payment_amount, null: false
+      t.references :payment_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
       t.enum :rate_type, null: false, enum_type: :rate_type
       t.decimal :rate_percent
       t.decimal :rate_price, null: false

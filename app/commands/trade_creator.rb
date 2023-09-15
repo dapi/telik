@@ -4,14 +4,18 @@
 class TradeCreator
   Error = Class.new StandardError
 
-  def initialize(taker: , advert: )
+  # taker - кто откликается на предложение
+  # offer - собственно предложение
+  # good_amount - сколько покупает/продает
+  def initialize(taker: , offer: , good_amount:)
     @taker = taker || raise 'Taker must be'
-    @advert = advert || raise 'Advert must be'
+    @offer = offer || raise 'Offer must be'
+    @good_amount = good_amount || raise 'Must be'
   end
 
   def perform
-    @advert.with_lock do
-      raise Error, 'Advert must be active' unless @advert.active?
+    offer.advert.with_lock do
+      raise Error, 'Advert must be active' unless offer.advert.active?
 
       Trade.create!(
         advert: @advert,
@@ -21,17 +25,20 @@ class TradeCreator
 
         rate_type: @advert.rate_type,
         rate_percent: @advert.rate_percent,
-
       )
     end
-    sell_amount: 1
-    sell_currency_id: btc
-    buy_amount: 100_000
-    buy_currency_id: rub
+    good_amount: 1
+    good_currency_id: btc
+    payment_amount: 100_000
+    payment_currency_id: rub
     comission_currency_id: btc
     comission_amount: 0.0001
     rate_type: fixed
     rate_price: 100_000
     )
   end
+
+  private
+
+  attr_reader :offer, :taker
 end

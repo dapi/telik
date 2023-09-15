@@ -25,9 +25,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
   create_enum "trade_type", ["proposed", "wait_for_payment", "rejected_by_maker", "rejected_by_taker", "wait_for_delivery", "delivery_confirmed", "canceled"]
 
   create_table "adverts", force: :cascade do |t|
-    t.bigint "maker_id", null: false
-    t.bigint "make_method_currency_id", null: false
-    t.bigint "take_method_currency_id", null: false
+    t.bigint "trader_id", null: false
+    t.bigint "good_method_currency_id", null: false
+    t.bigint "payment_method_currency_id", null: false
     t.enum "advert_type", null: false, enum_type: "advert_type"
     t.decimal "min_amount", null: false
     t.decimal "max_amount", null: false
@@ -42,10 +42,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.datetime "disabled_at", precision: nil
     t.string "disable_reason"
     t.jsonb "history", default: [], null: false
-    t.index ["make_method_currency_id"], name: "index_adverts_on_make_method_currency_id"
-    t.index ["maker_id"], name: "index_adverts_on_maker_id"
+    t.index ["good_method_currency_id"], name: "index_adverts_on_good_method_currency_id"
+    t.index ["payment_method_currency_id"], name: "index_adverts_on_payment_method_currency_id"
     t.index ["rate_source_id"], name: "index_adverts_on_rate_source_id"
-    t.index ["take_method_currency_id"], name: "index_adverts_on_take_method_currency_id"
+    t.index ["trader_id"], name: "index_adverts_on_trader_id"
     t.check_constraint "rate_type = 'fluid'::rate_type AND rate_percent IS NOT NULL AND rate_source_id IS NOT NULL OR rate_type = 'fixed'::rate_type AND rate_price IS NOT NULL"
   end
 
@@ -235,10 +235,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.enum "state", null: false, enum_type: "trade_type"
     t.decimal "comission_amount", null: false
     t.string "comission_currency_id", limit: 8, null: false
-    t.decimal "sell_amount", null: false
-    t.string "sell_currency_id", limit: 8, null: false
-    t.decimal "buy_amount", null: false
-    t.string "buy_currency_id", limit: 8, null: false
+    t.decimal "good_amount", null: false
+    t.string "good_currency_id", limit: 8, null: false
+    t.decimal "payment_amount", null: false
+    t.string "payment_currency_id", limit: 8, null: false
     t.enum "rate_type", null: false, enum_type: "rate_type"
     t.decimal "rate_percent"
     t.decimal "rate_price", null: false
@@ -246,13 +246,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.text "advert_details", null: false
     t.jsonb "history", default: [], null: false
     t.datetime "accepted_at", precision: nil
+    t.jsonb "advert_dump", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advert_id"], name: "index_trades_on_advert_id"
-    t.index ["buy_currency_id"], name: "index_trades_on_buy_currency_id"
     t.index ["comission_currency_id"], name: "index_trades_on_comission_currency_id"
+    t.index ["good_currency_id"], name: "index_trades_on_good_currency_id"
+    t.index ["payment_currency_id"], name: "index_trades_on_payment_currency_id"
     t.index ["rate_source_id"], name: "index_trades_on_rate_source_id"
-    t.index ["sell_currency_id"], name: "index_trades_on_sell_currency_id"
     t.index ["taker_id"], name: "index_trades_on_taker_id"
   end
 
@@ -289,10 +290,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.index ["telegram_user_id"], name: "index_users_on_telegram_user_id"
   end
 
-  add_foreign_key "adverts", "payment_method_currencies", column: "make_method_currency_id"
-  add_foreign_key "adverts", "payment_method_currencies", column: "take_method_currency_id"
+  add_foreign_key "adverts", "payment_method_currencies"
+  add_foreign_key "adverts", "payment_method_currencies", column: "good_method_currency_id"
   add_foreign_key "adverts", "rate_sources"
-  add_foreign_key "adverts", "users", column: "maker_id"
+  add_foreign_key "adverts", "users", column: "trader_id"
   add_foreign_key "openbill_accounts", "currencies", column: "amount_currency", on_delete: :restrict
   add_foreign_key "openbill_accounts", "openbill_categories", column: "category_id", name: "openbill_accounts_category_id_fkey", on_delete: :restrict
   add_foreign_key "openbill_holds", "currencies", column: "amount_currency", on_delete: :restrict
@@ -311,9 +312,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
   add_foreign_key "trade_messages", "trades"
   add_foreign_key "trade_messages", "users"
   add_foreign_key "trades", "adverts"
-  add_foreign_key "trades", "currencies", column: "buy_currency_id"
   add_foreign_key "trades", "currencies", column: "comission_currency_id"
-  add_foreign_key "trades", "currencies", column: "sell_currency_id"
+  add_foreign_key "trades", "currencies", column: "good_currency_id"
+  add_foreign_key "trades", "currencies", column: "payment_currency_id"
   add_foreign_key "trades", "rate_sources"
   add_foreign_key "trades", "users", column: "taker_id"
   add_foreign_key "user_accounts", "currencies", on_delete: :restrict
