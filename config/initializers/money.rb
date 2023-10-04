@@ -36,7 +36,7 @@ class Money
       end
 
       def new(id)
-        id = id.to_s.downcase
+        id = id.to_s.upcase
         RequestStore.store['money_currency_' + id] ||= super(id).freeze
       end
     end

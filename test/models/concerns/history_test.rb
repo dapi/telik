@@ -4,7 +4,7 @@
 
 require 'test_helper'
 
-class HitsotyTest < ActiveSupport::TestCase
+class HistoryTest < ActiveSupport::TestCase
   fixtures :trades
   setup do
     @trade = trades(:btc_rub_buy_fluid)

@@ -25,8 +25,10 @@ class Currency < ApplicationRecord
 
   # Округляем до разумных пределов чтобы не зарываться в копейках
   def operational_round(amount)
+    amount
+    # TODO: Округлять до нужных цифр
     # Не уверен что тут должен быть именно precision
-    amount.round precision
+    # amount.round precision.to_i
   end
 
   def token_name
@@ -40,7 +42,11 @@ class Currency < ApplicationRecord
   end
 
   def to_money(decimal)
-    Money.new(decimal * base_factor)
+    Money.new(decimal * base_factor, id)
+  end
+
+  def iso_code
+    id.to_sym
   end
 
   # subunit (or fractional monetary unit) - a monetary unit

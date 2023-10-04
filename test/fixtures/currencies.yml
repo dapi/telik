@@ -1,7 +1,14 @@
-rub:
-  id: rub
+usd:
+  id: USD
   type: fiat
+  base_factor: 100
+
+rub:
+  id: RUB
+  type: fiat
+  base_factor: 100
 
 btc:
-  id: btc
+  id: BTC
   type: coin
+  base_factor: 100000000

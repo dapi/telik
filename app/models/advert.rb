@@ -48,9 +48,13 @@ class Advert < ApplicationRecord
   end
 
   def rate_price
-    @rate_price ||= fixed? ? custom_rate_price : RatePriceCalculator.
-      new(advert_type: advert_type, rate_percent: rate_percent, rate_source: rate_source).
-      rate_price ||
-      raise('Must be')
+    @rate_price ||= if fixed?
+                      custom_rate_price
+                    else
+                      RatePriceCalculator
+                        .new(advert_type:, rate_percent:, rate_source:)
+                        .rate_price ||
+                        raise('Must be')
+                    end
   end
 end

@@ -93,8 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
 
   create_table "currencies", id: { type: :string, limit: 8 }, force: :cascade do |t|
     t.enum "type", default: "coin", null: false, enum_type: "currency_type"
-    t.decimal "precision", default: "8.0", null: false
-    t.integer "base_factor", default: 0, null: false
+    t.integer "precision", default: 8, null: false
+    t.integer "base_factor", default: 100, null: false
     t.decimal "withdraw_limit_24h", precision: 36, scale: 18, default: "0.0", null: false
     t.jsonb "options"
     t.boolean "visible", default: true, null: false
@@ -110,7 +110,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.text "description"
     t.string "homepage"
     t.string "price"
-    t.string "cc_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

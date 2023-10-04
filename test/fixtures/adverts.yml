@@ -4,7 +4,7 @@ btc_rub_buy_fluid:
   payment_method_currency: tinkoff_rub
   advert_type: buy
   min_amount: 0.001
-  max_amount: 1
+  max_amount: 10
   rate_type: fluid
   rate_source: binance
   rate_percent: 3
@@ -16,9 +16,9 @@ btc_rub_buy_fixed:
   good_method_currency: blockchain_btc
   advert_type: buy
   min_amount: 0.001
-  max_amount: 1
+  max_amount: 10
   rate_type: fixed
-  rate_price: 900_000.0
+  custom_rate_price: 900_000.0
   details: Перечислю на вашу карту в тиньке
 
 btc_rub_sell_fluid:
@@ -27,7 +27,7 @@ btc_rub_sell_fluid:
   payment_method_currency: tinkoff_rub
   advert_type: sell
   min_amount: 0.001
-  max_amount: 1
+  max_amount: 10
   rate_type: fluid
   rate_source: binance
   rate_percent: 2.1
@@ -39,7 +39,7 @@ btc_rub_sell_fixed:
   good_method_currency: blockchain_btc
   advert_type: sell
   min_amount: 0.001
-  max_amount: 1
+  max_amount: 10
   rate_type: fixed
-  rate_price: 1_000_000.0
+  custom_rate_price: 1_000_000.0
   details: Прошу перечислять очень быстро на вот эту карту XXXX-XXXX-XXXX-XXXX

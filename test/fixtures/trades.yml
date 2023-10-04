@@ -1,16 +1,33 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+btc_rub_buy_fixed:
+  advert: btc_rub_buy_fixed
+  taker: bob
+  state: proposed
+  good_amount: 1
+  good_currency_id: BTC
+  total_transfer_amount: 100_000
+  client_transfer_amount: 99_999
+  transfer_currency_id: RUB
+  comission_amount: 1
+  comission_percent: 1.0
+  rate_type: fixed
+  rate_price: 100_000
+  advert_details: copy details from advert
+  advert_dump: {}
+
 btc_rub_buy_fluid:
   advert: btc_rub_buy_fluid
   taker: john
   state: proposed
   good_amount: 1
-  good_currency_id: btc
-  payment_amount: 100_000
-  payment_currency_id: rub
-  comission_currency_id: btc
-  comission_amount: 0.0001
-  rate_type: fixed
+  good_currency_id: BTC
+  total_transfer_amount: 100_000
+  client_transfer_amount: 99_999
+  transfer_currency_id: RUB
+  comission_amount: 1
+  comission_percent: 1.0
+  rate_type: fluid
   rate_price: 100_000
   advert_details: copy details from advert
   advert_dump: {}

@@ -3,8 +3,8 @@ class CreateCurrencies < ActiveRecord::Migration[7.0]
     create_enum "currency_type", ["coin", "fiat"]
     create_table :currencies, id: :string do |t|
       t.enum :type, null: false, default: :coin, enum_type: :currency_type
-      t.decimal :precision, null: false, default: 8
-      t.integer :base_factor, null: false, default: 0
+      t.integer :precision, null: false, default: 8
+      t.integer :base_factor, null: false, default: 100
       t.decimal :withdraw_limit_24h, null: false, default: 0, precision: 36, scale: 18
       t.jsonb :options
       t.boolean :visible, null: false, default: true
@@ -20,7 +20,6 @@ class CreateCurrencies < ActiveRecord::Migration[7.0]
       t.text :description
       t.string :homepage
       t.string :price
-      t.string :cc_code
 
       t.timestamps
     end

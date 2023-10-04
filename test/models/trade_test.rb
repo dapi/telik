@@ -6,7 +6,7 @@ require 'test_helper'
 
 class TradeTest < ActiveSupport::TestCase
   fixtures :trades
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'the truth' do
+    assert trades(:btc_rub_buy_fixed)
+  end
 end

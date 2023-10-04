@@ -2,6 +2,7 @@
   name:                   US Dollar
   type:                   fiat
   precision:              2
+  base_factor: 100
   visible:                true
   deposit_enabled:        true
   withdrawal_enabled:     true
@@ -14,6 +15,7 @@
 
 - id:                     btc
   name:                   Bitcoin
+  base_factor: 100000000
   type:                   coin
   visible:                true
   deposit_enabled:        true
@@ -31,6 +33,7 @@
   name:                   Ethereum
   type:                   coin
   visible:                true
+  base_factor: 100000000
   deposit_enabled:        true
   withdrawal_enabled:     true
   # Deposits with less amount are skipped during blockchain synchronization.
@@ -55,6 +58,7 @@
   withdraw_limit_72h:     600
   deposit_fee:            0
   position:               4
+  base_factor: 100000000
   options:
     # Internal price that is paid for running a contract on the Ethereum network.
     gas_price: 1_000_000_000

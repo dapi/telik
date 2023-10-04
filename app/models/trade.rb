@@ -4,6 +4,7 @@
 
 # Сделка по предложению
 class Trade < ApplicationRecord
+  extend Monetizer
   include History
   include TradeStateMachine
 
@@ -19,9 +20,14 @@ class Trade < ApplicationRecord
 
   # Сколько товара мы покупаем/продаем
   #
-  validates :amount, numericality: { greater_than: 0 }
+  validates :good_amount, numericality: { greater_than: 0 }
+
+  monetize :good, value: :good_amount, currency: :good_currency
+  monetize :comission, value: :comission_amount, currency: :transfer_currency
+  monetize :client_transfer, value: :client_transfer_amount, currency: :transfer_currency
+  monetize :total_transfer, value: :total_transfer_amount, currency: :transfer_currency
 
   before_save do
-    raise 'WTF' unless total_transfer_amount = client_transfer_amount + comission_amount
+    raise 'WTF' unless total_transfer_amount == client_transfer_amount + comission_amount
   end
 end

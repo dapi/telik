@@ -32,7 +32,7 @@ begin
           .create_or_find_by!(telegram_user_id: telegram_user_id)
 
 rescue StandardError => e
-  binding.pry
+  binding.pry if Rails.env.development?
   puts e
   Rails.logger.debug e.record.inspect
   raise e
