@@ -8,7 +8,7 @@ class User < ApplicationRecord
   strip_attributes
   authenticates_with_sorcery!
 
-  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict_with_exception
+  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict_with_exception, as: :reference
   belongs_to :telegram_user
 
   has_many :memberships, dependent: :delete_all
@@ -21,7 +21,7 @@ class User < ApplicationRecord
   end
 
   def create_accounts
-    update! account: OpenbillAccount.create!(category: OpenbillCategory.user)
+    update! account: OpenbillAccount.create!(reference: self, category: OpenbillCategory.user)
   end
 
   def self.authenticate(telegram_data)

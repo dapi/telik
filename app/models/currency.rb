@@ -9,6 +9,10 @@ class Currency < ApplicationRecord
   self.inheritance_column = nil
   attr_readonly :id, :type
 
+  before_create do
+    raise "ID must be upcased (#{id})" unless id == id.upcase
+  end
+
   enum :type, %w[coin fiat].each_with_object({}) { |k, a| a[k] = k }
 
   # Allows to dynamically check value of id/code:
@@ -17,6 +21,12 @@ class Currency < ApplicationRecord
   #   code.eth? # true if code equals to "eth".
   def id
     super&.inquiry
+  end
+
+  # Округляем до разумных пределов чтобы не зарываться в копейках
+  def operational_round(amount)
+    # Не уверен что тут должен быть именно precision
+    amount.round precision
   end
 
   def token_name

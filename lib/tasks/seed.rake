@@ -9,6 +9,8 @@ namespace :seed do
   task currencies: :environment do
     Currency.transaction do
       YAML.load_file(Rails.root.join('config/seed/currencies.yml')).each do |hash|
+        hash['id'] = hash['id'].upcase
+        puts hash['id']
         currency = Currency.find_by(id: hash.fetch('id'))
         if currency.present?
           currency.update! hash

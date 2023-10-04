@@ -11,15 +11,17 @@ class Trade < ApplicationRecord
   belongs_to :taker, class_name: 'User'
 
   belongs_to :good_currency, class_name: 'Currency'
-  belongs_to :payment_currency, class_name: 'Currency'
-  belongs_to :comission_currency, class_name: 'Currency'
+  belongs_to :transfer_currency, class_name: 'Currency'
 
   validates :comission_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :client_transfer_amount, numericality: { greater_than: 0 }
+  validates :total_transfer_amount, numericality: { greater_than: 0 }
 
   # Сколько товара мы покупаем/продаем
   #
   validates :amount, numericality: { greater_than: 0 }
 
-  # Сколько заплатили
-  validates :payment_amount, numericality: { greater_than: 0 }
+  before_save do
+    raise 'WTF' unless total_transfer_amount = client_transfer_amount + comission_amount
+  end
 end

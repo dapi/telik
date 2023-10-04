@@ -11,7 +11,6 @@ class CreateBlockchains < ActiveRecord::Migration[7.0]
       t.datetime "updated_at", precision: nil, null: false
       t.boolean "enable_invoice", default: false, null: false
       t.string "explorer_contract_address"
-      t.string "client", null: false
       t.jsonb "client_options", default: {}, null: false
       t.datetime "height_updated_at", precision: nil
       t.string "client_version"
@@ -20,6 +19,7 @@ class CreateBlockchains < ActiveRecord::Migration[7.0]
       t.boolean "disable_collection", default: false, null: false
       t.boolean "allowance_enabled", default: false, null: false
       t.integer "chain_id"
+      t.jsonb "explorer"
     end
     add_index :blockchains, :key, unique: true
   end

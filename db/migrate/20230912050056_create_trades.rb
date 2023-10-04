@@ -5,20 +5,24 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.references :advert, null: false, foreign_key: true
       t.references :taker, null: false, foreign_key: { to_table: :users }
       t.enum :state, enum_type: :trade_type, null: false
-      t.decimal :comission_amount, null: false
+
       t.decimal :comission_percent, null: false
-      t.references :comission_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
 
       t.decimal :good_amount, null: false, comment: 'Сколько товара покупает/продает клиент (taker)'
       t.references :good_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
 
-      t.decimal :payment_amount, null: false, comment: 'Сколько клиент платит/получает за купленный/проданный товар'
-      t.references :payment_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
+      t.decimal :comission_amount, null: false
+      t.decimal :total_transfer_amount, null: false
+      t.decimal :client_transfer_amount, null: false, comment: 'Сколько клиент платит/получает за купленный/проданный товар'
+      t.references :transfer_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
+
       t.enum :rate_type, null: false, enum_type: :rate_type
       t.decimal :rate_percent
       t.decimal :rate_price, null: false
       t.references :rate_source, foreign_key: true
+
       t.text :advert_details, null: false
+
       t.jsonb :history, null: false, default: []
       t.timestamp :accepted_at
       t.jsonb :advert_dump, null: false, default: {}
@@ -26,6 +30,6 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_column
+    add_check_constraint :trades, "total_transfer_amount = client_transfer_amount + comission_amount"
   end
 end

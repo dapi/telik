@@ -18,5 +18,8 @@ class SetupOpenbill < ActiveRecord::Migration[7.0]
           execute File.read file
         end
       end
+
+    add_column :openbill_accounts, :reference_type, :string
+    add_column :openbill_accounts, :reference_id, :integer
   end
 end

@@ -59,31 +59,17 @@
     # Internal price that is paid for running a contract on the Ethereum network.
     gas_price: 1_000_000_000
 
-- id:                     bnb-bep20
-  name:                   BNB-BEP20
-  type:                   coin
-  visible:                true
-  deposit_enabled:        true
-  withdrawal_enabled:     true
-  min_collection_amount:  0.00021
-  withdraw_limit_24h:     0.2
-  withdraw_limit_72h:     0.5
-  deposit_fee:            0
-  position:               5
-  options:
+#- id:                     bnb-bep20
+#  name:                   BNB-BEP20
+#  type:                   coin
+#  visible:                true
+#  deposit_enabled:        true
+#  withdrawal_enabled:     true
+#  min_collection_amount:  0.00021
+#  withdraw_limit_24h:     0.2
+#  withdraw_limit_72h:     0.5
+#  deposit_fee:            0
+#  position:               5
+#  options:
     # Internal price that is paid for running a transaction on the Ethereum network.
-    gas_price: 1_000_000_000
-
-- id:                     usdt-bep20
-  name:                   USDT-BEP20
-  type:                   coin
-  visible:                true
-  deposit_enabled:        true
-  withdrawal_enabled:     true
-  min_collection_amount:  0.00021
-  withdraw_limit_24h:     0.2
-  withdraw_limit_72h:     0.5
-  deposit_fee:            0
-  position:               6
-    # Internal price that is paid for running a transaction on the Ethereum network.
-    gas_price: 1_000_000_000
+#    gas_price: 1_000_000_000

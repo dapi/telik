@@ -11,6 +11,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #
 
+require './db/seeds/openbill.rb'
+Rake::Task['seed:blockchains'].invoke
+Rake::Task['seed:currencies'].invoke
+
 telegram_user_id = 943_084_337
 TelegramUser.find_or_create_by!(id: telegram_user_id)
 begin
@@ -34,6 +38,3 @@ rescue StandardError => e
   raise e
 end
 
-require './db/seeds/openbill.rb'
-Rake::Task['seed:blockchains'].invoke
-Rake::Task['seed:currencies'].invoke

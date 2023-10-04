@@ -158,3 +158,5 @@ gem 'money', github: 'finfex/money', branch: 'main'
 #gem 'money-rails'
 
 gem 'state_machines-activerecord', '~> 0.9.0'
+
+gem "percentable", "~> 1.1"

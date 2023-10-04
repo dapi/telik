@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.decimal "max_amount", null: false
     t.enum "rate_type", null: false, enum_type: "rate_type"
     t.decimal "rate_percent"
-    t.decimal "rate_price"
+    t.decimal "custom_rate_price"
     t.bigint "rate_source_id"
     t.datetime "archived_at", precision: nil
     t.text "details", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.index ["payment_method_currency_id"], name: "index_adverts_on_payment_method_currency_id"
     t.index ["rate_source_id"], name: "index_adverts_on_rate_source_id"
     t.index ["trader_id"], name: "index_adverts_on_trader_id"
-    t.check_constraint "rate_type = 'fluid'::rate_type AND rate_percent IS NOT NULL AND rate_source_id IS NOT NULL OR rate_type = 'fixed'::rate_type AND rate_price IS NOT NULL"
+    t.check_constraint "rate_type = 'fluid'::rate_type AND rate_percent IS NOT NULL AND rate_source_id IS NOT NULL OR rate_type = 'fixed'::rate_type AND custom_rate_price IS NOT NULL"
   end
 
   create_table "blockchain_currencies", force: :cascade do |t|
@@ -79,7 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "enable_invoice", default: false, null: false
     t.string "explorer_contract_address"
-    t.string "client", null: false
     t.jsonb "client_options", default: {}, null: false
     t.datetime "height_updated_at", precision: nil
     t.string "client_version"
@@ -88,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.boolean "disable_collection", default: false, null: false
     t.boolean "allowance_enabled", default: false, null: false
     t.integer "chain_id"
+    t.jsonb "explorer"
     t.index ["key"], name: "index_blockchains_on_key", unique: true
   end
 
@@ -127,6 +127,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.decimal "hold_value", precision: 36, scale: 18, default: "0.0", null: false, comment: "Hold amount"
     t.datetime "locked_at", precision: nil, comment: "The date the funds were holded. If the value is NULL there is no blocking"
     t.enum "kind", default: "any", null: false, comment: "Account type", enum_type: "account_kind"
+    t.string "reference_type"
+    t.integer "reference_id"
     t.index ["created_at"], name: "index_accounts_on_created_at"
     t.index ["id"], name: "index_accounts_on_id", unique: true
     t.index ["meta"], name: "index_accounts_on_meta", using: :gin
@@ -234,12 +236,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.bigint "advert_id", null: false
     t.bigint "taker_id", null: false
     t.enum "state", null: false, enum_type: "trade_type"
-    t.decimal "comission_amount", null: false
-    t.string "comission_currency_id", limit: 8, null: false
-    t.decimal "good_amount", null: false
+    t.decimal "comission_percent", null: false
+    t.decimal "good_amount", null: false, comment: "Сколько товара покупает/продает клиент (taker)"
     t.string "good_currency_id", limit: 8, null: false
-    t.decimal "payment_amount", null: false
-    t.string "payment_currency_id", limit: 8, null: false
+    t.decimal "comission_amount", null: false
+    t.decimal "total_transfer_amount", null: false
+    t.decimal "client_transfer_amount", null: false, comment: "Сколько клиент платит/получает за купленный/проданный товар"
+    t.string "transfer_currency_id", limit: 8, null: false
     t.enum "rate_type", null: false, enum_type: "rate_type"
     t.decimal "rate_percent"
     t.decimal "rate_price", null: false
@@ -251,11 +254,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advert_id"], name: "index_trades_on_advert_id"
-    t.index ["comission_currency_id"], name: "index_trades_on_comission_currency_id"
     t.index ["good_currency_id"], name: "index_trades_on_good_currency_id"
-    t.index ["payment_currency_id"], name: "index_trades_on_payment_currency_id"
     t.index ["rate_source_id"], name: "index_trades_on_rate_source_id"
     t.index ["taker_id"], name: "index_trades_on_taker_id"
+    t.index ["transfer_currency_id"], name: "index_trades_on_transfer_currency_id"
+    t.check_constraint "total_transfer_amount = (client_transfer_amount + comission_amount)"
   end
 
   create_table "user_accounts", force: :cascade do |t|
@@ -313,9 +316,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
   add_foreign_key "trade_messages", "trades"
   add_foreign_key "trade_messages", "users"
   add_foreign_key "trades", "adverts"
-  add_foreign_key "trades", "currencies", column: "comission_currency_id"
   add_foreign_key "trades", "currencies", column: "good_currency_id"
-  add_foreign_key "trades", "currencies", column: "payment_currency_id"
+  add_foreign_key "trades", "currencies", column: "transfer_currency_id"
   add_foreign_key "trades", "rate_sources"
   add_foreign_key "trades", "users", column: "taker_id"
   add_foreign_key "user_accounts", "currencies", on_delete: :restrict

@@ -19,6 +19,6 @@ class CreateAdverts < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_check_constraint :adverts, "(rate_type = 'fluid' and rate_percent is not null and rate_source_id is not null) or (rate_type='fixed' and rate_price is not null)"
+    add_check_constraint :adverts, "(rate_type = 'fluid' and rate_percent is not null and rate_source_id is not null) or (rate_type='fixed' and custom_rate_price is not null)"
   end
 end

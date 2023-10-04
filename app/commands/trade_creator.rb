@@ -30,7 +30,8 @@ class TradeCreator
       # TODO Проверить rate_price на адекватность advert.rate_price (допустимые изменение в пределах 0.01%)
 
       return Error, errors if errors.any?
-      Trade.create!(
+
+      attrs = {
         taker: taker,
 
         advert: advert,
@@ -39,18 +40,14 @@ class TradeCreator
         rate_type: advert.rate_type,
         rate_percent: advert.rate_percent,
         good_currency: advert.good_currency,
-        payment_currency: advert.payment_currency
 
         rate_price: offer.rate_price,
 
         amount: amount,
+      }
+      transfers = offer.transfers_for(amount)
 
-        # payment_amount: 100_000
-
-        comission_currency: advert.payment_amount,
-        comission_amount: calculate_comission_amount(payment_amount),
-        comission_percent: COMISSION_PERCENTS
-      )
+      Trade.create! attrs.merge transfers
     end
   end
 
