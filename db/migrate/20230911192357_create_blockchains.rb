@@ -16,6 +16,7 @@ class CreateBlockchains < ActiveRecord::Migration[7.0]
       t.datetime "height_updated_at", precision: nil
       t.string "client_version"
       t.string "address_type"
+      t.string "gateway_klass"
       t.boolean "disable_collection", default: false, null: false
       t.boolean "allowance_enabled", default: false, null: false
       t.integer "chain_id"

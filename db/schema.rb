@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.datetime "height_updated_at", precision: nil
     t.string "client_version"
     t.string "address_type"
+    t.string "gateway_klass"
     t.boolean "disable_collection", default: false, null: false
     t.boolean "allowance_enabled", default: false, null: false
     t.integer "chain_id"

@@ -6,10 +6,13 @@ class CreateTrades < ActiveRecord::Migration[7.0]
       t.references :taker, null: false, foreign_key: { to_table: :users }
       t.enum :state, enum_type: :trade_type, null: false
       t.decimal :comission_amount, null: false
+      t.decimal :comission_percent, null: false
       t.references :comission_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
-      t.decimal :good_amount, null: false
+
+      t.decimal :good_amount, null: false, comment: 'Сколько товара покупает/продает клиент (taker)'
       t.references :good_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
-      t.decimal :payment_amount, null: false
+
+      t.decimal :payment_amount, null: false, comment: 'Сколько клиент платит/получает за купленный/проданный товар'
       t.references :payment_currency, null: false, foreign_key: { to_table: :currencies }, type: :string, limit: 8
       t.enum :rate_type, null: false, enum_type: :rate_type
       t.decimal :rate_percent
@@ -22,5 +25,7 @@ class CreateTrades < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_column
   end
 end

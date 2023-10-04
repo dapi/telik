@@ -11,21 +11,24 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #
 
+telegram_user_id = 943_084_337
+TelegramUser.find_or_create_by!(id: telegram_user_id)
 begin
   puts 'Create owner'
   owner = User
           .create_with(
             super_admin: true,
-            telegram_data: { 'id' => '943084337',
-                             'username' => 'pismenny',
+            telegram_data: { 'id' => telegram_user_id,
+                             'username' => 'bob',
                              'auth_date' => '1683466550',
-                             'last_name' => 'Pismenny',
-                             'photo_url' => 'https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg',
-                             'first_name' => 'Danil' }
+                             'last_name' => 'bobby',
+                             'photo_url' => 'https://',
+                             'first_name' => 'bob' }
           )
-          .create_or_find_by!(telegram_user_id: 943_084_337)
+          .create_or_find_by!(telegram_user_id: telegram_user_id)
 
 rescue StandardError => e
+  binding.pry
   puts e
   Rails.logger.debug e.record.inspect
   raise e

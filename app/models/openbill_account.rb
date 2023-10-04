@@ -5,6 +5,8 @@
 # Счет в openbill
 #
 class OpenbillAccount < OpenbillRecord
+  extend Monetizer
+
   belongs_to :category, class_name: 'OpenbillCategory'
   belongs_to :reference, polymorphic: true
 
@@ -13,7 +15,7 @@ class OpenbillAccount < OpenbillRecord
 
   scope :ordered, -> { order :id }
 
-  monetize :amount_value, as: :amount, with_model_currency: :amount_currency
+  monetize :amount, value: :amount_value, currency: :amount_currency
 
   def to_s
     "#{details} [#{key}]"

@@ -15,6 +15,11 @@ class Trade < ApplicationRecord
   belongs_to :comission_currency, class_name: 'Currency'
 
   validates :comission_amount, numericality: { greater_than_or_equal_to: 0 }
-  validates :good_amount, numericality: { greater_than: 0 }
+
+  # Сколько товара мы покупаем/продаем
+  #
+  validates :amount, numericality: { greater_than: 0 }
+
+  # Сколько заплатили
   validates :payment_amount, numericality: { greater_than: 0 }
 end

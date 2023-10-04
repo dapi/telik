@@ -11,7 +11,7 @@ class CreateAdverts < ActiveRecord::Migration[7.0]
       t.decimal :max_amount, null: false
       t.enum :rate_type, null: false, enum_type: :rate_type
       t.decimal :rate_percent
-      t.decimal :rate_price
+      t.decimal :custom_rate_price
       t.references :rate_source, foreign_key: true
       t.timestamp :archived_at
       t.text :details, null: false

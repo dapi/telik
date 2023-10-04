@@ -8,7 +8,11 @@ class TradeCreatorTest < ActiveSupport::TestCase
   test 'rub' do
     taker = users(:bob)
     advert = adverts(:btc_rub_buy_fixed)
-    creator = TradeCreator.new(taker: taker, advert: advert)
+    offer = Offer.
+      build_from_advert(advert)
+    amount = 1.2
+    creator = TradeCreator.
+      new(taker: taker, offer: offer, amount: amount)
 
     assert_instance_of Trade, creator.perform
   end

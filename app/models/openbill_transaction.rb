@@ -4,6 +4,8 @@
 
 # Транзакция
 class OpenbillTransaction < OpenbillRecord
+  extend Monetizer
+
   belongs_to :from_account, class_name: 'OpenbillAccount'
   belongs_to :to_account, class_name: 'OpenbillAccount'
 
@@ -18,7 +20,7 @@ class OpenbillTransaction < OpenbillRecord
 
   scope :by_month, ->(month) { by_period Range.new(month.beginning_of_month, month.end_of_month) }
 
-  monetize :amount_cents, as: :amount, with_model_currency: :amount_currency
+  monetize :amount, value: :amount_value, currency: :amount_currency
 
   def billing_url
     "#{Settings.billing_host}/transactions/#{id}"

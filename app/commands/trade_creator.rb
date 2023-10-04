@@ -2,40 +2,56 @@
 # Создает сделку по объявлению
 #
 class TradeCreator
+  COMISSION_PERCENTS = 1.0 # Сейчас комиссия всегда 1%
   Error = Class.new StandardError
 
+  # TODO
   # taker - кто откликается на предложение
   # offer - собственно предложение
-  # good_amount - сколько покупает/продает
-  def initialize(taker: , offer: , good_amount:)
-    @taker = taker || raise 'Taker must be'
-    @offer = offer || raise 'Offer must be'
-    @good_amount = good_amount || raise 'Must be'
+  # amount - сколько покупает/продает
+  def initialize(taker: , offer: , amount: )
+    @taker = taker || raise('Taker must be')
+    @offer = offer || raise('Offer must be')
+    @amount = amount || raise('Must be')
   end
 
   def perform
     offer.advert.with_lock do
-      raise Error, 'Advert must be active' unless offer.advert.active?
+      advert = offer.advert
+      raise Error, 'Advert is updated' unless offer.at == advert.updated_at
+      raise Error, 'Advert must be an active' unless advert.active?
 
+      errors = []
+
+      errors << :max if amount > advert.max
+      errors << :min if amount < advert.min
+
+      # TODO Проверить баланс трейдера или покупателя и заблокировать средства
+      # TODO Проверить rate_price на адекватность advert.rate_price (допустимые изменение в пределах 0.01%)
+
+      return Error, errors if errors.any?
       Trade.create!(
-        advert: @advert,
-        taker: @taker,
-        advert_details: @advert.details
-        advert_dump: @advert.as_json,
+        taker: taker,
 
-        rate_type: @advert.rate_type,
-        rate_percent: @advert.rate_percent,
+        advert: advert,
+        advert_details: advert.details,
+        advert_dump: advert.as_json,
+        rate_type: advert.rate_type,
+        rate_percent: advert.rate_percent,
+        good_currency: advert.good_currency,
+        payment_currency: advert.payment_currency
+
+        rate_price: offer.rate_price,
+
+        amount: amount,
+
+        # payment_amount: 100_000
+
+        comission_currency: advert.payment_amount,
+        comission_amount: calculate_comission_amount(payment_amount),
+        comission_percent: COMISSION_PERCENTS
       )
     end
-    good_amount: 1
-    good_currency_id: btc
-    payment_amount: 100_000
-    payment_currency_id: rub
-    comission_currency_id: btc
-    comission_amount: 0.0001
-    rate_type: fixed
-    rate_price: 100_000
-    )
   end
 
   private

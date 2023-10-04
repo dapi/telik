@@ -1,5 +1,5 @@
 btc_rub_buy_fluid:
-  maker: bob
+  trader: bob
   good_method_currency: blockchain_btc
   payment_method_currency: tinkoff_rub
   advert_type: buy
@@ -11,7 +11,7 @@ btc_rub_buy_fluid:
   details: Перечислю на вашу карту в тиньке
 
 btc_rub_buy_fixed:
-  maker: john
+  trader: john
   payment_method_currency: tinkoff_rub
   good_method_currency: blockchain_btc
   advert_type: buy
@@ -22,7 +22,7 @@ btc_rub_buy_fixed:
   details: Перечислю на вашу карту в тиньке
 
 btc_rub_sell_fluid:
-  maker: bob
+  trader: bob
   good_method_currency: blockchain_btc
   payment_method_currency: tinkoff_rub
   advert_type: sell
@@ -34,7 +34,7 @@ btc_rub_sell_fluid:
   details: Прошу перечислять очень быстро на вот эту карту XXXX-XXXX-XXXX-XXXX
 
 btc_rub_sell_fixed:
-  maker: john
+  trader: john
   payment_method_currency: tinkoff_rub
   good_method_currency: blockchain_btc
   advert_type: sell

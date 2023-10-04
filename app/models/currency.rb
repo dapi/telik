@@ -29,6 +29,10 @@ class Currency < ApplicationRecord
     id.to_s.downcase.split(ID_SEPARATOR).first.presence
   end
 
+  def to_money(decimal)
+    Money.new(decimal * base_factor)
+  end
+
   # subunit (or fractional monetary unit) - a monetary unit
   # that is valued at a fraction (usually one hundredth)
   # of the basic monetary unit
