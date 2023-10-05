@@ -9,6 +9,6 @@ class UserAccount < ApplicationRecord
   belongs_to :currency
 
   before_create do
-    currency_code == openbill_account.currency_code
+    raise unless currency == openbill_account.currency
   end
 end

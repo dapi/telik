@@ -9,7 +9,9 @@ class OpenbillCategory < OpenbillRecord
   has_many :income_transactions, through: :accounts
   has_many :outcome_transactions, through: :accounts
 
-  def self.user
-    find_or_create_by!(name: 'users_balances')
+  # Категория балансов пользователей
+  #
+  def self.users
+    @users ||= find_or_create_by!(name: 'users_balances').freeze
   end
 end

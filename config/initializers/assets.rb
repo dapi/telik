@@ -13,9 +13,9 @@ Rails.application.config.assets.version = '1.2-' + ENV.fetch('CDN_HOST', '')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w[button-widget.js]
+Rails.application.config.assets.precompile += %w[]
 
-NonDigestAssets.asset_selectors += %w[button-widget.js telegram_logo.png telegram_logo.svg]
+NonDigestAssets.asset_selectors += %w[telegram_logo.png telegram_logo.svg]
 
 Rails.application.config.action_controller.asset_host =
   Rails.application.config.asset_host =

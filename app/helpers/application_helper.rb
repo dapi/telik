@@ -7,22 +7,10 @@ module ApplicationHelper
     price.to_s + ' ₽'
   end
 
-  def default_tariff_id
-    @default_tariff_id ||= Tariff.where(is_default: true).take.id || raise('No default tariff found')
-  end
-
   def setup_checkbox(flag, tooltip: nil)
     content_tag :span, title: tooltip || flag do
       flag ? '✅' : '⭕'
     end
-  end
-
-  def link_to_telegram_group(project)
-    link_to project.telegram_group_name, project.telegram_group_url,
-            target: '_blank',
-            'data-bs-toggle': :tooltip,
-            title: "ID Группы #{project.telegram_group_id}",
-            rel: 'noopener'
   end
 
   def back_url
@@ -35,10 +23,6 @@ module ApplicationHelper
         'Loading...'
       end
     end
-  end
-
-  def link_to_project_bot(project)
-    link_to_bot project.bot_username.presence || ApplicationConfig.bot_username
   end
 
   def link_to_bot(username = ApplicationConfig.bot_username)

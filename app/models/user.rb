@@ -8,7 +8,7 @@ class User < ApplicationRecord
   strip_attributes
   authenticates_with_sorcery!
 
-  has_one :account, class_name: 'OpenbillAccount', dependent: :restrict_with_exception, as: :reference
+  has_many :accounts, class_name: 'UserAccount', dependent: :restrict_with_exception
   belongs_to :telegram_user
 
   has_many :memberships, dependent: :delete_all
@@ -18,10 +18,6 @@ class User < ApplicationRecord
 
   def to_s
     public_name
-  end
-
-  def create_accounts
-    update! account: OpenbillAccount.create!(reference: self, category: OpenbillCategory.user)
   end
 
   def self.authenticate(telegram_data)
@@ -42,5 +38,14 @@ class User < ApplicationRecord
 
   def telegram_nick
     "@#{telegram_data.fetch('username')}"
+  end
+
+  private
+
+  def create_accounts
+    Currency.find_each do |currency|
+      oa = OpenbillAccount.create! reference: self, currency:, category: OpenbillCategory.users
+      accounts.create! openbill_account: oa, currency:
+    end
   end
 end

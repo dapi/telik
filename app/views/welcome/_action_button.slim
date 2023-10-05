@@ -1,5 +1,0 @@
-.text-center.my-5
-  - if logged_in? && current_user.projects.any?
-    = link_to 'Ваши проекты &rarr;'.html_safe, projects_path, class: 'btn btn-outline-success btn-lg'
-  - else
-    = link_to 'Подключиться &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'

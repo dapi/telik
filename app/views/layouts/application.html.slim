@@ -9,4 +9,3 @@ html lang=I18n.locale
 
     = render 'footer'
     = render 'flashes'
-    = telegram_link user: { telegram_id: current_user.try(:telegram_user_id) }, page: { url: request.url }

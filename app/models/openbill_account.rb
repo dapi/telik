@@ -9,6 +9,7 @@ class OpenbillAccount < OpenbillRecord
 
   belongs_to :category, class_name: 'OpenbillCategory'
   belongs_to :reference, polymorphic: true
+  belongs_to :currency, foreign_key: :amount_currency # rubocop:disable Rails/InverseOf
 
   has_many :income_transactions, class_name: 'OpenbillTransaction', foreign_key: :to_account_id, inverse_of: :account, dependent: :restrict_with_exception
   has_many :outcome_transactions, class_name: 'OpenbillTransaction', foreign_key: :from_account_id, inverse_of: :account, dependent: :restrict_with_exception
