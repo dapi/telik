@@ -127,7 +127,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_180414) do
     t.datetime "locked_at", precision: nil, comment: "The date the funds were holded. If the value is NULL there is no blocking"
     t.enum "kind", default: "any", null: false, comment: "Account type", enum_type: "account_kind"
     t.string "reference_type"
-    t.integer "reference_id"
+    t.bigint "reference_id"
     t.index ["created_at"], name: "index_accounts_on_created_at"
     t.index ["id"], name: "index_accounts_on_id", unique: true
     t.index ["meta"], name: "index_accounts_on_meta", using: :gin

@@ -20,6 +20,6 @@ class SetupOpenbill < ActiveRecord::Migration[7.0]
       end
 
     add_column :openbill_accounts, :reference_type, :string
-    add_column :openbill_accounts, :reference_id, :integer
+    add_column :openbill_accounts, :reference_id, :bigint
   end
 end
