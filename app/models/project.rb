@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   include ProjectSetup
 
   BOT_STATUSES = %w[left administrator restricted member].freeze
-  BOT_TOKEN_FORMAT = /\A[0-9]+:[a-z0-9-]+\z/i
+  BOT_TOKEN_FORMAT = /\A[a-z0-9]+:[a-z0-9_-]+\z/i
 
   strip_attributes
 
