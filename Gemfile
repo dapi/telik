@@ -156,3 +156,5 @@ gem 'non-digest-assets', '~> 2.2'
 gem 'ransack', '~> 4.0'
 
 gem 'kaminari', '~> 1.2'
+
+gem 'guard-rubocop', '~> 1.5'
