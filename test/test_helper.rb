@@ -33,6 +33,25 @@ class ActionDispatch::IntegrationTest
 
   private
 
+  def false_checkboxes
+    html_document.css('span[data-checkbox-value="false"]').map { |e| e.parent.parent.text }
+  end
+
+  def true_checkboxes
+    html_document.css('span[data-checkbox-value="true"]').map { |e| e.parent.parent.text }
+  end
+
+  def checkboxes
+    html_document.css('span[data-checkbox]')
+  end
+
+  def go_next
+    method = html_document.css('a[data-next-button]').attr('data-turbo-method').to_s.presence || :get
+    href = html_document.css('a[data-next-button]').attr('href').to_s
+    puts [method.upcase, href].join(' ')
+    send method, href
+  end
+
   def login!(params)
     params = params.attributes.slice('id', 'username', 'first_name', 'last_name', 'photo_url').symbolize_keys if params.is_a? ApplicationRecord
     params.reverse_merge! auth_date: Time.zone.now.to_i

@@ -9,7 +9,7 @@ require 'test_helper'
 class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
   fixtures :tariffs, :telegram_users
 
-  test ' Уже зарегистрированный пользователь выбирает бесплатный тариф и создаёт проект' do
+  test 'Зарегистрированный пользователь выбирает бесплатный тариф и создаёт проект' do
     login! telegram_users(:new_user)
     get new_project_path(project: { tariff_id: tariffs(:free).id })
     assert_select 'h1', 'Нужна супер-группа в телеграм'
@@ -89,24 +89,5 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_includes html_document.to_s, 'Виджет отлично установлен на сайт'
-  end
-
-  private
-
-  def false_checkboxes
-    html_document.css('span[data-checkbox-value="false"]').map { |e| e.parent.parent.text }
-  end
-
-  def true_checkboxes
-    html_document.css('span[data-checkbox-value="true"]').map { |e| e.parent.parent.text }
-  end
-
-  def checkboxes
-    html_document.css('span[data-checkbox]')
-  end
-
-  def go_next
-    method = html_document.css('a[data-next-button]').attr('data-turbo-method').to_s.presence
-    send(method || :get, html_document.css('a[data-next-button]').attr('href').to_s)
   end
 end

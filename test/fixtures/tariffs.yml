@@ -8,15 +8,15 @@ free:
   transaction_mails_allowed: false
   marketing_mails_allowed: false
   position: 1
-  button_title: Submin
-maximal:
+  button_title: Submit
+paid:
   price: 100
-  title: Maximal
-  details: Maximal
+  title: Paid
+  details: Paid
   max_visitors_count: 10
   max_operators_count: 10
   custom_bot_allowed: true
   transaction_mails_allowed: true
   marketing_mails_allowed: true
   position: 2
-  button_title: Maximal
+  button_title: Submit
