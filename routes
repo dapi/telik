@@ -1,7 +1,7 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
                                     root GET    /                                                                                                 welcome#index
                         telegram_webhook POST   /telegram/y8xrmb4nLHjeQO-CxSAA50HY-Jo                                                             #<Telegram::Bot::Middleware(Telegram::WebhookController)>
-                 telegram_custom_webhook POST   /telegram/custom_webhook(.:format)                                                                #<CustomTelegramBotMiddleware(Telegram::WebhookController)>
+                 telegram_custom_webhook POST   /telegram/custom_webhook/:custom_bot_id(.:format)                                                 #<CustomTelegramBotMiddleware(Telegram::WebhookController)>
                   telegram_auth_callback GET    /telegram/auth_callback(.:format)                                                                 telegram_auth_callback#create
                                        v GET    /v(.:format)                                                                                      visit#create
                                        i GET    /i(.:format)                                                                                      visit#logo
@@ -33,7 +33,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f10d38af3a0 /home/danil/code/telik/config/routes.rb:55>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007fc0a4a861c0 /home/danil/code/samochat/config/routes.rb:57>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

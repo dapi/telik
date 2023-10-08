@@ -4,8 +4,8 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-danil:
-  # id: 943084337
-  first_name: "Danil"
-  last_name: "Pismenny"
-  username: "pismenny"
+bob:
+  id: 123
+  first_name: "Bob"
+  last_name: Marley
+  username: "bob"

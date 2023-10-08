@@ -5,25 +5,25 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  telegram_user_id: 1
+  telegram_user_id: 123
   telegram_data: >
     {
-      "id"=>"1",
-      "username"=>"pismenny",
+      "id"=>"123",
+      "username"=>"bob",
       "auth_date"=>"1683466550",
-      "last_name"=>"Pismenny",
+      "last_name"=>"Bob",
       "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
-      "first_name"=>"Danil"
+      "first_name"=>"Bob"
     }
 
 two:
-  telegram_user_id: 2
+  telegram_user_id: 124
   telegram_data: >
     {
-      "id"=>"2",
-      "username"=>"pismenny",
+      "id"=>"124",
+      "username"=>"two",
       "auth_date"=>"1683466550",
-      "last_name"=>"Pismenny",
+      "last_name"=>"Two",
       "photo_url"=>"https://t.me/i/userpic/320/3CYhSyogI0OC2gV3vV5rziFJFXlsStR4yi692YM-rGU.jpg",
-      "first_name"=>"Danil"
+      "first_name"=>"Two"
     }
