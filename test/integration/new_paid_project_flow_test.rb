@@ -19,8 +19,7 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     bot.expect :get_me, { 'result' => { 'username' => bot_name } }
 
     Telegram::Bot::Client.stub :new, bot do
-
-      post projects_path, params: { project: { tariff_id: tariffs(:paid).id, bot_token: '123:abc' }}
+      post projects_path, params: { project: { tariff_id: tariffs(:paid).id, bot_token: '123:abc' } }
       follow_redirect!
 
       assert_select 'h1', 'Нужна супер-группа в телеграм'
@@ -72,4 +71,3 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     end
   end
 end
-

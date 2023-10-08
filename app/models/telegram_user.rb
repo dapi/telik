@@ -6,7 +6,7 @@
 # id в таблице - id пользователя из телеги
 #
 class TelegramUser < ApplicationRecord
-  has_one :user
+  has_one :user, dependent: :restrict_with_exception
   has_many :visitors, dependent: :nullify
 
   validates :id, presence: true, numericality: { only_integer: true, greater_than: 0 }
