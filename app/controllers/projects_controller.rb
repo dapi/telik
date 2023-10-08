@@ -88,8 +88,10 @@ class ProjectsController < ApplicationController
 
   def next_step_view(project)
     if project.tariff.present?
+      @back_url = new_project_path
       project.tariff.custom_bot_allowed? ? :setup_bot_token : :setup_group
     else
+      @back_url = logged_in? ? projects_path : root_url
       :select_tariff
     end
   end

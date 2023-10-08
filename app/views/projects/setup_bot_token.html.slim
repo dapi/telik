@@ -6,7 +6,6 @@ ul
   li Перейдите к #{link_to_bot 'BotFather'}. Для этого нажмите на его имя, а потом 'Send Message', если это потребуется.
   li Создайте нового бота у него. Для этого внутри #{link_to_bot 'BotFather'} используйте команду 'newbot' (сначала вам нужно будет придумать название, оно может быть на русском; потом нужно придумать вашу ссылку, она должна быть на английском и обязательно заканчиваться на 'bot', например 'NewsBot').
   li Скопируйте API токен, который вам выдаст #{link_to_bot 'BotFather'}
-  li Возвращайтесь обратно в #{link_to_bot 'BotFather'} и пришлите скопированный API токен в ответ на это сообщение.
 
 = simple_form_for project, wrapper_mappings: { boolean: :vertical_boolean }, html: { id: "#{dom_id(project)}_form" } do |f|
   /= f.error_notification
