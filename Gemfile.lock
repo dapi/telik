@@ -191,13 +191,12 @@ GEM
       xpath (~> 3.2)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
-    connection_pool (2.4.0)
+    connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.3)
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    diff-lcs (1.5.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -260,10 +259,6 @@ GEM
     guard-rails (0.8.1)
       guard (~> 2.11)
       guard-compat (~> 1.0)
-    guard-rspec (4.7.3)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
     guard-rubocop (1.5.0)
       guard (~> 2.0)
       rubocop (< 2.0)
@@ -414,7 +409,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.8.1)
-    redis-client (0.14.1)
+    redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.0)
     reline (0.3.3)
@@ -422,27 +417,6 @@ GEM
     request_store (1.5.1)
       rack (>= 1.4)
     rexml (3.2.5)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.6)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-rails (6.0.3)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
-      rspec-core (~> 3.12)
-      rspec-expectations (~> 3.12)
-      rspec-mocks (~> 3.12)
-      rspec-support (~> 3.12)
-    rspec-support (3.12.1)
     rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -457,16 +431,10 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.17.1)
       rubocop (~> 1.41)
-    rubocop-factory_bot (2.23.1)
-      rubocop (~> 1.33)
     rubocop-rails (2.19.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    rubocop-rspec (2.23.2)
-      rubocop (~> 1.33)
-      rubocop-capybara (~> 2.17)
-      rubocop-factory_bot (~> 2.22)
     ruby-next-core (0.15.3)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
@@ -486,7 +454,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
-    sidekiq (7.1.0)
+    sidekiq (7.1.5)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -602,7 +570,6 @@ DEPENDENCIES
   guard-ctags-bundler
   guard-minitest
   guard-rails
-  guard-rspec (~> 4.7)
   guard-rubocop (~> 1.5)
   guard-shell (~> 0.7.2)
   hiredis
@@ -620,16 +587,14 @@ DEPENDENCIES
   ransack (~> 4.0)
   redis (~> 4.0)
   request_store
-  rspec-rails (~> 6.0)
   rubocop
   rubocop-capybara
   rubocop-rails
-  rubocop-rspec (~> 2.23)
   russian (~> 0.6.0)
   sassc-rails
   selenium-webdriver
   semver2!
-  sidekiq (~> 7.1.0)
+  sidekiq (>= 7.1.3)
   sidekiq-failures
   sidekiq-reset_statistics
   simple_form

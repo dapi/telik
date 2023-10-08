@@ -35,7 +35,7 @@ gem 'jbuilder'
 gem 'hiredis'
 gem 'redis', '~> 4.0'
 
-gem 'sidekiq', '~> 7.1.0'
+gem 'sidekiq', '>= 7.1.3'
 # gem 'sidekiq-cron'
 gem 'sidekiq-failures'
 gem 'sidekiq-reset_statistics'
