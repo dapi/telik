@@ -621,7 +621,7 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   semver2!
-  sidekiq
+  sidekiq (~> 7.1.0)
   sidekiq-failures
   sidekiq-reset_statistics
   simple_form
