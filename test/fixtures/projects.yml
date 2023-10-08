@@ -5,9 +5,13 @@ yandex:
   owner: one
   telegram_group_id: 123
   name: yandex
+  tariff: minimal
+  bot_id: 1
 
 dzen:
   key: dzen
   owner: two
   telegram_group_id: 456
   name: dzen
+  tariff: maximal
+  bot_id: 2

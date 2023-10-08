@@ -1,0 +1,22 @@
+minimal:
+  price: 0
+  title: Minimal
+  details: Minimal
+  max_visitors_count: 10
+  max_operators_count: 1
+  custom_bot_allowed: false
+  transaction_mails_allowed: false
+  marketing_mails_allowed: false
+  position: 1
+  button_title: Minimal
+maximal:
+  price: 100
+  title: Maximal
+  details: Maximal
+  max_visitors_count: 10
+  max_operators_count: 10
+  custom_bot_allowed: true
+  transaction_mails_allowed: true
+  marketing_mails_allowed: true
+  position: 2
+  button_title: Maximal
