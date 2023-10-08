@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def setup_checkbox(flag, tooltip: nil)
-    content_tag :span, title: tooltip || flag, data: { checkbox: true, checkbox_value: !flag.nil? } do
+    content_tag :span, title: tooltip || flag, data: { checkbox: true, checkbox_value: !!flag } do # rubocop:disable Style/DoubleNegation
       flag ? '✅' : '⭕'
     end
   end
