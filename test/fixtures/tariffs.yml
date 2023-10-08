@@ -1,14 +1,14 @@
-minimal:
+free:
   price: 0
-  title: Minimal
-  details: Minimal
+  title: Free
+  details: Free
   max_visitors_count: 10
   max_operators_count: 1
   custom_bot_allowed: false
   transaction_mails_allowed: false
   marketing_mails_allowed: false
   position: 1
-  button_title: Minimal
+  button_title: Submin
 maximal:
   price: 100
   title: Maximal

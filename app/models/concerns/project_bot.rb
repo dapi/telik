@@ -59,7 +59,7 @@ module ProjectBot
     # "supports_inline_queries"=>false
     # }
     # }
-    self.name ||= self.bot_username = custom_bot.get_me.dig('result', 'username')
+    self.name ||= self.bot_username ||= custom_bot.get_me.dig('result', 'username')
   rescue Telegram::Bot::NotFound
     errors.add :bot_token, 'Не действующий токен. Проверьте правильность ввода или создайте новый.'
   rescue Telegram::Bot::Error => e

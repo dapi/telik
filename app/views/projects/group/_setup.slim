@@ -43,6 +43,6 @@ ul.list-group.mb-3
     h2.float-start Готово?
     .float-end
       - if project.persisted?
-        = link_to 'Проверить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-success btn-lg',  data: { turbo_method: :post }
+        = link_to 'Проверить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-success btn-lg',  data: { next_button: true, turbo_method: :post }
       - else
-        = link_to 'Проверить &rarr;'.html_safe, new_project_path, class: 'btn btn-success btn-lg'
+        = link_to 'Проверить &rarr;'.html_safe, new_project_path(project: { tariff_id: project.tariff_id }), data: { next_button: true }, class: 'btn btn-success btn-lg'

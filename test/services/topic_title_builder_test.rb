@@ -8,7 +8,7 @@ class TopicTitleBuilderTest < ActiveSupport::TestCase
   test 'template by default' do
     visitor = visitors :yandex
     visit = visits :yandex
-    assert_equal TopicTitleBuilder.new(visitor, visit).build, '#734930554 Danil Pismenny Cheboksary (Chuvashia/RU)'
+    assert_equal TopicTitleBuilder.new(visitor, visit).build, "#734930554 #{visitor.name} Cheboksary (Chuvashia/RU)"
   end
 
   test 'custom template' do

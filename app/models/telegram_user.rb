@@ -10,6 +10,13 @@ class TelegramUser < ApplicationRecord
 
   validates :id, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
+  def self.find_or_create_by_telegram_data!(data)
+    create_with(
+      data.slice('first_name', 'last_name', 'username', 'photo_url')
+    )
+      .find_or_create_by!(id: data.fetch('id'))
+  end
+
   # chat =>
   # {"id"=>943084337, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "type"=>"private"}
   def update_from_chat!(chat)
@@ -19,5 +26,13 @@ class TelegramUser < ApplicationRecord
 
   def name
     [first_name, last_name].join(' ').presence || ('Incognito(' + id.to_s + ')')
+  end
+
+  def public_name
+    first_name || telegram_nick
+  end
+
+  def telegram_nick
+    "@#{username}"
   end
 end

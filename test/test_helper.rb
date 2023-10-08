@@ -7,6 +7,9 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/mock'
 
+ApplicationConfig.bot_username = 'TestBot'
+ApplicationConfig.bot_token = '123:abc'
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
@@ -21,4 +24,19 @@ class ActiveSupport::TestCase
   end
 
   # Add more helper methods to be used by all tests here...
+end
+
+class ActionDispatch::IntegrationTest
+  setup do
+    https!
+  end
+
+  private
+
+  def login!(params)
+    params = params.attributes.slice('id', 'username', 'first_name', 'last_name', 'photo_url').symbolize_keys if params.is_a? ApplicationRecord
+    params.reverse_merge! auth_date: Time.zone.now.to_i
+    get telegram_auth_callback_path, params: params.merge(hash: TelegramAuthCallbackController.sign_params(params))
+    follow_redirect!
+  end
 end

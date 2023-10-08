@@ -11,4 +11,8 @@ class Tariff < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
   validates :details, presence: true
+
+  def self.free!
+    where(price: 0).take!
+  end
 end

@@ -10,30 +10,23 @@ class User < ApplicationRecord
 
   has_many :memberships, dependent: :delete_all
   has_many :projects, through: :memberships
+  belongs_to :telegram_user
 
-  validates :telegram_user_id, presence: true
+  delegate :first_name, :public_name, :telegram_nick, to: :telegram_user
 
   def to_s
     public_name
   end
 
+  def self.find_or_create_by_telegram_data!(data)
+    find_or_create_by!(
+      telegram_user: TelegramUser.find_or_create_by_telegram_data!(data)
+    )
+  end
+
   def self.authenticate(telegram_data)
     yield(
-      User
-        .create_with(telegram_data:)
-        .find_or_create_by!(telegram_user_id: telegram_data.fetch('id')),
+      User.find_or_create_by_telegram_data!(telegram_data),
       nil)
-  end
-
-  def first_name
-    telegram_data.fetch('first_name')
-  end
-
-  def public_name
-    first_name || telegram_nick
-  end
-
-  def telegram_nick
-    "@#{telegram_data.fetch('username')}"
   end
 end

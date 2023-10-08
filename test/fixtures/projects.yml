@@ -2,10 +2,10 @@
 
 yandex:
   key: yandex
-  owner: one
+  owner: bob
   telegram_group_id: 123
   name: yandex
-  tariff: minimal
+  tariff: free
   bot_id: 1
 
 dzen:

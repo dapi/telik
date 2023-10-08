@@ -14,7 +14,7 @@ class TelegramAuthCallbackControllerTest < ActionDispatch::IntegrationTest
       assert_response :redirect
       user = User.find_by(telegram_user_id:)
       assert user
-      assert_equal telegram_user_id, user.telegram_data.fetch('id').to_i
+      assert_equal telegram_user_id, user.telegram_user.id
       assert_equal user.id, session[:user_id].to_i
     end
   end

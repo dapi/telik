@@ -1,12 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 yandex:
-  telegram_user: danil
+  telegram_user: bob
   telegram_message_thread_id: 123
   project: yandex
   user_data:
     user_id: 123
 
 dzen:
-  telegram_user: danil
+  telegram_user: visitor
   project: dzen

@@ -5,7 +5,17 @@
 # below each fixture, per the syntax in the comments below
 #
 bob:
-  id: 123
   first_name: "Bob"
   last_name: Marley
   username: "bob"
+
+visitor:
+  first_name: "Visitor"
+  last_name: Clinton
+  username: "visitor"
+
+new_user:
+  first_name: "New"
+  last_name: Nikitonsky
+  username: "new_user"
+

@@ -106,6 +106,8 @@ group :development do
   gem 'guard-minitest'
   gem 'guard-rails'
   gem 'guard-rspec', '~> 4.7'
+  gem 'guard-rubocop', '~> 1.5'
+  gem 'guard-shell', '~> 0.7.2'
 
   gem 'capistrano', require: false
   gem 'capistrano3-puma', github: 'seuros/capistrano-puma', require: false
@@ -156,5 +158,3 @@ gem 'non-digest-assets', '~> 2.2'
 gem 'ransack', '~> 4.0'
 
 gem 'kaminari', '~> 1.2'
-
-gem 'guard-rubocop', '~> 1.5'

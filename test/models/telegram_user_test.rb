@@ -6,6 +6,6 @@ require 'test_helper'
 
 class TelegramUserTest < ActiveSupport::TestCase
   test 'the truth' do
-    assert telegram_users(:danil).persisted?
+    assert telegram_users(:bob).persisted?
   end
 end

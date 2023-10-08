@@ -33,7 +33,12 @@ class VisitController < ApplicationController
 
   def host_confirms!
     host = Addressable::URI.parse(request.referer).try(:host)
-    project.update! host: host, host_confirmed_at: Time.zone.now if host.present?
+    # Бывает что referer нет
+    if host.present?
+      project.update! host:, host_confirmed_at: Time.zone.now
+    else
+      project.update! host_confirmed_at: Time.zone.now
+    end
   end
 
   def build_redirect_url

@@ -267,6 +267,9 @@ GEM
     guard-rubocop (1.5.0)
       guard (~> 2.0)
       rubocop (< 2.0)
+    guard-shell (0.7.2)
+      guard (>= 2.0.0)
+      guard-compat (~> 1.0)
     hashie (5.0.0)
     hiredis (0.6.3)
     httpclient (2.8.3)
@@ -601,6 +604,7 @@ DEPENDENCIES
   guard-rails
   guard-rspec (~> 4.7)
   guard-rubocop (~> 1.5)
+  guard-shell (~> 0.7.2)
   hiredis
   importmap-rails
   jbuilder

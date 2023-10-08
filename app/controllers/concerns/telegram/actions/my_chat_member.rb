@@ -43,9 +43,7 @@ module Telegram::Actions::MyChatMember
   private
 
   def perform_my_chat_member(data, project = nil)
-    user = User
-      .create_with(telegram_data: from)
-      .create_or_find_by!(telegram_user_id: from.fetch('id'))
+    user = User.find_or_create_by_telegram_data!(from)
 
     chat_member = data.fetch('new_chat_member')
 
@@ -56,7 +54,8 @@ module Telegram::Actions::MyChatMember
         chat_member_updated_at: Time.zone.now,
         chat_member:,
         telegram_group_name: chat.fetch('title'),
-        name: chat.fetch('title')
+        name: chat.fetch('title'),
+        tariff: Tariff.free!
       }
       project ||= Project
         .create_with(attrs.merge(owner: user))

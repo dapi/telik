@@ -4,14 +4,10 @@
 
 require 'test_helper'
 
-# Регистрируется новый пользователь, проходит через тариф и доходит до интегрированного бота и рабочего стола
+# Регистрируется новый пользователь, регистрируется и доходит до выбора тарифа
 #
 class NewUserFlowTest < ActionDispatch::IntegrationTest
-  fixtures :all
-
-  setup do
-    https!
-  end
+  fixtures :tariffs
 
   test 'Новый пользователь проходит путь с главной страницы до создания бесплатного проекта' do
     get '/'
@@ -28,10 +24,10 @@ class NewUserFlowTest < ActionDispatch::IntegrationTest
     # И еще телеграмовскую кнопку для логина
     assert_select 'script[data-telegram-login]'
 
-    # Типа на неё жмякаем и нас кидает обратно уже с авторизационными данными
-    data = { id: 10_000, username: 'newuser', first_name: 'new', last_name: 'other', photo_url: 'https://', auth_date: Time.zone.now.to_i }
-    get telegram_auth_callback_path, params: data.merge(hash: TelegramAuthCallbackController.sign_params(data))
-    follow_redirect!
+    assert_difference -> { User.count } do
+      # Типа на неё жмякаем и нас кидает обратно уже с авторизационными данными
+      login! id: 10_000, username: 'newuser', first_name: 'new', last_name: 'other', photo_url: 'https://'
+    end
 
     assert_select 'h1', 'Выберите тариф'
   end

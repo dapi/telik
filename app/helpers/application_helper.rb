@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def setup_checkbox(flag, tooltip: nil)
-    content_tag :span, title: tooltip || flag do
+    content_tag :span, title: tooltip || flag, data: { checkbox: true, checkbox_value: !!flag } do
       flag ? '✅' : '⭕'
     end
   end

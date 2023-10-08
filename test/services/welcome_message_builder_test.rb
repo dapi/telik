@@ -7,7 +7,7 @@ require 'test_helper'
 class WelcomeMessageBuilderTest < ActiveSupport::TestCase
   test 'template by default' do
     visit = visits :yandex
-    assert_equal WelcomeMessageBuilder.new(visit).build, 'yandex: Привет, Danil! Чем вам помочь?'
+    assert_equal WelcomeMessageBuilder.new(visit).build, "yandex: Привет, #{visit.visitor.first_name}! Чем вам помочь?"
   end
 
   test 'custom template' do
