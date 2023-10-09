@@ -69,7 +69,7 @@ class Project < ApplicationRecord
   end
 
   after_commit do
-    ProjectRelayJob.perform_later self
+    ProjectRelayJob.perform_later self, previous_changes
   end
 
   def self.ransackable_attributes(_auth_object = nil)

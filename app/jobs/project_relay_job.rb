@@ -7,10 +7,11 @@
 class ProjectRelayJob < ApplicationJob
   queue_as :default
 
-  def perform(project)
+  def perform(project, previous_changes = {})
     ProjectsChannel.broadcast_to(
       project.id,
       project: project.as_json,
+      previous_changes:,
       group_setup_page: ProjectsController.render(partial: 'projects/group/setup', locals: { project: })
     )
   end
