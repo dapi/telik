@@ -15,6 +15,10 @@ module Telegram
 
     use_session!
 
+    before_action do
+      @telegram_event = TelegramEvent.create! payload: update
+    end
+
     private
 
     def current_bot_id
@@ -106,7 +110,7 @@ module Telegram
 
     # Это означает что сообщение из группы, а не из личной перепики
     def forum?
-      chat['is_forum']
+      chat['is_forum'] || chat['type'] == 'supergroup'
     end
 
     def topic_message?

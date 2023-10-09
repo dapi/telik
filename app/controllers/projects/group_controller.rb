@@ -19,6 +19,7 @@ class Projects::GroupController < ApplicationController
 
   # Делает проверку на настроенность бота и если все ок редиректит далее на настройку проекта
   def create
+    update_chat_info! project
     if project.bot_installed?
       redirect_to project_path(project),
                   status: :see_other,
@@ -31,6 +32,10 @@ class Projects::GroupController < ApplicationController
   end
 
   private
+
+  def update_chat_info!(project)
+    project.update_chat_info! project.fetch_chat_info
+  end
 
   def project
     @project ||= current_user.projects.find params[:project_id]

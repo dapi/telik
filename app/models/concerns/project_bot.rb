@@ -25,6 +25,37 @@ module ProjectBot
     super value
   end
 
+  def fetch_chat_info
+    return nil if telegram_group_id.nil?
+
+    response = bot.get_chat chat_id: telegram_group_id
+    # {"ok"=>true,
+    # "result"=>
+    # {"id"=>-1001803447845,
+    # "title"=>"Paprika Dev Bot Support",
+    # "type"=>"supergroup",
+    # "permissions"=>
+    # {"can_send_messages"=>true,
+    # "can_send_media_messages"=>true,
+    # "can_send_audios"=>true,
+    # "can_send_documents"=>true,
+    # "can_send_photos"=>true,
+    # "can_send_videos"=>true,
+    # "can_send_video_notes"=>true,
+    # "can_send_voice_notes"=>true,
+    # "can_send_polls"=>true,
+    # "can_send_other_messages"=>true,
+    # "can_add_web_page_previews"=>true,
+    # "can_change_info"=>true,
+    # "can_invite_users"=>true,
+    # "can_pin_messages"=>true,
+    # "can_manage_topics"=>true},
+    # "join_to_send_messages"=>true}}
+    response['ok'] ? response.fetch('result') : nil
+  rescue Telegram::Bot::NotFound, Telegram::Bot::Error
+    nil
+  end
+
   def fetch_bot_id
     bot_token.to_s.split(':').first
   end
@@ -40,6 +71,65 @@ module ProjectBot
 
   def set_webhook
     custom_bot.set_webhook(url: Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)) if bot_id.present?
+  end
+
+  # Бот подключен в группу?
+  def bot_connected?
+    bot_status.present?
+    # bot_status == 'administrator'
+  end
+
+  def update_bot_member!(chat_member:, chat:)
+    raise 'Project must be not changed' if changed?
+
+    assign_attributes(
+      telegram_chat: chat,
+      telegram_group_is_forum: chat['is_forum'],
+      telegram_group_type: chat.fetch('type'),
+      bot_status: chat_member.fetch('status'),
+      bot_can_manage_topics: chat_member['can_manage_topics'],
+      chat_member:
+    )
+    return unless changed?
+
+    self.chat_member_updated_at = Time.zone.now
+    save!
+  end
+
+  # {"id"=>-1001803447845,
+  # "title"=>"Paprika Dev Bot Support",
+  # "type"=>"supergroup",
+  # "permissions"=>
+  # {"can_send_messages"=>true,
+  # "can_send_media_messages"=>true,
+  # "can_send_audios"=>true,
+  # "can_send_documents"=>true,
+  # "can_send_photos"=>true,
+  # "can_send_videos"=>true,
+  # "can_send_video_notes"=>true,
+  # "can_send_voice_notes"=>true,
+  # "can_send_polls"=>true,
+  # "can_send_other_messages"=>true,
+  # "can_add_web_page_previews"=>true,
+  # "can_change_info"=>true,
+  # "can_invite_users"=>true,
+  # "can_pin_messages"=>true,
+  # "can_manage_topics"=>true},
+  # "join_to_send_messages"=>true}}
+  def update_chat_info!(info)
+    return if info.nil?
+
+    assign_attributes(
+      telegram_group_name: info.fetch('title'),
+      telegram_group_type: info.fetch('type'),
+      bot_can_manage_topics: info.dig('permission', 'can_manage_topics')
+      # TODO: Возможно можно вычислять
+      # telegram_group_is_forum: chat['is_forum'],
+      # bot_status: chat_member.fetch('status'),
+    )
+    return unless changed?
+
+    save!
   end
 
   private

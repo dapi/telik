@@ -7,11 +7,11 @@
 
   h2 Чек-лист в помощь
 ul.list-group.mb-3[data-projects-channel=project.id]
-  = render 'telegram_group_name', project: project
-  = render 'telegram_supergroup', project: project
-  = render 'bot_added', project: project
-  = render 'bot_admin', project: project
-  = render 'bot_can_manage_topics', project: project
+  = render 'projects/group/telegram_group_name', project: project
+  = render 'projects/group/telegram_supergroup', project: project
+  = render 'projects/group/bot_added', project: project
+  = render 'projects/group/bot_admin', project: project
+  = render 'projects/group/bot_can_manage_topics', project: project
 
 .mt-4
   - if project.bot_installed?
@@ -24,9 +24,9 @@ ul.list-group.mb-3[data-projects-channel=project.id]
     h2.float-start Готово?
     .float-end
       - if project.persisted?
-        = link_to 'Проверить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-success btn-lg',  data: { next_button: true, turbo_method: :post }
+        = link_to 'Проверить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-outline-success btn-lg',  data: { next_button: true, turbo_method: :post }
       - else
-        = link_to 'Проверить &rarr;'.html_safe, new_project_path(project: { tariff_id: project.tariff_id }), data: { next_button: true }, class: 'btn btn-success btn-lg'
+        = link_to 'Проверить &rarr;'.html_safe, new_project_path(project: { tariff_id: project.tariff_id }), data: { next_button: true }, class: 'btn btn-outline-success btn-lg'
 
 .clearfix
 .row.mt-4

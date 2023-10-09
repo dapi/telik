@@ -2,7 +2,8 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Канал обновлений проектов
+# Канал обновлений проекта, используется при установке/настройке проекта
+#
 class ProjectsChannel < ApplicationCable::Channel
   def subscribed
     project = current_user.projects.find params[:id]

@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+# Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
+
+# Канал новостей по пользователю
+#
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'user:' + current_user.id.to_s
@@ -8,6 +14,5 @@ class UserChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def project_update
-  end
+  def project_update; end
 end

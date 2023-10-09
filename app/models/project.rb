@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   validates :bot_token, presence: true, if: :bot_token_required?
   validates :bot_token,
             uniqueness: true,
+            # uniqueness: { message: -> (project, validation) { 'aaa' } },
             format: { with: BOT_TOKEN_FORMAT, message: 'имеет не верный формат' },
             if: :bot_token?
   validate :validate_bot_token
@@ -42,7 +43,8 @@ class Project < ApplicationRecord
   validates :url, url: true, if: :url?
   validates :skip_threads_ids, type: Array
   validates :bot_username,
-            presence: { message: 'Уже заведен проект с таким токеном' },
+            presence: true,
+            uniqueness: { message: 'Уже заведен проект с таким токеном' },
             if: :bot_token?
 
   # Есть два способа создания проекта.
@@ -96,31 +98,8 @@ class Project < ApplicationRecord
     host || name || custom_username
   end
 
-  # Бот подключен в группу?
-  def bot_connected?
-    bot_status.present?
-    # bot_status == 'administrator'
-  end
-
   def notify_telegram_user_ids
     memberships.joins(:user, :project).pluck(:telegram_user_id).uniq
-  end
-
-  def update_bot_member!(chat_member:, chat:)
-    raise 'Project must be not changed' if changed?
-
-    assign_attributes(
-      telegram_chat: chat,
-      telegram_group_is_forum: chat['is_forum'],
-      telegram_group_type: chat.fetch('type'),
-      bot_status: chat_member.fetch('status'),
-      bot_can_manage_topics: chat_member['can_manage_topics'],
-      chat_member:
-    )
-    return unless changed?
-
-    self.chat_member_updated_at = Time.zone.now
-    save!
   end
 
   def telegram_group_prefix_url

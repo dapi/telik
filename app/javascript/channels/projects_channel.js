@@ -16,15 +16,11 @@ document.
 
       received(data) {
         console.log('Received', data);
-        // Временно отключил из-за глючности
-        //var tbody = document.querySelector("table[data-projects-table] tbody");
-        //var projectRow = document.getElementById(`row_project_${data.project.id}`);
-        //if (!projectRow && tbody) {
-        //projectRow = tbody.insertRow();
-        //};
-        //if (projectRow) {
-        //projectRow.outerHTML=data.row;
-        //};
+
+        var element = document.querySelector(`[data-setup-project='${projectId}']`);
+        if (element && data.group_setup_page) {
+          element.innerHTML = data.group_setup_page;
+        }
       }
     });
   });

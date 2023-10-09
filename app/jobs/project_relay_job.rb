@@ -11,7 +11,7 @@ class ProjectRelayJob < ApplicationJob
     ProjectsChannel.broadcast_to(
       project.id,
       project: project.as_json,
-      # row: ProjectsController.render(partial: 'projects/project', locals: { project: })
+      group_setup_page: ProjectsController.render(partial: 'projects/group/setup', locals: { project: })
     )
   end
 end

@@ -37,6 +37,10 @@ module Telegram::Actions::MyChatMember
       # Отлично, пропускаем
     elsif (project = Project.with_bots.find_by_bot_id(current_bot_id))
       perform_my_chat_member(data, project)
+    else
+      Bugsnag.notify 'my_chat_member от неизвестного бота' do |b|
+        b.metadata = { payload: }
+      end
     end
   end
 
