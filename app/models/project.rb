@@ -85,6 +85,7 @@ class Project < ApplicationRecord
   end
 
   def add_skipped_topic!(thread_id)
+    Rails.logger.info "Add skipped topic #{thread_id} to project #{id}"
     with_lock do
       update! skip_threads_ids: skip_threads_ids + [thread_id]
     end
