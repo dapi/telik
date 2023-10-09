@@ -35,10 +35,9 @@ class Project < ApplicationRecord
   validates :bot_token, presence: true, if: :bot_token_required?
   validates :bot_token,
             uniqueness: true,
-            # uniqueness: { message: -> (project, validation) { 'aaa' } },
             format: { with: BOT_TOKEN_FORMAT, message: 'имеет не верный формат' },
             if: :bot_token?
-  validate :validate_bot_token
+  validate :validate_bot_token, if: :bot_token?
   validates :name, presence: true
   validates :url, url: true, if: :url?
   validates :skip_threads_ids, type: Array

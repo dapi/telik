@@ -1,0 +1,6 @@
+= render 'projects/group/setup', project: project
+- unless project.bot_installed?
+  .float-end
+    = link_to 'Проверить'.html_safe, project_group_path(project), class: 'btn btn-outline-success btn-lg',  data: { turbo_method: :post }
+
+

@@ -17,14 +17,14 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     bot = Minitest::Mock.new
     bot_name = 'MyCutstomBot'
     bot.expect :get_me, { 'result' => { 'username' => bot_name } }
-    bot.expect :get_chat, { 'ok' => true, 'result' => { 'title' => 'group name', 'type' => 'supergroup', 'permission' => { 'can_manage_topics' => true } } }, chat_id: 10_001
+    bot.expect :get_chat, { 'ok' => true, 'result' => { 'title' => 'group name', 'type' => 'supergroup', 'permissions' => { 'can_manage_topics' => true } } }, chat_id: 10_001
 
     Telegram::Bot::Client.stub :new, bot do
       post projects_path, params: { project: { tariff_id: tariffs(:paid).id, bot_token: '123:abc' } }
     end
     follow_redirect!
 
-    assert_select 'h1', 'Нужна супер-группа в телеграм'
+    assert_select 'h1', I18n.t(:support_group)
     assert_select 'a[data-next-button]', 'Проверить →'
 
     # Видим инструкцию на 5 пунктов
@@ -36,7 +36,7 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     # И получаем тоже самое
-    assert_select 'h1', 'Нужна супер-группа в телеграм'
+    assert_select 'h1', I18n.t(:support_group)
 
     assert_equal 1, telegram_users(:new_user).user.projects.count
     project = telegram_users(:new_user).user.projects.take

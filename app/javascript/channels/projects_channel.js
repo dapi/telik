@@ -20,7 +20,7 @@ document.
         var element = document.querySelector(`[data-setup-project='${projectId}']`);
         if (element && data.group_setup_page) {
           element.innerHTML = data.group_setup_page;
-          // document.querySelectorAll('[data-checkbox-value="true"]').forEach((e) => { e.classList.add('animate__animated', 'animate__bounce'); });
+          document.querySelectorAll('[data-checkbox-value="true"]').forEach((element) => { element.classList.add('animate__animated', 'animate__bounceIn'); });
         }
       }
     });

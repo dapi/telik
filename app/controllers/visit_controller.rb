@@ -13,7 +13,7 @@ class VisitController < ApplicationController
 
   def create
     redirect_to build_redirect_url, allow_other_host: true
-    host_confirms! unless project.host_confirmed?
+    host_confirms!
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.error e
     Bugsnag.notify e do |b|
@@ -32,6 +32,8 @@ class VisitController < ApplicationController
   private
 
   def host_confirms!
+    return if project.host_confirmed?
+
     host = Addressable::URI.parse(request.referer).try(:host)
     # Бывает что referer нет
     if host.present?

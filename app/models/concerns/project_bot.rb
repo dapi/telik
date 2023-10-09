@@ -122,7 +122,7 @@ module ProjectBot
     assign_attributes(
       telegram_group_name: info.fetch('title'),
       telegram_group_type: info.fetch('type'),
-      bot_can_manage_topics: info.dig('permission', 'can_manage_topics')
+      bot_can_manage_topics: info.dig('permissions', 'can_manage_topics')
       # TODO: Возможно можно вычислять
       # telegram_group_is_forum: chat['is_forum'],
       # bot_status: chat_member.fetch('status'),

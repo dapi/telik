@@ -1,9 +1,10 @@
-- flash_backgrounds = { 'alert' => 'bg-warning' }
-.toast-container.position-absolute.p-3.top-0.end-0
+- flash_backgrounds = { 'alert' => 'bg-warning', 'notice' => 'bg-success text-bg-primary' }
+//.toast-container.position-absolute.p-3.top-0.end-0
+.toast-container.position-absolute.top-50.start-50.translate-middle
   - flash.each do |key, value|
     .toast.align-items-center aria-atomic="true" aria-live="assertive" role="alert" class=(flash_backgrounds[key]  || :default) title=key
       .d-flex
-        .toast-body= value
+        .toast-body.lead= value
         button.btn-close.me-2.m-auto type="button" data-bs-dismiss="toast" aria-label="Close"
 
     / Версия с заголовком

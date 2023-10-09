@@ -21,12 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    project = current_user
-      .projects
-      .where(host_confirmed_at: nil)
-      .where.not(telegram_group_id: nil)
-      .where(bot_token: nil)
-      .take
+    project = find_new_project
     if project.present?
       redirect_to next_step_redirect_url(project)
     else
@@ -37,14 +32,21 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = current_user.projects.build permitted_params.merge(owner: current_user)
-    project.assign_attributes permitted_params
-    project.save!
-    redirect_to next_step_redirect_url(project)
+    project = find_new_project
+    if project.present?
+      view = next_step_view project
+      flash.now[:alert] = 'Еще не все закончено. Смотрите чек-лист' if view == 'projects/group/show'
+      render view, locals: { project: }, status: :unprocessable_entity
+    else
+      project = current_user.projects.build permitted_params.merge(owner: current_user)
+      project.assign_attributes permitted_params
+      project.save!
+      redirect_to next_step_redirect_url(project)
+    end
   rescue ActiveRecord::RecordInvalid => e
-    render next_step_view(e.record), locals: {
-      project: e.record
-    }, status: :unprocessable_entity
+    view = next_step_view(e.record)
+    flash.now[:alert] = 'Еще не все закончено. Смотрите чек-лист' if view == 'projects/group/show'
+    render view, locals: { project: e.record }, status: :unprocessable_entity
   end
 
   def reset_bot
@@ -76,6 +78,15 @@ class ProjectsController < ApplicationController
 
   private
 
+  def find_new_project
+    current_user
+      .projects
+      .where(host_confirmed_at: nil)
+      .where.not(telegram_group_id: nil)
+      .where(bot_token: nil)
+      .take
+  end
+
   def next_step_redirect_url(project)
     if !project.bot_installed?
       project_group_path(project)
@@ -89,7 +100,7 @@ class ProjectsController < ApplicationController
   def next_step_view(project)
     if project.tariff.present?
       @back_url = new_project_path
-      project.tariff.custom_bot_allowed? ? :setup_bot_token : :setup_group
+      project.tariff.custom_bot_allowed? ? :setup_bot_token : 'projects/group/show'
     else
       @back_url = logged_in? ? projects_path : root_url
       :select_tariff

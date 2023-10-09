@@ -20,3 +20,12 @@
   background-color: green;
   height: 5px;
 }
+
+.text-bg-primary {
+  color: white;
+
+  & > .btn-close {
+    color: white;
+  }
+}
+

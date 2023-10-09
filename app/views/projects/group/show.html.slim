@@ -1,4 +1,33 @@
 = render 'progress', step: project_current_step(project), steps: project_setup_steps(project)
-h1 Cупер-группа в телеграм
-div[data-setup-project=project.id]
-  = render 'setup', project: project
+h1= t :support_group
+div{ data-setup-project=project.id }
+  = render 'projects/group/setup', project: project
+
+.mt-4
+  - if project.bot_installed?
+    h2.float-start Все отлично!
+    .float-end
+      = link_to 'Пордолжить &rarr;'.html_safe, project_group_path(project), class: 'btn btn-success btn-lg',  data: { next_button: true, turbo_method: :post }
+
+  - else
+    // span.me-2= spinner
+    h2.float-start Готово?
+    .float-end
+      - if project.persisted?
+        = link_to 'Проверить &rarr;'.html_safe, 
+          project_group_path(project), 
+          class: 'btn btn-outline-success btn-lg', 
+          data: { next_button: true, turbo_method: :post }
+      - else
+        = link_to 'Проверить &rarr;'.html_safe, 
+          projects_path(project: { tariff_id: project.tariff_id }), 
+          class: 'btn btn-outline-success btn-lg',
+          data: { next_button: true, turbo_method: :post }
+
+.clearfix
+.row.mt-4
+
+  .alert.alert-warning role='alert'
+    p Клиенты не будут иметь доступ в эту группу, но через бота в неё будут поступать от них вопросы. На эти вопросы сможет отвечать любой участник группы. Для каждого клиента создаётся своя тема.
+
+

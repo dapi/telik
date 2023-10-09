@@ -12,7 +12,7 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
   test 'Зарегистрированный пользователь выбирает бесплатный тариф и создаёт проект' do
     login! telegram_users(:new_user)
     get new_project_path(project: { tariff_id: tariffs(:free).id })
-    assert_select 'h1', 'Нужна супер-группа в телеграм'
+    assert_select 'h1', I18n.t(:support_group)
 
     assert_select 'a[data-next-button]', 'Проверить →'
 
@@ -24,7 +24,7 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
     go_next
 
     # И получаем тоже самое
-    assert_select 'h1', 'Нужна супер-группа в телеграм'
+    assert_select 'h1', I18n.t(:support_group)
 
     # Нотеперь мы делаем все как положенно по-инструкции
     user = users(:new_user)
@@ -43,10 +43,9 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
 
     # Идем дальше
     go_next
-    follow_redirect!
 
-    assert_equal 1, true_checkboxes.count, false_checkboxes.join('; ')
     assert_includes true_checkboxes.join, 'Создана группа с названием'
+    assert_equal 1, true_checkboxes.count, false_checkboxes.join('; ')
 
     # Сделали почти все что надо в телеге
     project.update!(
