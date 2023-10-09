@@ -5,7 +5,7 @@
 # Формирует название топика для темы
 #
 class TopicTitleBuilder < StringInterpolator
-  DEFAULT_TEMPLATE = '#%{visitor.id} %{visitor.name} %{visit.geo}'
+  DEFAULT_TEMPLATE = '%{visitor.id} %{visitor.name} %{visit.geo}'
 
   def initialize(visitor, visit = nil)
     @visitor = visitor
