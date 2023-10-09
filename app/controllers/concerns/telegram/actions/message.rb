@@ -32,23 +32,26 @@ module Telegram
 
       def operator_message(data) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         Rails.logger.info "operator_message #{data}"
+        if forum_topic_created? # Так это мы его сами и создали?
+          Rails.logger.info "Add skipped topic #{data}"
+          chat_project&.add_skipped_topic! data.fetch('message_thread_id')
+        end
+        update_forum_topic! data if forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
+
         if data.key? 'new_chat_title'
           Rails.logger.info 'Update telegram group name'
           # Старое название data.dig('chat', 'title')
           chat_project&.update! telegram_group_name: data.fetch('new_chat_title'), name: data.fetch('new_chat_title')
-        elsif topic_message?
+        end
+
+        if topic_message?
           operator_topic_message(data)
-        elsif forum_topic_created? # Так это мы его сами и создали? Не понятно что это за события
-          Rails.logger.info "Add skipped topic #{data}"
-          chat_project&.add_skipped_topic! data.fetch('message_thread_id')
-        elsif forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
-          update_forum_topic! data
         elsif forum?
           # Skip
           notify_bugsnag 'Странное событие forum?'
         elsif chat['type'] == 'group' # Похоже пишут в главном топике группы, возможно надо проверять еще на chat['supergroup']
           # Skip
-          notify_bugsnag 'Странное событие type==group'
+          notify_bugsnag 'Пишут в главном топике группы'
         elsif data.key? 'migrate_from_chat_id' # The supergroup has been migrated from a group with the specified identifier.
           # {"message_id"=>1,
           # "from"=>{"id"=>1087968824, "is_bot"=>true, "first_name"=>"Group", "username"=>"GroupAnonymousBot"},
@@ -58,6 +61,7 @@ module Telegram
           # "migrate_from_chat_id"=>-933474784}
           respond_with :message, text: "Прекрассно!\nТеперь это супер-группа!\nОсталось дать мне право управлять темами."
         else
+          notify_bugsnag 'Странное событие'
           respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
         end
       end
