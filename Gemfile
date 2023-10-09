@@ -155,3 +155,7 @@ gem 'non-digest-assets', '~> 2.2'
 gem 'ransack', '~> 4.0'
 
 gem 'kaminari', '~> 1.2'
+
+gem 'administrate', '~> 0.19.0'
+
+gem 'administrate-field-jsonb', '~> 0.4.6'

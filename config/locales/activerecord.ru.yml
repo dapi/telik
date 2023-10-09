@@ -5,13 +5,19 @@ ru:
         one: Проект
         few: Проектов
         many: Проекты
-        other: Проекты
+        other: Проект
       visit:
         one: Посещение
         many: Посещения
+        other: Посещение
       visitor:
         one: Посетитель
         many: Посетители
+        other: Посетитель
+      message:
+        one: Сообщение
+        many: Сообщений
+        other: Сообщение
     attributes:
       project:
         bot_token: Токен

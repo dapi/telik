@@ -51,7 +51,7 @@ module ProjectBot
     # "can_pin_messages"=>true,
     # "can_manage_topics"=>true},
     # "join_to_send_messages"=>true}}
-    response['ok'] ? response.fetch('result') : nil
+    response.is_a?(Hash) && response['ok'] ? response.fetch('result') : nil
   rescue Telegram::Bot::NotFound, Telegram::Bot::Error
     nil
   end

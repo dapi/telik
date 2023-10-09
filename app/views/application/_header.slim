@@ -9,5 +9,7 @@ nav.navbar.navbar-light
       .navbar-text
         | 🙋 Привет, #{current_user}!
         span.ms-4= link_to 'Попрощаться', sessions_path, data: { turbo_method: :delete }
+        - if current_user.super_admin?
+          span.ms-4= link_to 'admin', admin_root_path
     - else
       = render 'telegram_login'

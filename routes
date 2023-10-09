@@ -1,4 +1,85 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
+                       admin_memberships GET    /admin/memberships(.:format)                                                                      admin/memberships#index
+                                         POST   /admin/memberships(.:format)                                                                      admin/memberships#create
+                    new_admin_membership GET    /admin/memberships/new(.:format)                                                                  admin/memberships#new
+                   edit_admin_membership GET    /admin/memberships/:id/edit(.:format)                                                             admin/memberships#edit
+                        admin_membership GET    /admin/memberships/:id(.:format)                                                                  admin/memberships#show
+                                         PATCH  /admin/memberships/:id(.:format)                                                                  admin/memberships#update
+                                         PUT    /admin/memberships/:id(.:format)                                                                  admin/memberships#update
+                                         DELETE /admin/memberships/:id(.:format)                                                                  admin/memberships#destroy
+                          admin_messages GET    /admin/messages(.:format)                                                                         admin/messages#index
+                                         POST   /admin/messages(.:format)                                                                         admin/messages#create
+                       new_admin_message GET    /admin/messages/new(.:format)                                                                     admin/messages#new
+                      edit_admin_message GET    /admin/messages/:id/edit(.:format)                                                                admin/messages#edit
+                           admin_message GET    /admin/messages/:id(.:format)                                                                     admin/messages#show
+                                         PATCH  /admin/messages/:id(.:format)                                                                     admin/messages#update
+                                         PUT    /admin/messages/:id(.:format)                                                                     admin/messages#update
+                                         DELETE /admin/messages/:id(.:format)                                                                     admin/messages#destroy
+                          admin_projects GET    /admin/projects(.:format)                                                                         admin/projects#index
+                                         POST   /admin/projects(.:format)                                                                         admin/projects#create
+                       new_admin_project GET    /admin/projects/new(.:format)                                                                     admin/projects#new
+                      edit_admin_project GET    /admin/projects/:id/edit(.:format)                                                                admin/projects#edit
+                           admin_project GET    /admin/projects/:id(.:format)                                                                     admin/projects#show
+                                         PATCH  /admin/projects/:id(.:format)                                                                     admin/projects#update
+                                         PUT    /admin/projects/:id(.:format)                                                                     admin/projects#update
+                                         DELETE /admin/projects/:id(.:format)                                                                     admin/projects#destroy
+                           admin_tariffs GET    /admin/tariffs(.:format)                                                                          admin/tariffs#index
+                                         POST   /admin/tariffs(.:format)                                                                          admin/tariffs#create
+                        new_admin_tariff GET    /admin/tariffs/new(.:format)                                                                      admin/tariffs#new
+                       edit_admin_tariff GET    /admin/tariffs/:id/edit(.:format)                                                                 admin/tariffs#edit
+                            admin_tariff GET    /admin/tariffs/:id(.:format)                                                                      admin/tariffs#show
+                                         PATCH  /admin/tariffs/:id(.:format)                                                                      admin/tariffs#update
+                                         PUT    /admin/tariffs/:id(.:format)                                                                      admin/tariffs#update
+                                         DELETE /admin/tariffs/:id(.:format)                                                                      admin/tariffs#destroy
+                   admin_telegram_events GET    /admin/telegram_events(.:format)                                                                  admin/telegram_events#index
+                                         POST   /admin/telegram_events(.:format)                                                                  admin/telegram_events#create
+                new_admin_telegram_event GET    /admin/telegram_events/new(.:format)                                                              admin/telegram_events#new
+               edit_admin_telegram_event GET    /admin/telegram_events/:id/edit(.:format)                                                         admin/telegram_events#edit
+                    admin_telegram_event GET    /admin/telegram_events/:id(.:format)                                                              admin/telegram_events#show
+                                         PATCH  /admin/telegram_events/:id(.:format)                                                              admin/telegram_events#update
+                                         PUT    /admin/telegram_events/:id(.:format)                                                              admin/telegram_events#update
+                                         DELETE /admin/telegram_events/:id(.:format)                                                              admin/telegram_events#destroy
+                    admin_telegram_users GET    /admin/telegram_users(.:format)                                                                   admin/telegram_users#index
+                                         POST   /admin/telegram_users(.:format)                                                                   admin/telegram_users#create
+                 new_admin_telegram_user GET    /admin/telegram_users/new(.:format)                                                               admin/telegram_users#new
+                edit_admin_telegram_user GET    /admin/telegram_users/:id/edit(.:format)                                                          admin/telegram_users#edit
+                     admin_telegram_user GET    /admin/telegram_users/:id(.:format)                                                               admin/telegram_users#show
+                                         PATCH  /admin/telegram_users/:id(.:format)                                                               admin/telegram_users#update
+                                         PUT    /admin/telegram_users/:id(.:format)                                                               admin/telegram_users#update
+                                         DELETE /admin/telegram_users/:id(.:format)                                                               admin/telegram_users#destroy
+                             admin_users GET    /admin/users(.:format)                                                                            admin/users#index
+                                         POST   /admin/users(.:format)                                                                            admin/users#create
+                          new_admin_user GET    /admin/users/new(.:format)                                                                        admin/users#new
+                         edit_admin_user GET    /admin/users/:id/edit(.:format)                                                                   admin/users#edit
+                              admin_user GET    /admin/users/:id(.:format)                                                                        admin/users#show
+                                         PATCH  /admin/users/:id(.:format)                                                                        admin/users#update
+                                         PUT    /admin/users/:id(.:format)                                                                        admin/users#update
+                                         DELETE /admin/users/:id(.:format)                                                                        admin/users#destroy
+                            admin_visits GET    /admin/visits(.:format)                                                                           admin/visits#index
+                                         POST   /admin/visits(.:format)                                                                           admin/visits#create
+                         new_admin_visit GET    /admin/visits/new(.:format)                                                                       admin/visits#new
+                        edit_admin_visit GET    /admin/visits/:id/edit(.:format)                                                                  admin/visits#edit
+                             admin_visit GET    /admin/visits/:id(.:format)                                                                       admin/visits#show
+                                         PATCH  /admin/visits/:id(.:format)                                                                       admin/visits#update
+                                         PUT    /admin/visits/:id(.:format)                                                                       admin/visits#update
+                                         DELETE /admin/visits/:id(.:format)                                                                       admin/visits#destroy
+                          admin_visitors GET    /admin/visitors(.:format)                                                                         admin/visitors#index
+                                         POST   /admin/visitors(.:format)                                                                         admin/visitors#create
+                       new_admin_visitor GET    /admin/visitors/new(.:format)                                                                     admin/visitors#new
+                      edit_admin_visitor GET    /admin/visitors/:id/edit(.:format)                                                                admin/visitors#edit
+                           admin_visitor GET    /admin/visitors/:id(.:format)                                                                     admin/visitors#show
+                                         PATCH  /admin/visitors/:id(.:format)                                                                     admin/visitors#update
+                                         PUT    /admin/visitors/:id(.:format)                                                                     admin/visitors#update
+                                         DELETE /admin/visitors/:id(.:format)                                                                     admin/visitors#destroy
+                  admin_visitor_sessions GET    /admin/visitor_sessions(.:format)                                                                 admin/visitor_sessions#index
+                                         POST   /admin/visitor_sessions(.:format)                                                                 admin/visitor_sessions#create
+               new_admin_visitor_session GET    /admin/visitor_sessions/new(.:format)                                                             admin/visitor_sessions#new
+              edit_admin_visitor_session GET    /admin/visitor_sessions/:id/edit(.:format)                                                        admin/visitor_sessions#edit
+                   admin_visitor_session GET    /admin/visitor_sessions/:id(.:format)                                                             admin/visitor_sessions#show
+                                         PATCH  /admin/visitor_sessions/:id(.:format)                                                             admin/visitor_sessions#update
+                                         PUT    /admin/visitor_sessions/:id(.:format)                                                             admin/visitor_sessions#update
+                                         DELETE /admin/visitor_sessions/:id(.:format)                                                             admin/visitor_sessions#destroy
+                              admin_root GET    /admin(.:format)                                                                                  admin/memberships#index
                                     root GET    /                                                                                                 welcome#index
                         telegram_webhook POST   /telegram/y8xrmb4nLHjeQO-CxSAA50HY-Jo                                                             #<Telegram::Bot::Middleware(Telegram::WebhookController)>
                  telegram_custom_webhook POST   /telegram/custom_webhook/:custom_bot_id(.:format)                                                 #<CustomTelegramBotMiddleware(Telegram::WebhookController)>
@@ -33,7 +114,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007fc0a4a861c0 /home/danil/code/samochat/config/routes.rb:57>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007fa0585389c8 /home/danil/code/samochat/config/routes.rb:71>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

@@ -55,6 +55,12 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
       bot_status: 'administrator'
     )
 
+    bot = Minitest::Mock.new
+    bot_name = 'MyCutstomBot'
+    bot.expect :get_me, { 'result' => { 'username' => bot_name } }
+    bot.expect :get_chat, { 'result' => {} }
+    # Telegram::Bot::Client.stub :new, bot do
+
     go_next
     follow_redirect!
     assert_equal 4, true_checkboxes.count, false_checkboxes.join('; ')
@@ -87,6 +93,7 @@ class NewFreeProjectFlowTest < ActionDispatch::IntegrationTest
 
     go_next
     follow_redirect!
+    # end
 
     assert_includes html_document.to_s, 'Виджет отлично установлен на сайт'
   end
