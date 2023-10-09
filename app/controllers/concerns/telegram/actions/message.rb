@@ -36,19 +36,19 @@ module Telegram
           Rails.logger.info 'Update telegram group name'
           # Старое название data.dig('chat', 'title')
           chat_project&.update! telegram_group_name: data.fetch('new_chat_title'), name: data.fetch('new_chat_title')
-        elsif forum_topic_created? # Так это мы его сами и создали
-          Rails.logger.info 'Add skipped topic'
+        elsif topic_message?
+          operator_topic_message(data)
+        elsif forum_topic_created? # Так это мы его сами и создали? Не понятно что это за события
+          Rails.logger.info "Add skipped topic #{data}"
           chat_project&.add_skipped_topic! data.fetch('message_thread_id')
         elsif forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
           update_forum_topic! data
-        elsif topic_message?
-          operator_topic_message(data)
         elsif forum?
           # Skip
-          Rails.logger.warn 'Skip as forum?'
+          notify_bugsnag 'Странное событие forum?'
         elsif chat['type'] == 'group' # Похоже пишут в главном топике группы, возможно надо проверять еще на chat['supergroup']
           # Skip
-          Rails.logger.warn 'Skip as type==group'
+          notify_bugsnag 'Странное событие type==group'
         elsif data.key? 'migrate_from_chat_id' # The supergroup has been migrated from a group with the specified identifier.
           # {"message_id"=>1,
           # "from"=>{"id"=>1087968824, "is_bot"=>true, "first_name"=>"Group", "username"=>"GroupAnonymousBot"},

@@ -148,5 +148,12 @@ module Telegram
     def direct_client_message?
       from['id'] == chat['id'] && !from['is_bot'] && chat['type'] == 'private'
     end
+
+    def notify_bugsnag(message)
+      Rails.logger.warn message
+      Bugsnag.notify message do |b|
+        b.metadata = payload
+      end
+    end
   end
 end
