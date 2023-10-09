@@ -31,10 +31,13 @@ module Telegram
       private
 
       def operator_message(data) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        Rails.logger.info "operator_message #{data}"
         if data.key? 'new_chat_title'
+          Rails.logger.info 'Update telegram group name'
           # Старое название data.dig('chat', 'title')
           chat_project&.update! telegram_group_name: data.fetch('new_chat_title'), name: data.fetch('new_chat_title')
         elsif forum_topic_created? # Так это мы его сами и создали
+          Rails.logger.info 'Add skipped topic'
           chat_project&.add_skipped_topic! data.fetch('message_thread_id')
         elsif forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
           update_forum_topic! data
@@ -42,8 +45,10 @@ module Telegram
           operator_topic_message(data)
         elsif forum?
           # Skip
+          Rails.logger.warn 'Skip as forum?'
         elsif chat['type'] == 'group' # Похоже пишут в главном топике группы, возможно надо проверять еще на chat['supergroup']
           # Skip
+          Rails.logger.warn 'Skip as type==group'
         elsif data.key? 'migrate_from_chat_id' # The supergroup has been migrated from a group with the specified identifier.
           # {"message_id"=>1,
           # "from"=>{"id"=>1087968824, "is_bot"=>true, "first_name"=>"Group", "username"=>"GroupAnonymousBot"},
@@ -58,6 +63,7 @@ module Telegram
       end
 
       def client_message(data)
+        Rails.logger.info "client_message #{data}"
         # TODO: Если это ответ, то посылать в конкретный проект
         # но для этого нужно сохранять все сообщения и искать их по-базе
 
@@ -94,6 +100,7 @@ module Telegram
       # "forum_topic_edited"=>{"name"=>"Переименовалка", "icon_custom_emoji_id"=>"5312322066328853156"},
       # "is_topic_message"=>true}
       def update_forum_topic!(data)
+        Rails.logger.info "update_forum_topic! #{data}"
         if topic_visitor.present?
           # {"name"=>"Переименовалка", "icon_custom_emoji_id"=>"5312322066328853156"}
           topic_visitor.update! topic_data: topic_visitor.topic_data.merge(data.fetch('forum_topic_edited'))
@@ -108,6 +115,7 @@ module Telegram
       # Сообщение оператора в теме
       #
       def operator_topic_message(data)
+        Rails.logger.info "operator_topic_message #{data}"
         if chat_project.present?
           if chat_project.skip_threads_ids.include? topic_id
             Rails.logger.debug 'Skip thread'
