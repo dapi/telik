@@ -118,8 +118,9 @@ module Telegram
         Rails.logger.info "operator_topic_message #{data}"
         if chat_project.present?
           if chat_project.skip_threads_ids.include? topic_id
-            Rails.logger.debug 'Skip thread'
+            Rails.logger.warn 'Skip thread'
           elsif topic_visitor.present?
+            Rails.logger.info 'Touch operator_replied_at'
             topic_visitor.touch :operator_replied_at
             ForwardOperatorMessageJob.perform_later topic_visitor, data
           else
