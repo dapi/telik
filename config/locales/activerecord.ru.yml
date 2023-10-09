@@ -18,6 +18,30 @@ ru:
         one: Сообщение
         many: Сообщений
         other: Сообщение
+      membership:
+        one: Членство
+        many: Членства
+        other: Членства
+      tariff:
+        one: Тариф
+        many: Тарифы
+        other: Тарифы
+      telegram_user:
+        one: Telegram-аккаунт
+        many: Telegram-аккаунты
+        other: Telegram-аккаунты
+      telegram_event:
+        one: Telegram-событие
+        many: Telegram-события
+        other: Telegram-события
+      user:
+        one: Пользователь
+        many: Пользователи
+        other: Пользователи
+      visitor_session:
+        one: Посетительская сессия
+        many: Посетительские сессии
+        other: Посетительские сессии
     attributes:
       project:
         bot_token: Токен
