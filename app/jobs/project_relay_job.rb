@@ -8,12 +8,10 @@ class ProjectRelayJob < ApplicationJob
   queue_as :default
 
   def perform(project)
-    project.memberships.pluck(:user_id).each do |user_id|
-      ProjectsChannel.broadcast_to(
-        user_id,
-        project: Project.last.as_json,
-        row: ProjectsController.render(partial: 'projects/project', locals: { project: })
-      )
-    end
+    ProjectsChannel.broadcast_to(
+      project.id,
+      project: project.as_json,
+      # row: ProjectsController.render(partial: 'projects/project', locals: { project: })
+    )
   end
 end

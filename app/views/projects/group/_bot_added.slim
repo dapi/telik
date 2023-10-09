@@ -1,0 +1,6 @@
+li.list-group-item 
+  span.me-2= setup_checkbox project.bot_added?, tooltip: project.bot_status
+  // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_admin?) aria-label="telegram_bot_admin"
+  | #{link_to_project_bot project} является участником группы.
+  - if ProjectSetup::LEFT_STATUSES.include? project.bot_status
+    .mt-3.alert.alert-warning Похоже что вы приглашали бота, но или удалили группу или выкинули бота из группы. Верните.

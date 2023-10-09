@@ -1,0 +1,4 @@
+li.list-group-item 
+  span.me-2= setup_checkbox project.bot_admin?, tooltip: project.bot_status
+  // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_admin?) aria-label="telegram_bot_admin"
+  | #{link_to_project_bot project} является администратором группы.

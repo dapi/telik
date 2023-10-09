@@ -1,0 +1,4 @@
+li.list-group-item 
+  span.me-2= setup_checkbox project.bot_can_manage_topics?
+  // input class="form-check-input me-2" type="checkbox" value="" checked=(project&.bot_can_manage_topics?) aria-label="telegram_bot_can_manage_topics"
+  | #{link_to_project_bot project} имеет право управлять темами в группе.

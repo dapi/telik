@@ -5,7 +5,8 @@
 # Канал обновлений проектов
 class ProjectsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from 'projects:' + current_user.id.to_s
+    project = current_user.projects.find params[:id]
+    stream_from 'projects:' + project.to_param
   end
 
   def unsubscribed
