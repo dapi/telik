@@ -10,6 +10,9 @@ require 'minitest/mock'
 ApplicationConfig.bot_username = 'TestBot'
 ApplicationConfig.bot_token = '123:abc'
 
+require 'telegram_controller_test_case'
+require 'telegram_updates'
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)

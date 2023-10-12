@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'welcome#index'
 
-  telegram_webhook Telegram::WebhookController unless Rails.env.test?
+  telegram_webhook Telegram::WebhookController
 
   post 'telegram/custom_webhook/:custom_bot_id',
        to: CustomTelegramBotMiddleware.new(Telegram::WebhookController),

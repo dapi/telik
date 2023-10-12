@@ -43,7 +43,8 @@ module Telegram
 
         session[:project_id] = visit.project.id
         RegisterVisitJob.perform_later(visit:, chat:)
-        respond_with :message, text: WelcomeMessageBuilder.new(visit).build
+        text = WelcomeMessageBuilder.new(visit).build
+        respond_with :message, text:
       end
     end
   end
