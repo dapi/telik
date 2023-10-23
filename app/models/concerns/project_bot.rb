@@ -13,7 +13,15 @@ module ProjectBot
       self.bot_id = bot_token.present? ? fetch_bot_id : ApplicationConfig.bot_id
     end
 
-    before_save :set_webhook, if: :bot_token_changed?
+    after_commit if: :saved_change_to_bot_token?, on: %i[create update] do
+      if bot_token?
+        set_webhook
+      else
+        delete_webhook
+      end
+    end
+
+    after_commit :delete_webhook, if: :bot_token?, on: :destroy
   end
 
   def custom_bot?
@@ -74,7 +82,17 @@ module ProjectBot
   end
 
   def set_webhook
+    raise unless custom_bot?
+
+    Rails.logger.info "telegram set_webhook for #{bot_id}"
     custom_bot.set_webhook(url: Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)) if bot_id.present?
+  end
+
+  def delete_webhook
+    raise unless custom_bot?
+
+    Rails.logger.info "telegram delete_webhook for #{bot_id}"
+    custom_bot.delete_webhook
   end
 
   # Бот подключен в группу?

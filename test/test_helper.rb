@@ -51,7 +51,7 @@ class ActionDispatch::IntegrationTest
   def go_next
     method = html_document.css('a[data-next-button]').attr('data-turbo-method').to_s.presence || :get
     href = html_document.css('a[data-next-button]').attr('href').to_s
-    puts [method.upcase, href].join(' ')
+    puts [method.upcase, href].join(' ') if ENV['DEBUG_GO_NEXT']
     send method, href
   end
 

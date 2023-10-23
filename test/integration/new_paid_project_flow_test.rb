@@ -4,12 +4,12 @@
 
 require 'test_helper'
 
-# Уже зарегистрированный пользователь выбирает бесплатный тариф и создаёт проект
+# Уже зарегистрированный пользователь выбирает платный тариф с кастомным ботом и создаёт проект
 #
 class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
   fixtures :tariffs, :telegram_users
 
-  test 'Зарегистрированный пользователь выбирает платный тариф и создаёт проект' do
+  test 'Зарегистрированный пользователь выбирает платный тариф с кастомным ботом и создаёт проект' do
     login! telegram_users(:new_user)
     get new_project_path(project: { tariff_id: tariffs(:paid).id })
     assert_select 'h1', 'Создайте бота в Telegram'
@@ -18,7 +18,7 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     bot_name = 'MyCutstomBot'
     bot.expect :get_me, { 'result' => { 'username' => bot_name } }
     bot.expect :get_chat, { 'ok' => true, 'result' => { 'title' => 'group name', 'type' => 'supergroup', 'permissions' => { 'can_manage_topics' => true } } }, chat_id: 10_001
-
+    bot.expect :set_webhook, nil, url: Rails.application.routes.url_helpers.telegram_custom_webhook_url('123')
     Telegram::Bot::Client.stub :new, bot do
       post projects_path, params: { project: { tariff_id: tariffs(:paid).id, bot_token: '123:abc' } }
     end
