@@ -31,6 +31,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    render :setup_bot_token, locals: { project: }
+  end
+
   def create
     project = find_new_project
     if project.present?

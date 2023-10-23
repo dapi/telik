@@ -1,5 +1,9 @@
 = render 'progress', step: 1, steps: project_setup_steps(project)
-h1.my-5 Создайте бота в Telegram
+
+- if project.persisted? && project.bot_token.present?
+  h1.my-5 Бот уже установлен, но можете его изменить
+- else
+  h1.my-5 Создайте бота в Telegram
 
 ul
   li Перейдите к #{link_to_bot 'BotFather'}. Для этого нажмите на его имя, а потом 'Send Message', если это потребуется.
@@ -14,5 +18,7 @@ ul
       .col-md-12
         = f.input :tariff_id, as: :hidden
         = f.input :bot_token
+    - if project.bot_username.present?
+      p Указан токен от бота: #{link_to_bot project.bot_username}
   .form-actions.float-end.mt-2
     = f.button :submit, value: 'Далее &rarr;'.html_safe, class: 'btn btn-lg btn-primary'

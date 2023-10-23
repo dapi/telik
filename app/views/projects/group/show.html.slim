@@ -1,3 +1,7 @@
+- if project.custom_bot?
+  .mb-4
+    = link_to '&larr; Назад в настройку бота'.html_safe, edit_project_path(project), class: 'btn btn-outline-secondary'
+
 = render 'progress', step: project_current_step(project), steps: project_setup_steps(project)
 h1= t :support_group
 div{ data-setup-project=project.id }

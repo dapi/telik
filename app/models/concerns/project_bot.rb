@@ -16,6 +16,10 @@ module ProjectBot
     before_save :set_webhook, if: :bot_token_changed?
   end
 
+  def custom_bot?
+    bot_token.present?
+  end
+
   def bot_token_required?
     tariff&.custom_bot_allowed?
   end
