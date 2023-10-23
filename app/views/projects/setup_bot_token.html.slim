@@ -18,7 +18,7 @@ ul
       .col-md-12
         = f.input :tariff_id, as: :hidden
         = f.input :bot_token
-    - if project.bot_username.present?
+    - if project.bot_username.present? && project.bot_token.present?
       p Указан токен от бота: #{link_to_bot project.bot_username}
   .form-actions.float-end.mt-2
     = f.button :submit, value: 'Далее &rarr;'.html_safe, class: 'btn btn-lg btn-primary'

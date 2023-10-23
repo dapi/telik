@@ -67,9 +67,9 @@ class ProjectsController < ApplicationController
     project.update! permitted_params
     redirect_to project_path(project)
   rescue ActiveRecord::RecordInvalid => e
-    render :new, locals: {
+    render :setup_bot_token, locals: {
       project: e.record
-    }
+    }, status: :unprocessable_entity
   end
 
   def destroy

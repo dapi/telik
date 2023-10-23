@@ -84,14 +84,16 @@ module ProjectBot
   def set_webhook
     raise unless custom_bot?
 
-    Rails.logger.info "telegram set_webhook for #{bot_id}"
+    Rails.logger.info "Telegram set_webhook for #{bot_id}"
     custom_bot.set_webhook(url: Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)) if bot_id.present?
+  rescue Telegram::Bot::Error => e
+    errors.add :bot_token, "Не верный токен. Доступа нет (#{e.message}."
   end
 
   def delete_webhook
     raise unless custom_bot?
 
-    Rails.logger.info "telegram delete_webhook for #{bot_id}"
+    Rails.logger.info "Telegram delete_webhook for #{bot_id}"
     custom_bot.delete_webhook
   end
 
@@ -157,7 +159,12 @@ module ProjectBot
   private
 
   def validate_bot_token
-    return if errors[:bot_token].present?
+    if errors[:bot_token].present?
+      self.name = self.bot_token = nil
+      return
+    end
+
+    return unless bot_token?
 
     # {
     # "ok"=>true,
@@ -171,7 +178,8 @@ module ProjectBot
     # "supports_inline_queries"=>false
     # }
     # }
-    self.name ||= self.bot_username ||= custom_bot.get_me.dig('result', 'username')
+    self.bot_username = custom_bot.get_me.dig('result', 'username') if bot_token_changed?
+    self.name ||= bot_username
   rescue Telegram::Bot::NotFound
     errors.add :bot_token, 'Не действующий токен. Проверьте правильность ввода или создайте новый.'
   rescue Telegram::Bot::Error => e
