@@ -39,7 +39,7 @@ module Telegram::Actions::MyChatMember
       perform_my_chat_member(data, project)
     else
       Bugsnag.notify 'my_chat_member от неизвестного бота' do |b|
-        b.metadata = { payload: }
+        b.metadata = { payload: , current_bot_id: }
       end
     end
   end
