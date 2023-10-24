@@ -84,8 +84,9 @@ module ProjectBot
   def set_webhook
     raise unless custom_bot?
 
-    Rails.logger.info "Telegram set_webhook for #{bot_id}"
-    custom_bot.set_webhook(url: Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)) if bot_id.present?
+    url = Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)
+    Rails.logger.info "[project_id=#{id}] Telegram set_webhook for #{bot_id} to #{url}"
+    custom_bot.set_webhook(drop_pending_updates: false, url:) if bot_id.present?
   rescue Telegram::Bot::Error => e
     errors.add :bot_token, "Не верный токен. Доступа нет (#{e.message}."
   end
@@ -93,8 +94,8 @@ module ProjectBot
   def delete_webhook
     raise unless custom_bot?
 
-    Rails.logger.info "Telegram delete_webhook for #{bot_id}"
-    custom_bot.delete_webhook
+    Rails.logger.info "[project_id=#{id}] Telegram delete_webhook for #{bot_id}"
+    custom_bot.delete_webhook drop_pending_updates: false
   end
 
   # Бот подключен в группу?

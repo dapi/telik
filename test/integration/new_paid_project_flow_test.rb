@@ -18,7 +18,7 @@ class NewPaidProjectFlowTest < ActionDispatch::IntegrationTest
     bot_name = 'MyCutstomBot'
     bot.expect :get_me, { 'result' => { 'username' => bot_name } }
     bot.expect :get_chat, { 'ok' => true, 'result' => { 'title' => 'group name', 'type' => 'supergroup', 'permissions' => { 'can_manage_topics' => true } } }, chat_id: 10_001
-    bot.expect :set_webhook, nil, url: Rails.application.routes.url_helpers.telegram_custom_webhook_url('123')
+    bot.expect :set_webhook, nil, drop_pending_updates: false, url: Rails.application.routes.url_helpers.telegram_custom_webhook_url('123')
     Telegram::Bot::Client.stub :new, bot do
       post projects_path, params: { project: { tariff_id: tariffs(:paid).id, bot_token: '123:abc' } }
     end

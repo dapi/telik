@@ -37,6 +37,7 @@ class Project < ApplicationRecord
             uniqueness: true,
             format: { with: BOT_TOKEN_FORMAT, message: 'имеет не верный формат' },
             if: :bot_token?
+  validates :bot_id, uniqueness: true, if: :custom_bot?
   validate :validate_bot_token, if: :bot_token?
   validates :name, presence: true
   validates :url, url: true, if: :url?
