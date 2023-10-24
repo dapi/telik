@@ -110,7 +110,7 @@ module Telegram
 
     # Это означает что сообщение из группы, а не из личной перепики
     def forum?
-      chat['is_forum'] || chat['type'] == 'supergroup'
+      chat['is_forum'] || %w[group supergroup].include?(chat['type'])
     end
 
     def topic_message?

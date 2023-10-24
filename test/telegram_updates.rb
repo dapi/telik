@@ -312,6 +312,18 @@ TELEGRAM_UPDATES = {
   # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"left"},
   # "new_chat_member"=>
   # {"user"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}, "status"=>"member"}}
+  #
+  migrated: {
+    update_id: 73_486_915,
+    message: {
+      message_id: 1,
+      from: { id: 1_087_968_824, is_bot: true, first_name: 'Group', username: 'GroupAnonymousBot' },
+      sender_chat: { id: -1_001_990_057_479, title: 'Samochat Test Custom Bot Prod', type: 'supergroup' },
+      chat: { id: -1_001_990_057_479, title: 'Samochat Test Custom Bot Prod', type: 'supergroup' },
+      date: 1_698_172_234,
+      migrate_from_chat_id: -4_016_174_601
+    }
+  },
   message_with_photos: {
     update_id: 124_132_752,
     message: {

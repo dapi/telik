@@ -30,7 +30,7 @@ module Telegram
 
       private
 
-      def operator_message(data) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def operator_message(data) # rubocop:disable Metrics/PerceivedComplexity
         Rails.logger.info "operator_message #{data}"
         if forum_topic_created? # Так это мы его сами и создали?
           Rails.logger.info "Add skipped topic #{data}"
@@ -46,12 +46,6 @@ module Telegram
 
         if topic_message?
           operator_topic_message(data)
-        elsif forum?
-          # Skip
-          notify_bugsnag 'Странное событие forum?'
-        elsif chat['type'] == 'group' # Похоже пишут в главном топике группы, возможно надо проверять еще на chat['supergroup']
-          # Skip
-          notify_bugsnag 'Пишут в главном топике группы'
         elsif data.key? 'migrate_from_chat_id' # The supergroup has been migrated from a group with the specified identifier.
           # {"message_id"=>1,
           # "from"=>{"id"=>1087968824, "is_bot"=>true, "first_name"=>"Group", "username"=>"GroupAnonymousBot"},
@@ -60,6 +54,9 @@ module Telegram
           # "date"=>1692960088,
           # "migrate_from_chat_id"=>-933474784}
           respond_with :message, text: "Прекрассно!\nТеперь это супер-группа!\nОсталось дать мне право управлять темами."
+        elsif forum?
+          # Похоже что пишу в общем группе или какие-то события от телеги
+          Rails.logger.info 'Skip message'
         else
           notify_bugsnag 'Странное событие'
           respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
