@@ -45,7 +45,7 @@ class TelegramAuthCallbackController < ApplicationController
   end
 
   def signed?
-    self.class.sign_params(data_params) == params.fetch(:hash)
+    self.class.sign_params(data_params) == params[:hash].to_s
   end
 
   def fresh?
