@@ -1,6 +1,12 @@
+= render 'progress', step: 3, steps: project_setup_steps(project)
 h1.mb-3 Установка виджета на сайт #{project.name}
 
 = render 'setup', project: project
 
 p Установили? Кликните на кнопке виджета на своём сайте, а когда Вас перекинет в телеграм нажмине Start.
-= link_to 'Проверить', project_widget_path(project), class: 'btn btn-success btn-lg',  data: { next_button: true, turbo_method: :post }
+
+.mt-2
+  .float-start
+    = link_to 'Пропустить'.html_safe, skip_widget_project_path(project), class: 'btn btn-outline-secondary btn-lg',  data: { skip_button: true, turbo_method: :put }
+  .float-end
+    = link_to 'Проверить &rarr;'.html_safe, project_widget_path(project), class: 'btn btn-outline-success btn-lg',  data: { next_button: true, turbo_method: :post }

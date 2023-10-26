@@ -44,7 +44,7 @@ module ProjectSetup
 
   def build_setup_errors
     setup_errors = []
-    setup_errors << :host_not_confirmed unless host_confirmed?
+    setup_errors << :host_not_confirmed if !host_confirmed? && !skip_widget_at?
     setup_errors << :no_telegram_group unless telegram_group_id?
     setup_errors << :not_supergroup unless telegram_supergroup?
     setup_errors << :not_admin unless bot_admin?

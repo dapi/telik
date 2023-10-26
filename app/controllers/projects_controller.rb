@@ -3,6 +3,7 @@
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
 # Управление опреаторскими проектами
+# rubocop:disable Metrics/ClassLength
 class ProjectsController < ApplicationController
   before_action :require_login
   before_action { @back_url = root_url }
@@ -62,6 +63,12 @@ class ProjectsController < ApplicationController
     redirect_back fallback_location: projects_path
   end
 
+  def skip_widget
+    project = current_user.projects.find params[:id]
+    project.update! skip_widget_at: Time.zone.now
+    redirect_to next_step_redirect_url(project)
+  end
+
   def update
     project = current_user.projects.find params[:id]
     project.update! permitted_params
@@ -94,7 +101,7 @@ class ProjectsController < ApplicationController
   def next_step_redirect_url(project)
     if !project.bot_installed?
       project_group_path(project)
-    elsif !project.widget_installed?
+    elsif !project.widget_installed? && !project.skip_widget_at?
       project_widget_path(project)
     else
       project_path(project)
@@ -121,3 +128,4 @@ class ProjectsController < ApplicationController
       .permit(:name, :custom_username, :url, :welcome_message, :telegram_group_id, :topic_title_template, :thread_on_start, :bot_token, :tariff_id)
   end
 end
+# rubocop:enable Metrics/ClassLength

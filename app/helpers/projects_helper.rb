@@ -13,7 +13,7 @@ module ProjectsHelper
 
   # Сколько шагов в настройке проекта требуется
   def project_setup_steps(project)
-    project&.tariff&.custom_bot_allowed? ? 3 : 2
+    project.custom_bot? ? 3 : 2
   end
 
   def project_current_step(project) # rubocop:disable Metrics/PerceivedComplexity
