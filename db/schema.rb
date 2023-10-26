@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_09_090659) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_26_154813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_090659) do
     t.jsonb "skip_threads_ids", default: [], null: false
     t.bigint "tariff_id", null: false
     t.string "bot_id", null: false
+    t.datetime "skip_widget_at", precision: nil
     t.index ["key"], name: "index_projects_on_key", unique: true
     t.index ["owner_id"], name: "index_projects_on_owner_id"
     t.index ["tariff_id"], name: "index_projects_on_tariff_id"

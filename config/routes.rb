@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     member do
+      put :skip_widget
       put :reset_bot
     end
     resource :widget, only: %i[show create], controller: 'projects/widget'
