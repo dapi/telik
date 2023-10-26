@@ -4,6 +4,7 @@
 
 # Соглашение добавляет бота в модель проекта
 #
+# rubocop:disable  Metrics/ModuleLength
 module ProjectBot
   extend ActiveSupport::Concern
 
@@ -192,3 +193,4 @@ module ProjectBot
     end
   end
 end
+# rubocop:enable  Metrics/ModuleLength
