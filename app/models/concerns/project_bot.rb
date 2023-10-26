@@ -9,7 +9,7 @@ module ProjectBot
 
   included do
     scope :with_bots, -> { where.not bot_token: nil }
-    before_create do
+    before_save do
       self.bot_id = bot_token.present? ? fetch_bot_id : ApplicationConfig.bot_id
     end
 
@@ -84,6 +84,7 @@ module ProjectBot
   def set_webhook
     raise unless custom_bot?
 
+    bot_id = fetch_bot_id
     url = Rails.application.routes.url_helpers.telegram_custom_webhook_url(bot_id)
     Rails.logger.info "[project_id=#{id}] Telegram set_webhook for #{bot_id} to #{url}"
     custom_bot.set_webhook(drop_pending_updates: false, url:) if bot_id.present?
