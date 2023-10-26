@@ -7,6 +7,6 @@ p Установили? Кликните на кнопке виджета на �
 
 .mt-2
   .float-start
-    = link_to 'Пропустить'.html_safe, skip_widget_project_path(project), class: 'btn btn-outline-secondary btn-lg',  data: { next_button: true, turbo_method: :put }
+    = link_to 'Пропустить'.html_safe, skip_widget_project_path(project), class: 'btn btn-outline-secondary btn-lg',  data: { skip_button: true, turbo_method: :put }
   .float-end
     = link_to 'Проверить &rarr;'.html_safe, project_widget_path(project), class: 'btn btn-outline-success btn-lg',  data: { next_button: true, turbo_method: :post }
