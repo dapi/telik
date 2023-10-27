@@ -17,10 +17,11 @@ module Telegram
       # }
       def message(data)
         ::Message
-          .create!(message_id: data.fetch('message_id'),
-                   chat_id: chat.fetch('id'),
-                   from_telegram: true,
-                   payload: data)
+          .create_with(
+            chat_id: chat.fetch('id'),
+            from_telegram: true,
+            payload: data)
+          .create_or_find_by!(message_id: data.fetch('message_id'))
         if direct_client_message?
           client_message data
         else
