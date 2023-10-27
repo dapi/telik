@@ -375,6 +375,16 @@ TELEGRAM_UPDATES = {
     }
   },
 
+  general_topic_message: {
+    'update_id' => 464_628_124,
+    'message' =>
+    { 'message_id' => 10,
+      'from' => { 'id' => 943_084_337, 'is_bot' => false, 'first_name' => 'Danil', 'last_name' => 'Pismenny', 'username' => 'pismenny' },
+      'chat' => { 'id' => -1_002_113_549_405, 'title' => 'Danil & samochat_dev_prod_bot', 'is_forum' => true, 'type' => 'supergroup' },
+      'date' => 1_698_427_862,
+      'text' => 'adsa' }
+  },
+
   message_with_sticker: { 'update_id' => 1,
                           'message' => { 'message_id' => 61,
                                          'from' => { 'id' => 943_084_337, 'is_bot' => false, 'first_name' => 'Danil', 'last_name' => 'Pismenny', 'username' => 'pismenny', 'language_code' => 'en' },

@@ -20,7 +20,7 @@ if Rails.env.test?
   Telegram::Bot::ClientStub.stub_all!
   Telegram.bots_config = {
     default: {
-      token: 'fake',
+      token: '12312:fake',
       username: 'fakebod'
     }
   }

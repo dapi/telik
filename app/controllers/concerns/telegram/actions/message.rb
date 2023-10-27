@@ -55,8 +55,34 @@ module Telegram
           # "migrate_from_chat_id"=>-933474784}
           respond_with :message, text: "Прекрассно!\nТеперь это супер-группа!\nОсталось дать мне право управлять темами."
         elsif forum?
+          # "chat"=>{"id"=>-1002113549405, "title"=>"Danil & samochat_dev_prod_bot", "is_forum"=>true, "type"=>"supergroup"},
           # Похоже что пишу в общем группе или какие-то события от телеги
-          Rails.logger.info 'Skip message'
+          if chat_project.present?
+            # TODO: ОБновлять group_type, group_is_forum
+            Rails.logger.info 'Skip message to general topic'
+          else
+            chat_project = Project.with_bots.find_by(bot_token: bot.token)
+            if chat_project.nil?
+              respond_with :message, text: 'Кажись вы меня не туда добавили'
+            elsif chat_project.telegram_group_id.present? && chat_project.telegram_group_id == chat.fetch('id')
+              Rails.logger.info 'Strange situation'
+              Bugsnag.notify 'WTF' do |b|
+                b.meta_data = { chat_project:, update: }
+              end
+            elsif chat_project.telegram_group_id.present?
+              Rails.logger.info 'Wrong group'
+              respond_with :message, text: 'Кажись вы меня добавили еще в одну группу, а я так не умею'
+            else
+              chat_project.update!(
+                name: chat.fetch('title'),
+                telegram_group_id: chat.fetch('id'),
+                telegram_group_name: chat.fetch('title'),
+                telegram_group_is_forum: chat.fetch('is_forum'),
+                telegram_group_type: chat.fetch('type')
+              )
+              respond_with :message, text: 'Привет! Осталось дать мне право управлять темами.'
+            end
+          end
         else
           notify_bugsnag 'Странное событие'
           respond_with :message, text: 'Пока со мной напрямую разговаривать нет смысла, пишите в группе'
