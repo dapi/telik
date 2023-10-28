@@ -6,6 +6,7 @@ module Telegram
   module Actions
     # Обработчик сообщений (def message)
     #
+    # rubocop:disable Metrics/ModuleLength
     module Message
       # Поменяли в проекте имя
       # {
@@ -163,6 +164,7 @@ module Telegram
           reply_with :message, text: 'Не пойму что за группа в которую я подключен. Проект не найден'
         end
       end
+      # rubocop:enable Metrics/ModuleLength
     end
   end
 end
