@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       put :skip_widget
       put :reset_bot
     end
+    resource :tariff, only: %i[show update], controller: 'projects/tariff'
     resource :widget, only: %i[show create], controller: 'projects/widget'
     resource :group, only: %i[show create], controller: 'projects/group'
     resources :visits, only: %i[index show], controller: 'projects/visits'

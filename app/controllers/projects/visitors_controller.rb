@@ -2,27 +2,21 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Посетители проекта
-#
-class Projects::VisitorsController < ApplicationController
-  include RansackSupport
-  include PaginationSupport
+module Projects
+  # Посетители проекта
+  #
+  class VisitorsController < ApplicationController
+    include RansackSupport
+    include PaginationSupport
 
-  layout 'project'
-  helper_method :project
-  before_action :require_login
+    def show
+      render locals: { record: project.visitors.find(params[:id]) }
+    end
 
-  def show
-    render locals: { record: project.visitors.find(params[:id]) }
-  end
+    private
 
-  private
-
-  def records
-    super.where(project_id: project.id)
-  end
-
-  def project
-    @project ||= current_user.projects.find params[:project_id]
+    def records
+      super.where(project_id: project.id)
+    end
   end
 end

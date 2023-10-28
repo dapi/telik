@@ -99,6 +99,9 @@
                                          DELETE /tariffs/:id(.:format)                                                                            tariffs#destroy
                      skip_widget_project PUT    /projects/:id/skip_widget(.:format)                                                               projects#skip_widget
                        reset_bot_project PUT    /projects/:id/reset_bot(.:format)                                                                 projects#reset_bot
+                          project_tariff GET    /projects/:project_id/tariff(.:format)                                                            tariffs#show
+                                         PATCH  /projects/:project_id/tariff(.:format)                                                            tariffs#update
+                                         PUT    /projects/:project_id/tariff(.:format)                                                            tariffs#update
                           project_widget GET    /projects/:project_id/widget(.:format)                                                            projects/widget#show
                                          POST   /projects/:project_id/widget(.:format)                                                            projects/widget#create
                            project_group GET    /projects/:project_id/group(.:format)                                                             projects/group#show
@@ -115,7 +118,7 @@
                                          PATCH  /projects/:id(.:format)                                                                           projects#update
                                          PUT    /projects/:id(.:format)                                                                           projects#update
                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
-                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f62a0b12ba0 /home/danil/code/samochat/config/routes.rb:72>
+                           sidekiq_stats GET    /sidekiq-stats(.:format)                                                                          #<Proc:0x00007f2be2d36750 /home/danil/code/samochat/config/routes.rb:73>
                              sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

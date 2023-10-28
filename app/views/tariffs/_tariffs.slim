@@ -1,7 +1,7 @@
 // Example source https://getbootstrap.com/docs/5.1/examples/pricing/
 .row.row-cols-1.row-cols-md-3.mb-3.text-center
   - TariffDecorator.decorate_collection(Tariff.ordered.alive).each do |tariff|
-    - is_active = defined?(current_tariff_id) && tariff.id == current_tariff_id 
+    - is_active = project.present? && project.tariff_id == tariff.id
     .col
       .card.mb-4.rounded-3.shadow-sm class=(is_active ? 'border-primary' : '')
         .card-header.py-3 class=(is_active ? 'text-white bg-primary border-primary' : '')
@@ -13,10 +13,18 @@
           ul.list-unstyled.mt-3.mb-4
             = tariff.details
 
-          = link_to tariff.button_title, 
-            new_project_url(project: { tariff_id: tariff.id }), 
-            class: "w-100 btn btn-lg #{is_active ? 'btn-primary' : 'btn-outline-primary'}"
-          -# button.w-100.btn.btn-lg.btn-primary type="button" Get started
+          - if project.present? && project.persisted?
+            - if is_active
+              span.w-100.btn.btn-lg.btn-primary Текущий тариф
+            - else
+              = link_to tariff.button_title, 
+                project_tariff_url(project_id: project.id, tariff_id: tariff.id), 
+                data: { turbo_method: :put },
+                class: "w-100 btn btn-lg btn-outline-primary"
+          - else
+            = link_to tariff.button_title, 
+              new_project_url(project: { tariff_id: tariff.id }), 
+              class: "w-100 btn btn-lg #{is_active ? 'btn-primary' : 'btn-outline-primary'}"
   /.col
     /.card.mb-4.rounded-3.shadow-sm.border-primary
       /.card-header.py-3.text-white.bg-primary.border-primary

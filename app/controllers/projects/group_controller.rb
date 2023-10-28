@@ -2,42 +2,39 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
-# Настройка телеграм группы по проекту
-class Projects::GroupController < ApplicationController
-  before_action :require_login
-  before_action { @back_url = projects_path }
-  layout 'simple'
+module Projects
+  # Настройка телеграм группы по проекту
+  class GroupController < ApplicationController
+    before_action { @back_url = projects_path }
+    layout 'simple'
 
-  before_action do
-    @header_title = project.name
-  end
-
-  # Показывает страницу настройки виджета
-  def show
-    render locals: { project:, messages: project.setup_errors }
-  end
-
-  # Делает проверку на настроенность бота и если все ок редиректит далее на настройку проекта
-  def create
-    update_chat_info! project
-    if project.bot_installed?
-      redirect_to project_path(project),
-                  status: :see_other,
-                  notice: 'Поздравляю! Бот подключен.'
-    else
-      redirect_to project_group_path(project),
-                  status: :see_other,
-                  alert: "Проверка не прошла. #{project.bot_setup_errors.join(',')}"
+    before_action do
+      @header_title = project.name
     end
-  end
 
-  private
+    # Показывает страницу настройки виджета
+    def show
+      render locals: { project:, messages: project.setup_errors }
+    end
 
-  def update_chat_info!(project)
-    project.update_chat_info! project.fetch_chat_info
-  end
+    # Делает проверку на настроенность бота и если все ок редиректит далее на настройку проекта
+    def create
+      update_chat_info! project
+      if project.bot_installed?
+        redirect_to project_path(project),
+                    status: :see_other,
+                    notice: 'Поздравляю! Бот подключен.'
+      else
+        redirect_to project_group_path(project),
+                    status: :see_other,
+                    alert: "Проверка не прошла. #{project.bot_setup_errors.join(',')}"
+      end
+    end
 
-  def project
-    @project ||= current_user.projects.find params[:project_id]
+    private
+
+    def update_chat_info!(project)
+      project.update_chat_info! project.fetch_chat_info
+    end
   end
 end
