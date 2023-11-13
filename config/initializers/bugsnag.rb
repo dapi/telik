@@ -8,5 +8,5 @@ Bugsnag.configure do |config|
   config.notify_release_stages = %w[production development]
   config.send_code = true
   config.send_environment = true
-  config.add_metadata :site, { host: ApplicationConfig.host }
+  config.hostname = ApplicationConfig.host
 end
