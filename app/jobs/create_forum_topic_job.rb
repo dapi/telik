@@ -25,13 +25,15 @@ class CreateForumTopicJob < ApplicationJob
   def safe_perform(project)
     yield
   rescue Telegram::Bot::Error => e
-    Bugsnag.notify e
+    Bugsnag.notify e do |b|
+      b.meta_data = { project_id: project.id }
+    end
     logger.error e
     case e.message
     when 'Bad Request: Bad Request: chat not found'
       OperatorMessageJob.perform_later(project, "У меня нет доступа к группе [#{visitor.project.telegram_group_id}] (#{e.message})")
     when 'Bad Request: Bad Request: not enough rights to create a topic'
-      OperatorMessageJob.perform_later(project, 'У меня нет прав создавать топики')
+      OperatorMessageJob.perform_later(project, "У меня нет прав создавать топики для проекта ##{project.id}")
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
       # Do nothing
     else
