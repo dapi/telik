@@ -33,22 +33,19 @@ class CreateForumTopicJob < ApplicationJob
     case e.message
     when 'Bad Request: Bad Request: chat not found'
       OperatorMessageJob.perform_later(project, "У меня нет доступа к группе [#{visitor.project.telegram_group_id}] (#{e.message})")
-      raise Retry, e.message
     when 'Bad Request: Bad Request: not enough rights to create a topic'
-      # TODO Снимать право с аттрибутов проекта
+      # TODO: Снимать право с аттрибутов проекта
       OperatorMessageJob.perform_later(project, "У меня нет прав создавать топики для проекта ##{project.id}")
-      raise Retry, e.message
     when 'Bad Request: Bad Request: TOPIC_NOT_MODIFIED'
       # Do nothing
-      raise Retry, e.message
     else
       logger.warn e
       Bugsnag.notify e do |b|
         b.meta_data = { visitor: visitor.as_json }
       end
       OperatorMessageJob.perform_later(project, e.message)
-      raise Retry, e.message
     end
+    raise Retry, e.message
   end
 
   def build_topic_title(visitor, visit = nil)

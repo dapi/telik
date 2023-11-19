@@ -6,7 +6,6 @@ module Telegram
   module Actions
     # Обработчик сообщений (def message)
     #
-    # rubocop:disable Metrics/ModuleLength
     module Message
       # Поменяли в проекте имя
       # {
@@ -33,14 +32,14 @@ module Telegram
 
       private
 
-      def operator_message(data) # rubocop:disable Metrics/PerceivedComplexity
+      def operator_message(data)
         Rails.logger.info "operator_message #{data}"
 
-        # TODO Определять что его создали именно оператор, а не бот
-        #if forum_topic_created? # Так это мы его сами и создали?
-          #Rails.logger.info "Add skipped topic #{data}"
-          #chat_project&.add_skipped_topic! data.fetch('message_thread_id')
-        #end
+        # TODO: Определять что его создали именно оператор, а не бот
+        # if forum_topic_created? # Так это мы его сами и создали?
+        # Rails.logger.info "Add skipped topic #{data}"
+        # chat_project&.add_skipped_topic! data.fetch('message_thread_id')
+        # end
         update_forum_topic! data if forum_topic_edited? # Похоже отредактировали тему, надо отразить на нашей стороне
 
         if data.key? 'new_chat_title'
@@ -166,7 +165,6 @@ module Telegram
           reply_with :message, text: 'Не пойму что за группа в которую я подключен. Проект не найден'
         end
       end
-      # rubocop:enable Metrics/ModuleLength
     end
   end
 end
