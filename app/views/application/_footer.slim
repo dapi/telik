@@ -5,9 +5,13 @@ footer.mt-5.app-footer
       .col-md-12
         .d-flex.justify-content-between.text-muted
           div
-            span title=AppVersion.to_s data-bs-toggle='tooltip'
-              = app_title
-            = ' – поддержка клиентов через управляемый чат в telegram'
+            div
+              span title=AppVersion.to_s data-bs-toggle='tooltip'
+                = app_title
+              = ' – поддержка клиентов через управляемый чат в telegram'
+            div
+              = link_to 'https://github.com/dapi/samochat', target: '_blank' do
+                | Исходный код
 
           div
             =" &copy; #{Date.today.year} ".html_safe
