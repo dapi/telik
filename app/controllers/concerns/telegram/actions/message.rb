@@ -2,6 +2,7 @@
 
 # Copyright © 2023 Danil Pismenny <danil@brandymint.ru>
 
+# rubocop:disable Metrics/ModuleLength
 module Telegram
   module Actions
     # Обработчик сообщений (def message)
@@ -184,3 +185,4 @@ module Telegram
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
