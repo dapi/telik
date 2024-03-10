@@ -33,10 +33,10 @@ module Telegram::Actions::MyChatMember
     users_ids = [data.dig('new_chat_member', 'user', 'id'), data.dig('old_chat_member', 'user', 'id')].compact
 
     if users_ids.include? ApplicationConfig.bot_id
-      perform_my_chat_member(data)
+      perform_my_chat_member(new_chat_member: data.fetch('new_chat_member'))
       # Отлично, пропускаем
     elsif (project = Project.with_bots.find_by_bot_id(current_bot_id))
-      perform_my_chat_member(data, project)
+      perform_my_chat_member(new_chat_member: data.fetch('new_chat_member'), project:)
     else
       Bugsnag.notify 'my_chat_member от неизвестного бота' do |b|
         b.metadata = { payload:, current_bot_id: }
@@ -46,12 +46,10 @@ module Telegram::Actions::MyChatMember
 
   private
 
-  def perform_my_chat_member(data, project = nil)
+  def perform_my_chat_member(new_chat_member:, project: nil)
     user = User.find_or_create_by_telegram_data!(from)
 
-    chat_member = data.fetch('new_chat_member')
-
-    if %w[kicked left].include? data.dig('new_chat_member', 'status')
+    if %w[kicked left].include? new_chat_member['status']
       chat_project&.update_bot_member!(chat_member:, chat:)
     elsif chat.fetch('type') == 'supergroup'
       attrs = {

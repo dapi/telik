@@ -74,8 +74,17 @@ module Telegram
           Rails.logger.info 'Skip message to general topic'
         else
           chat_project = Project.with_bots.find_by(bot_token: bot.token)
+
+          # Похоже что мы пропустили этап добавления бота в проект
           if chat_project.nil?
-            respond_with :message, text: 'Кажись вы меня не туда добавили'
+
+            if payload.key? 'new_chat_member'
+              perform_my_chat_member payload.fetch('new_chat_member')
+              respond_with :message, text: 'Похоже меня я потерял сигнал о добавлении меня в группу. Я Вас установил как владельца. Но, лучше, удалите меня из этой группы и добавьте снова.'
+            else
+              # TODO: Нужно поговорить с автором сообщения,
+              respond_with :message, text: 'Кажись Вы меня не туда добавили, я Вас не знаю.'
+            end
           elsif chat_project.telegram_group_id.present? && chat_project.telegram_group_id == chat.fetch('id')
             Rails.logger.info 'Strange situation'
             Bugsnag.notify 'WTF' do |b|

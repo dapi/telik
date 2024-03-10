@@ -96,7 +96,7 @@ TELEGRAM_UPDATES = {
   # "username":"telik_chat_bot"
   # }}
 
-  # Также приходит когда добавляют участника
+  # Также приходит когда добавляют участника, иногда вместо my_chat_member
   # {"message_id"=>7,
   # "from"=>{"id"=>943084337, "is_bot"=>false, "first_name"=>"Danil", "last_name"=>"Pismenny", "username"=>"pismenny", "language_code"=>"en"},
   # "chat"=>{"id"=>-894978656, "title"=>"Группа nuichat.localhost", "type"=>"group", "all_members_are_administrators"=>true},
@@ -104,6 +104,13 @@ TELEGRAM_UPDATES = {
   # "new_chat_participant"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
   # "new_chat_member"=>{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"},
   # "new_chat_members"=>[{"id"=>5950953118, "is_bot"=>true, "first_name"=>"telik_dev_operator_bot", "username"=>"telik_dev_operator_bot"}]}
+  #
+  # "chat"=>{"id"=>-1001990425483, "type"=>"supergroup", "title"=>"SibilDAO поддержка", "is_forum"=>true}, "date"=>1710095111,
+  # "from"=>{"id"=>943084337, "is_bot"=>false, "username"=>"pismenny", "last_name"=>"Pismenny", "first_name"=>"Danil", "language_code"=>"en"},
+  # "message_id"=>8,
+  # "new_chat_member"=>{"id"=>6234966709, "is_bot"=>true, "username"=>"samochat_ru_bot", "first_name"=>"Samochat"},
+  # "new_chat_members"=>[{"id"=>6234966709, "is_bot"=>true, "username"=>"samochat_ru_bot", "first_name"=>"Samochat"}],
+  # "new_chat_participant"=>{"id"=>6234966709, "is_bot"=>true, "username"=>"samochat_ru_bot", "first_name"=>"Samochat"}}
 
   # Сообщение от клиента
   # {"message_id"=>17,
