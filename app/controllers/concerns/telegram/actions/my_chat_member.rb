@@ -66,7 +66,7 @@ module Telegram::Actions::MyChatMember
       project.assign_attributes attrs.merge(telegram_group_id: chat.fetch('id'))
       project.save! if project.changed?
 
-      update_project_bot_member!(project:, chat_member:, user:)
+      update_project_bot_member!(project:, chat_member: new_chat_member, user:)
     else
       respond_with :message,
                    text: "Привет!\nГруппа уже есть, мы на пол пути!\nДалее включите в группе 'Темы', чтобы я мог заводить отдельную тему для каждого обращения клиента."
