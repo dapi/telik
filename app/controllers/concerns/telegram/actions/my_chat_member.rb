@@ -54,7 +54,7 @@ module Telegram::Actions::MyChatMember
     elsif chat.fetch('type') == 'supergroup'
       attrs = {
         chat_member_updated_at: Time.zone.now,
-        chat_member:,
+        chat_member: new_chat_member,
         telegram_group_name: chat.fetch('title'),
         name: chat.fetch('title'),
         tariff: Tariff.free!
