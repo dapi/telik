@@ -166,7 +166,14 @@ module Telegram
           elsif topic_visitor.present?
             Rails.logger.info 'Touch operator_replied_at'
             topic_visitor.touch :operator_replied_at
-            ForwardOperatorMessageJob.perform_later topic_visitor, data
+            if data.key?('text') || data.key?('photo')
+              ForwardOperatorMessageJob.perform_later topic_visitor, data
+            else
+              Bugsnag.notify 'Сообщение которое не знаю как форварднуть' do |b|
+                b.metadata = { payload: }
+                b.severity = :warning
+              end
+            end
           else
             reply_with :message, text: 'Не нашел посетителя прикрепленного к этому треду :*'
           end
