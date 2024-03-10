@@ -30,7 +30,7 @@ module Telegram::Actions::MyChatMember
     # Кого-то другого добавили, не нас
     # TODO Может лучше проверять по ID?
     # TODO По какому боту проект нашли, с таким проектом дальше и работать
-    users_ids = [data.dig('new_chat_member', 'user', 'id'), data.dig('old_chat_member', 'user', 'id')].compact
+    users_ids = [data.dig('new_chat_member', 'user', 'id').to_s, data.dig('old_chat_member', 'user', 'id').to_s].compact
 
     if users_ids.include? ApplicationConfig.bot_id
       perform_my_chat_member(new_chat_member: data.fetch('new_chat_member'))
