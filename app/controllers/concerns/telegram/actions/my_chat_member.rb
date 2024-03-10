@@ -50,7 +50,7 @@ module Telegram::Actions::MyChatMember
     user = User.find_or_create_by_telegram_data!(from)
 
     if %w[kicked left].include? new_chat_member['status']
-      chat_project&.update_bot_member!(chat_member:, chat:)
+      chat_project&.update_bot_member!(chat_member: new_chat_member, chat:)
     elsif chat.fetch('type') == 'supergroup'
       attrs = {
         chat_member_updated_at: Time.zone.now,
