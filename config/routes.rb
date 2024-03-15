@@ -64,4 +64,5 @@ Rails.application.routes.draw do
 
   Sidekiq::Web.use AdminRestriction
   mount Sidekiq::Web => '/sidekiq'
+  match '*anything', to: 'application#not_found', via: %i[get post], constraints: { format: :html }
 end
