@@ -30,4 +30,6 @@ meta name="turbolinks-cache-control" content="no-preview"
 
 = stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
 
+= render 'posthog' if ENV.key? 'POSTHOG_API_KEY'
+
 -# = render 'load_overlay'

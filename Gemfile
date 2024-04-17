@@ -159,3 +159,5 @@ gem 'kaminari', '~> 1.2'
 gem 'administrate', '~> 0.19.0'
 
 gem 'administrate-field-jsonb', '~> 0.4.6'
+
+gem "posthog-ruby", "~> 2.5"
